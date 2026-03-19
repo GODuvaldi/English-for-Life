@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>English For Life</title>
+<meta name="version" content="0.05">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════
@@ -890,7 +891,7 @@ img { max-width: 100%; }
 <body>
 
 <!-- ═══ LOGIN MODAL ═══ -->
-<div class="auth-overlay" id="auth-overlay" onclick="handleOverlayClick(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;padding:1rem;opacity:0;transition:opacity .25s;">
+<div class="auth-overlay" id="auth-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;padding:1rem;opacity:0;transition:opacity .25s;">
   <div class="auth-card" id="auth-card">
     <div class="auth-logo">EFL</div>
     <h2>Bem-vindo ao<br>English For Life</h2>
@@ -1036,7 +1037,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2025 English For Life · Todos os direitos reservados
+    © 2026 English For Life · Todos os direitos reservados · <span style="font-family:monospace;background:#e8faf2;color:#145c44;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">v0.05</span>
   </footer>
 </div>
 
@@ -1217,7 +1218,7 @@ img { max-width: 100%; }
   </div><!-- /exercise-wrap -->
 
   <footer class="footer">
-    © 2025 English For Life · Todos os direitos reservados
+    © 2026 English For Life · Todos os direitos reservados · <span style="font-family:monospace;background:#e8faf2;color:#145c44;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">v0.05</span>
   </footer>
 </div>
 
@@ -1304,10 +1305,14 @@ function updateNavAuth(user) {
 
 function openLogin() {
   var overlay = document.getElementById('auth-overlay');
-  if (overlay) {
-    overlay.style.display = 'flex';
-    requestAnimationFrame(function(){ overlay.classList.add('show'); });
-  }
+  if (!overlay) return;
+  overlay.style.display = 'flex';
+  // Double rAF: first frame applies display:flex, second applies the opacity transition
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      overlay.classList.add('show');
+    });
+  });
 }
 
 function closeLogin() {
@@ -1319,7 +1324,8 @@ function closeLogin() {
 }
 
 function handleOverlayClick(e) {
-  if (e.target === document.getElementById('auth-overlay')) closeLogin();
+  // Only close if clicking directly on the dark backdrop (not inside the card)
+  if (e.target && e.target.id === 'auth-overlay') closeLogin();
 }
 
 function signInWithGoogle() {
@@ -1350,6 +1356,12 @@ function toggleDropdown(forceClose) {
     dd.classList.add('show');
   }
 }
+
+// Fecha modal ao clicar no backdrop
+document.addEventListener('click', function(e) {
+  var overlay = document.getElementById('auth-overlay');
+  if (overlay && e.target === overlay) closeLogin();
+});
 
 // Fecha dropdown ao clicar fora
 document.addEventListener('click', function(e) {
