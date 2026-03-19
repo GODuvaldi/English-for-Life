@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>English For Life</title>
-<meta name="version" content="0.05">
+<meta name="version" content="0.06">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════
@@ -855,7 +855,7 @@ img { max-width: 100%; }
 }
 
 /* ── AUTH MODAL ── */
-.auth-overlay.show{opacity:1;display:flex!important;}
+.auth-overlay{display:flex;pointer-events:none;}.auth-overlay.show{opacity:1;pointer-events:all;}
 .auth-card{background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding:2.5rem 2rem 2rem;width:100%;max-width:400px;text-align:center;transform:translateY(20px);transition:transform .25s;}
 .auth-overlay.show .auth-card{transform:translateY(0);}
 .auth-logo{width:56px;height:56px;background:var(--green-700);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:var(--white);margin:0 auto 1.25rem;}
@@ -891,7 +891,7 @@ img { max-width: 100%; }
 <body>
 
 <!-- ═══ LOGIN MODAL ═══ -->
-<div class="auth-overlay" id="auth-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;padding:1rem;opacity:0;transition:opacity .25s;">
+<div class="auth-overlay" id="auth-overlay" style="position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;padding:1rem;opacity:0;transition:opacity .25s;">
   <div class="auth-card" id="auth-card">
     <div class="auth-logo">EFL</div>
     <h2>Bem-vindo ao<br>English For Life</h2>
@@ -1037,7 +1037,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span style="font-family:monospace;background:#e8faf2;color:#145c44;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">v0.05</span>
+    © 2026 English For Life · Todos os direitos reservados · <span style="font-family:monospace;background:#e8faf2;color:#145c44;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">v0.06</span>
   </footer>
 </div>
 
@@ -1218,7 +1218,7 @@ img { max-width: 100%; }
   </div><!-- /exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span style="font-family:monospace;background:#e8faf2;color:#145c44;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">v0.05</span>
+    © 2026 English For Life · Todos os direitos reservados · <span style="font-family:monospace;background:#e8faf2;color:#145c44;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">v0.06</span>
   </footer>
 </div>
 
@@ -1306,20 +1306,15 @@ function updateNavAuth(user) {
 function openLogin() {
   var overlay = document.getElementById('auth-overlay');
   if (!overlay) return;
-  overlay.style.display = 'flex';
-  // Double rAF: first frame applies display:flex, second applies the opacity transition
-  requestAnimationFrame(function() {
-    requestAnimationFrame(function() {
-      overlay.classList.add('show');
-    });
-  });
+  // CSS controls display:flex — just add class to trigger opacity transition
+  overlay.classList.add('show');
 }
 
 function closeLogin() {
   var overlay = document.getElementById('auth-overlay');
   if (overlay) {
     overlay.classList.remove('show');
-    setTimeout(function(){ overlay.style.display = 'none'; }, 250);
+    // pointer-events:none via CSS handles the rest — no need to set display:none
   }
 }
 
