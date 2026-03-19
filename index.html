@@ -852,9 +852,63 @@ img { max-width: 100%; }
   .exercise-wrap { padding: 1.5rem 1rem 3rem; }
   .page-header { padding: 1.75rem 1.25rem 1.5rem; }
 }
+
+/* ── AUTH MODAL ── */
+.auth-overlay.show{opacity:1;display:flex!important;}
+.auth-card{background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding:2.5rem 2rem 2rem;width:100%;max-width:400px;text-align:center;transform:translateY(20px);transition:transform .25s;}
+.auth-overlay.show .auth-card{transform:translateY(0);}
+.auth-logo{width:56px;height:56px;background:var(--green-700);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:var(--white);margin:0 auto 1.25rem;}
+.auth-card h2{font-size:1.4rem;font-weight:800;color:var(--gray-900);margin-bottom:6px;}
+.auth-card p{font-size:14px;color:var(--gray-500);line-height:1.6;margin-bottom:1.75rem;}
+.google-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;padding:13px 20px;border:1.5px solid var(--gray-300);border-radius:var(--radius-md);background:var(--white);font-size:15px;font-weight:600;color:var(--gray-800);cursor:pointer;transition:all .18s;margin-bottom:1rem;}
+.google-btn:hover{border-color:var(--green-400);background:var(--green-50);box-shadow:var(--shadow-sm);}
+.auth-note{font-size:12px;color:var(--gray-400);line-height:1.5;}
+/* ── NAV AUTH ── */
+.nav-user{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0;}
+.nav-avatar{width:34px;height:34px;border-radius:50%;background:var(--green-200);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--green-900);cursor:pointer;overflow:hidden;border:2px solid var(--green-300);flex-shrink:0;}
+.nav-avatar img{width:100%;height:100%;object-fit:cover;}
+.nav-user-name{font-size:13px;font-weight:600;color:var(--gray-700);max-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nav-login-btn{display:flex;align-items:center;gap:6px;padding:7px 16px;border:1.5px solid var(--green-400);border-radius:99px;font-size:13px;font-weight:600;color:var(--green-700);background:var(--green-50);cursor:pointer;transition:all .15s;flex-shrink:0;}
+.nav-login-btn:hover{background:var(--green-100);border-color:var(--green-500);}
+/* ── DROPDOWN ── */
+.user-dropdown{position:absolute;top:calc(var(--nav-h) - 4px);right:1.5rem;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);padding:8px;min-width:200px;z-index:150;display:none;}
+.user-dropdown.show{display:block;animation:fadeUp .15s ease both;}
+.dropdown-header{padding:8px 10px 12px;border-bottom:1px solid var(--gray-100);margin-bottom:6px;}
+.dropdown-name{font-size:14px;font-weight:600;color:var(--gray-900);}
+.dropdown-email{font-size:12px;color:var(--gray-400);margin-top:2px;}
+.dropdown-item{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--gray-700);cursor:pointer;transition:background .1s;width:100%;text-align:left;}
+.dropdown-item:hover{background:var(--gray-100);}
+.dropdown-item.danger{color:var(--red-500);}
+.dropdown-item.danger:hover{background:var(--red-100);}
+@media(max-width:600px){.nav-user-name{display:none;}.user-dropdown{right:.75rem;}}
+
 </style>
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 </head>
 <body>
+
+<!-- ═══ LOGIN MODAL ═══ -->
+<div class="auth-overlay" id="auth-overlay" onclick="handleOverlayClick(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;padding:1rem;opacity:0;transition:opacity .25s;">
+  <div class="auth-card" id="auth-card">
+    <div class="auth-logo">EFL</div>
+    <h2>Bem-vindo ao<br>English For Life</h2>
+    <p>Entre com sua conta Google para salvar seu progresso e desbloquear todos os exercícios.</p>
+    <button class="google-btn" onclick="signInWithGoogle()">
+      <svg width="20" height="20" viewBox="0 0 48 48">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        <path fill="none" d="M0 0h48v48H0z"/>
+      </svg>
+      Continuar com Google
+    </button>
+    <p class="auth-note">Ao entrar, você concorda com os termos de uso da plataforma. Seus dados são protegidos pelo Google.</p>
+  </div>
+</div>
+
 
 <!-- ═══ NAVEGAÇÃO ═══ -->
 <nav class="nav">
@@ -879,6 +933,31 @@ img { max-width: 100%; }
       <span class="nav-icon">✍️</span> Writing
     </a></li>
   </ul>
+  <!-- Auth area (desktop) -->
+  <div class="nav-user" id="nav-user-area">
+    <button class="nav-login-btn" id="nav-login-btn" onclick="openLogin()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+      Entrar
+    </button>
+    <div style="display:none" id="nav-logged-in">
+      <div style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="toggleDropdown()">
+        <div class="nav-avatar" id="nav-avatar"><span id="nav-initials"></span></div>
+        <span class="nav-user-name" id="nav-user-name"></span>
+      </div>
+    </div>
+  </div>
+  <!-- Dropdown -->
+  <div class="user-dropdown" id="user-dropdown">
+    <div class="dropdown-header">
+      <div class="dropdown-name" id="dd-name"></div>
+      <div class="dropdown-email" id="dd-email"></div>
+    </div>
+    <button class="dropdown-item danger" onclick="signOutUser()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Sair da conta
+    </button>
+  </div>
+
   <button class="nav-toggle" onclick="toggleMobileNav()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -1173,6 +1252,114 @@ img { max-width: 100%; }
      JAVASCRIPT
 ═══════════════════════════════════════ -->
 <script>
+/* ─── FIREBASE CONFIG ─── */
+const firebaseConfig = {
+  apiKey: "AIzaSyCk4kY0S98VroRhVCLhSWIHz7BN7SThECw",
+  authDomain: "english-for-life-e3431.firebaseapp.com",
+  projectId: "english-for-life-e3431",
+  storageBucket: "english-for-life-e3431.firebasestorage.app",
+  messagingSenderId: "741655322498",
+  appId: "1:741655322498:web:e81573d47773b399aa799b"
+};
+firebase.initializeApp(firebaseConfig);
+const auth     = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
+provider.setCustomParameters({ prompt: 'select_account' });
+
+/* ─── AUTH STATE ─── */
+let currentUser = null;
+
+auth.onAuthStateChanged(function(user) {
+  currentUser = user;
+  updateNavAuth(user);
+});
+
+function updateNavAuth(user) {
+  var loginBtn  = document.getElementById('nav-login-btn');
+  var loggedIn  = document.getElementById('nav-logged-in');
+  var initials  = document.getElementById('nav-initials');
+  var userName  = document.getElementById('nav-user-name');
+  var ddName    = document.getElementById('dd-name');
+  var ddEmail   = document.getElementById('dd-email');
+  var navAvatar = document.getElementById('nav-avatar');
+
+  if (user) {
+    if (loginBtn)  loginBtn.style.display  = 'none';
+    if (loggedIn)  loggedIn.style.display  = 'flex';
+    var name = user.displayName || user.email || 'Aluno';
+    var ini  = name.split(' ').map(function(p){ return p[0]; }).slice(0,2).join('').toUpperCase();
+    if (initials)  initials.textContent = ini;
+    if (userName)  userName.textContent = name.split(' ')[0];
+    if (ddName)    ddName.textContent   = name;
+    if (ddEmail)   ddEmail.textContent  = user.email;
+    if (navAvatar && user.photoURL) {
+      navAvatar.innerHTML = '<img src="' + user.photoURL + '" alt="foto">';
+    }
+  } else {
+    if (loginBtn) loginBtn.style.display  = 'flex';
+    if (loggedIn) loggedIn.style.display  = 'none';
+    if (navAvatar) navAvatar.innerHTML    = '<span id="nav-initials"></span>';
+  }
+}
+
+function openLogin() {
+  var overlay = document.getElementById('auth-overlay');
+  if (overlay) {
+    overlay.style.display = 'flex';
+    requestAnimationFrame(function(){ overlay.classList.add('show'); });
+  }
+}
+
+function closeLogin() {
+  var overlay = document.getElementById('auth-overlay');
+  if (overlay) {
+    overlay.classList.remove('show');
+    setTimeout(function(){ overlay.style.display = 'none'; }, 250);
+  }
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('auth-overlay')) closeLogin();
+}
+
+function signInWithGoogle() {
+  auth.signInWithPopup(provider)
+    .then(function(result) {
+      closeLogin();
+    })
+    .catch(function(error) {
+      console.error('Login error:', error);
+      if (error.code !== 'auth/popup-closed-by-user') {
+        alert('Erro ao entrar com Google. Tente novamente.');
+      }
+    });
+}
+
+function signOutUser() {
+  auth.signOut().then(function() {
+    toggleDropdown(true);
+  });
+}
+
+function toggleDropdown(forceClose) {
+  var dd = document.getElementById('user-dropdown');
+  if (!dd) return;
+  if (forceClose || dd.classList.contains('show')) {
+    dd.classList.remove('show');
+  } else {
+    dd.classList.add('show');
+  }
+}
+
+// Fecha dropdown ao clicar fora
+document.addEventListener('click', function(e) {
+  var dd      = document.getElementById('user-dropdown');
+  var loggedIn = document.getElementById('nav-logged-in');
+  if (dd && !dd.contains(e.target) && loggedIn && !loggedIn.contains(e.target)) {
+    dd.classList.remove('show');
+  }
+});
+
 /* ─── NAVEGAÇÃO SPA ─── */
 function showPage(pageId, linkEl) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
