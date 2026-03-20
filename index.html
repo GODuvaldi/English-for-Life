@@ -424,6 +424,54 @@ img { max-width: 100%; }
   text-align: center;
   margin-bottom: 1.5rem;
 }
+.pp-instruction {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--green-800);
+  text-align: center;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.01em;
+  background: var(--green-50);
+  border-left: 3px solid var(--green-500);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  display: inline-block;
+  width: 100%;
+}
+.pp-verb-hint {
+  display: block;
+  margin-top: 14px;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--green-700);
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+.pp-ambiguous-feedback {
+  background: #fefce8;
+  border-left: 3px solid #eab308;
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  color: #713f12;
+  font-size: 14px;
+}
+.pp-not-sure-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 6px 14px;
+  background: #fde8e8;
+  color: #9b2c2c;
+  border: 1.5px solid #feb2b2;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity .15s;
+}
+.pp-not-sure-btn:hover { opacity: 1; }
 
 .verb-area { text-align: center; margin-bottom: 1.75rem; }
 .verb-inf {
@@ -532,6 +580,10 @@ img { max-width: 100%; }
 .opt-btn.wrong {
   border-color: var(--orange-500) !important;
   background: #fff7ed !important;
+}
+.opt-btn.ambiguous {
+  border-color: #eab308 !important;
+  background: #fefce8 !important;
 }
 .opt-btn.wrong .opt-phonetic { color: #9a3412; }
 .opt-btn.wrong .opt-name { color: var(--orange-500); }
@@ -885,6 +937,33 @@ img { max-width: 100%; }
 
 </style>
 <!-- Firebase SDKs -->
+<script>
+/* Suppress Firebase domain authorization errors in non-Netlify environments */
+(function() {
+  var _consoleError = console.error.bind(console);
+  console.error = function() {
+    var msg = Array.prototype.join.call(arguments, ' ');
+    if (msg.indexOf('firebase') !== -1 || msg.indexOf('Firebase') !== -1 ||
+        msg.indexOf('auth/') !== -1 || msg.indexOf('API key') !== -1 ||
+        msg.indexOf('CONFIGURATION_NOT_FOUND') !== -1) return;
+    _consoleError.apply(console, arguments);
+  };
+  window.addEventListener('unhandledrejection', function(e) {
+    var msg = (e.reason && e.reason.message) ? e.reason.message : String(e.reason);
+    if (msg.indexOf('firebase') !== -1 || msg.indexOf('Firebase') !== -1 ||
+        msg.indexOf('auth/') !== -1) {
+      e.preventDefault();
+    }
+  });
+  window.addEventListener('error', function(e) {
+    if (e.message && (e.message.indexOf('firebase') !== -1 ||
+        e.message.indexOf('Firebase') !== -1)) {
+      e.preventDefault();
+      return true;
+    }
+  });
+})();
+</script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 </head>
@@ -994,19 +1073,19 @@ img { max-width: 100%; }
     <div class="skills-grid">
 
       <div class="skill-card" onclick="showPage('listening',null)">
-        <span class="skill-badge badge-count">1 exercício</span>
+        <span class="skill-badge badge-count" id="badge-listening"></span>
         <div class="skill-icon icon-teal">🎧</div>
         <h3>Listening</h3>
         <p>Desenvolva sua habilidade de compreensão oral com exercícios interativos.</p>
         <span class="skill-link">Explorar exercícios →</span>
       </div>
 
-      <div class="skill-card disabled">
-        <span class="skill-badge badge-soon">Em breve</span>
+      <div class="skill-card" onclick="showPage('reading',null)">
+        <span class="skill-badge badge-count" id="badge-reading"></span>
         <div class="skill-icon icon-blue">📖</div>
         <h3>Reading</h3>
-        <p>Melhore sua leitura com textos e atividades de compreensão escrita.</p>
-        <span class="skill-link" style="color:var(--gray-400)">Em construção</span>
+        <p>Pratique gramática e compreensão com exercícios interativos progressivos.</p>
+        <span class="skill-link">Explorar exercícios →</span>
       </div>
 
       <div class="skill-card disabled">
@@ -1037,7 +1116,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span style="font-family:monospace;background:#e8faf2;color:#145c44;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">v0.08</span>
+    © 2026 English For Life · Todos os direitos reservados · <span style="font-family:monospace;background:#e8faf2;color:#145c44;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">v0.20</span>
   </footer>
 </div>
 
@@ -1218,7 +1297,7 @@ img { max-width: 100%; }
   </div><!-- /exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span style="font-family:monospace;background:#e8faf2;color:#145c44;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">v0.08</span>
+    © 2026 English For Life · Todos os direitos reservados · <span style="font-family:monospace;background:#e8faf2;color:#145c44;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">v0.20</span>
   </footer>
 </div>
 
@@ -1226,11 +1305,142 @@ img { max-width: 100%; }
      PÁGINAS: COMING SOON
 ═══════════════════════════════════════ -->
 <div class="page" id="page-reading">
-  <div class="coming-soon">
-    <div class="cs-icon">📖</div>
-    <h2>Reading — Em breve</h2>
-    <p>Estamos preparando textos e exercícios de compreensão escrita. Volte em breve!</p>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="breadcrumb">
+        <a onclick="showPage('home',null)">Início</a>
+        <span>›</span>
+        <span>Reading</span>
+      </div>
+      <div class="module-tag">📖 Módulo de Prática</div>
+      <h2>Present Perfect</h2>
+      <p>Exercícios progressivos sobre o Presente Perfeito em inglês. Complete o Nível Fácil para desbloquear os próximos.</p>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+        <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--green-100);color:var(--green-800);">#PresentPerfect</span>
+        <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--blue-100);color:#1d4ed8;">#Grammar</span>
+        <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--purple-100);color:#5b21b6;">#A2</span>
+        <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--teal-100);color:#0e7490;">#Beginner</span>
+      </div>
+    </div>
   </div>
+
+  <div class="exercise-wrap">
+
+    <!-- Seletor de nível -->
+    <div class="level-screen show" id="pp-level-screen">
+      <div class="level-header">
+        <h3>Escolha o nível</h3>
+        <p>Complete cada nível em sequência para desbloquear o próximo.</p>
+      </div>
+      <div class="level-grid">
+        <div class="level-card unlocked" id="pp-lcard-1" onclick="startPPLevel(1)">
+          <span class="level-icon">🌱</span>
+          <div class="level-name">Nível Fácil</div>
+          <div class="level-desc">Estrutura básica do Presente Perfeito com transformações de frases</div>
+          <span class="level-badge lb-available" id="pp-lbadge-1">Disponível</span>
+        </div>
+        <div class="level-card locked" id="pp-lcard-2" onclick="startPPLevel(2)">
+          <span class="level-lock-icon" id="pp-llock-2">🔒</span>
+          <span class="level-icon">🌿</span>
+          <div class="level-name">Nível Médio</div>
+          <div class="level-desc">Verbos irregulares com particípios do passado</div>
+          <span class="level-badge lb-locked" id="pp-lbadge-2">Bloqueado</span>
+        </div>
+        <div class="level-card locked" id="pp-lcard-3" onclick="startPPLevel(3)">
+          <span class="level-lock-icon" id="pp-llock-3">🔒</span>
+          <span class="level-icon">🌳</span>
+          <div class="level-name">Nível Difícil</div>
+          <div class="level-desc">Present Perfect vs. Past Simple</div>
+          <span class="level-badge lb-locked" id="pp-lbadge-3">Bloqueado</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercício ativo -->
+    <div id="pp-exercise-wrap" style="display:none">
+
+      <div class="active-level-bar" id="pp-level-bar">
+        <span>📖</span>
+        <span id="pp-level-text"><strong>Nível Fácil</strong> — Present Perfect Básico</span>
+        <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700)" onclick="backToPPLevels()">← Níveis</span>
+      </div>
+
+      <!-- Explicação — só no Nível Fácil -->
+      <div class="rule-card" id="pp-rule-card">
+        <span style="font-size:20px;flex-shrink:0">💡</span>
+        <div>
+          <p><strong>O que é o Presente Perfeito?</strong></p>
+          <p style="margin-top:6px">Use o Presente Perfeito para falar de ações que <strong>são verdade AGORA</strong> ou que <strong>começaram no passado e ainda não terminaram</strong>. Estrutura: <strong>have/has + particípio passado</strong>.</p>
+          <p style="margin-top:6px">Exemplo: <em>"I have lived here for 5 years"</em> — comecei a morar aqui 5 anos atrás e <strong>ainda moro</strong>. Diferente de: <em>"I lived there in 2010"</em> — ação completamente terminada no passado.</p>
+        </div>
+      </div>
+
+      <!-- Progresso -->
+      <div id="pp-progress-section">
+        <div class="progress-header">
+          <span class="progress-label" id="pp-progress-text">Questão 1 de 6</span>
+          <span class="progress-streak" id="pp-streak-text"></span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="pp-progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- Card da questão -->
+      <div id="pp-exercise-section">
+        <div class="q-card" id="pp-q-card">
+          <div class="q-card-inner">
+            <p class="pp-instruction" id="pp-q-instruction"></p>
+            <div class="verb-area">
+              <div class="verb-past" id="pp-q-sentence" style="font-size:clamp(1.1rem,3vw,1.4rem);font-weight:600;line-height:1.4;"></div>
+              <div style="font-size:13px;color:var(--gray-400);margin-top:6px;" id="pp-q-prompt"></div>
+            </div>
+
+            <!-- Opções de múltipla escolha -->
+            <div id="pp-options-area"></div>
+
+            <div class="feedback" id="pp-feedback">
+              <span class="feedback-icon" id="pp-fb-icon"></span>
+              <span id="pp-fb-text"></span>
+            </div>
+
+            <div class="q-footer">
+              <span style="font-size:12px;color:var(--gray-400);font-style:italic" id="pp-tags-display"></span>
+              <button class="next-btn" id="pp-next-btn" onclick="ppNextQuestion()">
+                ✓ Próxima →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resultado -->
+      <div class="result-screen" id="pp-result-screen">
+        <div class="result-hero">
+          <span class="result-emoji" id="pp-result-emoji"></span>
+          <div class="result-score" id="pp-result-score"></div>
+          <p class="result-msg" id="pp-result-msg"></p>
+          <div class="result-stats">
+            <div class="stat"><div class="stat-num" id="pp-stat-correct">0</div><div class="stat-lbl">Acertos</div></div>
+            <div class="stat"><div class="stat-num" id="pp-stat-wrong">0</div><div class="stat-lbl">Erros</div></div>
+            <div class="stat"><div class="stat-num" id="pp-stat-pct">0%</div><div class="stat-lbl">Precisão</div></div>
+          </div>
+        </div>
+        <div class="review-card" id="pp-review-errors-card" style="display:none">
+          <div class="review-card-title">📌 Questões para revisar</div>
+          <div id="pp-review-errors-list"></div>
+        </div>
+        <button class="restart-btn" onclick="ppRestart()">🔄 Tentar novamente</button>
+        <button class="restart-btn" style="margin-top:10px;background:var(--gray-700)" onclick="backToPPLevels()">← Escolher nível</button>
+      </div>
+
+    </div><!-- /pp-exercise-wrap -->
+  </div><!-- /exercise-wrap -->
+
+  <footer class="footer">
+    © 2026 English For Life · Todos os direitos reservados · <span style="font-family:monospace;background:#e8faf2;color:#145c44;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">v0.20</span>
+  </footer>
 </div>
 
 <div class="page" id="page-speaking">
@@ -1253,6 +1463,364 @@ img { max-width: 100%; }
      JAVASCRIPT
 ═══════════════════════════════════════ -->
 <script>
+
+/* ─── REGISTRO CENTRAL DE EXERCÍCIOS ─────────────────────────────
+   Cada exercício tem: id, section, title, level, tags, active
+   O contador dos cards da Home é gerado dinamicamente a partir daqui.
+   Para adicionar novo exercício: basta inserir um objeto neste array.
+──────────────────────────────────────────────────────────────────── */
+var EXERCISE_REGISTRY = [
+  {
+    id: 'listening-ed-pronunciation',
+    section: 'listening',
+    title: 'Pronúncia do -ED',
+    level: 'A2',
+    tags: ['#PastSimple', '#Pronunciation', '#RegularVerbs', '#A2'],
+    active: true
+  },
+  {
+    id: 'reading-present-perfect-easy',
+    section: 'reading',
+    title: 'Present Perfect — Nível Fácil',
+    level: 'A2',
+    tags: ['#PresentPerfect', '#Grammar', '#A2', '#Beginner'],
+    active: true
+  },
+  {
+    id: 'reading-present-perfect-medium',
+    section: 'reading',
+    title: 'Present Perfect — Nível Médio',
+    level: 'A2',
+    tags: ['#PresentPerfect', '#IrregularVerbs', '#Grammar', '#A2'],
+    active: true
+  },
+  {
+    id: 'reading-present-perfect-hard',
+    section: 'reading',
+    title: 'Present Perfect — Nível Difícil',
+    level: 'B1',
+    tags: ['#PresentPerfect', '#PastSimple', '#Grammar', '#B1'],
+    active: true
+  },
+];
+
+/* ── DATA BLOCK — all arrays/configs must be here, before any function ── */
+var LEVEL_CONFIG = {
+  1: { name:'Nível 1', desc:'Iniciante',     showRule:true,  showHint:true,  showPhonetic:true  },
+  2: { name:'Nível 2', desc:'Intermediário', showRule:false, showHint:true,  showPhonetic:true  },
+  3: { name:'Nível 3', desc:'Avançado',      showRule:false, showHint:false, showPhonetic:false },
+};
+
+var ALL_VERBS = [
+  { inf:'want',    past:'wanted',    ph:"/ˈwɒn.tɪd/",    sound:'long',  end:'T'  },
+  { inf:'need',    past:'needed',    ph:"/ˈniː.dɪd/",    sound:'long',  end:'D'  },
+  { inf:'wait',    past:'waited',    ph:"/ˈweɪ.tɪd/",    sound:'long',  end:'T'  },
+  { inf:'visit',   past:'visited',   ph:"/ˈvɪ.zɪ.tɪd/",  sound:'long',  end:'T'  },
+  { inf:'start',   past:'started',   ph:"/ˈstɑː.tɪd/",   sound:'long',  end:'T'  },
+  { inf:'end',     past:'ended',     ph:"/ˈen.dɪd/",     sound:'long',  end:'D'  },
+  { inf:'add',     past:'added',     ph:"/ˈæ.dɪd/",      sound:'long',  end:'D'  },
+  { inf:'land',    past:'landed',    ph:"/ˈlæn.dɪd/",    sound:'long',  end:'D'  },
+  { inf:'suggest', past:'suggested', ph:"/səˈdʒes.tɪd/", sound:'long',  end:'T'  },
+  { inf:'decide',  past:'decided',   ph:"/dɪˈsaɪ.dɪd/",  sound:'long',  end:'D'  },
+  { inf:'count',   past:'counted',   ph:"/ˈkaʊn.tɪd/",   sound:'long',  end:'T'  },
+  { inf:'print',   past:'printed',   ph:"/ˈprɪn.tɪd/",   sound:'long',  end:'T'  },
+  { inf:'point',   past:'pointed',   ph:"/ˈpɔɪn.tɪd/",   sound:'long',  end:'T'  },
+  { inf:'accept',  past:'accepted',  ph:"/əkˈsep.tɪd/",  sound:'long',  end:'T'  },
+  { inf:'collect', past:'collected', ph:"/kəˈlek.tɪd/",  sound:'long',  end:'T'  },
+  { inf:'connect', past:'connected', ph:"/kəˈnek.tɪd/",  sound:'long',  end:'T'  },
+  { inf:'fold',    past:'folded',    ph:"/ˈfəʊl.dɪd/",   sound:'long',  end:'D'  },
+  { inf:'record',  past:'recorded',  ph:"/rɪˈkɔː.dɪd/",  sound:'long',  end:'D'  },
+  { inf:'reward',  past:'rewarded',  ph:"/rɪˈwɔː.dɪd/",  sound:'long',  end:'D'  },
+  { inf:'include', past:'included',  ph:"/ɪnˈkluː.dɪd/", sound:'long',  end:'D'  },
+  { inf:'watch',   past:'watched',   ph:"/wɒtʃt/",       sound:'short', end:'CH' },
+  { inf:'talk',    past:'talked',    ph:"/tɔːkt/",       sound:'short', end:'K'  },
+  { inf:'kiss',    past:'kissed',    ph:"/kɪst/",        sound:'short', end:'S'  },
+  { inf:'walk',    past:'walked',    ph:"/wɔːkt/",       sound:'short', end:'K'  },
+  { inf:'stop',    past:'stopped',   ph:"/stɒpt/",       sound:'short', end:'P'  },
+  { inf:'jump',    past:'jumped',    ph:"/dʒʌmpt/",      sound:'short', end:'P'  },
+  { inf:'push',    past:'pushed',    ph:"/pʊʃt/",        sound:'short', end:'SH' },
+  { inf:'play',    past:'played',    ph:"/pleɪd/",       sound:'short', end:'Y'  },
+  { inf:'call',    past:'called',    ph:"/kɔːld/",       sound:'short', end:'L'  },
+  { inf:'love',    past:'loved',     ph:"/lʌvd/",        sound:'short', end:'V'  },
+  { inf:'use',     past:'used',      ph:"/juːzd/",       sound:'short', end:'Z'  },
+  { inf:'live',    past:'lived',     ph:"/lɪvd/",        sound:'short', end:'V'  },
+  { inf:'open',    past:'opened',    ph:"/ˈəʊ.pənd/",    sound:'short', end:'N'  },
+  { inf:'smile',   past:'smiled',    ph:"/smaɪld/",      sound:'short', end:'L'  },
+  { inf:'learn',   past:'learned',   ph:"/lɜːnd/",       sound:'short', end:'N'  },
+  { inf:'change',  past:'changed',   ph:"/tʃeɪndʒd/",    sound:'short', end:'J'  },
+  { inf:'finish',  past:'finished',  ph:"/ˈfɪ.nɪʃt/",    sound:'short', end:'SH' },
+  { inf:'wash',    past:'washed',    ph:"/wɒʃt/",        sound:'short', end:'SH' },
+  { inf:'help',    past:'helped',    ph:"/helpt/",       sound:'short', end:'P'  },
+  { inf:'laugh',   past:'laughed',   ph:"/lɑːft/",       sound:'short', end:'F'  },
+];
+
+var PP_EASY_BANK = [
+  { instruction: 'Convert to NEGATIVE:', sentence: 'I have lived here for 5 years.', answer: "I haven't lived here for 5 years.", options: ["I haven't lived here for 5 years.", "I didn't live here for 5 years.", "I don't have lived here for 5 years.", "I have not live here for 5 years."], explanation: `Para negativa do Present Perfect use: have/has + not + particípio. Didn't é o Passado Simples.`, tags: ['#PresentPerfect','#Negative','#A2'] },
+  { instruction: 'Convert to QUESTION:', sentence: 'She has visited Paris.', answer: 'Has she visited Paris?', options: ['Has she visited Paris?', 'Did she visit Paris?', 'Have she visited Paris?', 'Has she visit Paris?'], explanation: `Para perguntas inverta: Has/Have + sujeito + particípio? Com "she" usamos "has", não "have".`, tags: ['#PresentPerfect','#Questions','#A2'] },
+  { instruction: 'Find the CORRECT sentence:', sentence: 'He ___ to the gym today.', answer: 'He has gone to the gym today.', options: ['He has gone to the gym today.', 'He have gone to the gym today.', 'He has go to the gym today.', 'He gone to the gym today.'], explanation: `"He" é terceira pessoa do singular — usamos "has", não "have". O particípio de "go" é "gone".`, tags: ['#PresentPerfect','#Affirmative','#Irregular','#A2'] },
+  { instruction: 'Convert to NEGATIVE:', sentence: 'They have finished the project.', answer: "They haven't finished the project.", options: ["They haven't finished the project.", "They didn't finish the project.", "They have finished not the project.", "They hasn't finished the project."], explanation: `"They" usa "have" como auxiliar. Negativa: They haven't + particípio. "Hasn't" é para he/she/it.`, tags: ['#PresentPerfect','#Negative','#A2'] },
+  { instruction: 'Convert to QUESTION:', sentence: 'You have studied English before.', answer: 'Have you studied English before?', options: ['Have you studied English before?', 'Did you study English before?', 'Do you have studied English before?', 'Have you study English before?'], explanation: `Com "you" usamos "Have" para formar perguntas. O particípio de "study" é "studied".`, tags: ['#PresentPerfect','#Questions','#A2'] },
+  { instruction: 'Find the CORRECT sentence:', sentence: 'My brother ___ never eaten sushi.', answer: 'My brother has never eaten sushi.', options: ['My brother has never eaten sushi.', 'My brother have never eaten sushi.', 'My brother has never eat sushi.', 'My brother never has eaten sushi.'], explanation: `"My brother" = terceira pessoa do singular → "has". "never" vem entre have/has e o particípio.`, tags: ['#PresentPerfect','#Never','#A2'] },
+  { instruction: 'Convert to NEGATIVE:', sentence: 'We have watched that movie.', answer: "We haven't watched that movie.", options: ["We haven't watched that movie.", "We didn't watch that movie.", "We haven't watch that movie.", "We have not watched that movies."], explanation: `"We" usa "haven't". O particípio de "watch" é "watched" — mantém na negativa.`, tags: ['#PresentPerfect','#Negative','#A2'] },
+  { instruction: 'Convert to QUESTION:', sentence: 'He has worked here for 10 years.', answer: 'Has he worked here for 10 years?', options: ['Has he worked here for 10 years?', 'Did he work here for 10 years?', 'Have he worked here for 10 years?', 'Has he works here for 10 years?'], explanation: `"He" = terceira pessoa → "Has" no início da pergunta. Nunca "Have he".`, tags: ['#PresentPerfect','#Questions','#For','#A2'] },
+  { instruction: 'Find the CORRECT sentence:', sentence: 'She ___ already done her homework.', answer: 'She has already done her homework.', options: ['She has already done her homework.', 'She have already done her homework.', 'She has already do her homework.', 'She already has done her homework.'], explanation: `"already" vem entre has/have e o particípio. "done" é o particípio de "do".`, tags: ['#PresentPerfect','#Already','#Irregular','#A2'] },
+  { instruction: 'Convert to NEGATIVE:', sentence: 'I have seen this film twice.', answer: "I haven't seen this film twice.", options: ["I haven't seen this film twice.", "I didn't see this film twice.", "I haven't saw this film twice.", "I has not seen this film twice."], explanation: `"I" usa "haven't". "seen" é o particípio de "see" — não muda na negativa.`, tags: ['#PresentPerfect','#Negative','#Irregular','#A2'] },
+  { instruction: 'Find the CORRECT sentence:', sentence: 'The children ___ just eaten lunch.', answer: 'The children have just eaten lunch.', options: ['The children have just eaten lunch.', 'The children has just eaten lunch.', 'The children have just eat lunch.', 'The children just have eaten lunch.'], explanation: `"The children" é plural → "have". "just" fica entre have e o particípio.`, tags: ['#PresentPerfect','#Just','#Plural','#A2'] },
+  { instruction: 'Convert to QUESTION:', sentence: 'They have lived in Brazil since 2010.', answer: 'Have they lived in Brazil since 2010?', options: ['Have they lived in Brazil since 2010?', 'Did they live in Brazil since 2010?', 'Has they lived in Brazil since 2010?', 'Have they live in Brazil since 2010?'], explanation: `"They" usa "Have" para perguntas. "since" indica ponto de início — típico do Present Perfect.`, tags: ['#PresentPerfect','#Questions','#Since','#A2'] },
+  { instruction: 'Find the CORRECT sentence:', sentence: 'My parents ___ never been to Europe.', answer: 'My parents have never been to Europe.', options: ['My parents have never been to Europe.', 'My parents has never been to Europe.', 'My parents have never went to Europe.', 'My parents never been to Europe.'], explanation: `"My parents" = plural → "have". "been" é o particípio de "be/go" neste contexto.`, tags: ['#PresentPerfect','#Never','#Irregular','#A2'] },
+  { instruction: 'Convert to NEGATIVE:', sentence: 'He has read the book already.', answer: "He hasn't read the book yet.", options: ["He hasn't read the book yet.", "He didn't read the book yet.", "He haven't read the book yet.", "He hasn't readed the book yet."], explanation: `Na negativa, "already" vira "yet" e vai ao final. "He" usa "hasn't".`, tags: ['#PresentPerfect','#Negative','#Yet','#A2'] },
+  { instruction: 'Find the CORRECT sentence:', sentence: 'I ___ this song many times.', answer: 'I have heard this song many times.', options: ['I have heard this song many times.', 'I have hear this song many times.', 'I heard this song many times.', 'I has heard this song many times.'], explanation: `"I" usa "have". "heard" é o particípio de "hear". "many times" indica experiência — Present Perfect.`, tags: ['#PresentPerfect','#Experience','#Irregular','#A2'] },
+  { instruction: 'Convert to QUESTION:', sentence: 'She has met your sister before.', answer: 'Has she met your sister before?', options: ['Has she met your sister before?', 'Did she meet your sister before?', 'Have she met your sister before?', 'Has she meet your sister before?'], explanation: `"She" usa "Has" para perguntas. "met" é o particípio de "meet".`, tags: ['#PresentPerfect','#Questions','#Irregular','#A2'] },
+  { instruction: 'Find the CORRECT sentence:', sentence: 'We ___ just arrived home.', answer: 'We have just arrived home.', options: ['We have just arrived home.', 'We has just arrived home.', 'We have just arrive home.', 'We just have arrived home.'], explanation: `"We" usa "have". "just" fica entre have e o particípio. "arrived" é o particípio de "arrive".`, tags: ['#PresentPerfect','#Just','#A2'] },
+  { instruction: 'Convert to NEGATIVE:', sentence: 'You have worked here for a long time.', answer: "You haven't worked here for a long time.", options: ["You haven't worked here for a long time.", "You didn't work here for a long time.", "You haven't work here for a long time.", "You hasn't worked here for a long time."], explanation: `"You" usa "haven't". O particípio permanece igual na negativa.`, tags: ['#PresentPerfect','#Negative','#For','#A2'] },
+  { instruction: 'Find the CORRECT sentence:', sentence: 'It ___ not stopped raining since morning.', answer: "It hasn't stopped raining since morning.", options: ["It hasn't stopped raining since morning.", "It haven't stopped raining since morning.", "It has not stop raining since morning.", "It didn't stop raining since morning."], explanation: `"It" = terceira pessoa singular → "hasn't". "since" indica ponto de início — Present Perfect.`, tags: ['#PresentPerfect','#Negative','#Since','#A2'] },
+  { instruction: 'Convert to QUESTION:', sentence: 'My friend has called me three times.', answer: 'Has my friend called me three times?', options: ['Has my friend called me three times?', 'Did my friend call me three times?', 'Have my friend called me three times?', 'Has my friend calls me three times?'], explanation: `"My friend" = terceira pessoa singular → "Has". O particípio "called" não muda na pergunta.`, tags: ['#PresentPerfect','#Questions','#A2'] },
+];
+/* ── END DATA BLOCK ── */
+
+/* ── PP state variables ── */
+var PP_STORAGE_KEY = 'efl_pp_levels_unlocked';
+var ppUnlocked = 3;  /* TESTING: set to 2 to bypass Easy level */
+try { ppUnlocked = JSON.parse(localStorage.getItem(PP_STORAGE_KEY)) || 3; } catch(e) {}
+function ppSaveUnlocked(n) {
+  try { localStorage.setItem(PP_STORAGE_KEY, JSON.stringify(n)); } catch(e) {}
+  ppUnlocked = n;
+}
+
+/* Banco com 20 questões — Nível Fácil */
+
+var ppCurrentLevel = 1;
+var ppQueue = [], ppIdx = 0, ppCorrect = 0, ppStreak = 0, ppLog = [], ppAnswered = false;
+var PP_ROUND_SIZE = 10;
+
+/* ─── PP Nível Médio — 20 questões fill-in-the-blank verbos irregulares ─── */
+var PP_MEDIUM_BANK = [
+  { sentence: 'I have ___ to Paris three times.', verb: 'go',    correct: 'gone',    options: ['gone','went','goen','been'],      explanation: `go → went → <strong>gone</strong>. "Went" é o Simple Past — no Present Perfect usamos o particípio <strong>gone</strong>.` },
+  { sentence: 'She has ___ all her homework.',    verb: 'do',    correct: 'done',    options: ['done','did','doed','been'],       explanation: `do → did → <strong>done</strong>. "Did" é o Simple Past — aqui precisamos do particípio <strong>done</strong>.` },
+  { sentence: 'They have ___ this movie before.', verb: 'see',   correct: 'seen',    options: ['seen','saw','seed','watched'],    explanation: `see → saw → <strong>seen</strong>. "Saw" é o Simple Past — usamos o particípio <strong>seen</strong> com Present Perfect.` },
+  { sentence: 'He has ___ lunch already.',        verb: 'eat',   correct: 'eaten',   options: ['eaten','ate','eated','had'],      explanation: `eat → ate → <strong>eaten</strong>. "Ate" é o Simple Past — o particípio correto é <strong>eaten</strong>.` },
+  { sentence: 'We have ___ a lot of water today.',verb: 'drink', correct: 'drunk',   options: ['drunk','drank','drinked','had'],  explanation: `drink → drank → <strong>drunk</strong>. "Drank" é o Simple Past — usamos <strong>drunk</strong> no Present Perfect.` },
+  { sentence: 'I have ___ to you many times.',    verb: 'speak', correct: 'spoken',  options: ['spoken','spoke','speaked','said'],explanation: `speak → spoke → <strong>spoken</strong>. "Spoke" é o Simple Past — precisamos do particípio <strong>spoken</strong>.` },
+  { sentence: 'She has ___ a letter to him.',     verb: 'write', correct: 'written', options: ['written','wrote','writed','sent'],explanation: `write → wrote → <strong>written</strong>. "Wrote" é o Simple Past — o particípio é <strong>written</strong>.` },
+  { sentence: 'They have ___ there before.',      verb: 'be',    correct: 'been',    options: ['been','was','beed','gone'],       explanation: `be → was/were → <strong>been</strong>. "Was" é o Simple Past — "been" é sempre o particípio de "be".` },
+  { sentence: 'He has ___ his keys.',             verb: 'lose',  correct: 'lost',    options: ['lost','losed','lose','missed'],   explanation: `lose → lost → <strong>lost</strong>. "Lose" é irregular — Simple Past e particípio são ambos "lost".` },
+  { sentence: 'We have ___ a new car.',           verb: 'buy',   correct: 'bought',  options: ['bought','buyed','buy','paid'],    explanation: `buy → bought → <strong>bought</strong>. "Buy" é irregular — o particípio é <strong>bought</strong>.` },
+  { sentence: 'I have ___ him since Monday.',     verb: 'know',  correct: 'known',   options: ['known','knew','knowed','seen'],   explanation: `know → knew → <strong>known</strong>. "Knew" é o Simple Past — o particípio é <strong>known</strong>.` },
+  { sentence: 'She has ___ her phone at home.',   verb: 'leave', correct: 'left',    options: ['left','leaved','leave','lost'],   explanation: `leave → left → <strong>left</strong>. "Leave" é irregular — Simple Past e particípio são ambos "left".` },
+  { sentence: 'They have ___ a lot recently.',    verb: 'grow',  correct: 'grown',   options: ['grown','grew','growed','become'], explanation: `grow → grew → <strong>grown</strong>. "Grew" é o Simple Past — o particípio é <strong>grown</strong>.` },
+  { sentence: 'He has ___ the window.',           verb: 'break', correct: 'broken',  options: ['broken','broke','breaked','hit'], explanation: `break → broke → <strong>broken</strong>. "Broke" é o Simple Past — o particípio é <strong>broken</strong>.` },
+  { sentence: 'I have ___ this song before.',     verb: 'hear',  correct: 'heard',   options: ['heard','heared','hear','listened'],explanation: `hear → heard → <strong>heard</strong>. "Hear" é irregular — Simple Past e particípio são ambos "heard".` },
+  { sentence: 'We have ___ hard this week.',      verb: 'work',  correct: 'worked',  options: ['worked','work','worken','done'],  explanation: `work → worked → <strong>worked</strong>. "Work" é regular — acrescenta -ed para formar o particípio.` },
+  { sentence: 'She has ___ a new job.',           verb: 'get',   correct: 'gotten',  options: ['gotten','got','getted','taken'],  explanation: `get → got → <strong>gotten</strong>. Em inglês americano usa-se "gotten"; em britânico, "got". Ambos são aceitos.` },
+  { sentence: 'They have ___ the truth.',         verb: 'tell',  correct: 'told',    options: ['told','telled','tell','said'],    explanation: `tell → told → <strong>told</strong>. "Tell" é irregular — Simple Past e particípio são ambos "told".` },
+  { sentence: 'I have ___ the news.',             verb: 'read',  correct: 'read',    options: ['read','readed','red','seen'],     explanation: `read → read → <strong>read</strong>. "Read" é especial — a grafia é igual mas a pronúncia muda: /riːd/ → /rɛd/.` },
+  { sentence: 'He has ___ asleep on the sofa.',   verb: 'fall',  correct: 'fallen',  options: ['fallen','fell','falled','slept'], explanation: `fall → fell → <strong>fallen</strong>. "Fell" é o Simple Past — o particípio é <strong>fallen</strong>.` },
+];
+
+/* ─── PP Nível Difícil — 20 questões PP vs Past Simple ─────── */
+var PP_HARD_BANK = [
+  {
+    sentence: 'I ___ to Paris last summer.',
+    correct: 'went',
+    correctTense: 'Past Simple',
+    wrongOption: 'have been',
+    wrongTense: 'Present Perfect',
+    rule: `Use o <strong>Past Simple</strong> quando há um marcador de tempo específico no passado ("last summer", "yesterday", "in 2010"). O Present Perfect não se usa com tempos definidos.`,
+    deepDive: `"Last summer" define um momento exato e encerrado no passado. O Present Perfect ("have been") descreve experiências ou situações sem tempo definido — por isso não combina com "last summer". Exemplos: "I have been to Paris" (experiência de vida, sem data) vs. "I went to Paris last summer" (evento específico e concluído).`
+  },
+  {
+    sentence: 'She ___ here since 2020.',
+    correct: 'has lived',
+    correctTense: 'Present Perfect',
+    wrongOption: 'lived',
+    wrongTense: 'Past Simple',
+    rule: `Use o <strong>Present Perfect</strong> com "since" para indicar uma ação que começou no passado e continua até agora. O Past Simple indicaria que ela não mora mais aqui.`,
+    deepDive: `"Since" conecta o passado ao presente — algo começou em 2020 e ainda é verdade agora. O Present Perfect é o único tempo que expressa essa continuidade. Se disséssemos "She lived here since 2020", isso seria gramaticalmente incorreto. Se disséssemos "She lived here in 2020", indicaria que ela não mora mais aqui.`
+  },
+  {
+    sentence: 'They ___ the movie three times already.',
+    correct: 'have watched',
+    correctTense: 'Present Perfect',
+    wrongOption: 'watched',
+    wrongTense: 'Past Simple',
+    rule: `Use o <strong>Present Perfect</strong> com "already" para indicar que algo aconteceu mais vezes do que o esperado, com relevância para o momento presente.`,
+    deepDive: `"Already" com Present Perfect indica surpresa ou ênfase — a ação se repetiu e ainda tem relevância agora. O Past Simple ("watched") seria usado com um tempo definido: "They watched it three times last week." Sem um marcador de tempo, "already" pede o Present Perfect.`,
+    ambiguous: true
+  },
+  {
+    sentence: 'He ___ his phone on the bus yesterday.',
+    correct: 'lost',
+    correctTense: 'Past Simple',
+    wrongOption: 'has lost',
+    wrongTense: 'Present Perfect',
+    rule: `Use o <strong>Past Simple</strong> com "yesterday" — um marcador de tempo específico e concluído. O Present Perfect não aceita marcadores de tempo definidos.`,
+    deepDive: `"Yesterday" é um marcador temporal preciso que situa o evento em um ponto encerrado no passado. O Present Perfect ("has lost") descreve resultado atual sem especificar quando — "He has lost his phone" (não sabe onde está agora). Mas quando adicionamos "yesterday", o evento está fechado no passado e exige Past Simple.`
+  },
+  {
+    sentence: 'I ___ never tried sushi before.',
+    correct: 'have',
+    correctTense: 'Present Perfect',
+    wrongOption: 'did',
+    wrongTense: 'Past Simple',
+    rule: `Use o <strong>Present Perfect</strong> com "never" para falar de experiências de vida até o momento presente. "Did" formaria uma estrutura incorreta — o auxiliar do Past Simple não combina com "never" neste contexto.`,
+    deepDive: `"I have never tried sushi" usa o Present Perfect de experiência: a sua vida inteira até agora, sem data específica. Para negar com Past Simple, precisaríamos de um contexto diferente: "I didn't try sushi when I was in Japan." A estrutura "I never did try" existe mas é enfática e informal. Para experiências negativas de vida sem data, o Present Perfect com "never" é sempre a escolha padrão.`
+  },
+  {
+    sentence: 'We ___ this restaurant when we lived in Rome.',
+    correct: 'loved',
+    correctTense: 'Past Simple',
+    wrongOption: 'have loved',
+    wrongTense: 'Present Perfect',
+    rule: `Use o <strong>Past Simple</strong> quando a ação pertence a um período encerrado ("when we lived in Rome"). O Present Perfect não se usa para descrever sentimentos ou estados de um período passado e concluído.`,
+    deepDive: `"When we lived in Rome" indica um período que já terminou — você não mora mais em Roma. Qualquer coisa que acontecia nesse período usa Past Simple. O Present Perfect seria inadequado porque conecta o passado ao presente, mas não há conexão aqui: você não mora mais lá e a situação está encerrada.`
+  },
+  {
+    sentence: 'The team ___ three matches so far this season.',
+    correct: 'has won',
+    correctTense: 'Present Perfect',
+    wrongOption: 'won',
+    wrongTense: 'Past Simple',
+    rule: `Use o <strong>Present Perfect</strong> com "so far" — a temporada ainda está em andamento. "So far" indica que o período ainda não terminou.`,
+    deepDive: `"So far this season" significa que a temporada continua — os resultados ainda podem mudar. O Present Perfect é usado quando o período de tempo ainda está aberto. Quando a temporada terminar, usaríamos Past Simple: "The team won three matches last season." A diferença é se o período ainda está ativo ou já encerrou.`,
+    ambiguous: true
+  },
+  {
+    sentence: 'I ___ my keys. Have you seen them?',
+    correct: 'have lost',
+    correctTense: 'Present Perfect',
+    wrongOption: 'lost',
+    wrongTense: 'Past Simple',
+    rule: `Use o <strong>Present Perfect</strong> quando o resultado da ação ainda é relevante agora. A chave perdida ainda está perdida — isso afeta o presente.`,
+    deepDive: `"I have lost my keys" → as chaves ainda estão perdidas agora, por isso a pergunta "Have you seen them?" faz sentido. O Past Simple ("I lost my keys") pode ser usado narrativamente ("I lost my keys at the park yesterday"), mas aqui o contexto enfatiza a situação atual — as chaves ainda estão sumidas. Esse é o Present Perfect de resultado presente.`,
+    ambiguous: true
+  },
+  {
+    sentence: 'She ___ to London twice in her life.',
+    correct: 'has been',
+    correctTense: 'Present Perfect',
+    wrongOption: 'was',
+    wrongTense: 'Past Simple',
+    rule: `Use o <strong>Present Perfect</strong> para falar de experiências de vida sem tempo definido. "Twice in her life" é uma experiência acumulada, não um evento específico.`,
+    deepDive: `"Has been to London" descreve uma experiência de vida — quantas vezes ela visitou Londres até agora, sem dizer quando. O Past Simple ("was in London") exigiria um contexto mais específico: "She was in London last month." Para contar experiências acumuladas sem datas, sempre use o Present Perfect.`
+  },
+  {
+    sentence: 'They ___ the contract an hour ago.',
+    correct: 'signed',
+    correctTense: 'Past Simple',
+    wrongOption: 'have signed',
+    wrongTense: 'Present Perfect',
+    rule: `Use o <strong>Past Simple</strong> com "ago" — um marcador de tempo que posiciona o evento em um ponto específico no passado. O Present Perfect nunca se usa com "ago".`,
+    deepDive: `"An hour ago" é uma das regras mais claras do inglês: qualquer expressão com "ago" exige Past Simple, sem exceção. "Ago" define um ponto exato e encerrado no passado. O Present Perfect ("have signed") seria usado sem referência temporal: "They have signed the contract" (relevância atual, sem dizer quando).`
+  },
+  {
+    sentence: 'I ___ this book. It is amazing!',
+    correct: 'have just finished',
+    correctTense: 'Present Perfect',
+    wrongOption: 'just finished',
+    wrongTense: 'Past Simple',
+    rule: `Use o <strong>Present Perfect</strong> com "just" para indicar que algo aconteceu há pouquíssimo tempo, com resultado imediato relevante agora.`,
+    deepDive: `"Just" com Present Perfect indica que a ação acabou de acontecer e o resultado é imediato — você acabou de terminar o livro e ainda está entusiasmado. Em inglês britânico, "just" quase sempre acompanha o Present Perfect. Em inglês americano, o Past Simple com "just" é aceito informalmente, mas o Present Perfect é a forma padrão e mais precisa.`,
+    ambiguous: true
+  },
+  {
+    sentence: 'My grandfather ___ in 1998.',
+    correct: 'died',
+    correctTense: 'Past Simple',
+    wrongOption: 'has died',
+    wrongTense: 'Present Perfect',
+    rule: `Use o <strong>Past Simple</strong> para eventos com data específica no passado, especialmente datas históricas ou eventos biográficos.`,
+    deepDive: `"In 1998" é um ano específico e encerrado. Para eventos com datas exatas no passado, sempre use o Past Simple. O Present Perfect ("has died") seria inapropriado porque implica conexão com o presente — o que não faz sentido para uma data histórica precisa. Note: "Someone has died" (sem data) pode ser usado para dar uma notícia, mas com data definida, use Past Simple.`
+  },
+  {
+    sentence: 'Have you ___ your homework yet?',
+    correct: 'done',
+    correctTense: 'Present Perfect',
+    wrongOption: 'did',
+    wrongTense: 'Past Simple',
+    rule: `Use o <strong>Present Perfect</strong> com "yet" em perguntas para perguntar sobre algo que se espera que aconteça. "Did" formaria uma estrutura gramaticalmente incorreta aqui.`,
+    deepDive: `"Yet" em perguntas e negativas é um marcador clássico do Present Perfect. "Have you done your homework yet?" pergunta se algo esperado já aconteceu. O Past Simple formaria "Did you do your homework?" — uma pergunta válida, mas sem "yet", que pede o Present Perfect. A estrutura "Have you did" é simplesmente incorreta gramaticalmente.`
+  },
+  {
+    sentence: 'I ___ three coffees this morning.',
+    correct: 'have had',
+    correctTense: 'Present Perfect',
+    wrongOption: 'had',
+    wrongTense: 'Past Simple',
+    rule: `Use o <strong>Present Perfect</strong> quando o período de tempo ainda não terminou. "This morning" ainda é esta manhã — o período está em aberto.`,
+    deepDive: `Se você ainda está na manhã, o período "this morning" não terminou — use Present Perfect. Se for à tarde e falar sobre a manhã que passou, use Past Simple: "I had three coffees this morning" (a manhã terminou). Essa distinção temporal — período aberto vs. período fechado — é fundamental para escolher entre PP e Past Simple.`,
+    ambiguous: true
+  },
+  {
+    sentence: 'She ___ him at a conference in 2019.',
+    correct: 'met',
+    correctTense: 'Past Simple',
+    wrongOption: 'has met',
+    wrongTense: 'Present Perfect',
+    rule: `Use o <strong>Past Simple</strong> com "in 2019" — um ano específico e encerrado. Qualquer data específica no passado exige Past Simple.`,
+    deepDive: `"In 2019" é um ponto fixo no passado. O Present Perfect ("has met") seria para experiências sem data: "She has met him before" (sem dizer quando). Quando você adiciona uma data específica, o evento fica ancorado no passado e exige Past Simple. Uma forma fácil de lembrar: se você pode responder "when?" com uma data específica, use Past Simple.`
+  },
+  {
+    sentence: 'We ___ in this city for 10 years.',
+    correct: 'have lived',
+    correctTense: 'Present Perfect',
+    wrongOption: 'lived',
+    wrongTense: 'Past Simple',
+    rule: `Use o <strong>Present Perfect</strong> com "for" quando a ação continua até o presente. Ainda moram na cidade — a situação não terminou.`,
+    deepDive: `"For 10 years" pode aparecer tanto com Present Perfect quanto com Past Simple, mas o significado muda: "We have lived here for 10 years" = ainda moramos aqui; "We lived here for 10 years" = não moramos mais aqui. O contexto — ou a ausência de contexto — geralmente deixa claro qual usar. Sem contexto adicional, o Present Perfect implica continuidade.`,
+    ambiguous: true
+  },
+  {
+    sentence: 'The scientists ___ a new vaccine last year.',
+    correct: 'developed',
+    correctTense: 'Past Simple',
+    wrongOption: 'have developed',
+    wrongTense: 'Present Perfect',
+    rule: `Use o <strong>Past Simple</strong> com "last year" — um período de tempo encerrado e específico no passado.`,
+    deepDive: `"Last year" é um período que já terminou completamente. Mesmo que o resultado (a vacina) ainda seja relevante hoje, o momento do desenvolvimento está no passado. Compare: "Scientists have developed a new vaccine" (anúncio, sem data) vs. "Scientists developed a new vaccine last year" (informação com data específica). Com "last year", sempre Past Simple.`
+  },
+  {
+    sentence: 'I ___ this film before. I know the ending.',
+    correct: 'have seen',
+    correctTense: 'Present Perfect',
+    wrongOption: 'saw',
+    wrongTense: 'Past Simple',
+    rule: `Use o <strong>Present Perfect</strong> para descrever uma experiência passada com resultado atual. Você viu o filme antes, e isso afeta o presente — você sabe o final.`,
+    deepDive: `"I have seen this film before" usa o Present Perfect de experiência: algo aconteceu em algum momento antes de agora, sem especificar quando, e o resultado (conhecer o final) é relevante agora. "I saw this film" seria correto com uma referência de tempo: "I saw this film last week." Sem referência temporal, e com resultado presente, use o Present Perfect.`,
+    ambiguous: true
+  },
+  {
+    sentence: '___ you ever eaten at a Michelin-star restaurant?',
+    correct: 'Have',
+    correctTense: 'Present Perfect',
+    wrongOption: 'Did',
+    wrongTense: 'Past Simple',
+    rule: `Use o <strong>Present Perfect</strong> com "ever" em perguntas sobre experiências de vida. "Did" formaria uma pergunta de Past Simple que exigiria um contexto específico.`,
+    deepDive: `"Ever" em perguntas é outro marcador clássico do Present Perfect: pergunta sobre a experiência de vida inteira da pessoa, sem referir a um momento específico. "Have you ever eaten...?" = em algum momento da sua vida. "Did you eat...?" precisaria de contexto: "Did you eat there last night?" Com "ever" em perguntas gerais de experiência, sempre Present Perfect.`
+  },
+  {
+    sentence: 'I ___ English for three years now.',
+    correct: 'have studied',
+    correctTense: 'Present Perfect',
+    wrongOption: 'studied',
+    wrongTense: 'Past Simple',
+    rule: `Use o <strong>Present Perfect</strong> com "for" + "now" quando a ação ainda continua no presente. "Now" confirma que o estudo não terminou — ainda está acontecendo.`,
+    deepDive: `"For three years now" combina duração (for) com relevância presente (now) — dois sinais claros do Present Perfect. O Past Simple ("studied") indicaria que o estudo terminou: "I studied English for three years" (mas parei). Com "now" na frase, a ação é claramente contínua e exige Present Perfect. Compare também com "since": "I have studied English since 2021" tem o mesmo significado, usando um ponto de início em vez de duração.`,
+    ambiguous: true
+  },
+];
+
+
+
+/* Retorna contagem de exercícios ativos por seção */
+function countExercises(section) {
+  return EXERCISE_REGISTRY.filter(e => e.section === section && e.active).length;
+}
+
+/* Retorna exercícios filtrados por tag */
+function filterByTag(tag) {
+  return EXERCISE_REGISTRY.filter(e => e.tags.includes(tag) && e.active);
+}
+
 /* ─── FIREBASE CONFIG ─── */
 const firebaseConfig = {
   apiKey: "AIzaSyCk4kY0S98VroRhVCLhSWIHz7BN7SThECw",
@@ -1262,15 +1830,18 @@ const firebaseConfig = {
   messagingSenderId: "741655322498",
   appId: "1:741655322498:web:e81573d47773b399aa799b"
 };
-firebase.initializeApp(firebaseConfig);
-const auth     = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account' });
+var auth = null, provider = null;
+try {
+  firebase.initializeApp(firebaseConfig);
+  auth     = firebase.auth();
+  provider = new firebase.auth.GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: 'select_account' });
+} catch(e) { console.warn('Firebase init failed (domínio não autorizado):', e.message); }
 
 /* ─── AUTH STATE ─── */
-let currentUser = null;
+var currentUser = null;
 
-auth.onAuthStateChanged(function(user) {
+if (auth) auth.onAuthStateChanged(function(user) {
   currentUser = user;
   updateNavAuth(user);
 });
@@ -1322,6 +1893,7 @@ function handleOverlayClick(e) {
 }
 
 function signInWithGoogle() {
+  if (!auth || !provider) return;
   auth.signInWithPopup(provider)
     .then(function(result) {
       closeLogin();
@@ -1379,19 +1951,14 @@ function toggleMobileNav() { document.getElementById('nav-mobile').classList.tog
 function closeMobileNav()   { document.getElementById('nav-mobile').classList.remove('open'); }
 
 /* ─── SISTEMA DE NÍVEIS ─── */
-const STORAGE_KEY = 'efl_levels_unlocked';
-let unlockedLevels = 1;
+var STORAGE_KEY = 'efl_levels_unlocked';
+var unlockedLevels = 1;
 try { unlockedLevels = JSON.parse(localStorage.getItem(STORAGE_KEY)) || 1; } catch(e) {}
 function saveUnlocked(n) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(n)); } catch(e) {}
   unlockedLevels = n;
 }
-const LEVEL_CONFIG = {
-  1: { name:'Nível 1', desc:'Iniciante',     showRule:true,  showHint:true,  showPhonetic:true  },
-  2: { name:'Nível 2', desc:'Intermediário', showRule:false, showHint:true,  showPhonetic:true  },
-  3: { name:'Nível 3', desc:'Avançado',      showRule:false, showHint:false, showPhonetic:false },
-};
-let currentLevel = 1;
+var currentLevel = 1;
 function el(id) { return document.getElementById(id); }
 
 function renderLevelCards() {
@@ -1436,51 +2003,9 @@ function backToLevels() {
 }
 
 /* ─── BANCO DE 40 VERBOS ─── */
-const ALL_VERBS = [
-  { inf:'want',    past:'wanted',    ph:"/ˈwɒn.tɪd/",    sound:'long',  end:'T'  },
-  { inf:'need',    past:'needed',    ph:"/ˈniː.dɪd/",    sound:'long',  end:'D'  },
-  { inf:'wait',    past:'waited',    ph:"/ˈweɪ.tɪd/",    sound:'long',  end:'T'  },
-  { inf:'visit',   past:'visited',   ph:"/ˈvɪ.zɪ.tɪd/",  sound:'long',  end:'T'  },
-  { inf:'start',   past:'started',   ph:"/ˈstɑː.tɪd/",   sound:'long',  end:'T'  },
-  { inf:'end',     past:'ended',     ph:"/ˈen.dɪd/",     sound:'long',  end:'D'  },
-  { inf:'add',     past:'added',     ph:"/ˈæ.dɪd/",      sound:'long',  end:'D'  },
-  { inf:'land',    past:'landed',    ph:"/ˈlæn.dɪd/",    sound:'long',  end:'D'  },
-  { inf:'suggest', past:'suggested', ph:"/səˈdʒes.tɪd/", sound:'long',  end:'T'  },
-  { inf:'decide',  past:'decided',   ph:"/dɪˈsaɪ.dɪd/",  sound:'long',  end:'D'  },
-  { inf:'count',   past:'counted',   ph:"/ˈkaʊn.tɪd/",   sound:'long',  end:'T'  },
-  { inf:'print',   past:'printed',   ph:"/ˈprɪn.tɪd/",   sound:'long',  end:'T'  },
-  { inf:'point',   past:'pointed',   ph:"/ˈpɔɪn.tɪd/",   sound:'long',  end:'T'  },
-  { inf:'accept',  past:'accepted',  ph:"/əkˈsep.tɪd/",  sound:'long',  end:'T'  },
-  { inf:'collect', past:'collected', ph:"/kəˈlek.tɪd/",  sound:'long',  end:'T'  },
-  { inf:'connect', past:'connected', ph:"/kəˈnek.tɪd/",  sound:'long',  end:'T'  },
-  { inf:'fold',    past:'folded',    ph:"/ˈfəʊl.dɪd/",   sound:'long',  end:'D'  },
-  { inf:'record',  past:'recorded',  ph:"/rɪˈkɔː.dɪd/",  sound:'long',  end:'D'  },
-  { inf:'reward',  past:'rewarded',  ph:"/rɪˈwɔː.dɪd/",  sound:'long',  end:'D'  },
-  { inf:'include', past:'included',  ph:"/ɪnˈkluː.dɪd/", sound:'long',  end:'D'  },
-  { inf:'watch',   past:'watched',   ph:"/wɒtʃt/",       sound:'short', end:'CH' },
-  { inf:'talk',    past:'talked',    ph:"/tɔːkt/",       sound:'short', end:'K'  },
-  { inf:'kiss',    past:'kissed',    ph:"/kɪst/",        sound:'short', end:'S'  },
-  { inf:'walk',    past:'walked',    ph:"/wɔːkt/",       sound:'short', end:'K'  },
-  { inf:'stop',    past:'stopped',   ph:"/stɒpt/",       sound:'short', end:'P'  },
-  { inf:'jump',    past:'jumped',    ph:"/dʒʌmpt/",      sound:'short', end:'P'  },
-  { inf:'push',    past:'pushed',    ph:"/pʊʃt/",        sound:'short', end:'SH' },
-  { inf:'play',    past:'played',    ph:"/pleɪd/",       sound:'short', end:'Y'  },
-  { inf:'call',    past:'called',    ph:"/kɔːld/",       sound:'short', end:'L'  },
-  { inf:'love',    past:'loved',     ph:"/lʌvd/",        sound:'short', end:'V'  },
-  { inf:'use',     past:'used',      ph:"/juːzd/",       sound:'short', end:'Z'  },
-  { inf:'live',    past:'lived',     ph:"/lɪvd/",        sound:'short', end:'V'  },
-  { inf:'open',    past:'opened',    ph:"/ˈəʊ.pənd/",    sound:'short', end:'N'  },
-  { inf:'smile',   past:'smiled',    ph:"/smaɪld/",      sound:'short', end:'L'  },
-  { inf:'learn',   past:'learned',   ph:"/lɜːnd/",       sound:'short', end:'N'  },
-  { inf:'change',  past:'changed',   ph:"/tʃeɪndʒd/",    sound:'short', end:'J'  },
-  { inf:'finish',  past:'finished',  ph:"/ˈfɪ.nɪʃt/",    sound:'short', end:'SH' },
-  { inf:'wash',    past:'washed',    ph:"/wɒʃt/",        sound:'short', end:'SH' },
-  { inf:'help',    past:'helped',    ph:"/helpt/",       sound:'short', end:'P'  },
-  { inf:'laugh',   past:'laughed',   ph:"/lɑːft/",       sound:'short', end:'F'  },
-];
 
-const ROUND_SIZE = 10;
-let queue=[], idx=0, correct=0, streak=0, log=[], answered=false, seenVerbs=new Set();
+var ROUND_SIZE = 10;
+var queue=[], idx=0, correct=0, streak=0, log=[], answered=false, seenVerbs=new Set();
 
 function shuffle(arr) {
   const a=[...arr];
@@ -1562,8 +2087,9 @@ function answer(chosen) {
       fbt.textContent = 'Correto! "' + v.past + '" tem pronúncia ' + soundLabel + ' porque termina com som de ' + v.end + endNote;
     } else {
       fb.className   = 'feedback err show';
-      fbi.textContent = '⚠️';
-      fbt.textContent = 'Atenção! "' + v.past + '" tem pronúncia ' + soundLabel + ' porque termina com som de ' + v.end + endNote;
+      var encourageList = ['Quase lá! 💪', 'Vamos entender?', 'Veja bem...', 'Continue tentando!', 'Fique atento!'];
+      fbi.textContent = '🤔';
+      fbt.textContent = encourageList[Math.floor(Math.random()*encourageList.length)] + ' "' + v.past + '" tem pronúncia ' + soundLabel + ' porque termina com som de ' + v.end + endNote;
     }
   }
   if(el('streak-text')) el('streak-text').textContent = streak >= 3 ? '🔥 ' + streak + ' seguidas!' : '';
@@ -1672,10 +2198,356 @@ function restartExercise() {
   window.scrollTo({ top:0, behavior:'smooth' });
 }
 
+
+/* ─── PRESENT PERFECT EXERCISE ──────────────────────────────────── */
+
+function ppEl(id) { return document.getElementById(id); }
+
+function renderPPLevelCards() {
+  [1,2,3].forEach(function(n) {
+    var card  = ppEl('pp-lcard-'  + n);
+    var badge = ppEl('pp-lbadge-' + n);
+    var lock  = ppEl('pp-llock-'  + n);
+    if (!card) return;
+    var ok = n <= ppUnlocked;
+    card.className    = 'level-card ' + (ok ? 'unlocked' : 'locked');
+    badge.textContent = ok ? 'Disponível' : 'Bloqueado';
+    badge.className   = 'level-badge ' + (ok ? 'lb-available' : 'lb-locked');
+    if (lock) lock.textContent = ok ? '' : '🔒';
+  });
+}
+
+function startPPLevel(n) {
+  if (n > ppUnlocked) return;
+  if (n > 3) return;
+  ppCurrentLevel = n;
+
+  var ruleCard = ppEl('pp-rule-card');
+  if (ruleCard) ruleCard.style.display = n === 1 ? 'flex' : 'none';
+
+  var barText = ppEl('pp-level-text');
+  var levelLabels = {
+    1: '<strong>Nível Fácil</strong> — Present Perfect Básico',
+    2: '<strong>Nível Médio</strong> — Verbos Irregulares',
+    3: '<strong>Nível Difícil</strong> — Present Perfect vs. Past Simple'
+  };
+  if (barText) barText.innerHTML = levelLabels[n] || '';
+
+  ppEl('pp-level-screen').classList.remove('show');
+  ppEl('pp-exercise-wrap').style.display = 'block';
+  ppEl('pp-result-screen').classList.remove('show');
+  ppEl('pp-exercise-section').style.display = 'block';
+  ppEl('pp-progress-section').style.display = 'block';
+
+  ppInitExercise();
+}
+
+function backToPPLevels() {
+  ppEl('pp-exercise-wrap').style.display = 'none';
+  ppEl('pp-result-screen').classList.remove('show');
+  ppEl('pp-level-screen').classList.add('show');
+  renderPPLevelCards();
+}
+
+function ppShuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length-1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i+1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+function ppInitExercise() {
+  var bank = ppCurrentLevel === 3 ? PP_HARD_BANK
+             : ppCurrentLevel === 2 ? PP_MEDIUM_BANK
+             : PP_EASY_BANK;
+  ppQueue = ppShuffle(bank).slice(0, PP_ROUND_SIZE);
+  ppIdx = 0; ppCorrect = 0; ppStreak = 0; ppLog = []; ppAnswered = false;
+  ppLoadQuestion();
+}
+
+function ppLoadQuestion() {
+  ppAnswered = false;
+  var q   = ppQueue[ppIdx];
+  var isMedium = ppCurrentLevel === 2;
+
+  /* Instruction — Fácil shows type label, Médio shows fill-in prompt */
+  var instrEl = ppEl('pp-q-instruction');
+  if (instrEl) {
+    var isHard = ppCurrentLevel === 3;
+    instrEl.textContent = isHard
+      ? 'Choose the correct verb form:'
+      : isMedium ? 'Choose the correct Past Participle:'
+      : q.instruction;
+  }
+
+  /* Sentence */
+  if (ppEl('pp-q-sentence')) ppEl('pp-q-sentence').textContent = q.sentence;
+
+  /* Verb hint — Médio shows infinitive below sentence */
+  var promptEl = ppEl('pp-q-prompt');
+  if (promptEl) {
+    var isHardQ = ppCurrentLevel === 3;
+    promptEl.innerHTML = isMedium
+      ? '<span class="pp-verb-hint">' + q.verb + '</span>'
+      : isHardQ
+      ? '<span style="font-size:12px;color:var(--gray-400);font-style:italic;">Present Perfect vs. Past Simple</span>'
+      : '';
+  }
+
+  if (ppEl('pp-progress-text')) ppEl('pp-progress-text').textContent = 'Questão ' + (ppIdx+1) + ' de ' + PP_ROUND_SIZE;
+  if (ppEl('pp-progress-fill')) ppEl('pp-progress-fill').style.width = Math.round(ppIdx/PP_ROUND_SIZE*100) + '%';
+  if (ppEl('pp-streak-text'))   ppEl('pp-streak-text').textContent   = ppStreak >= 3 ? '🔥 ' + ppStreak + ' seguidas!' : '';
+  if (ppEl('pp-feedback'))      ppEl('pp-feedback').className        = 'feedback';
+  if (ppEl('pp-next-btn'))      ppEl('pp-next-btn').classList.remove('show');
+
+  /* Tags */
+  var tagsEl = ppEl('pp-tags-display');
+  if (tagsEl) {
+    tagsEl.textContent = isMedium
+      ? '#PresentPerfect #IrregularVerbs #A2'
+      : (q.tags ? q.tags.join(' ') : '');
+  }
+
+  /* Options — Hard: 2 options (PP vs Past Simple) stacked */
+  var area = ppEl('pp-options-area');
+  if (!area) return;
+  if (ppCurrentLevel === 3) {
+    var opts = [
+      { val: q.correct,     label: q.correct,     tense: q.correctTense },
+      { val: q.wrongOption, label: q.wrongOption,  tense: q.wrongTense   }
+    ];
+    if (Math.random() < 0.5) opts.reverse();
+    area.innerHTML = '<div style="display:flex;flex-direction:column;gap:10px;">' +
+      opts.map(function(o, i) {
+        var safe = o.val.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+        return '<button class="opt-btn" data-value="' + safe + '" onclick="ppAnswer(this)" style="text-align:left;padding:14px 18px;">' +
+          '<span style="font-size:15px;font-weight:700;color:var(--gray-800);display:block;">' + o.label + '</span>' +
+          '<span style="font-size:11px;color:var(--gray-400);font-weight:500;">' + o.tense + '</span>' +
+          '</button>';
+      }).join('') +
+    '</div>';
+  } else {
+    var shuffledOpts = ppShuffle(q.options);
+    area.innerHTML = '<div class="options-grid" style="grid-template-columns:1fr 1fr;">' +
+      shuffledOpts.map(function(opt, i) {
+        var safeOpt = opt.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+        return '<button class="opt-btn" id="pp-opt-' + i + '" data-value="' + safeOpt + '" onclick="ppAnswer(this)">' +
+          '<span class="opt-example" style="font-size:15px;font-weight:600;text-align:center;color:var(--gray-800);">' +
+          opt + '</span></button>';
+      }).join('') +
+    '</div>';
+  }
+}
+
+function ppAnswer(btnEl) {
+  if (ppAnswered) return;
+  var chosen = btnEl.getAttribute('data-value');
+  ppAnswered = true;
+  var q   = ppQueue[ppIdx];
+  var correctVal = q.answer || q.correct;
+  var ok  = chosen === correctVal;
+
+  if (ok) { ppCorrect++; ppStreak++; } else { ppStreak = 0; }
+  ppLog.push({ q: q, chosen: chosen, ok: ok });
+
+  /* Colorir botões */
+  var allBtns = ppEl('pp-options-area').querySelectorAll('.opt-btn');
+  allBtns.forEach(function(b) { b.disabled = true; });
+
+  var isAmbiguous = !ok && ppCurrentLevel === 3 && q.ambiguous;
+  if (ok) {
+    btnEl.classList.add('correct');
+  } else {
+    btnEl.classList.add(isAmbiguous ? 'ambiguous' : 'wrong');
+    allBtns.forEach(function(b) {
+      if (b.getAttribute('data-value') === correctVal) b.classList.add('reveal');
+    });
+  }
+
+  /* Feedback */
+  var fb = ppEl('pp-feedback'), fbi = ppEl('pp-fb-icon'), fbt = ppEl('pp-fb-text');
+  if (fb && fbi && fbt) {
+    if (ok) {
+      fb.className = 'feedback ok show';
+      fbi.textContent = '✅';
+      var verb3ok = '';
+      if (ppCurrentLevel === 2 && q.verb) {
+        verb3ok = '<span style="display:block;margin-top:10px;font-size:13px;font-weight:700;color:var(--green-800);background:var(--green-50);border-radius:6px;padding:6px 10px;text-align:center;">'
+          + q.verb + ' → ' + (q.past || q.correct) + ' → ' + q.correct + '</span>';
+      }
+      var notSureBtn = (ppCurrentLevel === 3 && q.deepDive)
+        ? '<br><button class="pp-not-sure-btn" onclick="openDeepDive()" id="pp-not-sure">🤔 Não sei se entendi</button>'
+        : '';
+      var ppExpl = ppCurrentLevel === 3 ? (q.rule || '') : (q.explanation || '');
+      fbt.innerHTML = '<strong>Correto!</strong> ' + ppExpl + verb3ok + notSureBtn;
+    } else {
+      var ppEncourageList = ['Quase lá! 💪', 'Vamos entender melhor?', 'Veja bem...', 'Não desanime!', 'Mais uma vez!'];
+      var ppPhrase = ppEncourageList[Math.floor(Math.random()*ppEncourageList.length)];
+      fbi.textContent = '🤔';
+      var verb3forms = '';
+      if (ppCurrentLevel === 2 && q.verb) {
+        verb3forms = '<span style="display:block;margin-top:10px;font-size:13px;font-weight:700;color:var(--green-800);background:var(--green-50);border-radius:6px;padding:6px 10px;text-align:center;">'
+          + q.verb + ' → ' + (q.past || q.correct) + ' → ' + q.correct + '</span>';
+      }
+      var ppExplErr = ppCurrentLevel === 3 ? (q.rule || '') : (q.explanation || '');
+      var notSureBtnErr = (ppCurrentLevel === 3 && q.deepDive)
+        ? '<br><button class="pp-not-sure-btn" onclick="openDeepDive()" id="pp-not-sure">🤔 Não sei se entendi</button>'
+        : '';
+      if (isAmbiguous) {
+        fb.className = 'feedback show pp-ambiguous-feedback';
+        fbi.textContent = '🟡';
+        fbt.innerHTML = '<strong>Também está certo, mas não nesta aula.</strong> ' + ppExplErr + notSureBtnErr;
+      } else {
+        fb.className = 'feedback err show';
+        fbt.innerHTML = '<strong>' + ppPhrase + '</strong> ' + ppExplErr + verb3forms + notSureBtnErr;
+      }
+  }
+  }
+
+  if (ppEl('pp-streak-text')) ppEl('pp-streak-text').textContent = ppStreak >= 3 ? '🔥 ' + ppStreak + ' seguidas!' : '';
+  if (ppEl('pp-next-btn'))    ppEl('pp-next-btn').classList.add('show');
+}
+
+function ppNextQuestion() {
+  ppIdx++;
+  if (ppIdx >= PP_ROUND_SIZE) { ppShowResult(); return; }
+  var card = ppEl('pp-q-card');
+  if (card) {
+    card.style.animation = 'none';
+    requestAnimationFrame(function() { card.style.animation = 'fadeUp 0.3s ease both'; ppLoadQuestion(); });
+  }
+}
+
+function ppShowResult() {
+  ppEl('pp-exercise-section').style.display = 'none';
+  ppEl('pp-progress-section').style.display = 'none';
+  var rc = ppEl('pp-rule-card'); if (rc) rc.style.display = 'none';
+  ppEl('pp-result-screen').classList.add('show');
+
+  var pct  = Math.round(ppCorrect / PP_ROUND_SIZE * 100);
+  var wrong = PP_ROUND_SIZE - ppCorrect;
+  var tier  = Math.min(4, Math.floor(pct/20));
+  var emojis = ['😕','😐','🙂','😊','🎉'];
+  var msgs   = [
+    'Continue praticando — o Present Perfect vai ficando mais natural!',
+    'Bom início! Revise a explicação e tente de novo.',
+    'Bom trabalho! Você está pegando a estrutura.',
+    'Muito bem! Quase perfeito — revise os erros para fixar.',
+    'Perfeito! Você dominou o Nível Fácil! 🏆'
+  ];
+
+  if (ppEl('pp-result-emoji')) ppEl('pp-result-emoji').textContent = emojis[tier];
+  if (ppEl('pp-result-score')) ppEl('pp-result-score').innerHTML   = ppCorrect + '<span>/' + PP_ROUND_SIZE + '</span>';
+  if (ppEl('pp-result-msg'))   ppEl('pp-result-msg').textContent   = msgs[tier];
+  if (ppEl('pp-stat-correct')) ppEl('pp-stat-correct').textContent = ppCorrect;
+  if (ppEl('pp-stat-wrong'))   ppEl('pp-stat-wrong').textContent   = wrong;
+  if (ppEl('pp-stat-pct'))     ppEl('pp-stat-pct').textContent     = pct + '%';
+
+  /* Desbloquear nível 2 se passar com 70%+ */
+  if (pct >= 70 && ppCurrentLevel >= ppUnlocked && ppCurrentLevel < 4) {
+    ppSaveUnlocked(ppCurrentLevel + 1);
+    var unlockMsg = ppEl('pp-unlock-msg');
+    if (unlockMsg) {
+      unlockMsg.style.display = 'block';
+      unlockMsg.textContent = ppCurrentLevel === 1
+        ? '🎉 Nível Médio desbloqueado!'
+        : '🎉 Nível Difícil desbloqueado!';
+    }
+    renderPPLevelCards();
+  }
+
+  /* Questões com erro */
+  var errors  = ppLog.filter(function(l) { return !l.ok; });
+  var errCard = ppEl('pp-review-errors-card');
+  var errList = ppEl('pp-review-errors-list');
+  if (errCard && errList) {
+    if (errors.length > 0) {
+      errCard.style.display = 'block';
+      errList.innerHTML = errors.map(function(l) {
+        return '<div class="review-item"><div>' +
+          '<div class="review-past" style="font-size:14px">' + l.q.sentence + '</div>' +
+          '<div class="review-ph">Correto: ' + (l.q.answer || l.q.correct) + '</div>' +
+          '<div class="review-ph">' + l.q.tags.join(' ') + '</div>' +
+          '</div><span class="badge-err">Rever</span></div>';
+      }).join('');
+    } else { errCard.style.display = 'none'; }
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function ppRestart() {
+  var rc = ppEl('pp-rule-card');
+  ppEl('pp-exercise-section').style.display = 'block';
+  ppEl('pp-progress-section').style.display = 'block';
+  if (rc) rc.style.display = 'flex';
+  ppEl('pp-result-screen').classList.remove('show');
+  ppInitExercise();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ─────────────────────────────────────────────────────────────── */
+
+function renderExerciseBadges() {
+  ['listening','reading','speaking','writing'].forEach(function(section) {
+    var badge = document.getElementById('badge-' + section);
+    if (!badge) return;
+    var count = countExercises(section);
+    if (count > 0) {
+      badge.textContent = count + (count === 1 ? ' exercício' : ' exercícios');
+      badge.className = 'skill-badge badge-count';
+    } else {
+      badge.textContent = 'Em breve';
+      badge.className = 'skill-badge badge-soon';
+    }
+  });
+}
+
+/* ─── DEEP DIVE MODAL ─── */
+var ppCurrentDeepDive = '';
+
+function openDeepDive() {
+  var q = ppQueue && ppQueue[ppIdx] ? ppQueue[ppIdx] : null;
+  var text = q && q.deepDive ? q.deepDive : ppCurrentDeepDive;
+  var el = document.getElementById('pp-deepdive-content');
+  var ov = document.getElementById('pp-deepdive-overlay');
+  if (!el || !ov || !text) return;
+  el.innerHTML = text;
+  ov.style.display = 'flex';
+}
+
+function closeDeepDive() {
+  var ov = document.getElementById('pp-deepdive-overlay');
+  if (ov) ov.style.display = 'none';
+}
+
+/* Close deep dive when clicking outside the card */
+document.addEventListener('click', function(e) {
+  var ov = document.getElementById('pp-deepdive-overlay');
+  if (ov && e.target === ov) closeDeepDive();
+});
+
 /* ─── INIT ─── */
 document.addEventListener('DOMContentLoaded', function() {
   renderLevelCards();
+  renderExerciseBadges();
+  renderPPLevelCards();
 });
+
 </script>
+
+  <!-- DEEP DIVE MODAL -->
+  <div id="pp-deepdive-overlay" style="position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);padding:1rem;">
+    <div style="background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding:2rem;max-width:520px;width:100%;max-height:80vh;overflow-y:auto;position:relative;">
+      <button onclick="closeDeepDive()" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--gray-400);">✕</button>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;">
+        <span style="font-size:22px;">📖</span>
+        <h3 style="font-size:17px;font-weight:800;color:var(--gray-900);margin:0;">Vamos entender melhor</h3>
+      </div>
+      <div id="pp-deepdive-content" style="font-size:14px;line-height:1.7;color:var(--gray-700);"></div>
+      <button onclick="closeDeepDive()" style="margin-top:1.5rem;width:100%;padding:10px;background:var(--green-700);color:white;border:none;border-radius:var(--radius-md);font-size:14px;font-weight:700;cursor:pointer;">Entendi! Continuar →</button>
+    </div>
+  </div>
 </body>
 </html>
