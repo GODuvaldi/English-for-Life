@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>English For Life</title>
-<meta name="version" content="0.07">
+<meta name="version" content="0.32">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════
@@ -935,6 +935,276 @@ img { max-width: 100%; }
 .dropdown-item.danger:hover{background:var(--red-100);}
 @media(max-width:600px){.nav-user-name{display:none;}.user-dropdown{right:.75rem;}}
 
+/* ── ED PRONUNCIATION — highlighted key letter ── */
+.ed-key-letter { color: #3b82f6; font-weight: 900; }
+
+/* 3-forms verb feedback */
+.pp-3forms { display:block;margin-top:10px;font-size:13px;font-weight:700;color:var(--green-800);background:var(--green-50);border-radius:6px;padding:6px 10px;text-align:center; }
+.pp-code { font-family:monospace;background:#e8faf2;color:#145c44;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700; }
+
+/* ── PRESENT SIMPLE & CONTINUOUS EXERCISE ─────────────────── */
+.pspc-screen { display: none; }
+.pspc-screen.pspc-active { display: block; animation: fadeUp .35s ease both; }
+
+.pspc-setup-wrap { max-width: 640px; }
+.pspc-section { display: flex; gap: 1rem; margin-bottom: 1.75rem; align-items: flex-start; }
+.pspc-section-num { width: 28px; height: 28px; background: var(--green-700); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .8125rem; font-weight: 800; flex-shrink: 0; margin-top: 2px; }
+.pspc-section-body { flex: 1; }
+.pspc-section-title { font-size: .9375rem; font-weight: 700; color: var(--gray-900); margin-bottom: .125rem; }
+.pspc-section-desc { font-size: .8125rem; color: var(--gray-400); margin-bottom: .875rem; }
+
+.pspc-choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .625rem; }
+.pspc-card { padding: 1rem 1.125rem; background: var(--white); border: 2px solid var(--gray-200); border-radius: var(--radius-lg); cursor: pointer; text-align: left; transition: all .15s; position: relative; }
+.pspc-card:hover { border-color: var(--green-400); background: var(--green-50); transform: translateY(-1px); }
+.pspc-card.pspc-selected { border-color: var(--green-700); background: var(--green-50); }
+.pspc-card.pspc-selected::after { content: '✓'; position: absolute; top: .75rem; right: .875rem; font-size: .875rem; font-weight: 800; color: var(--green-700); }
+.pspc-card.pspc-medium.pspc-selected { border-color: var(--purple-500); background: var(--purple-100); }
+.pspc-card.pspc-medium.pspc-selected::after { color: var(--purple-500); }
+.pspc-card-icon { font-size: 1.125rem; display: block; margin-bottom: .4rem; }
+.pspc-card-title { font-size: .9rem; font-weight: 700; color: var(--gray-900); margin-bottom: .15rem; }
+.pspc-card-desc { font-size: .8rem; color: var(--gray-500); line-height: 1.4; }
+
+.pspc-btn-start { width: 100%; padding: .9rem 1.5rem; border-radius: var(--radius-lg); background: var(--green-700); color: var(--white); font-size: .9375rem; font-weight: 700; border: none; cursor: pointer; transition: all .18s; margin-top: .25rem; box-shadow: 0 4px 12px rgba(26,122,90,.2); }
+.pspc-btn-start:hover:not(:disabled) { background: var(--green-800); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(26,122,90,.28); }
+.pspc-btn-start:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+
+.pspc-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: .875rem; flex-wrap: wrap; gap: .5rem; }
+.pspc-badge { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; padding: .3rem .875rem; border-radius: 99px; background: var(--blue-100); color: var(--blue-500); }
+.pspc-badge.pspc-mixed { background: var(--purple-100); color: var(--purple-500); }
+.pspc-score-wrap { display: flex; align-items: center; gap: .5rem; }
+.pspc-score-label { font-size: .8125rem; color: var(--gray-400); font-weight: 500; }
+.pspc-score-num { font-size: 1.25rem; font-weight: 800; color: var(--green-700); }
+
+.pspc-progress-wrap { margin-bottom: 1.25rem; }
+.pspc-progress-info { display: flex; justify-content: space-between; font-size: .8125rem; color: var(--gray-400); margin-bottom: .375rem; }
+.pspc-progress-track { height: 6px; background: var(--gray-200); border-radius: 99px; overflow: hidden; }
+.pspc-progress-fill { height: 100%; background: linear-gradient(90deg, var(--green-500), var(--green-400)); border-radius: 99px; transition: width .4s cubic-bezier(.4,0,.2,1); }
+
+.pspc-q-card { background: var(--white); border: 1.5px solid var(--gray-200); border-radius: var(--radius-xl); box-shadow: var(--shadow-md); padding: 1.5rem; margin-bottom: .875rem; }
+.pspc-task-label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--gray-400); margin-bottom: .75rem; }
+.pspc-source-tag { display: inline-flex; align-items: center; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; padding: .25rem .625rem; border-radius: 6px; margin-bottom: .625rem; }
+.pspc-source-tag.tag-aff { background: var(--green-100); color: var(--green-800); }
+.pspc-source-tag.tag-neg { background: var(--orange-100); color: #92400e; }
+.pspc-source-tag.tag-q   { background: var(--blue-100); color: var(--blue-500); }
+.pspc-source-tag.tag-nq  { background: var(--purple-100); color: var(--purple-500); }
+.pspc-source-tag.tag-ya, .pspc-source-tag.tag-yn { background: var(--yellow-100); color: #92400e; }
+
+.pspc-sentence { font-size: 1.0625rem; font-weight: 600; color: var(--gray-900); line-height: 1.5; padding: .875rem 1rem; background: var(--gray-50); border-radius: var(--radius-md); border-left: 3px solid var(--gray-300); margin-bottom: 1.125rem; }
+.pspc-target-label { font-size: .875rem; font-weight: 600; color: var(--gray-600); margin-bottom: .75rem; }
+.pspc-target-label strong { color: var(--green-700); }
+
+.pspc-options { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+.pspc-opt { padding: .8125rem .9375rem; background: var(--gray-50); border: 2px solid var(--gray-200); border-radius: var(--radius-md); text-align: left; cursor: pointer; transition: all .15s; font-size: .9rem; color: var(--gray-800); font-weight: 500; line-height: 1.45; position: relative; }
+.pspc-opt:hover:not(:disabled) { border-color: var(--green-400); background: var(--green-50); transform: translateY(-1px); }
+.pspc-opt.pspc-correct { border-color: var(--green-500) !important; background: var(--green-100) !important; color: var(--green-900); }
+.pspc-opt.pspc-correct::after { content: '✓'; position: absolute; top: .5rem; right: .75rem; font-size: .875rem; font-weight: 800; color: var(--green-600); }
+.pspc-opt.pspc-wrong { border-color: var(--orange-500) !important; background: var(--orange-100) !important; color: #7c2d12; }
+.pspc-opt.pspc-wrong::after { content: '✗'; position: absolute; top: .5rem; right: .75rem; font-size: .875rem; font-weight: 800; color: var(--orange-500); }
+.pspc-opt.pspc-reveal { border-color: var(--green-400) !important; background: var(--green-50) !important; opacity: .7; }
+
+.pspc-feedback { border-radius: var(--radius-md); padding: .9375rem 1rem; font-size: .9rem; line-height: 1.55; display: none; gap: .625rem; align-items: flex-start; margin-bottom: .875rem; }
+.pspc-feedback.pspc-show { display: flex; animation: fadeUp .25s ease both; }
+.pspc-feedback.pspc-ok { background: var(--green-100); border-left: 3px solid var(--green-500); color: var(--green-900); }
+.pspc-feedback.pspc-err { background: var(--orange-100); border-left: 3px solid var(--orange-500); color: #7c2d12; }
+.pspc-fb-icon { font-size: 1.125rem; flex-shrink: 0; }
+.pspc-fb-body > strong { font-weight: 700; display: block; margin-bottom: .2rem; }
+.pspc-fb-rule strong, .pspc-fb-expl strong { display: inline; font-weight: 700; }
+.pspc-fb-body #pspc-fb-answer { font-weight: 600; margin-top: .2rem; }
+.pspc-fb-expl { font-size: .8125rem; margin-top: .375rem; opacity: .9; }
+
+.pspc-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .75rem; }
+.pspc-btn-restart-sm { font-size: .8125rem; color: var(--gray-400); text-decoration: underline; background: none; border: none; cursor: pointer; padding: 0; }
+.pspc-btn-restart-sm:hover { color: var(--gray-600); }
+.pspc-btn-next { display: none; align-items: center; gap: .5rem; padding: .7rem 1.375rem; border-radius: 99px; background: var(--green-700); color: var(--white); font-size: .9rem; font-weight: 700; border: none; cursor: pointer; transition: all .18s; }
+.pspc-btn-next.pspc-show { display: inline-flex; animation: fadeUp .2s ease both; }
+.pspc-btn-next:hover { background: var(--green-800); transform: translateY(-1px); }
+
+.pspc-result-hero { text-align: center; padding: 2rem 1rem 1.5rem; }
+.pspc-result-score { font-size: 3rem; font-weight: 800; color: var(--gray-900); letter-spacing: -.04em; line-height: 1; }
+.pspc-result-score em { color: var(--green-600); font-style: normal; }
+.pspc-result-msg { font-size: .9375rem; color: var(--gray-500); margin-top: .5rem; }
+.pspc-result-stats { display: flex; justify-content: center; gap: 2rem; margin: 1.25rem 0 1.5rem; padding: 1.125rem; background: var(--white); border-radius: var(--radius-lg); border: 1.5px solid var(--gray-200); }
+.pspc-stat { text-align: center; }
+.pspc-stat-num { font-size: 1.5rem; font-weight: 800; color: var(--gray-900); }
+.pspc-stat-lbl { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--gray-400); font-weight: 600; margin-top: .125rem; }
+
+@media (max-width: 480px) {
+  .pspc-choice-grid { grid-template-columns: 1fr; }
+  .pspc-options { grid-template-columns: 1fr; }
+}
+
+/* ── READING HUB ────────────────────────────────────────────── */
+.reading-hub-grid { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+.reading-hub-card {
+  display: flex; align-items: center; gap: 1.25rem;
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  padding: 1.375rem 1.5rem;
+  cursor: pointer;
+  transition: border-color .18s, transform .18s, box-shadow .18s;
+  box-shadow: var(--shadow-sm);
+  text-align: left;
+}
+.reading-hub-card:hover { border-color: var(--green-500); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.rhc-left { flex-shrink: 0; }
+.rhc-icon-wrap { width: 52px; height: 52px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+.rhc-green { background: var(--green-100); }
+.rhc-blue  { background: var(--blue-100); }
+.rhc-body { flex: 1; }
+.rhc-title { font-size: 1rem; font-weight: 700; color: var(--gray-900); margin-bottom: .25rem; }
+.rhc-desc { font-size: .875rem; color: var(--gray-500); line-height: 1.5; margin-bottom: .5rem; }
+.rhc-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.rhc-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; background: var(--green-100); color: var(--green-800); }
+.rhc-tag-blue { background: var(--blue-100); color: var(--blue-500); }
+.rhc-tag-gray { background: var(--gray-100); color: var(--gray-600); }
+.rhc-arrow { font-size: 1.375rem; color: var(--gray-300); flex-shrink: 0; transition: color .15s; }
+.reading-hub-card:hover .rhc-arrow { color: var(--green-500); }
+
+/* ── PSPC OVERHAUL — align to PP style ──────────────────────── */
+/* Replace old pspc-q-card with pp-card aesthetics */
+.pspc-q-card {
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: 1.75rem 1.75rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.pspc-task-label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: var(--gray-400); margin-bottom: .75rem; }
+
+/* Source tag — styled like pp-form-tag */
+.pspc-source-tag {
+  display: inline-flex; align-items: center;
+  font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+  padding: .275rem .625rem; border-radius: 6px; margin-bottom: .875rem;
+}
+.pspc-source-tag.tag-aff { background: var(--green-100); color: var(--green-800); }
+.pspc-source-tag.tag-neg { background: var(--orange-100); color: #92400e; }
+.pspc-source-tag.tag-q   { background: var(--blue-100);   color: var(--blue-500); }
+.pspc-source-tag.tag-nq  { background: var(--purple-100); color: var(--purple-500); }
+.pspc-source-tag.tag-ya,
+.pspc-source-tag.tag-yn  { background: var(--yellow-100); color: #92400e; }
+
+/* Sentence box — styled like pp exercise sentence */
+.pspc-sentence {
+  font-size: clamp(1.1rem, 3.5vw, 1.3rem); font-weight: 700; color: var(--gray-900);
+  line-height: 1.5; margin-bottom: 1.375rem;
+  padding: 1rem 1.125rem;
+  background: var(--green-50); border-radius: var(--radius-md);
+  border-left: 3px solid var(--green-400);
+}
+.pspc-target-label {
+  font-size: .875rem; font-weight: 500; color: var(--gray-600);
+  margin-bottom: .875rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.pspc-target-label::before { content: '→'; color: var(--green-500); font-weight: 800; }
+.pspc-target-label strong { color: var(--green-700); font-weight: 700; }
+
+/* Options — align to pp opt-btn */
+.pspc-options { display: grid; grid-template-columns: 1fr 1fr; gap: .625rem; }
+.pspc-opt {
+  padding: .9rem 1rem; background: var(--gray-50);
+  border: 1.5px solid var(--gray-200); border-radius: var(--radius-md);
+  text-align: left; cursor: pointer; transition: all .15s;
+  font-size: .9375rem; color: var(--gray-800); font-weight: 500;
+  line-height: 1.45; position: relative;
+}
+.pspc-opt:hover:not(:disabled) { border-color: var(--green-400); background: var(--green-50); transform: translateY(-1px); }
+.pspc-opt.pspc-correct { border-color: var(--green-500) !important; background: var(--green-100) !important; color: var(--green-900); }
+.pspc-opt.pspc-correct::after { content: '✓'; position: absolute; top: .6rem; right: .875rem; font-size: .875rem; font-weight: 800; color: var(--green-600); }
+.pspc-opt.pspc-wrong   { border-color: var(--orange-500) !important; background: var(--orange-100) !important; color: #7c2d12; }
+.pspc-opt.pspc-wrong::after   { content: '✗'; position: absolute; top: .6rem; right: .875rem; font-size: .875rem; font-weight: 800; color: var(--orange-500); }
+.pspc-opt.pspc-reveal  { border-color: var(--green-400) !important; background: var(--green-50) !important; opacity: .7; }
+
+/* Meta bar */
+.pspc-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: .875rem; }
+.pspc-badge { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; padding: .3rem .875rem; border-radius: 99px; background: var(--blue-100); color: var(--blue-500); }
+.pspc-badge.pspc-mixed { background: var(--purple-100); color: var(--purple-500); }
+.pspc-score-wrap { display: flex; align-items: baseline; gap: .375rem; }
+.pspc-score-label { font-size: .8125rem; color: var(--gray-400); font-weight: 500; }
+.pspc-score-num { font-size: 1.25rem; font-weight: 800; color: var(--green-700); }
+
+/* Progress */
+.pspc-progress-wrap { margin-bottom: 1.25rem; }
+.pspc-progress-info { display: flex; justify-content: space-between; font-size: .8125rem; color: var(--gray-400); margin-bottom: .4rem; }
+.pspc-progress-track { height: 6px; background: var(--gray-200); border-radius: 99px; overflow: hidden; }
+.pspc-progress-fill { height: 100%; background: linear-gradient(90deg, var(--green-500), var(--green-400)); border-radius: 99px; transition: width .4s cubic-bezier(.4,0,.2,1); }
+
+/* Feedback — rich, aligned to PP style */
+.pspc-feedback {
+  border-radius: var(--radius-md); padding: 1rem 1.125rem;
+  font-size: .9rem; line-height: 1.6;
+  display: none; gap: .75rem; align-items: flex-start;
+  margin-bottom: .875rem;
+}
+.pspc-feedback.pspc-show { display: flex; animation: fadeUp .25s ease both; }
+.pspc-feedback.pspc-ok  { background: var(--green-100); border-left: 3px solid var(--green-500); color: var(--green-900); }
+.pspc-feedback.pspc-err { background: var(--orange-100); border-left: 3px solid var(--orange-500); color: #7c2d12; }
+.pspc-fb-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 1px; }
+.pspc-fb-body > strong { font-weight: 700; display: block; margin-bottom: .2rem; }
+.pspc-fb-rule strong, .pspc-fb-expl strong { display: inline; font-weight: 700; }
+.pspc-fb-answer { font-weight: 600; font-size: .9375rem; margin: .25rem 0 .375rem; color: var(--green-900); }
+.pspc-fb-rule { font-size: .875rem; font-weight: 600; color: #7c2d12; margin: .375rem 0 .125rem; }
+.pspc-fb-expl { font-size: .8125rem; opacity: .9; line-height: 1.6; }
+
+/* Footer row */
+.pspc-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .75rem; margin-top: .125rem; }
+.pspc-btn-back { font-size: .8125rem; color: var(--gray-400); background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; font-weight: 500; }
+.pspc-btn-back:hover { color: var(--gray-600); }
+.pspc-btn-next { display: none; align-items: center; gap: .5rem; padding: .7rem 1.5rem; border-radius: 99px; background: var(--green-700); color: var(--white); font-size: .9rem; font-weight: 700; border: none; cursor: pointer; transition: all .18s; }
+.pspc-btn-next.pspc-show { display: inline-flex; animation: fadeUp .2s ease both; }
+.pspc-btn-next:hover { background: var(--green-800); transform: translateY(-1px); }
+
+/* Setup screen */
+.pspc-screen { display: none; }
+.pspc-screen.pspc-active { display: block; animation: fadeUp .35s ease both; }
+.pspc-setup-wrap { max-width: 600px; }
+.pspc-section { display: flex; gap: 1rem; margin-bottom: 1.875rem; align-items: flex-start; }
+.pspc-section-num { width: 30px; height: 30px; background: var(--green-700); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .8125rem; font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+.pspc-section-body { flex: 1; }
+.pspc-section-title { font-size: .9375rem; font-weight: 700; color: var(--gray-900); margin-bottom: .2rem; }
+.pspc-section-desc { font-size: .8125rem; color: var(--gray-400); margin-bottom: .875rem; }
+.pspc-choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .625rem; }
+.pspc-card {
+  padding: 1rem 1.125rem; background: var(--white);
+  border: 2px solid var(--gray-200); border-radius: var(--radius-lg);
+  cursor: pointer; text-align: left; transition: all .15s; position: relative;
+}
+.pspc-card:hover { border-color: var(--green-400); background: var(--green-50); transform: translateY(-1px); }
+.pspc-card.pspc-selected { border-color: var(--green-700); background: var(--green-50); }
+.pspc-card.pspc-selected::after { content: '✓'; position: absolute; top: .75rem; right: .875rem; font-size: .875rem; font-weight: 800; color: var(--green-700); }
+.pspc-card.pspc-medium.pspc-selected { border-color: var(--purple-500); background: var(--purple-100); }
+.pspc-card.pspc-medium.pspc-selected::after { color: var(--purple-500); }
+.pspc-card-icon { font-size: 1.25rem; display: block; margin-bottom: .425rem; }
+.pspc-card-title { font-size: .9375rem; font-weight: 700; color: var(--gray-900); margin-bottom: .2rem; }
+.pspc-card-desc { font-size: .8rem; color: var(--gray-500); line-height: 1.45; }
+.pspc-btn-start { width: 100%; padding: .9375rem 1.5rem; border-radius: var(--radius-lg); background: var(--green-700); color: var(--white); font-size: .9375rem; font-weight: 700; border: none; cursor: pointer; transition: all .18s; margin-top: .125rem; box-shadow: 0 4px 12px rgba(26,122,90,.22); }
+.pspc-btn-start:hover:not(:disabled) { background: var(--green-800); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(26,122,90,.3); }
+.pspc-btn-start:disabled { opacity: .4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* Result */
+.pspc-result-hero { text-align: center; padding: 2.25rem 1rem 1.75rem; }
+.pspc-result-score { font-size: 3rem; font-weight: 800; color: var(--gray-900); letter-spacing: -.04em; line-height: 1; }
+.pspc-result-score em { color: var(--green-600); font-style: normal; }
+.pspc-result-msg { font-size: .9375rem; color: var(--gray-500); margin-top: .5rem; line-height: 1.6; }
+.pspc-result-stats { display: flex; justify-content: center; gap: 2rem; margin: 1.25rem 0 1.5rem; padding: 1.125rem; background: var(--white); border-radius: var(--radius-lg); border: 1.5px solid var(--gray-200); }
+.pspc-stat { text-align: center; }
+.pspc-stat-num { font-size: 1.5rem; font-weight: 800; color: var(--gray-900); }
+.pspc-stat-lbl { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--gray-400); font-weight: 600; margin-top: .125rem; }
+.pspc-result-actions { display: flex; gap: .75rem; flex-direction: column; }
+.pspc-btn-again { width: 100%; padding: .9375rem; border-radius: var(--radius-lg); background: var(--green-700); color: var(--white); font-size: .9375rem; font-weight: 700; border: none; cursor: pointer; transition: all .18s; box-shadow: 0 4px 12px rgba(26,122,90,.22); }
+.pspc-btn-again:hover { background: var(--green-800); transform: translateY(-1px); }
+.pspc-btn-back-result { width: 100%; padding: .8rem; border-radius: var(--radius-lg); background: var(--gray-100); color: var(--gray-700); font-size: .9rem; font-weight: 600; border: 1.5px solid var(--gray-200); cursor: pointer; transition: all .18s; }
+.pspc-btn-back-result:hover { background: var(--gray-200); }
+
+@media (max-width: 480px) {
+  .reading-hub-card { padding: 1.125rem 1.125rem; gap: 1rem; }
+  .rhc-icon-wrap { width: 44px; height: 44px; font-size: 1.25rem; }
+  .pspc-choice-grid { grid-template-columns: 1fr; }
+  .pspc-options { grid-template-columns: 1fr; }
+}
 </style>
 <!-- Firebase SDKs -->
 <script>
@@ -969,7 +1239,7 @@ img { max-width: 100%; }
 </head>
 <body>
 
-<!-- ═══ LOGIN MODAL ═══ -->
+
 <div class="auth-overlay" id="auth-overlay" style="position:fixed;inset:0;z-index:200;">
   <div class="auth-card" id="auth-card">
     <div class="auth-logo">EFL</div>
@@ -990,7 +1260,7 @@ img { max-width: 100%; }
 </div>
 
 
-<!-- ═══ NAVEGAÇÃO ═══ -->
+
 <nav class="nav">
   <div class="nav-logo">
     <div class="nav-logo-icon">EFL</div>
@@ -1013,7 +1283,7 @@ img { max-width: 100%; }
       <span class="nav-icon">✍️</span> Writing
     </a></li>
   </ul>
-  <!-- Auth area (desktop) -->
+  
   <div class="nav-user" id="nav-user-area">
     <button class="nav-login-btn" id="nav-login-btn" onclick="openLogin()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
@@ -1026,7 +1296,7 @@ img { max-width: 100%; }
       </div>
     </div>
   </div>
-  <!-- Dropdown -->
+  
   <div class="user-dropdown" id="user-dropdown">
     <div class="dropdown-header">
       <div class="dropdown-name" id="dd-name"></div>
@@ -1052,9 +1322,7 @@ img { max-width: 100%; }
   <a href="#" onclick="showPage('writing',null);closeMobileNav()">✍️ Writing</a>
 </div>
 
-<!-- ═══════════════════════════════════════
-     PÁGINA: HOME
-═══════════════════════════════════════ -->
+
 <div class="page active" id="page-home">
 
   <section class="hero">
@@ -1116,13 +1384,11 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span style="font-family:monospace;background:#e8faf2;color:#145c44;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">v0.20</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.34</span>
   </footer>
 </div>
 
-<!-- ═══════════════════════════════════════
-     PÁGINA: LISTENING
-═══════════════════════════════════════ -->
+
 <div class="page" id="page-listening">
 
   <div class="page-header">
@@ -1150,7 +1416,7 @@ img { max-width: 100%; }
 
         <div class="level-card unlocked" id="lcard-1" onclick="startLevel(1)">
           <span class="level-icon">🌱</span>
-          <div class="level-name">Nível 1</div>
+          <div class="level-name">Fácil</div>
           <div class="level-desc">Regra visível + dica fonética após resposta</div>
           <span class="level-badge lb-available" id="lbadge-1">Disponível</span>
         </div>
@@ -1158,7 +1424,7 @@ img { max-width: 100%; }
         <div class="level-card locked" id="lcard-2" onclick="startLevel(2)">
           <span class="level-lock-icon" id="llock-2">🔒</span>
           <span class="level-icon">🌿</span>
-          <div class="level-name">Nível 2</div>
+          <div class="level-name">Médio</div>
           <div class="level-desc">Sem regra visível. Dica disponível se quiser.</div>
           <span class="level-badge lb-locked" id="lbadge-2">Bloqueado</span>
         </div>
@@ -1166,7 +1432,7 @@ img { max-width: 100%; }
         <div class="level-card locked" id="lcard-3" onclick="startLevel(3)">
           <span class="level-lock-icon" id="llock-3">🔒</span>
           <span class="level-icon">🌳</span>
-          <div class="level-name">Nível 3</div>
+          <div class="level-name">Difícil</div>
           <div class="level-desc">Sem regra, sem dica. Apenas ouvir e decidir.</div>
           <span class="level-badge lb-locked" id="lbadge-3">Bloqueado</span>
         </div>
@@ -1177,7 +1443,7 @@ img { max-width: 100%; }
     <!-- ── EXERCÍCIO ── -->
     <div id="exercise-wrap-inner" style="display:none">
 
-    <!-- Indicador de nível ativo -->
+    
     <div class="active-level-bar" id="active-level-bar">
       <span>🎯</span>
       <span id="active-level-text"><strong>Nível 1</strong> — Nível Iniciante</span>
@@ -1187,7 +1453,7 @@ img { max-width: 100%; }
     <!-- Regra rápida — só no nível 1 -->
     <div class="rule-card" id="rule-card">
       <span style="font-size:20px;flex-shrink:0">💡</span>
-      <p><strong>Lembre-se:</strong> se o verbo terminar com som de <strong>T</strong> ou <strong>D</strong>, o -ed vira uma sílaba extra <strong>/ɪd/</strong> (longa). Nos outros casos, o -ed é quase silencioso: <strong>curta</strong>.</p>
+      <p><strong>Lembre-se:</strong> se o verbo terminar com <u>som de T ou D</u>, o -ed vira uma sílaba extra <strong>/ɪd/</strong> (longa). Nos outros casos, o -ed é quase silencioso: <strong>curta</strong>.</p>
     </div>
 
     <!-- Progresso -->
@@ -1201,7 +1467,7 @@ img { max-width: 100%; }
       </div>
     </div>
 
-    <!-- Exercício principal -->
+    
     <div id="exercise-section">
       <div class="q-card" id="q-card">
         <div class="q-card-inner">
@@ -1250,9 +1516,9 @@ img { max-width: 100%; }
       <div class="hint-box" id="hint-box"></div>
     </div>
 
-    </div><!-- /exercise-wrap-inner -->
+    </div>
 
-    <!-- Tela de resultado -->
+    
     <div class="result-screen" id="result-screen">
       <div class="result-hero">
         <span class="result-emoji" id="result-emoji"></span>
@@ -1294,16 +1560,14 @@ img { max-width: 100%; }
       </button>
     </div>
 
-  </div><!-- /exercise-wrap -->
+  </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span style="font-family:monospace;background:#e8faf2;color:#145c44;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">v0.20</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.34</span>
   </footer>
 </div>
 
-<!-- ═══════════════════════════════════════
-     PÁGINAS: COMING SOON
-═══════════════════════════════════════ -->
+
 <div class="page" id="page-reading">
 
   <div class="page-header">
@@ -1313,21 +1577,83 @@ img { max-width: 100%; }
         <span>›</span>
         <span>Reading</span>
       </div>
+      <div class="module-tag">📖 Exercícios de Gramática</div>
+      <h2>Reading</h2>
+      <p>Escolha um exercício para praticar.</p>
+    </div>
+  </div>
+
+  <div class="exercise-wrap">
+    <div class="reading-hub-grid">
+
+      <!-- Card: Present Perfect -->
+      <div class="reading-hub-card" onclick="showPage('pp',null)">
+        <div class="rhc-left">
+          <div class="rhc-icon-wrap rhc-green">📚</div>
+        </div>
+        <div class="rhc-body">
+          <div class="rhc-title">Present Perfect</div>
+          <div class="rhc-desc">Escolha entre 4 níveis de dificuldade e pratique o Presente Perfeito em inglês.</div>
+          <div class="rhc-tags">
+            <span class="rhc-tag">#PresentPerfect</span>
+            <span class="rhc-tag rhc-tag-blue">#PastSimple</span>
+            <span class="rhc-tag rhc-tag-gray">A1–B1</span>
+          </div>
+        </div>
+        <div class="rhc-arrow">›</div>
+      </div>
+
+      <!-- Card: Present Simple & Continuous -->
+      <div class="reading-hub-card" onclick="showPage('ps-pc',null)">
+        <div class="rhc-left">
+          <div class="rhc-icon-wrap rhc-blue">✏️</div>
+        </div>
+        <div class="rhc-body">
+          <div class="rhc-title">Present Simple &amp; Continuous</div>
+          <div class="rhc-desc">Transforme frases entre as formas afirmativa, negativa e interrogativa.</div>
+          <div class="rhc-tags">
+            <span class="rhc-tag">#PresentSimple</span>
+            <span class="rhc-tag rhc-tag-blue">#Continuous</span>
+            <span class="rhc-tag rhc-tag-gray">A2</span>
+          </div>
+        </div>
+        <div class="rhc-arrow">›</div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.34</span>
+  </footer>
+</div>
+
+<!-- ═══════════ PRESENT PERFECT PAGE ═══════════ -->
+<div class="page" id="page-pp">
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="breadcrumb">
+        <a onclick="showPage('home',null)">Início</a>
+        <span>›</span>
+        <a onclick="showPage('reading',null)">Reading</a>
+        <span>›</span>
+        <span>Present Perfect</span>
+      </div>
       <div class="module-tag">📖 Módulo de Prática</div>
       <h2>Present Perfect</h2>
       <p>Exercícios progressivos sobre o Presente Perfeito em inglês. Complete o Nível Fácil para desbloquear os próximos.</p>
       <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
         <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--green-100);color:var(--green-800);">#PresentPerfect</span>
-        <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--blue-100);color:#1d4ed8;">#Grammar</span>
-        <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--purple-100);color:#5b21b6;">#A2</span>
-        <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--teal-100);color:#0e7490;">#Beginner</span>
+        <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--blue-100);color:var(--blue-500);">#Grammar</span>
+        <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--orange-100);color:var(--orange-500);">#PastSimple</span>
+        <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--gray-100);color:var(--gray-600);">A2–B1</span>
       </div>
     </div>
   </div>
 
   <div class="exercise-wrap">
 
-    <!-- Seletor de nível -->
     <div class="level-screen show" id="pp-level-screen">
       <div class="level-header">
         <h3>Escolha o nível</h3>
@@ -1337,27 +1663,35 @@ img { max-width: 100%; }
         <div class="level-card unlocked" id="pp-lcard-1" onclick="startPPLevel(1)">
           <span class="level-icon">🌱</span>
           <div class="level-name">Nível Fácil</div>
-          <div class="level-desc">Estrutura básica do Presente Perfeito com transformações de frases</div>
+          <div class="level-desc">Have ou Has? Aprenda o auxiliar correto e a ordem das palavras.</div>
           <span class="level-badge lb-available" id="pp-lbadge-1">Disponível</span>
         </div>
         <div class="level-card locked" id="pp-lcard-2" onclick="startPPLevel(2)">
           <span class="level-lock-icon" id="pp-llock-2">🔒</span>
           <span class="level-icon">🌿</span>
           <div class="level-name">Nível Médio</div>
-          <div class="level-desc">Verbos irregulares com particípios do passado</div>
+          <div class="level-desc">Verbos irregulares — escolha o particípio correto.</div>
           <span class="level-badge lb-locked" id="pp-lbadge-2">Bloqueado</span>
         </div>
         <div class="level-card locked" id="pp-lcard-3" onclick="startPPLevel(3)">
           <span class="level-lock-icon" id="pp-llock-3">🔒</span>
           <span class="level-icon">🌳</span>
           <div class="level-name">Nível Difícil</div>
-          <div class="level-desc">Present Perfect vs. Past Simple</div>
+          <div class="level-desc">Present Perfect vs. Past Simple — decida o tempo verbal certo.</div>
           <span class="level-badge lb-locked" id="pp-lbadge-3">Bloqueado</span>
+        </div>
+
+        <div class="level-card locked" id="pp-lcard-4" onclick="startPPLevel(4)">
+          <span class="level-lock-icon" id="pp-llock-4">🔒</span>
+          <span class="level-icon">⭐</span>
+          <div class="level-name">Nível Expert</div>
+          <div class="level-desc">Transforme frases para afirmativa, negativa ou interrogativa.</div>
+          <span class="level-badge lb-locked" id="pp-lbadge-4">Bloqueado</span>
         </div>
       </div>
     </div>
 
-    <!-- Exercício ativo -->
+    
     <div id="pp-exercise-wrap" style="display:none">
 
       <div class="active-level-bar" id="pp-level-bar">
@@ -1387,7 +1721,7 @@ img { max-width: 100%; }
         </div>
       </div>
 
-      <!-- Card da questão -->
+      
       <div id="pp-exercise-section">
         <div class="q-card" id="pp-q-card">
           <div class="q-card-inner">
@@ -1397,7 +1731,7 @@ img { max-width: 100%; }
               <div style="font-size:13px;color:var(--gray-400);margin-top:6px;" id="pp-q-prompt"></div>
             </div>
 
-            <!-- Opções de múltipla escolha -->
+            
             <div id="pp-options-area"></div>
 
             <div class="feedback" id="pp-feedback">
@@ -1435,11 +1769,165 @@ img { max-width: 100%; }
         <button class="restart-btn" style="margin-top:10px;background:var(--gray-700)" onclick="backToPPLevels()">← Escolher nível</button>
       </div>
 
-    </div><!-- /pp-exercise-wrap -->
-  </div><!-- /exercise-wrap -->
+    </div>
+  </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span style="font-family:monospace;background:#e8faf2;color:#145c44;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">v0.20</span>
+    © 2026 English For Life · Todos os direitos reservados · <span style="font-family:monospace;background:#e8faf2;color:#145c44;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">v0.26</span>
+  </footer>
+</div>
+
+
+
+<!-- ═══════════ PS/PC EXERCISE PAGE ═══════════ -->
+<div class="page" id="page-ps-pc">
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="breadcrumb">
+        <a onclick="showPage('home',null)">Início</a>
+        <span>›</span>
+        <a onclick="showPage('reading',null)">Reading</a>
+        <span>›</span>
+        <span>Present Simple &amp; Continuous</span>
+      </div>
+      <div class="module-tag">📖 Módulo de Prática</div>
+      <h2>Present Simple &amp; Continuous</h2>
+      <p>Transforme frases entre as formas afirmativa, negativa e interrogativa.</p>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+        <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--green-100);color:var(--green-800);">#PresentSimple</span>
+        <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--blue-100);color:var(--blue-500);">#Continuous</span>
+        <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--gray-100);color:var(--gray-600);">A2</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="exercise-wrap">
+
+  <!-- ── SETUP SCREEN ── -->
+  <div id="pspc-setup" class="pspc-screen pspc-active">
+    <div class="pspc-setup-wrap">
+
+      <div class="pspc-section">
+        <div class="pspc-section-num">1</div>
+        <div class="pspc-section-body">
+          <h3 class="pspc-section-title">Escolha a sessão</h3>
+          <p class="pspc-section-desc">Qual tempo verbal deseja praticar?</p>
+          <div class="pspc-choice-grid">
+            <button class="pspc-card" id="pspc-sess-ps" onclick="pspcSelectSess('ps')">
+              <span class="pspc-card-icon">📘</span>
+              <div class="pspc-card-title">Presente Simples</div>
+              <div class="pspc-card-desc">Apenas frases no Present Simple.</div>
+            </button>
+            <button class="pspc-card" id="pspc-sess-mixed" onclick="pspcSelectSess('mixed')">
+              <span class="pspc-card-icon">📗</span>
+              <div class="pspc-card-title">Presente Simples + Contínuo</div>
+              <div class="pspc-card-desc">Frases de ambos os tempos misturadas.</div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pspc-section">
+        <div class="pspc-section-num">2</div>
+        <div class="pspc-section-body">
+          <h3 class="pspc-section-title">Escolha a dificuldade</h3>
+          <p class="pspc-section-desc">Quantas formas verbais serão cobradas?</p>
+          <div class="pspc-choice-grid">
+            <button class="pspc-card" id="pspc-diff-easy" onclick="pspcSelectDiff('easy')">
+              <span class="pspc-card-icon">⚡</span>
+              <div class="pspc-card-title">Fácil</div>
+              <div class="pspc-card-desc">3 formas: Afirmativa, Negativa e Interrogativa.</div>
+            </button>
+            <button class="pspc-card pspc-medium" id="pspc-diff-medium" onclick="pspcSelectDiff('medium')">
+              <span class="pspc-card-icon">🎯</span>
+              <div class="pspc-card-title">Médio</div>
+              <div class="pspc-card-desc">5 formas: incluindo Interrogativa Negativa e Resposta Curta.</div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <button class="pspc-btn-start" id="pspc-btn-start" disabled onclick="pspcStart()">
+        Começar Exercício →
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ── EXERCISE SCREEN ── -->
+  <div id="pspc-exercise" class="pspc-screen">
+
+    <div class="pspc-meta">
+      <span class="pspc-badge" id="pspc-badge">Present Simple</span>
+      <div class="pspc-score-wrap">
+        <span class="pspc-score-label">Acertos</span>
+        <span class="pspc-score-num" id="pspc-score">0</span>
+      </div>
+    </div>
+
+    <div class="pspc-progress-wrap">
+      <div class="pspc-progress-info">
+        <span id="pspc-q-counter">Questão 1 de 15</span>
+        <span id="pspc-streak"></span>
+      </div>
+      <div class="pspc-progress-track">
+        <div class="pspc-progress-fill" id="pspc-progress-fill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div class="pspc-q-card" id="pspc-q-card">
+      <div class="pspc-task-label">Transforme a frase</div>
+      <div class="pspc-source-tag" id="pspc-source-tag">Afirmativa</div>
+      <div class="pspc-sentence" id="pspc-sentence">—</div>
+      <div class="pspc-target-label">
+        Como fica na forma <strong id="pspc-target-name">Negativa</strong>?
+      </div>
+      <div class="pspc-options" id="pspc-options"></div>
+    </div>
+
+    <div class="pspc-feedback" id="pspc-feedback">
+      <span class="pspc-fb-icon" id="pspc-fb-icon"></span>
+      <div class="pspc-fb-body">
+        <strong id="pspc-fb-title"></strong>
+        <div class="pspc-fb-answer" id="pspc-fb-answer"></div>
+        <div class="pspc-fb-rule"   id="pspc-fb-rule"></div>
+        <div class="pspc-fb-expl"   id="pspc-fb-expl"></div>
+      </div>
+    </div>
+
+    <div class="pspc-footer">
+      <button class="pspc-btn-back" onclick="showPage('reading',null)">← Voltar</button>
+      <button class="pspc-btn-next" id="pspc-btn-next" onclick="pspcNext()">Próxima →</button>
+    </div>
+
+  </div>
+
+  <!-- ── RESULT SCREEN ── -->
+  <div id="pspc-result" class="pspc-screen">
+    <div class="pspc-result-hero">
+      <span id="pspc-result-emoji" style="font-size:3.5rem;display:block;margin-bottom:.875rem;">🎉</span>
+      <div class="pspc-result-score">
+        <em id="pspc-result-correct">0</em>/<span id="pspc-result-total">15</span>
+      </div>
+      <p class="pspc-result-msg" id="pspc-result-msg">Ótimo trabalho!</p>
+    </div>
+    <div class="pspc-result-stats">
+      <div class="pspc-stat"><div class="pspc-stat-num" id="pspc-stat-pct">0%</div><div class="pspc-stat-lbl">Precisão</div></div>
+      <div class="pspc-stat"><div class="pspc-stat-num" id="pspc-stat-wrong">0</div><div class="pspc-stat-lbl">Erros</div></div>
+      <div class="pspc-stat"><div class="pspc-stat-num" id="pspc-stat-streak">0</div><div class="pspc-stat-lbl">Melhor série</div></div>
+    </div>
+    <div class="pspc-result-actions">
+      <button class="pspc-btn-again" onclick="pspcRestart()">🔄 Praticar novamente</button>
+      <button class="pspc-btn-back-result" onclick="showPage('reading',null)">← Voltar ao Reading</button>
+    </div>
+  </div>
+
+
+  </div>
+
+    <footer class="page-footer">
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.34</span>
   </footer>
 </div>
 
@@ -1459,16 +1947,9 @@ img { max-width: 100%; }
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     JAVASCRIPT
-═══════════════════════════════════════ -->
+
 <script>
 
-/* ─── REGISTRO CENTRAL DE EXERCÍCIOS ─────────────────────────────
-   Cada exercício tem: id, section, title, level, tags, active
-   O contador dos cards da Home é gerado dinamicamente a partir daqui.
-   Para adicionar novo exercício: basta inserir um objeto neste array.
-──────────────────────────────────────────────────────────────────── */
 var EXERCISE_REGISTRY = [
   {
     id: 'listening-ed-pronunciation',
@@ -1479,36 +1960,27 @@ var EXERCISE_REGISTRY = [
     active: true
   },
   {
-    id: 'reading-present-perfect-easy',
+    id: 'reading-present-perfect',
     section: 'reading',
-    title: 'Present Perfect — Nível Fácil',
-    level: 'A2',
-    tags: ['#PresentPerfect', '#Grammar', '#A2', '#Beginner'],
+    title: 'Present Perfect',
+    level: 'A2-B1',
+    tags: ['#PresentPerfect', '#PastSimple', '#Grammar', '#A2', '#B1'],
     active: true
   },
   {
-    id: 'reading-present-perfect-medium',
+    id: 'reading-ps-pc',
     section: 'reading',
-    title: 'Present Perfect — Nível Médio',
+    title: 'Present Simple & Continuous',
     level: 'A2',
-    tags: ['#PresentPerfect', '#IrregularVerbs', '#Grammar', '#A2'],
+    tags: ['#PresentSimple', '#PresentContinuous', '#Grammar', '#A2'],
     active: true
   },
-  {
-    id: 'reading-present-perfect-hard',
-    section: 'reading',
-    title: 'Present Perfect — Nível Difícil',
-    level: 'B1',
-    tags: ['#PresentPerfect', '#PastSimple', '#Grammar', '#B1'],
-    active: true
-  },
-];
+];;
 
-/* ── DATA BLOCK — all arrays/configs must be here, before any function ── */
 var LEVEL_CONFIG = {
-  1: { name:'Nível 1', desc:'Iniciante',     showRule:true,  showHint:true,  showPhonetic:true  },
-  2: { name:'Nível 2', desc:'Intermediário', showRule:false, showHint:true,  showPhonetic:true  },
-  3: { name:'Nível 3', desc:'Avançado',      showRule:false, showHint:false, showPhonetic:false },
+  1: { name:'Fácil',   desc:'Iniciante',     showRule:true,  showHint:true,  showPhonetic:true  },
+  2: { name:'Médio',   desc:'Intermediário', showRule:false, showHint:true,  showPhonetic:true  },
+  3: { name:'Difícil', desc:'Avançado',      showRule:false, showHint:false, showPhonetic:false },
 };
 
 var ALL_VERBS = [
@@ -1576,24 +2048,228 @@ var PP_EASY_BANK = [
   { instruction: 'Find the CORRECT sentence:', sentence: 'It ___ not stopped raining since morning.', answer: "It hasn't stopped raining since morning.", options: ["It hasn't stopped raining since morning.", "It haven't stopped raining since morning.", "It has not stop raining since morning.", "It didn't stop raining since morning."], explanation: `"It" = terceira pessoa singular → "hasn't". "since" indica ponto de início — Present Perfect.`, tags: ['#PresentPerfect','#Negative','#Since','#A2'] },
   { instruction: 'Convert to QUESTION:', sentence: 'My friend has called me three times.', answer: 'Has my friend called me three times?', options: ['Has my friend called me three times?', 'Did my friend call me three times?', 'Have my friend called me three times?', 'Has my friend calls me three times?'], explanation: `"My friend" = terceira pessoa singular → "Has". O particípio "called" não muda na pergunta.`, tags: ['#PresentPerfect','#Questions','#A2'] },
 ];
-/* ── END DATA BLOCK ── */
 
-/* ── PP state variables ── */
-var PP_STORAGE_KEY = 'efl_pp_levels_unlocked';
-var ppUnlocked = 3;  /* TESTING: set to 2 to bypass Easy level */
-try { ppUnlocked = JSON.parse(localStorage.getItem(PP_STORAGE_KEY)) || 3; } catch(e) {}
-function ppSaveUnlocked(n) {
-  try { localStorage.setItem(PP_STORAGE_KEY, JSON.stringify(n)); } catch(e) {}
-  ppUnlocked = n;
-}
+var ppUnlocked = 4;  /* All levels unlocked */
 
 /* Banco com 20 questões — Nível Fácil */
 
 var ppCurrentLevel = 1;
 var ppQueue = [], ppIdx = 0, ppCorrect = 0, ppStreak = 0, ppLog = [], ppAnswered = false;
+var PP_BEGINNER_BANK = [
+  {
+    sentence: '___ ___ gone to the library?',
+    correct: 'Has he',
+    options: ['He has', 'Has he', 'He have', 'Have he'],
+    subject: 'he', isQuestion: true,
+    explanation: 'Em perguntas, o auxiliar vem ANTES do sujeito: Has he...? Para "he/she/it" use HAS.'
+  },
+  {
+    sentence: '___ ___ finished her homework.',
+    correct: 'She has',
+    options: ['Has she', 'She has', 'Have she', 'She have'],
+    subject: 'she', isQuestion: false,
+    explanation: 'Em frases afirmativas, o sujeito vem PRIMEIRO: She has... Para "he/she/it" use HAS.'
+  },
+  {
+    sentence: '___ ___ visited London before?',
+    correct: 'Have you',
+    options: ['You have', 'Have you', 'You has', 'Has you'],
+    subject: 'you', isQuestion: true,
+    explanation: 'Em perguntas, o auxiliar vem ANTES do sujeito: Have you...? Para "I/you/we/they" use HAVE.'
+  },
+  {
+    sentence: '___ ___ already eaten lunch.',
+    correct: 'They have',
+    options: ['Have they', 'They have', 'Has they', 'They has'],
+    subject: 'they', isQuestion: false,
+    explanation: 'Em frases afirmativas, o sujeito vem PRIMEIRO: They have... Para "I/you/we/they" use HAVE.'
+  },
+  {
+    sentence: '___ ___ seen that film?',
+    correct: 'Has she',
+    options: ['She has', 'Has she', 'She have', 'Have she'],
+    subject: 'she', isQuestion: true,
+    explanation: 'Em perguntas, o auxiliar vem ANTES do sujeito: Has she...? Para "he/she/it" use HAS.'
+  },
+  {
+    sentence: '___ ___ lived here for ten years.',
+    correct: 'We have',
+    options: ['Have we', 'We have', 'Has we', 'We has'],
+    subject: 'we', isQuestion: false,
+    explanation: 'Em frases afirmativas, o sujeito vem PRIMEIRO: We have... Para "I/you/we/they" use HAVE.'
+  },
+  {
+    sentence: '___ ___ broken his leg?',
+    correct: 'Has he',
+    options: ['He has', 'Has he', 'He have', 'Have he'],
+    subject: 'he', isQuestion: true,
+    explanation: 'Em perguntas, o auxiliar vem ANTES do sujeito: Has he...? Para "he/she/it" use HAS.'
+  },
+  {
+    sentence: '___ ___ never tried sushi.',
+    correct: 'I have',
+    options: ['Have I', 'I have', 'Has I', 'I has'],
+    subject: 'i', isQuestion: false,
+    explanation: 'Em frases afirmativas, o sujeito vem PRIMEIRO: I have... Para "I/you/we/they" use HAVE.'
+  },
+  {
+    sentence: '___ ___ worked here before?',
+    correct: 'Have they',
+    options: ['They have', 'Have they', 'They has', 'Has they'],
+    subject: 'they', isQuestion: true,
+    explanation: 'Em perguntas, o auxiliar vem ANTES do sujeito: Have they...? Para "I/you/we/they" use HAVE.'
+  },
+  {
+    sentence: '___ ___ just arrived home.',
+    correct: 'She has',
+    options: ['Has she', 'She has', 'Have she', 'She have'],
+    subject: 'she', isQuestion: false,
+    explanation: 'Em frases afirmativas, o sujeito vem PRIMEIRO: She has... Para "he/she/it" use HAS.'
+  },
+  {
+    sentence: '___ ___ ever been to Brazil?',
+    correct: 'Have you',
+    options: ['You have', 'Have you', 'You has', 'Has you'],
+    subject: 'you', isQuestion: true,
+    explanation: 'Em perguntas, o auxiliar vem ANTES do sujeito: Have you...? Para "I/you/we/they" use HAVE.'
+  },
+  {
+    sentence: '___ ___ already booked the tickets.',
+    correct: 'He has',
+    options: ['Has he', 'He has', 'Have he', 'He have'],
+    subject: 'he', isQuestion: false,
+    explanation: 'Em frases afirmativas, o sujeito vem PRIMEIRO: He has... Para "he/she/it" use HAS.'
+  },
+  {
+    sentence: '___ ___ written the report yet?',
+    correct: 'Has she',
+    options: ['She has', 'Has she', 'She have', 'Have she'],
+    subject: 'she', isQuestion: true,
+    explanation: 'Em perguntas, o auxiliar vem ANTES do sujeito: Has she...? Para "he/she/it" use HAS.'
+  },
+  {
+    sentence: '___ ___ known each other for years.',
+    correct: 'They have',
+    options: ['Have they', 'They have', 'Has they', 'They has'],
+    subject: 'they', isQuestion: false,
+    explanation: 'Em frases afirmativas, o sujeito vem PRIMEIRO: They have... Para "I/you/we/they" use HAVE.'
+  },
+  {
+    sentence: '___ ___ lost his keys again?',
+    correct: 'Has he',
+    options: ['He has', 'Has he', 'He have', 'Have he'],
+    subject: 'he', isQuestion: true,
+    explanation: 'Em perguntas, o auxiliar vem ANTES do sujeito: Has he...? Para "he/she/it" use HAS.'
+  },
+  {
+    sentence: '___ ___ studied English for two years.',
+    correct: 'I have',
+    options: ['Have I', 'I have', 'Has I', 'I has'],
+    subject: 'i', isQuestion: false,
+    explanation: 'Em frases afirmativas, o sujeito vem PRIMEIRO: I have... Para "I/you/we/they" use HAVE.'
+  },
+  {
+    sentence: '___ ___ called the doctor yet?',
+    correct: 'Have you',
+    options: ['You have', 'Have you', 'You has', 'Has you'],
+    subject: 'you', isQuestion: true,
+    explanation: 'Em perguntas, o auxiliar vem ANTES do sujeito: Have you...? Para "I/you/we/they" use HAVE.'
+  },
+  {
+    sentence: '___ ___ already left the office.',
+    correct: 'She has',
+    options: ['Has she', 'She has', 'Have she', 'She have'],
+    subject: 'she', isQuestion: false,
+    explanation: 'Em frases afirmativas, o sujeito vem PRIMEIRO: She has... Para "he/she/it" use HAS.'
+  },
+  {
+    sentence: '___ ___ read this book before?',
+    correct: 'Have they',
+    options: ['They have', 'Have they', 'They has', 'Has they'],
+    subject: 'they', isQuestion: true,
+    explanation: 'Em perguntas, o auxiliar vem ANTES do sujeito: Have they...? Para "I/you/we/they" use HAVE.'
+  },
+  {
+    sentence: '___ ___ won three awards this year.',
+    correct: 'He has',
+    options: ['Has he', 'He has', 'Have he', 'He have'],
+    subject: 'he', isQuestion: false,
+    explanation: 'Em frases afirmativas, o sujeito vem PRIMEIRO: He has... Para "he/she/it" use HAS.'
+  },
+  {
+    sentence: '___ ___ met the new teacher yet?',
+    correct: 'Have we',
+    options: ['We have', 'Have we', 'We has', 'Has we'],
+    subject: 'we', isQuestion: true,
+    explanation: 'Em perguntas, o auxiliar vem ANTES do sujeito: Have we...? Para "I/you/we/they" use HAVE.'
+  },
+  {
+    sentence: '___ ___ already spoken to the manager.',
+    correct: 'I have',
+    options: ['Have I', 'I have', 'Has I', 'I has'],
+    subject: 'i', isQuestion: false,
+    explanation: 'Em frases afirmativas, o sujeito vem PRIMEIRO: I have... Para "I/you/we/they" use HAVE.'
+  },
+  {
+    sentence: '___ ___ forgotten the password?',
+    correct: 'Has she',
+    options: ['She has', 'Has she', 'She have', 'Have she'],
+    subject: 'she', isQuestion: true,
+    explanation: 'Em perguntas, o auxiliar vem ANTES do sujeito: Has she...? Para "he/she/it" use HAS.'
+  },
+  {
+    sentence: '___ ___ travelled to Japan twice.',
+    correct: 'We have',
+    options: ['Have we', 'We have', 'Has we', 'We has'],
+    subject: 'we', isQuestion: false,
+    explanation: 'Em frases afirmativas, o sujeito vem PRIMEIRO: We have... Para "I/you/we/they" use HAVE.'
+  },
+  {
+    sentence: '___ ___ started the new project yet?',
+    correct: 'Have they',
+    options: ['They have', 'Have they', 'They has', 'Has they'],
+    subject: 'they', isQuestion: true,
+    explanation: 'Em perguntas, o auxiliar vem ANTES do sujeito: Have they...? Para "I/you/we/they" use HAVE.'
+  },
+  {
+    sentence: '___ ___ already eaten breakfast.',
+    correct: 'He has',
+    options: ['Has he', 'He has', 'Have he', 'He have'],
+    subject: 'he', isQuestion: false,
+    explanation: 'Em frases afirmativas, o sujeito vem PRIMEIRO: He has... Para "he/she/it" use HAS.'
+  },
+  {
+    sentence: '___ ___ ever seen the Northern Lights?',
+    correct: 'Have you',
+    options: ['You have', 'Have you', 'You has', 'Has you'],
+    subject: 'you', isQuestion: true,
+    explanation: 'Em perguntas, o auxiliar vem ANTES do sujeito: Have you...? Para "I/you/we/they" use HAVE.'
+  },
+  {
+    sentence: '___ ___ received the email?',
+    correct: 'Has he',
+    options: ['He has', 'Has he', 'He have', 'Have he'],
+    subject: 'he', isQuestion: true,
+    explanation: 'Em perguntas, o auxiliar vem ANTES do sujeito: Has he...? Para "he/she/it" use HAS.'
+  },
+  {
+    sentence: '___ ___ lived in this city all their lives.',
+    correct: 'They have',
+    options: ['Have they', 'They have', 'Has they', 'They has'],
+    subject: 'they', isQuestion: false,
+    explanation: 'Em frases afirmativas, o sujeito vem PRIMEIRO: They have... Para "I/you/we/they" use HAVE.'
+  },
+  {
+    sentence: '___ ___ learned a lot this year.',
+    correct: 'She has',
+    options: ['Has she', 'She has', 'Have she', 'She have'],
+    subject: 'she', isQuestion: false,
+    explanation: 'Em frases afirmativas, o sujeito vem PRIMEIRO: She has... Para "he/she/it" use HAS.'
+  },
+];
+
 var PP_ROUND_SIZE = 10;
 
-/* ─── PP Nível Médio — 20 questões fill-in-the-blank verbos irregulares ─── */
 var PP_MEDIUM_BANK = [
   { sentence: 'I have ___ to Paris three times.', verb: 'go',    correct: 'gone',    options: ['gone','went','goen','been'],      explanation: `go → went → <strong>gone</strong>. "Went" é o Simple Past — no Present Perfect usamos o particípio <strong>gone</strong>.` },
   { sentence: 'She has ___ all her homework.',    verb: 'do',    correct: 'done',    options: ['done','did','doed','been'],       explanation: `do → did → <strong>done</strong>. "Did" é o Simple Past — aqui precisamos do particípio <strong>done</strong>.` },
@@ -1617,7 +2293,6 @@ var PP_MEDIUM_BANK = [
   { sentence: 'He has ___ asleep on the sofa.',   verb: 'fall',  correct: 'fallen',  options: ['fallen','fell','falled','slept'], explanation: `fall → fell → <strong>fallen</strong>. "Fell" é o Simple Past — o particípio é <strong>fallen</strong>.` },
 ];
 
-/* ─── PP Nível Difícil — 20 questões PP vs Past Simple ─────── */
 var PP_HARD_BANK = [
   {
     sentence: 'I ___ to Paris last summer.',
@@ -1809,8 +2484,6 @@ var PP_HARD_BANK = [
   },
 ];
 
-
-
 /* Retorna contagem de exercícios ativos por seção */
 function countExercises(section) {
   return EXERCISE_REGISTRY.filter(e => e.section === section && e.active).length;
@@ -1821,7 +2494,6 @@ function filterByTag(tag) {
   return EXERCISE_REGISTRY.filter(e => e.tags.includes(tag) && e.active);
 }
 
-/* ─── FIREBASE CONFIG ─── */
 const firebaseConfig = {
   apiKey: "AIzaSyCk4kY0S98VroRhVCLhSWIHz7BN7SThECw",
   authDomain: "english-for-life-e3431.firebaseapp.com",
@@ -1838,7 +2510,6 @@ try {
   provider.setCustomParameters({ prompt: 'select_account' });
 } catch(e) { console.warn('Firebase init failed (domínio não autorizado):', e.message); }
 
-/* ─── AUTH STATE ─── */
 var currentUser = null;
 
 if (auth) auth.onAuthStateChanged(function(user) {
@@ -1937,7 +2608,6 @@ document.addEventListener('click', function(e) {
   }
 });
 
-/* ─── NAVEGAÇÃO SPA ─── */
 function showPage(pageId, linkEl) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const target = document.getElementById('page-' + pageId);
@@ -1950,7 +2620,6 @@ function showPage(pageId, linkEl) {
 function toggleMobileNav() { document.getElementById('nav-mobile').classList.toggle('open'); }
 function closeMobileNav()   { document.getElementById('nav-mobile').classList.remove('open'); }
 
-/* ─── SISTEMA DE NÍVEIS ─── */
 var STORAGE_KEY = 'efl_levels_unlocked';
 var unlockedLevels = 1;
 try { unlockedLevels = JSON.parse(localStorage.getItem(STORAGE_KEY)) || 1; } catch(e) {}
@@ -1960,6 +2629,43 @@ function saveUnlocked(n) {
 }
 var currentLevel = 1;
 function el(id) { return document.getElementById(id); }
+
+/* Highlights the phonetically relevant letter(s) of a word.
+   'end' is the sound label from ALL_VERBS (e.g. 'T','D','CH','SH','F','J'). */
+function highlightEnd(word, end) {
+  var endLow = end.toLowerCase();
+  /* Map sounds to their possible graphemes, most specific first */
+  var phonMap = { 'f': ['gh', 'f', 'ph'], 'j': ['ge', 'dge', 'j'], 'k': ['ck', 'k'] };
+  var candidates = phonMap[endLow] ? phonMap[endLow] : [endLow];
+  for (var ci = 0; ci < candidates.length; ci++) {
+    var pos = word.lastIndexOf(candidates[ci]);
+    if (pos !== -1) {
+      return word.slice(0, pos) +
+        '<span class="ed-key-letter">' + word.slice(pos, pos + candidates[ci].length) + '</span>' +
+        word.slice(pos + candidates[ci].length);
+    }
+  }
+  return word;
+}
+/* Like highlightEnd but anchors the search in the INFINITIVE so the suffix
+   letters (-ed / -d) are never accidentally highlighted in the past form.
+   For "rewarded"+'D': finds 'd' at pos 5 in "reward" → highlights that same
+   position in "rewarded", giving "rewar<span>d</span>ed". */
+function highlightPast(past, inf, end) {
+  var endLow = end.toLowerCase();
+  var phonMap = { 'f': ['gh', 'f', 'ph'], 'j': ['ge', 'dge', 'j'], 'k': ['ck', 'k'] };
+  var candidates = phonMap[endLow] ? phonMap[endLow] : [endLow];
+  for (var ci = 0; ci < candidates.length; ci++) {
+    var g = candidates[ci];
+    var pos = inf.lastIndexOf(g);
+    if (pos !== -1 && past.slice(pos, pos + g.length).toLowerCase() === g) {
+      return past.slice(0, pos) +
+        '<span class="ed-key-letter">' + past.slice(pos, pos + g.length) + '</span>' +
+        past.slice(pos + g.length);
+    }
+  }
+  return highlightEnd(past, end);
+}
 
 function renderLevelCards() {
   [1,2,3].forEach(n => {
@@ -2002,8 +2708,6 @@ function backToLevels() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* ─── BANCO DE 40 VERBOS ─── */
-
 var ROUND_SIZE = 10;
 var queue=[], idx=0, correct=0, streak=0, log=[], answered=false, seenVerbs=new Set();
 
@@ -2034,8 +2738,20 @@ function loadQuestion() {
   answered = false;
   const v   = queue[idx];
   const cfg = LEVEL_CONFIG[currentLevel];
-  if(el('verb-inf'))      el('verb-inf').textContent      = 'to ' + v.inf;
-  if(el('verb-past'))     el('verb-past').textContent     = v.past;
+  if(el('verb-inf')) {
+    if (currentLevel === 1) {
+      el('verb-inf').innerHTML = 'to ' + highlightEnd(v.inf, v.end);
+    } else {
+      el('verb-inf').textContent = 'to ' + v.inf;
+    }
+  }
+  if(el('verb-past')) {
+    if (currentLevel === 1) {
+      el('verb-past').innerHTML = highlightPast(v.past, v.inf, v.end);
+    } else {
+      el('verb-past').textContent = v.past;
+    }
+  }
   if(el('verb-phonetic')) { el('verb-phonetic').textContent = v.ph; el('verb-phonetic').classList.remove('show'); }
   if(el('progress-text')) el('progress-text').textContent = 'Questão ' + (idx+1) + ' de ' + ROUND_SIZE;
   if(el('progress-fill')) el('progress-fill').style.width = Math.round(idx/ROUND_SIZE*100) + '%';
@@ -2081,15 +2797,18 @@ function answer(chosen) {
   if (fb && fbi && fbt) {
     var soundLabel = v.sound==='long' ? 'longa /ɪd/' : 'curta';
     var endNote    = v.sound==='long' ? ' — criando uma sílaba extra!' : '.';
+    var pastDisplay = currentLevel === 1
+      ? highlightPast(v.past, v.inf, v.end)
+      : v.past;
     if (ok) {
       fb.className   = 'feedback ok show';
       fbi.textContent = '✅';
-      fbt.textContent = 'Correto! "' + v.past + '" tem pronúncia ' + soundLabel + ' porque termina com som de ' + v.end + endNote;
+      fbt.innerHTML = 'Correto! "' + pastDisplay + '" tem pronúncia ' + soundLabel + ' porque termina com som de ' + v.end + endNote;
     } else {
       fb.className   = 'feedback err show';
       var encourageList = ['Quase lá! 💪', 'Vamos entender?', 'Veja bem...', 'Continue tentando!', 'Fique atento!'];
       fbi.textContent = '🤔';
-      fbt.textContent = encourageList[Math.floor(Math.random()*encourageList.length)] + ' "' + v.past + '" tem pronúncia ' + soundLabel + ' porque termina com som de ' + v.end + endNote;
+      fbt.innerHTML = encourageList[Math.floor(Math.random()*encourageList.length)] + ' "' + pastDisplay + '" tem pronúncia ' + soundLabel + ' porque termina com som de ' + v.end + endNote;
     }
   }
   if(el('streak-text')) el('streak-text').textContent = streak >= 3 ? '🔥 ' + streak + ' seguidas!' : '';
@@ -2102,9 +2821,10 @@ function toggleHint() {
   var v   = queue[idx];
   var box = el('hint-box');
   if (!box) return;
+  var infHL = highlightEnd(v.inf, v.end);
   var hints = {
-    long:  'O verbo <em>to ' + v.inf + '</em> termina com o som <strong>' + v.end + '</strong>. Esse som é parecido com o -ed, então o inglês cria uma sílaba extra <strong>/ɪd/</strong>.',
-    short: 'O verbo <em>to ' + v.inf + '</em> termina com o som <strong>' + v.end + '</strong>. Como não é T nem D, o -ed "gruda" no final sem criar nova sílaba.'
+    long:  'O verbo <em>to ' + infHL + '</em> termina com o som <strong>' + v.end + '</strong>. Esse som é parecido com o -ed, então o inglês cria uma sílaba extra <strong>/ɪd/</strong>.',
+    short: 'O verbo <em>to ' + infHL + '</em> termina com o som <strong>' + v.end + '</strong>. Como não é T nem D, o -ed "gruda" no final sem criar nova sílaba.'
   };
   box.innerHTML = hints[v.sound];
   box.classList.toggle('show');
@@ -2152,7 +2872,7 @@ function showResult() {
   var um = el('unlock-msg');
   if (pct >= 70 && currentLevel < 3 && currentLevel >= unlockedLevels) {
     saveUnlocked(currentLevel + 1);
-    if (um) { um.textContent = '🔓 Nível ' + (currentLevel+1) + ' desbloqueado!'; um.style.display = 'block'; }
+    if (um) { um.textContent = '🔓 ' + LEVEL_CONFIG[currentLevel+1].name + ' desbloqueado!'; um.style.display = 'block'; }
   } else {
     if (um) um.style.display = 'none';
   }
@@ -2198,13 +2918,10 @@ function restartExercise() {
   window.scrollTo({ top:0, behavior:'smooth' });
 }
 
-
-/* ─── PRESENT PERFECT EXERCISE ──────────────────────────────────── */
-
 function ppEl(id) { return document.getElementById(id); }
 
 function renderPPLevelCards() {
-  [1,2,3].forEach(function(n) {
+  [1,2,3,4].forEach(function(n) {
     var card  = ppEl('pp-lcard-'  + n);
     var badge = ppEl('pp-lbadge-' + n);
     var lock  = ppEl('pp-llock-'  + n);
@@ -2218,8 +2935,7 @@ function renderPPLevelCards() {
 }
 
 function startPPLevel(n) {
-  if (n > ppUnlocked) return;
-  if (n > 3) return;
+  if (n > 4) return;  /* ppUnlocked check removed — all levels open */
   ppCurrentLevel = n;
 
   var ruleCard = ppEl('pp-rule-card');
@@ -2227,9 +2943,10 @@ function startPPLevel(n) {
 
   var barText = ppEl('pp-level-text');
   var levelLabels = {
-    1: '<strong>Nível Fácil</strong> — Present Perfect Básico',
+    1: '<strong>Nível Fácil</strong> — Have / Has',
     2: '<strong>Nível Médio</strong> — Verbos Irregulares',
-    3: '<strong>Nível Difícil</strong> — Present Perfect vs. Past Simple'
+    3: '<strong>Nível Difícil</strong> — Present Perfect vs. Past Simple',
+    4: '<strong>Nível Expert</strong> — Transformação de Frases'
   };
   if (barText) barText.innerHTML = levelLabels[n] || '';
 
@@ -2259,9 +2976,10 @@ function ppShuffle(arr) {
 }
 
 function ppInitExercise() {
-  var bank = ppCurrentLevel === 3 ? PP_HARD_BANK
+  var bank = ppCurrentLevel === 4 ? PP_EASY_BANK
+             : ppCurrentLevel === 3 ? PP_HARD_BANK
              : ppCurrentLevel === 2 ? PP_MEDIUM_BANK
-             : PP_EASY_BANK;
+             : PP_BEGINNER_BANK;
   ppQueue = ppShuffle(bank).slice(0, PP_ROUND_SIZE);
   ppIdx = 0; ppCorrect = 0; ppStreak = 0; ppLog = []; ppAnswered = false;
   ppLoadQuestion();
@@ -2270,28 +2988,26 @@ function ppInitExercise() {
 function ppLoadQuestion() {
   ppAnswered = false;
   var q   = ppQueue[ppIdx];
-  var isMedium = ppCurrentLevel === 2;
+  var lv  = ppCurrentLevel;  /* shorthand used throughout */
 
-  /* Instruction — Fácil shows type label, Médio shows fill-in prompt */
+  /* Instruction */
   var instrEl = ppEl('pp-q-instruction');
   if (instrEl) {
-    var isHard = ppCurrentLevel === 3;
-    instrEl.textContent = isHard
-      ? 'Choose the correct verb form:'
-      : isMedium ? 'Choose the correct Past Participle:'
+    instrEl.textContent = lv === 3 ? 'Choose the correct verb form:'
+      : lv === 2 ? 'Choose the correct Past Participle:'
+      : lv === 1 ? 'Choose the correct option:'
       : q.instruction;
   }
 
   /* Sentence */
-  if (ppEl('pp-q-sentence')) ppEl('pp-q-sentence').textContent = q.sentence;
+  var sEl = ppEl('pp-q-sentence'); if(sEl) sEl.textContent = q.sentence;
 
-  /* Verb hint — Médio shows infinitive below sentence */
+  /* Verb hint */
   var promptEl = ppEl('pp-q-prompt');
   if (promptEl) {
-    var isHardQ = ppCurrentLevel === 3;
-    promptEl.innerHTML = isMedium
+    promptEl.innerHTML = lv === 2
       ? '<span class="pp-verb-hint">' + q.verb + '</span>'
-      : isHardQ
+      : lv === 3
       ? '<span style="font-size:12px;color:var(--gray-400);font-style:italic;">Present Perfect vs. Past Simple</span>'
       : '';
   }
@@ -2305,7 +3021,7 @@ function ppLoadQuestion() {
   /* Tags */
   var tagsEl = ppEl('pp-tags-display');
   if (tagsEl) {
-    tagsEl.textContent = isMedium
+    tagsEl.textContent = lv === 2
       ? '#PresentPerfect #IrregularVerbs #A2'
       : (q.tags ? q.tags.join(' ') : '');
   }
@@ -2313,7 +3029,7 @@ function ppLoadQuestion() {
   /* Options — Hard: 2 options (PP vs Past Simple) stacked */
   var area = ppEl('pp-options-area');
   if (!area) return;
-  if (ppCurrentLevel === 3) {
+  if (lv === 3) {
     var opts = [
       { val: q.correct,     label: q.correct,     tense: q.correctTense },
       { val: q.wrongOption, label: q.wrongOption,  tense: q.wrongTense   }
@@ -2366,44 +3082,32 @@ function ppAnswer(btnEl) {
     });
   }
 
-  /* Feedback */
+  /* Feedback — shared values computed once */
+  var lv      = ppCurrentLevel;
+  var ppExpl  = lv === 3 ? (q.rule || '') : (q.explanation || '');
+  var v3html  = lv === 2 && q.verb
+    ? '<span class="pp-3forms">' + q.verb + ' → ' + (q.past || q.correct) + ' → ' + q.correct + '</span>'
+    : '';
+  var deepBtn = lv === 3 && q.deepDive
+    ? '<br><button class="pp-not-sure-btn" onclick="openDeepDive()" id="pp-not-sure">🤔 Não sei se entendi</button>'
+    : '';
+
   var fb = ppEl('pp-feedback'), fbi = ppEl('pp-fb-icon'), fbt = ppEl('pp-fb-text');
   if (fb && fbi && fbt) {
     if (ok) {
       fb.className = 'feedback ok show';
       fbi.textContent = '✅';
-      var verb3ok = '';
-      if (ppCurrentLevel === 2 && q.verb) {
-        verb3ok = '<span style="display:block;margin-top:10px;font-size:13px;font-weight:700;color:var(--green-800);background:var(--green-50);border-radius:6px;padding:6px 10px;text-align:center;">'
-          + q.verb + ' → ' + (q.past || q.correct) + ' → ' + q.correct + '</span>';
-      }
-      var notSureBtn = (ppCurrentLevel === 3 && q.deepDive)
-        ? '<br><button class="pp-not-sure-btn" onclick="openDeepDive()" id="pp-not-sure">🤔 Não sei se entendi</button>'
-        : '';
-      var ppExpl = ppCurrentLevel === 3 ? (q.rule || '') : (q.explanation || '');
-      fbt.innerHTML = '<strong>Correto!</strong> ' + ppExpl + verb3ok + notSureBtn;
+      fbt.innerHTML = '<strong>Correto!</strong> ' + ppExpl + v3html + deepBtn;
+    } else if (isAmbiguous) {
+      fb.className = 'feedback show pp-ambiguous-feedback';
+      fbi.textContent = '🟡';
+      fbt.innerHTML = '<strong>Também está certo, mas não nesta aula.</strong> ' + ppExpl + deepBtn;
     } else {
-      var ppEncourageList = ['Quase lá! 💪', 'Vamos entender melhor?', 'Veja bem...', 'Não desanime!', 'Mais uma vez!'];
-      var ppPhrase = ppEncourageList[Math.floor(Math.random()*ppEncourageList.length)];
+      var enc = ['Quase lá! 💪','Vamos entender melhor?','Veja bem...','Não desanime!','Mais uma vez!'];
+      fb.className = 'feedback err show';
       fbi.textContent = '🤔';
-      var verb3forms = '';
-      if (ppCurrentLevel === 2 && q.verb) {
-        verb3forms = '<span style="display:block;margin-top:10px;font-size:13px;font-weight:700;color:var(--green-800);background:var(--green-50);border-radius:6px;padding:6px 10px;text-align:center;">'
-          + q.verb + ' → ' + (q.past || q.correct) + ' → ' + q.correct + '</span>';
-      }
-      var ppExplErr = ppCurrentLevel === 3 ? (q.rule || '') : (q.explanation || '');
-      var notSureBtnErr = (ppCurrentLevel === 3 && q.deepDive)
-        ? '<br><button class="pp-not-sure-btn" onclick="openDeepDive()" id="pp-not-sure">🤔 Não sei se entendi</button>'
-        : '';
-      if (isAmbiguous) {
-        fb.className = 'feedback show pp-ambiguous-feedback';
-        fbi.textContent = '🟡';
-        fbt.innerHTML = '<strong>Também está certo, mas não nesta aula.</strong> ' + ppExplErr + notSureBtnErr;
-      } else {
-        fb.className = 'feedback err show';
-        fbt.innerHTML = '<strong>' + ppPhrase + '</strong> ' + ppExplErr + verb3forms + notSureBtnErr;
-      }
-  }
+      fbt.innerHTML = '<strong>' + enc[Math.floor(Math.random()*enc.length)] + '</strong> ' + ppExpl + v3html + deepBtn;
+    }
   }
 
   if (ppEl('pp-streak-text')) ppEl('pp-streak-text').textContent = ppStreak >= 3 ? '🔥 ' + ppStreak + ' seguidas!' : '';
@@ -2431,11 +3135,11 @@ function ppShowResult() {
   var tier  = Math.min(4, Math.floor(pct/20));
   var emojis = ['😕','😐','🙂','😊','🎉'];
   var msgs   = [
-    'Continue praticando — o Present Perfect vai ficando mais natural!',
+    'Continue praticando — você está no caminho certo!',
     'Bom início! Revise a explicação e tente de novo.',
     'Bom trabalho! Você está pegando a estrutura.',
     'Muito bem! Quase perfeito — revise os erros para fixar.',
-    'Perfeito! Você dominou o Nível Fácil! 🏆'
+    'Perfeito! Nível concluído! 🏆'
   ];
 
   if (ppEl('pp-result-emoji')) ppEl('pp-result-emoji').textContent = emojis[tier];
@@ -2446,8 +3150,8 @@ function ppShowResult() {
   if (ppEl('pp-stat-pct'))     ppEl('pp-stat-pct').textContent     = pct + '%';
 
   /* Desbloquear nível 2 se passar com 70%+ */
-  if (pct >= 70 && ppCurrentLevel >= ppUnlocked && ppCurrentLevel < 4) {
-    ppSaveUnlocked(ppCurrentLevel + 1);
+  if (pct >= 70 && ppCurrentLevel >= ppUnlocked && ppCurrentLevel < 5) {
+    ppUnlocked = ppCurrentLevel + 1;
     var unlockMsg = ppEl('pp-unlock-msg');
     if (unlockMsg) {
       unlockMsg.style.display = 'block';
@@ -2487,8 +3191,6 @@ function ppRestart() {
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-/* ─────────────────────────────────────────────────────────────── */
-
 function renderExerciseBadges() {
   ['listening','reading','speaking','writing'].forEach(function(section) {
     var badge = document.getElementById('badge-' + section);
@@ -2504,7 +3206,6 @@ function renderExerciseBadges() {
   });
 }
 
-/* ─── DEEP DIVE MODAL ─── */
 var ppCurrentDeepDive = '';
 
 function openDeepDive() {
@@ -2528,8 +3229,617 @@ document.addEventListener('click', function(e) {
   if (ov && e.target === ov) closeDeepDive();
 });
 
-/* ─── INIT ─── */
-document.addEventListener('DOMContentLoaded', function() {
+var PS_BANK = [
+  {"aff": "She works in a hospital every day.", "neg": "She doesn't work in a hospital every day.", "q": "Does she work in a hospital every day?", "nq": "Doesn't she work in a hospital every day?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She work in a hospital every day.", "She is working in a hospital every day.", "She do work in a hospital every day."], "errNeg": ["She don't work in a hospital every day.", "She doesn't works in a hospital every day.", "She isn't work in a hospital every day."], "errQ": ["Do she work in a hospital every day?", "Does she works in a hospital every day?", "Is she work in a hospital every day?"], "errNQ": ["Don't she work in a hospital every day?", "Doesn't she works in a hospital every day?", "Isn't she working in a hospital every day?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she work."], "errYn": ["No, she don't.", "No, she doesn't work.", "No, she isn't."]},
+  {"aff": "He plays football on Saturdays.", "neg": "He doesn't play football on Saturdays.", "q": "Does he play football on Saturdays?", "nq": "Doesn't he play football on Saturdays?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He play football on Saturdays.", "He is playing football on Saturdays.", "He do play football on Saturdays."], "errNeg": ["He don't play football on Saturdays.", "He doesn't plays football on Saturdays.", "He isn't playing football on Saturdays."], "errQ": ["Do he play football on Saturdays?", "Does he plays football on Saturdays?", "Is he play football on Saturdays?"], "errNQ": ["Don't he play football on Saturdays?", "Doesn't he plays football on Saturdays?", "Isn't he playing football on Saturdays?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he play."], "errYn": ["No, he don't.", "No, he doesn't play.", "No, he isn't."]},
+  {"aff": "She studies English every morning.", "neg": "She doesn't study English every morning.", "q": "Does she study English every morning?", "nq": "Doesn't she study English every morning?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She study English every morning.", "She is studying English every morning.", "She do study English every morning."], "errNeg": ["She don't study English every morning.", "She doesn't studies English every morning.", "She isn't studying English every morning."], "errQ": ["Do she study English every morning?", "Does she studies English every morning?", "Is she study English every morning?"], "errNQ": ["Don't she study English every morning?", "Doesn't she studies English every morning?", "Isn't she studying English every morning?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she study."], "errYn": ["No, she don't.", "No, she doesn't study.", "No, she isn't."]},
+  {"aff": "He watches TV after dinner.", "neg": "He doesn't watch TV after dinner.", "q": "Does he watch TV after dinner?", "nq": "Doesn't he watch TV after dinner?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He watch TV after dinner.", "He is watching TV after dinner.", "He do watch TV after dinner."], "errNeg": ["He don't watch TV after dinner.", "He doesn't watches TV after dinner.", "He isn't watching TV after dinner."], "errQ": ["Do he watch TV after dinner?", "Does he watches TV after dinner?", "Is he watch TV after dinner?"], "errNQ": ["Don't he watch TV after dinner?", "Doesn't he watches TV after dinner?", "Isn't he watching TV after dinner?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he watch."], "errYn": ["No, he don't.", "No, he doesn't watch.", "No, he isn't."]},
+  {"aff": "She goes to the gym three times a week.", "neg": "She doesn't go to the gym three times a week.", "q": "Does she go to the gym three times a week?", "nq": "Doesn't she go to the gym three times a week?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She go to the gym three times a week.", "She is going to the gym three times a week.", "She do go to the gym three times a week."], "errNeg": ["She don't go to the gym three times a week.", "She doesn't goes to the gym three times a week.", "She isn't going to the gym three times a week."], "errQ": ["Do she go to the gym three times a week?", "Does she goes to the gym three times a week?", "Is she go to the gym three times a week?"], "errNQ": ["Don't she go to the gym three times a week?", "Doesn't she goes to the gym three times a week?", "Isn't she going to the gym three times a week?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she go."], "errYn": ["No, she don't.", "No, she doesn't go.", "No, she isn't."]},
+  {"aff": "He teaches maths at the local school.", "neg": "He doesn't teach maths at the local school.", "q": "Does he teach maths at the local school?", "nq": "Doesn't he teach maths at the local school?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He teach maths at the local school.", "He is teaching maths at the local school.", "He do teach maths at the local school."], "errNeg": ["He don't teach maths at the local school.", "He doesn't teaches maths at the local school.", "He isn't teaching maths at the local school."], "errQ": ["Do he teach maths at the local school?", "Does he teaches maths at the local school?", "Is he teach maths at the local school?"], "errNQ": ["Don't he teach maths at the local school?", "Doesn't he teaches maths at the local school?", "Isn't he teaching maths at the local school?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he teach."], "errYn": ["No, he don't.", "No, he doesn't teach.", "No, he isn't."]},
+  {"aff": "She drinks coffee before work.", "neg": "She doesn't drink coffee before work.", "q": "Does she drink coffee before work?", "nq": "Doesn't she drink coffee before work?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She drink coffee before work.", "She is drinking coffee before work.", "She do drink coffee before work."], "errNeg": ["She don't drink coffee before work.", "She doesn't drinks coffee before work.", "She isn't drinking coffee before work."], "errQ": ["Do she drink coffee before work?", "Does she drinks coffee before work?", "Is she drink coffee before work?"], "errNQ": ["Don't she drink coffee before work?", "Doesn't she drinks coffee before work?", "Isn't she drinking coffee before work?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she drink."], "errYn": ["No, she don't.", "No, she doesn't drink.", "No, she isn't."]},
+  {"aff": "He reads the newspaper every morning.", "neg": "He doesn't read the newspaper every morning.", "q": "Does he read the newspaper every morning?", "nq": "Doesn't he read the newspaper every morning?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He read the newspaper every morning.", "He is reading the newspaper every morning.", "He do read the newspaper every morning."], "errNeg": ["He don't read the newspaper every morning.", "He doesn't reads the newspaper every morning.", "He isn't reading the newspaper every morning."], "errQ": ["Do he read the newspaper every morning?", "Does he reads the newspaper every morning?", "Is he read the newspaper every morning?"], "errNQ": ["Don't he read the newspaper every morning?", "Doesn't he reads the newspaper every morning?", "Isn't he reading the newspaper every morning?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he read."], "errYn": ["No, he don't.", "No, he doesn't read.", "No, he isn't."]},
+  {"aff": "She wakes up at six o'clock.", "neg": "She doesn't wake up at six o'clock.", "q": "Does she wake up at six o'clock?", "nq": "Doesn't she wake up at six o'clock?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She wake up at six o'clock.", "She is waking up at six o'clock.", "She do wake up at six o'clock."], "errNeg": ["She don't wake up at six o'clock.", "She doesn't wakes up at six o'clock.", "She isn't waking up at six o'clock."], "errQ": ["Do she wake up at six o'clock?", "Does she wakes up at six o'clock?", "Is she wake up at six o'clock?"], "errNQ": ["Don't she wake up at six o'clock?", "Doesn't she wakes up at six o'clock?", "Isn't she waking up at six o'clock?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she wake."], "errYn": ["No, she don't.", "No, she doesn't wake.", "No, she isn't."]},
+  {"aff": "He drives to work every day.", "neg": "He doesn't drive to work every day.", "q": "Does he drive to work every day?", "nq": "Doesn't he drive to work every day?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He drive to work every day.", "He is driving to work every day.", "He do drive to work every day."], "errNeg": ["He don't drive to work every day.", "He doesn't drives to work every day.", "He isn't driving to work every day."], "errQ": ["Do he drive to work every day?", "Does he drives to work every day?", "Is he drive to work every day?"], "errNQ": ["Don't he drive to work every day?", "Doesn't he drives to work every day?", "Isn't he driving to work every day?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he drive."], "errYn": ["No, he don't.", "No, he doesn't drive.", "No, he isn't."]},
+  {"aff": "She cooks dinner on Sundays.", "neg": "She doesn't cook dinner on Sundays.", "q": "Does she cook dinner on Sundays?", "nq": "Doesn't she cook dinner on Sundays?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She cook dinner on Sundays.", "She is cooking dinner on Sundays.", "She do cook dinner on Sundays."], "errNeg": ["She don't cook dinner on Sundays.", "She doesn't cooks dinner on Sundays.", "She isn't cooking dinner on Sundays."], "errQ": ["Do she cook dinner on Sundays?", "Does she cooks dinner on Sundays?", "Is she cook dinner on Sundays?"], "errNQ": ["Don't she cook dinner on Sundays?", "Doesn't she cooks dinner on Sundays?", "Isn't she cooking dinner on Sundays?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she cook."], "errYn": ["No, she don't.", "No, she doesn't cook.", "No, she isn't."]},
+  {"aff": "He finishes work at five o'clock.", "neg": "He doesn't finish work at five o'clock.", "q": "Does he finish work at five o'clock?", "nq": "Doesn't he finish work at five o'clock?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He finish work at five o'clock.", "He is finishing work at five o'clock.", "He do finish work at five o'clock."], "errNeg": ["He don't finish work at five o'clock.", "He doesn't finishes work at five o'clock.", "He isn't finishing work at five o'clock."], "errQ": ["Do he finish work at five o'clock?", "Does he finishes work at five o'clock?", "Is he finish work at five o'clock?"], "errNQ": ["Don't he finish work at five o'clock?", "Doesn't he finishes work at five o'clock?", "Isn't he finishing work at five o'clock?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he finish."], "errYn": ["No, he don't.", "No, he doesn't finish.", "No, he isn't."]},
+  {"aff": "She visits her grandmother on Sundays.", "neg": "She doesn't visit her grandmother on Sundays.", "q": "Does she visit her grandmother on Sundays?", "nq": "Doesn't she visit her grandmother on Sundays?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She visit her grandmother on Sundays.", "She is visiting her grandmother on Sundays.", "She do visit her grandmother on Sundays."], "errNeg": ["She don't visit her grandmother on Sundays.", "She doesn't visits her grandmother on Sundays.", "She isn't visiting her grandmother on Sundays."], "errQ": ["Do she visit her grandmother on Sundays?", "Does she visits her grandmother on Sundays?", "Is she visit her grandmother on Sundays?"], "errNQ": ["Don't she visit her grandmother on Sundays?", "Doesn't she visits her grandmother on Sundays?", "Isn't she visiting her grandmother on Sundays?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she visit."], "errYn": ["No, she don't.", "No, she doesn't visit.", "No, she isn't."]},
+  {"aff": "He buys fresh fruit every week.", "neg": "He doesn't buy fresh fruit every week.", "q": "Does he buy fresh fruit every week?", "nq": "Doesn't he buy fresh fruit every week?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He buy fresh fruit every week.", "He is buying fresh fruit every week.", "He do buy fresh fruit every week."], "errNeg": ["He don't buy fresh fruit every week.", "He doesn't buys fresh fruit every week.", "He isn't buying fresh fruit every week."], "errQ": ["Do he buy fresh fruit every week?", "Does he buys fresh fruit every week?", "Is he buy fresh fruit every week?"], "errNQ": ["Don't he buy fresh fruit every week?", "Doesn't he buys fresh fruit every week?", "Isn't he buying fresh fruit every week?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he buy."], "errYn": ["No, he don't.", "No, he doesn't buy.", "No, he isn't."]},
+  {"aff": "She helps her parents at the weekend.", "neg": "She doesn't help her parents at the weekend.", "q": "Does she help her parents at the weekend?", "nq": "Doesn't she help her parents at the weekend?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She help her parents at the weekend.", "She is helping her parents at the weekend.", "She do help her parents at the weekend."], "errNeg": ["She don't help her parents at the weekend.", "She doesn't helps her parents at the weekend.", "She isn't helping her parents at the weekend."], "errQ": ["Do she help her parents at the weekend?", "Does she helps her parents at the weekend?", "Is she help her parents at the weekend?"], "errNQ": ["Don't she help her parents at the weekend?", "Doesn't she helps her parents at the weekend?", "Isn't she helping her parents at the weekend?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she help."], "errYn": ["No, she don't.", "No, she doesn't help.", "No, she isn't."]},
+  {"aff": "He writes in his diary every night.", "neg": "He doesn't write in his diary every night.", "q": "Does he write in his diary every night?", "nq": "Doesn't he write in his diary every night?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He write in his diary every night.", "He is writing in his diary every night.", "He do write in his diary every night."], "errNeg": ["He don't write in his diary every night.", "He doesn't writes in his diary every night.", "He isn't writing in his diary every night."], "errQ": ["Do he write in his diary every night?", "Does he writes in his diary every night?", "Is he write in his diary every night?"], "errNQ": ["Don't he write in his diary every night?", "Doesn't he writes in his diary every night?", "Isn't he writing in his diary every night?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he write."], "errYn": ["No, he don't.", "No, he doesn't write.", "No, he isn't."]},
+  {"aff": "She loves reading mystery novels.", "neg": "She doesn't love reading mystery novels.", "q": "Does she love reading mystery novels?", "nq": "Doesn't she love reading mystery novels?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She love reading mystery novels.", "She is loving reading mystery novels.", "She do love reading mystery novels."], "errNeg": ["She don't love reading mystery novels.", "She doesn't loves reading mystery novels.", "She isn't loving reading mystery novels."], "errQ": ["Do she love reading mystery novels?", "Does she loves reading mystery novels?", "Is she love reading mystery novels?"], "errNQ": ["Don't she love reading mystery novels?", "Doesn't she loves reading mystery novels?", "Isn't she loving reading mystery novels?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she love."], "errYn": ["No, she don't.", "No, she doesn't love.", "No, she isn't."]},
+  {"aff": "He swims in the pool every Wednesday.", "neg": "He doesn't swim in the pool every Wednesday.", "q": "Does he swim in the pool every Wednesday?", "nq": "Doesn't he swim in the pool every Wednesday?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He swim in the pool every Wednesday.", "He is swimming in the pool every Wednesday.", "He do swim in the pool every Wednesday."], "errNeg": ["He don't swim in the pool every Wednesday.", "He doesn't swims in the pool every Wednesday.", "He isn't swimming in the pool every Wednesday."], "errQ": ["Do he swim in the pool every Wednesday?", "Does he swims in the pool every Wednesday?", "Is he swim in the pool every Wednesday?"], "errNQ": ["Don't he swim in the pool every Wednesday?", "Doesn't he swims in the pool every Wednesday?", "Isn't he swimming in the pool every Wednesday?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he swim."], "errYn": ["No, he don't.", "No, he doesn't swim.", "No, he isn't."]},
+  {"aff": "She travels by train to work.", "neg": "She doesn't travel by train to work.", "q": "Does she travel by train to work?", "nq": "Doesn't she travel by train to work?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She travel by train to work.", "She is travelling by train to work.", "She do travel by train to work."], "errNeg": ["She don't travel by train to work.", "She doesn't travels by train to work.", "She isn't travelling by train to work."], "errQ": ["Do she travel by train to work?", "Does she travels by train to work?", "Is she travel by train to work?"], "errNQ": ["Don't she travel by train to work?", "Doesn't she travels by train to work?", "Isn't she travelling by train to work?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she travel."], "errYn": ["No, she don't.", "No, she doesn't travel.", "No, she isn't."]},
+  {"aff": "He checks his email first thing in the morning.", "neg": "He doesn't check his email first thing in the morning.", "q": "Does he check his email first thing in the morning?", "nq": "Doesn't he check his email first thing in the morning?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He check his email first thing in the morning.", "He is checking his email first thing in the morning.", "He do check his email first thing in the morning."], "errNeg": ["He don't check his email first thing in the morning.", "He doesn't checks his email first thing in the morning.", "He isn't checking his email first thing in the morning."], "errQ": ["Do he check his email first thing in the morning?", "Does he checks his email first thing in the morning?", "Is he check his email first thing in the morning?"], "errNQ": ["Don't he check his email first thing in the morning?", "Doesn't he checks his email first thing in the morning?", "Isn't he checking his email first thing in the morning?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he check."], "errYn": ["No, he don't.", "No, he doesn't check.", "No, he isn't."]},
+  {"aff": "They live near the city centre.", "neg": "They don't live near the city centre.", "q": "Do they live near the city centre?", "nq": "Don't they live near the city centre?", "ya": "Yes, they do.", "yn": "No, they don't.", "errAff": ["They lives near the city centre.", "They are living near the city centre.", "They does live near the city centre."], "errNeg": ["They doesn't live near the city centre.", "They don't lives near the city centre.", "They aren't live near the city centre."], "errQ": ["Does they live near the city centre?", "Do they lives near the city centre?", "Are they live near the city centre?"], "errNQ": ["Doesn't they live near the city centre?", "Don't they lives near the city centre?", "Aren't they living near the city centre?"], "errYa": ["Yes, they does.", "Yes, they are.", "Yes, they lives."], "errYn": ["No, they doesn't.", "No, they don't live.", "No, they aren't."]},
+  {"aff": "I eat lunch at school every day.", "neg": "I don't eat lunch at school every day.", "q": "Do I eat lunch at school every day?", "nq": "Don't I eat lunch at school every day?", "ya": "Yes, I do.", "yn": "No, I don't.", "errAff": ["I eats lunch at school every day.", "I am eating lunch at school every day.", "I does eat lunch at school every day."], "errNeg": ["I doesn't eat lunch at school every day.", "I don't eats lunch at school every day.", "I am not eat lunch at school every day."], "errQ": ["Does I eat lunch at school every day?", "Do I eats lunch at school every day?", "Am I eat lunch at school every day?"], "errNQ": ["Doesn't I eat lunch at school every day?", "Don't I eats lunch at school every day?", "Am I not eating lunch at school every day?"], "errYa": ["Yes, I does.", "Yes, I am.", "Yes, I eats."], "errYn": ["No, I doesn't.", "No, I don't eat.", "No, I'm not."]},
+  {"aff": "We walk to school every day.", "neg": "We don't walk to school every day.", "q": "Do we walk to school every day?", "nq": "Don't we walk to school every day?", "ya": "Yes, we do.", "yn": "No, we don't.", "errAff": ["We walks to school every day.", "We are walking to school every day.", "We does walk to school every day."], "errNeg": ["We doesn't walk to school every day.", "We don't walks to school every day.", "We aren't walk to school every day."], "errQ": ["Does we walk to school every day?", "Do we walks to school every day?", "Are we walk to school every day?"], "errNQ": ["Doesn't we walk to school every day?", "Don't we walks to school every day?", "Aren't we walking to school every day?"], "errYa": ["Yes, we does.", "Yes, we are.", "Yes, we walks."], "errYn": ["No, we doesn't.", "No, we don't walk.", "No, we aren't."]},
+  {"aff": "You speak French at home.", "neg": "You don't speak French at home.", "q": "Do you speak French at home?", "nq": "Don't you speak French at home?", "ya": "Yes, I do.", "yn": "No, I don't.", "errAff": ["You speaks French at home.", "You are speaking French at home.", "You does speak French at home."], "errNeg": ["You doesn't speak French at home.", "You don't speaks French at home.", "You aren't speak French at home."], "errQ": ["Does you speak French at home?", "Do you speaks French at home?", "Are you speak French at home?"], "errNQ": ["Doesn't you speak French at home?", "Don't you speaks French at home?", "Aren't you speaking French at home?"], "errYa": ["Yes, I does.", "Yes, I am.", "Yes, I speaks."], "errYn": ["No, I doesn't.", "No, I don't speak.", "No, I'm not."]},
+  {"aff": "They play video games after school.", "neg": "They don't play video games after school.", "q": "Do they play video games after school?", "nq": "Don't they play video games after school?", "ya": "Yes, they do.", "yn": "No, they don't.", "errAff": ["They plays video games after school.", "They are playing video games after school.", "They does play video games after school."], "errNeg": ["They doesn't play video games after school.", "They don't plays video games after school.", "They aren't play video games after school."], "errQ": ["Does they play video games after school?", "Do they plays video games after school?", "Are they play video games after school?"], "errNQ": ["Doesn't they play video games after school?", "Don't they plays video games after school?", "Aren't they playing video games after school?"], "errYa": ["Yes, they does.", "Yes, they are.", "Yes, they plays."], "errYn": ["No, they doesn't.", "No, they don't play.", "No, they aren't."]},
+  {"aff": "We study together on Fridays.", "neg": "We don't study together on Fridays.", "q": "Do we study together on Fridays?", "nq": "Don't we study together on Fridays?", "ya": "Yes, we do.", "yn": "No, we don't.", "errAff": ["We studies together on Fridays.", "We are studying together on Fridays.", "We does study together on Fridays."], "errNeg": ["We doesn't study together on Fridays.", "We don't studies together on Fridays.", "We aren't study together on Fridays."], "errQ": ["Does we study together on Fridays?", "Do we studies together on Fridays?", "Are we study together on Fridays?"], "errNQ": ["Doesn't we study together on Fridays?", "Don't we studies together on Fridays?", "Aren't we studying together on Fridays?"], "errYa": ["Yes, we does.", "Yes, we are.", "Yes, we studies."], "errYn": ["No, we doesn't.", "No, we don't study.", "No, we aren't."]},
+  {"aff": "They clean the house every Saturday.", "neg": "They don't clean the house every Saturday.", "q": "Do they clean the house every Saturday?", "nq": "Don't they clean the house every Saturday?", "ya": "Yes, they do.", "yn": "No, they don't.", "errAff": ["They cleans the house every Saturday.", "They are cleaning the house every Saturday.", "They does clean the house every Saturday."], "errNeg": ["They doesn't clean the house every Saturday.", "They don't cleans the house every Saturday.", "They aren't clean the house every Saturday."], "errQ": ["Does they clean the house every Saturday?", "Do they cleans the house every Saturday?", "Are they clean the house every Saturday?"], "errNQ": ["Doesn't they clean the house every Saturday?", "Don't they cleans the house every Saturday?", "Aren't they cleaning the house every Saturday?"], "errYa": ["Yes, they does.", "Yes, they are.", "Yes, they cleans."], "errYn": ["No, they doesn't.", "No, they don't clean.", "No, they aren't."]},
+  {"aff": "I enjoy swimming in the summer.", "neg": "I don't enjoy swimming in the summer.", "q": "Do I enjoy swimming in the summer?", "nq": "Don't I enjoy swimming in the summer?", "ya": "Yes, I do.", "yn": "No, I don't.", "errAff": ["I enjoys swimming in the summer.", "I am enjoying swimming in the summer.", "I does enjoy swimming in the summer."], "errNeg": ["I doesn't enjoy swimming in the summer.", "I don't enjoys swimming in the summer.", "I am not enjoy swimming in the summer."], "errQ": ["Does I enjoy swimming in the summer?", "Do I enjoys swimming in the summer?", "Am I enjoy swimming in the summer?"], "errNQ": ["Doesn't I enjoy swimming in the summer?", "Don't I enjoys swimming in the summer?", "Am I not enjoying swimming in the summer?"], "errYa": ["Yes, I does.", "Yes, I am.", "Yes, I enjoys."], "errYn": ["No, I doesn't.", "No, I don't enjoy.", "No, I'm not."]},
+  {"aff": "They meet their friends on Saturdays.", "neg": "They don't meet their friends on Saturdays.", "q": "Do they meet their friends on Saturdays?", "nq": "Don't they meet their friends on Saturdays?", "ya": "Yes, they do.", "yn": "No, they don't.", "errAff": ["They meets their friends on Saturdays.", "They are meeting their friends on Saturdays.", "They does meet their friends on Saturdays."], "errNeg": ["They doesn't meet their friends on Saturdays.", "They don't meets their friends on Saturdays.", "They aren't meet their friends on Saturdays."], "errQ": ["Does they meet their friends on Saturdays?", "Do they meets their friends on Saturdays?", "Are they meet their friends on Saturdays?"], "errNQ": ["Doesn't they meet their friends on Saturdays?", "Don't they meets their friends on Saturdays?", "Aren't they meeting their friends on Saturdays?"], "errYa": ["Yes, they does.", "Yes, they are.", "Yes, they meets."], "errYn": ["No, they doesn't.", "No, they don't meet.", "No, they aren't."]},
+  {"aff": "We take the bus to the city centre.", "neg": "We don't take the bus to the city centre.", "q": "Do we take the bus to the city centre?", "nq": "Don't we take the bus to the city centre?", "ya": "Yes, we do.", "yn": "No, we don't.", "errAff": ["We takes the bus to the city centre.", "We are taking the bus to the city centre.", "We does take the bus to the city centre."], "errNeg": ["We doesn't take the bus to the city centre.", "We don't takes the bus to the city centre.", "We aren't take the bus to the city centre."], "errQ": ["Does we take the bus to the city centre?", "Do we takes the bus to the city centre?", "Are we take the bus to the city centre?"], "errNQ": ["Doesn't we take the bus to the city centre?", "Don't we takes the bus to the city centre?", "Aren't we taking the bus to the city centre?"], "errYa": ["Yes, we does.", "Yes, we are.", "Yes, we takes."], "errYn": ["No, we doesn't.", "No, we don't take.", "No, we aren't."]},
+  {"aff": "I walk the dog every morning.", "neg": "I don't walk the dog every morning.", "q": "Do I walk the dog every morning?", "nq": "Don't I walk the dog every morning?", "ya": "Yes, I do.", "yn": "No, I don't.", "errAff": ["I walks the dog every morning.", "I am walking the dog every morning.", "I does walk the dog every morning."], "errNeg": ["I doesn't walk the dog every morning.", "I don't walks the dog every morning.", "I am not walk the dog every morning."], "errQ": ["Does I walk the dog every morning?", "Do I walks the dog every morning?", "Am I walk the dog every morning?"], "errNQ": ["Doesn't I walk the dog every morning?", "Don't I walks the dog every morning?", "Am I not walking the dog every morning?"], "errYa": ["Yes, I does.", "Yes, I am.", "Yes, I walks."], "errYn": ["No, I doesn't.", "No, I don't walk.", "No, I'm not."]},
+  {"aff": "You exercise three times a week.", "neg": "You don't exercise three times a week.", "q": "Do you exercise three times a week?", "nq": "Don't you exercise three times a week?", "ya": "Yes, I do.", "yn": "No, I don't.", "errAff": ["You exercises three times a week.", "You are exercising three times a week.", "You does exercise three times a week."], "errNeg": ["You doesn't exercise three times a week.", "You don't exercises three times a week.", "You aren't exercise three times a week."], "errQ": ["Does you exercise three times a week?", "Do you exercises three times a week?", "Are you exercise three times a week?"], "errNQ": ["Doesn't you exercise three times a week?", "Don't you exercises three times a week?", "Aren't you exercising three times a week?"], "errYa": ["Yes, I does.", "Yes, I am.", "Yes, I exercises."], "errYn": ["No, I doesn't.", "No, I don't exercise.", "No, I'm not."]},
+  {"aff": "They use the library every week.", "neg": "They don't use the library every week.", "q": "Do they use the library every week?", "nq": "Don't they use the library every week?", "ya": "Yes, they do.", "yn": "No, they don't.", "errAff": ["They uses the library every week.", "They are using the library every week.", "They does use the library every week."], "errNeg": ["They doesn't use the library every week.", "They don't uses the library every week.", "They aren't use the library every week."], "errQ": ["Does they use the library every week?", "Do they uses the library every week?", "Are they use the library every week?"], "errNQ": ["Doesn't they use the library every week?", "Don't they uses the library every week?", "Aren't they using the library every week?"], "errYa": ["Yes, they does.", "Yes, they are.", "Yes, they uses."], "errYn": ["No, they doesn't.", "No, they don't use.", "No, they aren't."]},
+  {"aff": "I practice the guitar every evening.", "neg": "I don't practice the guitar every evening.", "q": "Do I practice the guitar every evening?", "nq": "Don't I practice the guitar every evening?", "ya": "Yes, I do.", "yn": "No, I don't.", "errAff": ["I practices the guitar every evening.", "I am practicing the guitar every evening.", "I does practice the guitar every evening."], "errNeg": ["I doesn't practice the guitar every evening.", "I don't practices the guitar every evening.", "I am not practice the guitar every evening."], "errQ": ["Does I practice the guitar every evening?", "Do I practices the guitar every evening?", "Am I practice the guitar every evening?"], "errNQ": ["Doesn't I practice the guitar every evening?", "Don't I practices the guitar every evening?", "Am I not practicing the guitar every evening?"], "errYa": ["Yes, I does.", "Yes, I am.", "Yes, I practices."], "errYn": ["No, I doesn't.", "No, I don't practice.", "No, I'm not."]},
+  {"aff": "We do our homework before dinner.", "neg": "We don't do our homework before dinner.", "q": "Do we do our homework before dinner?", "nq": "Don't we do our homework before dinner?", "ya": "Yes, we do.", "yn": "No, we don't.", "errAff": ["We does our homework before dinner.", "We are doing our homework before dinner.", "We do does our homework before dinner."], "errNeg": ["We doesn't do our homework before dinner.", "We don't does our homework before dinner.", "We aren't do our homework before dinner."], "errQ": ["Does we do our homework before dinner?", "Do we does our homework before dinner?", "Are we do our homework before dinner?"], "errNQ": ["Doesn't we do our homework before dinner?", "Don't we does our homework before dinner?", "Aren't we doing our homework before dinner?"], "errYa": ["Yes, we does.", "Yes, we are.", "Yes, we does homework."], "errYn": ["No, we doesn't.", "No, we don't do.", "No, we aren't."]}
+];
+
+var PC_BANK = [
+  {"aff": "She is working on a big project this week.", "neg": "She isn't working on a big project this week.", "q": "Is she working on a big project this week?", "nq": "Isn't she working on a big project this week?", "ya": "Yes, she is.", "yn": "No, she isn't.", "errAff": ["She working on a big project this week.", "She works on a big project this week.", "She is work on a big project this week."], "errNeg": ["She not working on a big project this week.", "She doesn't work on a big project this week.", "She isn't work on a big project this week."], "errQ": ["She is working on a big project this week?", "Does she working on a big project this week?", "Is she work on a big project this week?"], "errNQ": ["Doesn't she working on a big project this week?", "Not is she working on a big project this week?", "Isn't she work on a big project this week?"], "errYa": ["Yes, she does.", "Yes, she works.", "Yes, she be."], "errYn": ["No, she doesn't.", "No, she not.", "No, she wasn't."]},
+  {"aff": "He is studying for his exams at the moment.", "neg": "He isn't studying for his exams at the moment.", "q": "Is he studying for his exams at the moment?", "nq": "Isn't he studying for his exams at the moment?", "ya": "Yes, he is.", "yn": "No, he isn't.", "errAff": ["He studying for his exams at the moment.", "He studies for his exams at the moment.", "He is study for his exams at the moment."], "errNeg": ["He not studying for his exams at the moment.", "He doesn't study for his exams at the moment.", "He isn't study for his exams at the moment."], "errQ": ["He is studying for his exams at the moment?", "Does he studying for his exams at the moment?", "Is he study for his exams at the moment?"], "errNQ": ["Doesn't he studying for his exams at the moment?", "Not is he studying for his exams at the moment?", "Isn't he study for his exams at the moment?"], "errYa": ["Yes, he does.", "Yes, he studies.", "Yes, he be."], "errYn": ["No, he doesn't.", "No, he not.", "No, he wasn't."]},
+  {"aff": "They are building a new house.", "neg": "They aren't building a new house.", "q": "Are they building a new house?", "nq": "Aren't they building a new house?", "ya": "Yes, they are.", "yn": "No, they aren't.", "errAff": ["They building a new house.", "They build a new house.", "They are build a new house."], "errNeg": ["They not building a new house.", "They don't build a new house.", "They aren't build a new house."], "errQ": ["They are building a new house?", "Do they building a new house?", "Are they build a new house?"], "errNQ": ["Don't they building a new house?", "Not are they building a new house?", "Aren't they build a new house?"], "errYa": ["Yes, they do.", "Yes, they build.", "Yes, they were."], "errYn": ["No, they don't.", "No, they not.", "No, they weren't."]},
+  {"aff": "I am reading a great book right now.", "neg": "I'm not reading a great book right now.", "q": "Am I reading a great book right now?", "nq": "Am I not reading a great book right now?", "ya": "Yes, I am.", "yn": "No, I'm not.", "errAff": ["I reading a great book right now.", "I read a great book right now.", "I am read a great book right now."], "errNeg": ["I not reading a great book right now.", "I don't read a great book right now.", "I'm not read a great book right now."], "errQ": ["I am reading a great book right now?", "Do I reading a great book right now?", "Am I read a great book right now?"], "errNQ": ["Don't I reading a great book right now?", "Am I not read a great book right now?", "Aren't I reading a great book right now?"], "errYa": ["Yes, I do.", "Yes, I read.", "Yes, I were."], "errYn": ["No, I don't.", "No, I not.", "No, I wasn't."]},
+  {"aff": "We are waiting for the bus right now.", "neg": "We aren't waiting for the bus right now.", "q": "Are we waiting for the bus right now?", "nq": "Aren't we waiting for the bus right now?", "ya": "Yes, we are.", "yn": "No, we aren't.", "errAff": ["We waiting for the bus right now.", "We wait for the bus right now.", "We are wait for the bus right now."], "errNeg": ["We not waiting for the bus right now.", "We don't wait for the bus right now.", "We aren't wait for the bus right now."], "errQ": ["We are waiting for the bus right now?", "Do we waiting for the bus right now?", "Are we wait for the bus right now?"], "errNQ": ["Don't we waiting for the bus right now?", "Not are we waiting for the bus right now?", "Aren't we wait for the bus right now?"], "errYa": ["Yes, we do.", "Yes, we wait.", "Yes, we were."], "errYn": ["No, we don't.", "No, we not.", "No, we weren't."]},
+  {"aff": "She is talking on the phone at the moment.", "neg": "She isn't talking on the phone at the moment.", "q": "Is she talking on the phone at the moment?", "nq": "Isn't she talking on the phone at the moment?", "ya": "Yes, she is.", "yn": "No, she isn't.", "errAff": ["She talking on the phone at the moment.", "She talks on the phone at the moment.", "She is talk on the phone at the moment."], "errNeg": ["She not talking on the phone at the moment.", "She doesn't talk on the phone at the moment.", "She isn't talk on the phone at the moment."], "errQ": ["She is talking on the phone at the moment?", "Does she talking on the phone at the moment?", "Is she talk on the phone at the moment?"], "errNQ": ["Doesn't she talking on the phone at the moment?", "Not is she talking on the phone at the moment?", "Isn't she talk on the phone at the moment?"], "errYa": ["Yes, she does.", "Yes, she talks.", "Yes, she be."], "errYn": ["No, she doesn't.", "No, she not.", "No, she wasn't."]},
+  {"aff": "He is running in the park this morning.", "neg": "He isn't running in the park this morning.", "q": "Is he running in the park this morning?", "nq": "Isn't he running in the park this morning?", "ya": "Yes, he is.", "yn": "No, he isn't.", "errAff": ["He running in the park this morning.", "He runs in the park this morning.", "He is run in the park this morning."], "errNeg": ["He not running in the park this morning.", "He doesn't run in the park this morning.", "He isn't run in the park this morning."], "errQ": ["He is running in the park this morning?", "Does he running in the park this morning?", "Is he run in the park this morning?"], "errNQ": ["Doesn't he running in the park this morning?", "Not is he running in the park this morning?", "Isn't he run in the park this morning?"], "errYa": ["Yes, he does.", "Yes, he runs.", "Yes, he be."], "errYn": ["No, he doesn't.", "No, he not.", "No, he wasn't."]},
+  {"aff": "They are travelling around Europe this summer.", "neg": "They aren't travelling around Europe this summer.", "q": "Are they travelling around Europe this summer?", "nq": "Aren't they travelling around Europe this summer?", "ya": "Yes, they are.", "yn": "No, they aren't.", "errAff": ["They travelling around Europe this summer.", "They travel around Europe this summer.", "They are travel around Europe this summer."], "errNeg": ["They not travelling around Europe this summer.", "They don't travel around Europe this summer.", "They aren't travel around Europe this summer."], "errQ": ["They are travelling around Europe this summer?", "Do they travelling around Europe this summer?", "Are they travel around Europe this summer?"], "errNQ": ["Don't they travelling around Europe this summer?", "Not are they travelling around Europe this summer?", "Aren't they travel around Europe this summer?"], "errYa": ["Yes, they do.", "Yes, they travel.", "Yes, they were."], "errYn": ["No, they don't.", "No, they not.", "No, they weren't."]},
+  {"aff": "She is cooking a special meal tonight.", "neg": "She isn't cooking a special meal tonight.", "q": "Is she cooking a special meal tonight?", "nq": "Isn't she cooking a special meal tonight?", "ya": "Yes, she is.", "yn": "No, she isn't.", "errAff": ["She cooking a special meal tonight.", "She cooks a special meal tonight.", "She is cook a special meal tonight."], "errNeg": ["She not cooking a special meal tonight.", "She doesn't cook a special meal tonight.", "She isn't cook a special meal tonight."], "errQ": ["She is cooking a special meal tonight?", "Does she cooking a special meal tonight?", "Is she cook a special meal tonight?"], "errNQ": ["Doesn't she cooking a special meal tonight?", "Not is she cooking a special meal tonight?", "Isn't she cook a special meal tonight?"], "errYa": ["Yes, she does.", "Yes, she cooks.", "Yes, she be."], "errYn": ["No, she doesn't.", "No, she not.", "No, she wasn't."]},
+  {"aff": "He is writing a report for his boss this week.", "neg": "He isn't writing a report for his boss this week.", "q": "Is he writing a report for his boss this week?", "nq": "Isn't he writing a report for his boss this week?", "ya": "Yes, he is.", "yn": "No, he isn't.", "errAff": ["He writing a report for his boss this week.", "He writes a report for his boss this week.", "He is write a report for his boss this week."], "errNeg": ["He not writing a report for his boss this week.", "He doesn't write a report for his boss this week.", "He isn't write a report for his boss this week."], "errQ": ["He is writing a report for his boss this week?", "Does he writing a report for his boss this week?", "Is he write a report for his boss this week?"], "errNQ": ["Doesn't he writing a report for his boss this week?", "Not is he writing a report for his boss this week?", "Isn't he write a report for his boss this week?"], "errYa": ["Yes, he does.", "Yes, he writes.", "Yes, he be."], "errYn": ["No, he doesn't.", "No, he not.", "No, he wasn't."]},
+  {"aff": "We are planning a trip to the mountains.", "neg": "We aren't planning a trip to the mountains.", "q": "Are we planning a trip to the mountains?", "nq": "Aren't we planning a trip to the mountains?", "ya": "Yes, we are.", "yn": "No, we aren't.", "errAff": ["We planning a trip to the mountains.", "We plan a trip to the mountains.", "We are plan a trip to the mountains."], "errNeg": ["We not planning a trip to the mountains.", "We don't plan a trip to the mountains.", "We aren't plan a trip to the mountains."], "errQ": ["We are planning a trip to the mountains?", "Do we planning a trip to the mountains?", "Are we plan a trip to the mountains?"], "errNQ": ["Don't we planning a trip to the mountains?", "Not are we planning a trip to the mountains?", "Aren't we plan a trip to the mountains?"], "errYa": ["Yes, we do.", "Yes, we plan.", "Yes, we were."], "errYn": ["No, we don't.", "No, we not.", "No, we weren't."]},
+  {"aff": "She is learning to drive at the moment.", "neg": "She isn't learning to drive at the moment.", "q": "Is she learning to drive at the moment?", "nq": "Isn't she learning to drive at the moment?", "ya": "Yes, she is.", "yn": "No, she isn't.", "errAff": ["She learning to drive at the moment.", "She learns to drive at the moment.", "She is learn to drive at the moment."], "errNeg": ["She not learning to drive at the moment.", "She doesn't learn to drive at the moment.", "She isn't learn to drive at the moment."], "errQ": ["She is learning to drive at the moment?", "Does she learning to drive at the moment?", "Is she learn to drive at the moment?"], "errNQ": ["Doesn't she learning to drive at the moment?", "Not is she learning to drive at the moment?", "Isn't she learn to drive at the moment?"], "errYa": ["Yes, she does.", "Yes, she learns.", "Yes, she be."], "errYn": ["No, she doesn't.", "No, she not.", "No, she wasn't."]},
+  {"aff": "He is playing tennis with his friends today.", "neg": "He isn't playing tennis with his friends today.", "q": "Is he playing tennis with his friends today?", "nq": "Isn't he playing tennis with his friends today?", "ya": "Yes, he is.", "yn": "No, he isn't.", "errAff": ["He playing tennis with his friends today.", "He plays tennis with his friends today.", "He is play tennis with his friends today."], "errNeg": ["He not playing tennis with his friends today.", "He doesn't play tennis with his friends today.", "He isn't play tennis with his friends today."], "errQ": ["He is playing tennis with his friends today?", "Does he playing tennis with his friends today?", "Is he play tennis with his friends today?"], "errNQ": ["Doesn't he playing tennis with his friends today?", "Not is he playing tennis with his friends today?", "Isn't he play tennis with his friends today?"], "errYa": ["Yes, he does.", "Yes, he plays.", "Yes, he be."], "errYn": ["No, he doesn't.", "No, he not.", "No, he wasn't."]},
+  {"aff": "They are having dinner at a restaurant tonight.", "neg": "They aren't having dinner at a restaurant tonight.", "q": "Are they having dinner at a restaurant tonight?", "nq": "Aren't they having dinner at a restaurant tonight?", "ya": "Yes, they are.", "yn": "No, they aren't.", "errAff": ["They having dinner at a restaurant tonight.", "They have dinner at a restaurant tonight.", "They are have dinner at a restaurant tonight."], "errNeg": ["They not having dinner at a restaurant tonight.", "They don't have dinner at a restaurant tonight.", "They aren't have dinner at a restaurant tonight."], "errQ": ["They are having dinner at a restaurant tonight?", "Do they having dinner at a restaurant tonight?", "Are they have dinner at a restaurant tonight?"], "errNQ": ["Don't they having dinner at a restaurant tonight?", "Not are they having dinner at a restaurant tonight?", "Aren't they have dinner at a restaurant tonight?"], "errYa": ["Yes, they do.", "Yes, they have.", "Yes, they were."], "errYn": ["No, they don't.", "No, they not.", "No, they weren't."]},
+  {"aff": "I am looking for a new job at the moment.", "neg": "I'm not looking for a new job at the moment.", "q": "Am I looking for a new job at the moment?", "nq": "Am I not looking for a new job at the moment?", "ya": "Yes, I am.", "yn": "No, I'm not.", "errAff": ["I looking for a new job at the moment.", "I look for a new job at the moment.", "I am look for a new job at the moment."], "errNeg": ["I not looking for a new job at the moment.", "I don't look for a new job at the moment.", "I'm not look for a new job at the moment."], "errQ": ["I am looking for a new job at the moment?", "Do I looking for a new job at the moment?", "Am I look for a new job at the moment?"], "errNQ": ["Don't I looking for a new job at the moment?", "Am I not look for a new job at the moment?", "Aren't I looking for a new job at the moment?"], "errYa": ["Yes, I do.", "Yes, I look.", "Yes, I were."], "errYn": ["No, I don't.", "No, I not.", "No, I wasn't."]}
+];
+
+/* ── PSPC — FORM METADATA ── */
+var PSPC_FORMS = {
+  aff: { key:'aff', label:'Afirmativa',                 tagClass:'tag-aff', errKey:'errAff' },
+  neg: { key:'neg', label:'Negativa',                   tagClass:'tag-neg', errKey:'errNeg' },
+  q:   { key:'q',   label:'Interrogativa',              tagClass:'tag-q',   errKey:'errQ'   },
+  nq:  { key:'nq',  label:'Interrogativa Negativa',     tagClass:'tag-nq',  errKey:'errNQ'  },
+  ya:  { key:'ya',  label:'Resposta Curta Afirmativa',  tagClass:'tag-ya',  errKey:'errYa'  },
+  yn:  { key:'yn',  label:'Resposta Curta Negativa',    tagClass:'tag-yn',  errKey:'errYn'  }
+};
+
+/* Source forms (what the student sees) — short answers NEVER as source */
+var PSPC_SRC_EASY   = ['aff','neg','q'];
+var PSPC_SRC_MEDIUM = ['aff','neg','q','nq'];
+/* Target forms per difficulty */
+var PSPC_TGT_EASY   = ['aff','neg','q'];
+var PSPC_TGT_MEDIUM = ['aff','neg','q','nq','ya','yn'];
+/* Short-answer forms (only valid when source is a question) */
+var PSPC_SHORT_ANS  = ['ya','yn'];
+
+var PSPC_HINTS = {
+  ps3rdS:  'Lembre: no Present Simple, verbos com he/she/it recebem -s ou -es no final.',
+  psDo:    `Com I/you/we/they usamos DO/DON'T como auxiliar — não does/doesn't.`,
+  psDoes:  `Com he/she/it usamos DOES/DOESN'T como auxiliar — não do/don't.`,
+  pcBe:    'No Present Continuous o verbo to BE (am/is/are) é obrigatório antes do verbo -ing.',
+  pcIng:   'No Present Continuous o verbo principal deve estar na forma -ing.',
+  order:   'Em perguntas o auxiliar vem ANTES do sujeito: Auxiliar + Sujeito + Verbo.',
+  shortQ:  `A Resposta Curta só existe para responder a uma Interrogativa (ou Interrogativa Negativa). No modo Médio, você transforma a pergunta em resposta curta: em português repetimos o verbo principal; em inglês repetimos só o auxiliar (do/does ou am/is/are), que carrega o sentido da pergunta.`
+};
+
+/* ── PSPC STATE ── */
+var pspcSess     = '';
+var pspcDiff     = '';
+var pspcQueue    = [];
+var pspcIdx      = 0;
+var pspcSrcKey   = '';
+var pspcTgtKey   = '';
+var pspcCorrect  = 0;
+var pspcAnswered = false;
+var pspcTotal    = 15;
+var pspcStreak   = 0;
+var pspcBestStr  = 0;
+
+/* ── PSPC HELPERS ── */
+function pspcShuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length-1; i > 0; i--) {
+    var j = Math.floor(Math.random()*(i+1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+function pspcEl(id) { return document.getElementById(id); }
+function pspcShowScreen(id) {
+  ['pspc-setup','pspc-exercise','pspc-result'].forEach(function(s) {
+    var el = pspcEl(s);
+    if (el) { el.classList.remove('pspc-active'); }
+  });
+  var target = pspcEl(id);
+  if (target) target.classList.add('pspc-active');
+}
+
+/* ── PSPC SETUP ── */
+function pspcSelectSess(s) {
+  pspcSess = s;
+  pspcEl('pspc-sess-ps').classList.toggle('pspc-selected', s==='ps');
+  pspcEl('pspc-sess-mixed').classList.toggle('pspc-selected', s==='mixed');
+  pspcUpdateBtn();
+}
+function pspcSelectDiff(d) {
+  pspcDiff = d;
+  pspcEl('pspc-diff-easy').classList.toggle('pspc-selected', d==='easy');
+  pspcEl('pspc-diff-medium').classList.toggle('pspc-selected', d==='medium');
+  pspcUpdateBtn();
+}
+function pspcUpdateBtn() {
+  var btn = pspcEl('pspc-btn-start');
+  if (btn) btn.disabled = !(pspcSess && pspcDiff);
+}
+
+function pspcBuildQueue() {
+  var pool;
+  if (pspcSess === 'ps') {
+    pool = pspcShuffle(PS_BANK);
+  } else {
+    var psSlice = pspcShuffle(PS_BANK).slice(0, 22);
+    var pcSlice = pspcShuffle(PC_BANK).slice(0, 8);
+    pool = pspcShuffle(psSlice.concat(pcSlice));
+  }
+  return pool.slice(0, pspcTotal);
+}
+
+/* Pick a valid source → target pair */
+function pspcPickForms(sentence) {
+  var srcList = pspcDiff === 'easy' ? PSPC_SRC_EASY   : PSPC_SRC_MEDIUM;
+  var tgtList = pspcDiff === 'easy' ? PSPC_TGT_EASY   : PSPC_TGT_MEDIUM;
+  var src, tgt, attempts = 0;
+  do {
+    src = srcList[Math.floor(Math.random()*srcList.length)];
+    /* Valid targets: same diff pool, not same as src, short-ans only after question */
+    var valid = tgtList.filter(function(f) {
+      if (f === src) return false;
+      if (PSPC_SHORT_ANS.indexOf(f) !== -1 && src !== 'q' && src !== 'nq') return false;
+      return true;
+    });
+    if (valid.length) tgt = valid[Math.floor(Math.random()*valid.length)];
+    attempts++;
+  } while (!tgt && attempts < 30);
+  return { src: src || 'aff', tgt: tgt || 'neg' };
+}
+
+/* Build 4 options: ALL in the target form — 1 correct + 3 distractors */
+function pspcBuildOptions(sentence, tgtKey) {
+  var correct  = sentence[tgtKey];
+  var errKey   = PSPC_FORMS[tgtKey].errKey;
+  var errors   = sentence[errKey] ? pspcShuffle(sentence[errKey]).slice(0, 3) : [];
+  while (errors.length < 3) errors.push(correct);   /* failsafe — should never happen */
+  return { opts: pspcShuffle([correct].concat(errors)), correct: correct };
+}
+
+/* Rodapé PT ↔ EN anexado a cada erro de resposta curta (** → negrito via pspcFbHtml) */
+var PSPC_SHORT_PT_EN_FOOT = ' **Comparação PT ↔ EN:** em português ecoamos o **verbo** ou **estar** ("Ela trabalha?" → "Sim, **trabalha**."; "Ela está trabalhando?" → "Sim, **está**."). Em inglês, na resposta curta, repetimos só o **auxiliar** (**do**, **does**, **is**, **are**…) — ele assume o papel do verbo da pergunta.';
+
+var PSPC_PS_LEX_RE = /\b(work|works|play|plays|study|studies|go|goes|watch|watches|read|reads|drink|drinks|drive|drives|cook|cooks|finish|finishes|visit|visits|buy|buys|help|helps|write|writes|love|loves|swim|swims|travel|travels|check|checks|eat|eats|speak|speaks|clean|cleans|enjoy|enjoys|meet|meets|take|takes|walk|walks|exercise|exercises|use|uses|practice|practices|live|lives)\b/i;
+var PSPC_PC_LEX_RE = /\b(works|studies|plays|runs|reads|writes|talks|travels|has|learns|cooks)\b/i;
+
+/* **negrito** e *itálico* → HTML (strings vêm só do nosso código) */
+function pspcFbHtml(s) {
+  if (s == null || s === '') return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\*\*([\s\S]*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+}
+
+function pspcFbSetRich(ruleEl, explEl, ruleStr, explStr) {
+  if (ruleEl) ruleEl.innerHTML = pspcFbHtml(ruleStr);
+  if (explEl) explEl.innerHTML = pspcFbHtml(explStr);
+}
+
+function pspcFbClearRich(ruleEl, explEl) {
+  if (ruleEl) ruleEl.textContent = '';
+  if (explEl) explEl.textContent = '';
+}
+
+var PSPC_SHORT_PS_HINTS = [
+  { ok: function(c) { return /\bYes,\s*(he|she|it)\s+do\.?\s*$/i.test(c) || /\bYes,\s*(I|you|we|they)\s+does\.?\s*$/i.test(c); },
+    rule: '📌 Present Simple: concordância do / does',
+    expl: 'Com **he/she/it** usamos **does**; com **I, you, we** ou **they** usamos **do**. **PT:** "Ela trabalha aqui?" → "Sim, **trabalha**." **EN:** Does she work? → **Yes, she does.**' },
+  { ok: function(c) { return /^Yes,\s*I\s+am\.?\s*$/i.test(c) || /^Yes,\s*(we|they|you)\s+are\.?\s*$/i.test(c) || /^Yes,\s*.+\s+is\.?\s*$/i.test(c); },
+    rule: '📌 Present Simple: use do ou does na resposta curta',
+    expl: 'A pergunta é no **Present Simple** (**Do**…? / **Does**…?). A resposta curta repete **do** ou **does**, não **am / is / are**. **PT:** "Ela trabalha aqui?" → "Sim, **trabalha**" (verbo principal). **EN:** Does she work? → **Yes, she does.** (só o auxiliar **does**).' },
+  { ok: function(c) { return /^Yes,\s+/i.test(c) && PSPC_PS_LEX_RE.test(c); },
+    rule: '📌 Resposta curta: repita o auxiliar, não o verbo principal',
+    expl: '**PT:** "Ela trabalha aqui?" → "Sim, **trabalha**." **EN:** Does she work? → **Yes, she does.** — não *Yes, she works.* como resposta curta típica; o **does** já substitui o verbo.' },
+  { ok: function(c) { return /\bNo,\s*(he|she|it)\s+don'?t\.?\s*$/i.test(c); },
+    rule: '📌 Present Simple: he/she/it → doesn\'t',
+    expl: 'Com **he, she** ou **it** a negativa curta usa **doesn\'t**, não **don\'t**.' },
+  { ok: function(c) { return /^No,\s*(he|she|it|I|you|we|they)\s+isn'?t\.?\s*$/i.test(c); },
+    rule: '📌 Present Simple: negativa curta com don\'t / doesn\'t',
+    expl: 'No **Present Simple** a negativa curta é **No, … don\'t** ou **No, … doesn\'t**. **PT:** "Ela não trabalha aqui?" → "Não, **não trabalha**." **EN:** Does she work? → **No, she doesn\'t.** — não **isn\'t** (isso é **to be** / Continuous).' },
+  { ok: function(c, tgt) { return tgt === 'yn' && /\bdoesn'?t\s+\w{2,}\s*\.?\s*$/i.test(c) && !/doesn'?t\.?\s*$/i.test(c.replace(/\s+/g, ' ').trim()); },
+    rule: '📌 Resposta curta: só o auxiliar',
+    expl: '**PT:** "Ela não trabalha aqui?" → às vezes "Não, **não trabalha**." **EN:** na resposta **curta** padrão, **No, she doesn\'t.** — sem repetir o verbo depois de **doesn\'t**.' },
+  { ok: function(c) { return /\bYes,\s*(they|we|you|I)\s+does\.?\s*$/i.test(c); },
+    rule: '📌 Present Simple: I/you/we/they → do',
+    expl: 'Com **I, you, we** ou **they** usamos **do**, não **does**.' }
+];
+
+var PSPC_SHORT_PC_HINTS = [
+  { ok: function(c) { return /^Yes,\s*.+\s+does\.?\s*$/i.test(c) || /^Yes,\s*.+\s+do\.?\s*$/i.test(c); },
+    rule: '📌 Present Continuous: repita am / is / are',
+    expl: 'A pergunta usa **Is** / **Are** / **Am** + **-ing**. A resposta curta repete **is** / **are** / **am** — não **do** ou **does**. **PT:** "Ela está trabalhando?" → "Sim, **está**." **EN:** Is she working? → **Yes, she is.**' },
+  { ok: function(c) { return /^Yes,\s*.+\s+/.test(c) && PSPC_PC_LEX_RE.test(c); },
+    rule: '📌 Resposta curta: repita BE, não o verbo principal',
+    expl: '**PT:** "Ela está trabalhando?" → "Sim, **está**." **EN:** Is she working? → **Yes, she is.** — não *Yes, she works.* O **is** carrega a ideia do **-ing**.' },
+  { ok: function(c) { return /\bbe\.?\s*$/i.test(c) && /^Yes/i.test(c); },
+    rule: '📌 Use is / are / am',
+    expl: '**PT:** "Ela está trabalhando?" → "Sim, **está**" — repetimos **estar** na mesma ideia. **EN:** Is she working? → **Yes, she is.** — repetimos **is** / **are** / **am**, como na pergunta. Não use só a forma base *be*.' },
+  { ok: function(c) { return /^No,\s*.+\s+don'?t\.?\s*$/i.test(c) || /^No,\s*.+\s+doesn'?t\.?\s*$/i.test(c); },
+    rule: '📌 Present Continuous: isn\'t / aren\'t / \'m not',
+    expl: '**PT:** "Ela não está trabalhando?" → "Não, **não está**." **EN:** Is she working? → **No, she isn\'t.** — não **don\'t** / **doesn\'t**.' },
+  { ok: function(c) { return /\bNo,\s*\w+\s+not\.?\s*$/i.test(c) && !/n't/.test(c); },
+    rule: '📌 Use isn\'t / aren\'t / \'m not',
+    expl: 'Use **be** + **not** contraído: **isn\'t**, **aren\'t**, **I\'m not** — não *No, she not.*' },
+  { ok: function(c) { return /\bwasn'?t\.?\s*$/i.test(c); },
+    rule: '📌 Presente, não passado',
+    expl: '**Wasn\'t** é passado; a pergunta está no presente. **EN:** **No, she isn\'t.**' },
+  { ok: function(c) { return /\b(were|was)\.?\s*$/i.test(c); },
+    rule: '📌 Presente com is / are / am',
+    expl: '**Was** / **were** são passado. Repita **is**, **are** ou **am**, como na pergunta no presente.' }
+];
+
+function pspcGetHintShortAnswer(c, tgtKey, isPc) {
+  var foot = PSPC_SHORT_PT_EN_FOOT;
+  var list = isPc ? PSPC_SHORT_PC_HINTS : PSPC_SHORT_PS_HINTS;
+  for (var i = 0; i < list.length; i++) {
+    if (list[i].ok(c, tgtKey)) return { rule: list[i].rule, expl: list[i].expl + foot };
+  }
+  return {
+    rule: '📌 Resposta curta: repita o auxiliar da pergunta',
+    expl: 'Identifique o auxiliar (**Do** / **Does** ou **Am** / **Is** / **Are**) e use a mesma família na pessoa certa.' + foot
+  };
+}
+
+/* Infer PS vs PC from the canonical question (banks do not carry a tense field). */
+function pspcDetectTense(sentence) {
+  if (!sentence || !sentence.q) return 'ps';
+  var q = sentence.q.replace(/^\s+/, '');
+  if (/^(Is|Are|Am)\b/i.test(q)) return 'pc';
+  return 'ps';
+}
+
+/* Feedback when short answer (ya/yn) is correct — PT vs EN auxiliaries */
+function pspcShortAnswerDidactic(sentence, tgtKey) {
+  var tense = pspcDetectTense(sentence);
+  if (tense === 'ps') {
+    return {
+      rule: '📌 Resposta curta no Present Simple',
+      expl: '**PT:** "Você gosta de café?" → "Sim, **gosto**." (repetimos o verbo principal.) **EN:** Do you like coffee? → **Yes, I do.** — repetimos só **do**; ele "vale" por *like*. Ex.: Does she work? → **Yes, she does.** / **No, she doesn\'t.**'
+    };
+  }
+  return {
+    rule: '📌 Resposta curta no Present Continuous',
+    expl: '**PT:** "Ela está trabalhando?" → "Sim, **está**." (ecoamos **estar**.) **EN:** Is she working? → **Yes, she is.** / **No, she isn\'t.** — repetimos **am / is / are**; não **do/does** nem o **-ing** na resposta curta.'
+  };
+}
+
+/* Determine hint based on chosen wrong answer */
+function pspcGetHint(chosen, tgtKey, sentence) {
+  if (!chosen) return { rule: '', expl: '' };
+  var c = chosen;
+  var tense = pspcDetectTense(sentence);
+  if (tgtKey === 'ya' || tgtKey === 'yn') return pspcGetHintShortAnswer(c, tgtKey, tense === 'pc');
+
+  /* ── PRESENT SIMPLE errors ─────────────────────────────────── */
+
+  /* Missing -s on 3rd person singular affirmative */
+  if (tgtKey === 'aff' && /^(He|She|It)\b/.test(c) && !/s(\.)?$/.test(c.replace(/\?$/, '').trim())) {
+    return {
+      rule: '📌 Regra: he/she/it + verbo com -S ou -ES',
+      expl: 'No Present Simple, quando o sujeito é he, she ou it, o verbo recebe -s ou -es no final. Ex: he works, she goes, it finishes. Sua resposta esqueceu esse -s.'
+    };
+  }
+
+  /* Affirmative: using wrong tense (PC instead of PS) */
+  if (tgtKey === 'aff' && tense === 'ps' && /\b(is|are|am)\b.*ing\b/.test(c)) {
+    return {
+      rule: '📌 Regra: Present Simple usa o verbo na forma base',
+      expl: 'No Present Simple, não usamos to be + -ing. Essa estrutura pertence ao Present Continuous. Ex: She works (Simple) vs She is working (Continuous).'
+    };
+  }
+
+  /* Negative: don't instead of doesn't for he/she/it */
+  if (tgtKey === 'neg' && /^(He|She|It)\b/.test(c) && /\bdon't\b/.test(c)) {
+    return {
+      rule: "📌 Regra: he/she/it → doesn't (não don't)",
+      expl: "Com he, she ou it usamos DOESN'T como auxiliar negativo — não don't. Lembre: o -s que normalmente vai no verbo se transfere para o auxiliar na negativa. Ex: She doesn't work (e não She don't work)."
+    };
+  }
+
+  /* Negative: doesn't instead of don't for I/you/we/they */
+  if (tgtKey === 'neg' && /^(I|You|We|They)\b/.test(c) && /\bdoesn't\b/.test(c)) {
+    return {
+      rule: "📌 Regra: I/you/we/they → don't (não doesn't)",
+      expl: "Com I, you, we ou they usamos DON'T como auxiliar negativo — não doesn't. O doesn't é reservado para he, she e it. Ex: They don't play (e não They doesn't play)."
+    };
+  }
+
+  /* Negative: verb with -s after doesn't (doesn't works) */
+  if (tgtKey === 'neg' && /doesn't\s+\w+s\b/.test(c)) {
+    return {
+      rule: "📌 Regra: após doesn't, o verbo fica na forma base",
+      expl: "Quando usamos doesn't, o verbo principal sempre fica na forma base (infinitivo sem to). O -s já está no auxiliar. Ex: She doesn't work (e não She doesn't works)."
+    };
+  }
+
+  /* Question: Do + he/she/it */
+  if ((tgtKey === 'q' || tgtKey === 'nq') && /^(Do |Don't )(he|she|it)\b/i.test(c)) {
+    return {
+      rule: `📌 Regra: he/she/it → Does/Doesn't em perguntas`,
+      expl: 'Em perguntas no Present Simple, usamos DOES para he, she e it — não do. Ex: Does she work? (e não Do she work?). O verbo fica na forma base após does.'
+    };
+  }
+
+  /* Question: Does + I/you/we/they */
+  if ((tgtKey === 'q' || tgtKey === 'nq') && /^(Does |Doesn't )(I|you|we|they)\b/i.test(c)) {
+    return {
+      rule: `📌 Regra: I/you/we/they → Do/Don't em perguntas`,
+      expl: "Em perguntas no Present Simple, usamos DO para I, you, we e they — não does. Ex: Do they work? (e não Does they work?). O does é reservado para he, she e it."
+    };
+  }
+
+  /* Question: verb with -s after does (does she works?) */
+  if ((tgtKey === 'q' || tgtKey === 'nq') && /does\s+\w+\s+\w+s\b/i.test(c)) {
+    return {
+      rule: '📌 Regra: após does, o verbo fica na forma base',
+      expl: 'Depois de does em perguntas, o verbo sempre fica na forma base (sem -s). Ex: Does she work? (e não Does she works?). O -s não aparece no verbo principal.'
+    };
+  }
+
+  /* Question: wrong word order (subject before auxiliary) */
+  if ((tgtKey === 'q' || tgtKey === 'nq') && /^(I |You |He |She |We |They |It )/i.test(c) && !/^(Isn't|Aren't|Doesn't|Don't)/i.test(c)) {
+    return {
+      rule: '📌 Regra: em perguntas, o auxiliar vem primeiro',
+      expl: 'Em perguntas em inglês, a ordem é sempre: Auxiliar + Sujeito + Verbo. Sua resposta colocou o sujeito antes do auxiliar. Ex: Does she work? (e não She does work?).'
+    };
+  }
+
+  /* ── PRESENT CONTINUOUS errors ──────────────────────────────── */
+
+  /* Missing to be (she working...) */
+  if (/ing\b/.test(c) && !/(is|are|am|isn't|aren't|am not)\b/i.test(c)) {
+    return {
+      rule: '📌 Regra: Present Continuous = to be + verbo -ing',
+      expl: 'O Present Continuous é formado por to be (am/is/are) + o verbo com -ing. Sua resposta tem o -ing mas esqueceu o verbo to be. Ex: She is working (e não She working).'
+    };
+  }
+
+  /* Verb without -ing after to be */
+  if (/(is|are|am)\b/.test(c) && !/ing\b/.test(c) && tense === 'pc') {
+    return {
+      rule: '📌 Regra: Present Continuous = to be + verbo -ing',
+      expl: 'No Present Continuous, após o verbo to be (am/is/are), o verbo principal deve estar na forma -ing. Ex: She is working (e não She is work). O -ing indica ação em progresso.'
+    };
+  }
+
+  /* PC negative: using doesn't instead of isn't/aren't */
+  if (tgtKey === 'neg' && tense === 'pc' && /doesn't|don't/.test(c)) {
+    return {
+      rule: "📌 Regra: negativa no Continuous usa isn't/aren't",
+      expl: "Para negar no Present Continuous, usamos isn't (he/she/it) ou aren't (I/you/we/they) — não doesn't/don't. Ex: She isn't working (e não She doesn't working)."
+    };
+  }
+
+  /* PC question: using do/does instead of is/are */
+  if ((tgtKey === 'q' || tgtKey === 'nq') && tense === 'pc' && /^(Do |Does )/i.test(c)) {
+    return {
+      rule: '📌 Regra: perguntas no Continuous usam is/are',
+      expl: 'Para perguntas no Present Continuous, usamos is (he/she/it) ou are (I/you/we/they) — não do/does. Ex: Is she working? (e não Does she working?).'
+    };
+  }
+
+  /* Default fallback */
+  return {
+    rule: '📌 Atenção à estrutura gramatical',
+    expl: 'Revise a estrutura do tempo verbal e tente novamente. Preste atenção ao auxiliar correto e à forma do verbo principal.'
+  };
+}
+
+/* ── PSPC EXERCISE ── */
+function pspcStart() {
+  pspcQueue    = pspcBuildQueue();
+  pspcIdx      = 0;
+  pspcCorrect  = 0;
+  pspcStreak   = 0;
+  pspcBestStr  = 0;
+  pspcAnswered = false;
+
+  var badge = pspcEl('pspc-badge');
+  if (badge) {
+    if (pspcSess === 'ps') {
+      badge.textContent = 'Present Simple';
+      badge.className = 'pspc-badge';
+    } else {
+      badge.textContent = 'Simples + Contínuo';
+      badge.className = 'pspc-badge pspc-mixed';
+    }
+  }
+
+  pspcShowScreen('pspc-exercise');
+  pspcLoadQ();
+}
+
+function pspcLoadQ() {
+  pspcAnswered = false;
+  var q   = pspcQueue[pspcIdx];
+  var fp  = pspcPickForms(q);
+  pspcSrcKey = fp.src;
+  pspcTgtKey = fp.tgt;
+
+  /* Progress */
+  var qNum = pspcIdx + 1;
+  var qCounter = pspcEl('pspc-q-counter');
+  if (qCounter) qCounter.textContent = 'Questão ' + qNum + ' de ' + pspcTotal;
+  var fill = pspcEl('pspc-progress-fill');
+  if (fill) fill.style.width = Math.round((pspcIdx / pspcTotal) * 100) + '%';
+  var scoreEl = pspcEl('pspc-score');
+  if (scoreEl) scoreEl.textContent = pspcCorrect;
+  var streakEl = pspcEl('pspc-streak');
+  if (streakEl) streakEl.textContent = pspcStreak >= 3 ? '🔥 ' + pspcStreak + ' seguidas!' : '';
+
+  /* Source tag */
+  var srcMeta = PSPC_FORMS[pspcSrcKey];
+  var tag = pspcEl('pspc-source-tag');
+  if (tag) { tag.textContent = srcMeta.label; tag.className = 'pspc-source-tag ' + srcMeta.tagClass; }
+
+  /* Sentence */
+  var sentEl = pspcEl('pspc-sentence');
+  if (sentEl) sentEl.textContent = q[pspcSrcKey];
+
+  /* Target label */
+  var tgtName = pspcEl('pspc-target-name');
+  if (tgtName) tgtName.textContent = PSPC_FORMS[pspcTgtKey].label;
+
+  /* Hide feedback + next */
+  var fb = pspcEl('pspc-feedback');
+  if (fb) fb.className = 'pspc-feedback';
+  pspcFbClearRich(pspcEl('pspc-fb-rule'), pspcEl('pspc-fb-expl'));
+  var nextBtn = pspcEl('pspc-btn-next');
+  if (nextBtn) nextBtn.className = 'pspc-btn-next';
+
+  /* Build options */
+  var built = pspcBuildOptions(q, pspcTgtKey);
+  var area  = pspcEl('pspc-options');
+  if (!area) return;
+  area.innerHTML = '';
+  built.opts.forEach(function(opt) {
+    var b = document.createElement('button');
+    b.className = 'pspc-opt';
+    b.textContent = opt;
+    b.setAttribute('data-value', opt);
+    b.onclick = (function(btn, chosen, correct) {
+      return function() { pspcAnswer(btn, chosen, correct); };
+    })(b, opt, built.correct);
+    area.appendChild(b);
+  });
+
+  /* Animate card */
+  var card = pspcEl('pspc-q-card');
+  if (card) {
+    card.style.animation = 'none';
+    requestAnimationFrame(function() {
+      card.style.animation = 'fadeUp .3s ease both';
+    });
+  }
+}
+
+function pspcAnswer(btnEl, chosen, correct) {
+  if (pspcAnswered) return;
+  pspcAnswered = true;
+  var ok = chosen === correct;
+  if (ok) { pspcCorrect++; pspcStreak++; if (pspcStreak > pspcBestStr) pspcBestStr = pspcStreak; }
+  else { pspcStreak = 0; }
+
+  /* Colour buttons */
+  var allBtns = pspcEl('pspc-options').querySelectorAll('.pspc-opt');
+  allBtns.forEach(function(b) {
+    b.disabled = true;
+    if (b.getAttribute('data-value') === correct && !ok) b.classList.add('pspc-reveal');
+  });
+  btnEl.classList.add(ok ? 'pspc-correct' : 'pspc-wrong');
+
+  /* Update score + streak */
+  var scoreEl = pspcEl('pspc-score');
+  if (scoreEl) scoreEl.textContent = pspcCorrect;
+  var streakEl = pspcEl('pspc-streak');
+  if (streakEl) streakEl.textContent = pspcStreak >= 3 ? '🔥 ' + pspcStreak + ' seguidas!' : '';
+
+  /* Feedback */
+  var fb    = pspcEl('pspc-feedback');
+  var icon  = pspcEl('pspc-fb-icon');
+  var title = pspcEl('pspc-fb-title');
+  var ans   = pspcEl('pspc-fb-answer');
+  var rule  = pspcEl('pspc-fb-rule');
+  var expl  = pspcEl('pspc-fb-expl');
+  if (fb && icon && title && ans) {
+    if (ok) {
+      fb.className = 'pspc-feedback pspc-ok pspc-show';
+      icon.textContent = '✅';
+      title.textContent = 'Correto!';
+      ans.textContent  = '';
+      if (pspcTgtKey === 'ya' || pspcTgtKey === 'yn') {
+        var didOk = pspcShortAnswerDidactic(pspcQueue[pspcIdx], pspcTgtKey);
+        pspcFbSetRich(rule, expl, didOk.rule, didOk.expl);
+      } else {
+        pspcFbClearRich(rule, expl);
+      }
+    } else {
+      fb.className = 'pspc-feedback pspc-err pspc-show';
+      icon.textContent = '🤔';
+      title.textContent = 'Quase lá! A resposta correta é:';
+      ans.textContent  = correct;
+      var hintData = pspcGetHint(chosen, pspcTgtKey, pspcQueue[pspcIdx]);
+      pspcFbSetRich(rule, expl, hintData.rule, hintData.expl);
+    }
+  }
+
+  var nextBtn = pspcEl('pspc-btn-next');
+  if (nextBtn) nextBtn.className = 'pspc-btn-next pspc-show';
+}
+
+function pspcNext() {
+  pspcIdx++;
+  if (pspcIdx >= pspcTotal) { pspcShowResult(); return; }
+  pspcLoadQ();
+}
+
+function pspcShowResult() {
+  var pct  = Math.round(pspcCorrect / pspcTotal * 100);
+  var tier = Math.min(4, Math.floor(pct / 20));
+  var emojis= ['😅','😐','🙂','😊','🎉'];
+  var msgs  = [
+    'Continue praticando — cada tentativa te deixa mais próximo!',
+    'Bom esforço! Revise as formas e tente novamente.',
+    'Bem feito! Você está no caminho certo.',
+    'Muito bem! Quase perfeito — mais uma rodada!',
+    'Incrível! Você dominou as transformações! 🏆'
+  ];
+  var emoji   = pspcEl('pspc-result-emoji');
+  var correct = pspcEl('pspc-result-correct');
+  var total   = pspcEl('pspc-result-total');
+  var msg     = pspcEl('pspc-result-msg');
+  var pctEl   = pspcEl('pspc-stat-pct');
+  var wrongEl = pspcEl('pspc-stat-wrong');
+  var strEl   = pspcEl('pspc-stat-streak');
+
+  if (emoji)   emoji.textContent   = emojis[tier];
+  if (correct) correct.textContent = pspcCorrect;
+  if (total)   total.textContent   = pspcTotal;
+  if (msg)     msg.textContent     = msgs[tier];
+  if (pctEl)   pctEl.textContent   = pct + '%';
+  if (wrongEl) wrongEl.textContent = (pspcTotal - pspcCorrect);
+  if (strEl)   strEl.textContent   = pspcBestStr;
+
+  pspcShowScreen('pspc-result');
+}
+
+function pspcGoSetup() {
+  pspcSess = ''; pspcDiff = '';
+  ['pspc-sess-ps','pspc-sess-mixed','pspc-diff-easy','pspc-diff-medium'].forEach(function(id) {
+    var el = pspcEl(id);
+    if (el) el.classList.remove('pspc-selected');
+  });
+  var btn = pspcEl('pspc-btn-start');
+  if (btn) btn.disabled = true;
+  pspcShowScreen('pspc-setup');
+}
+
+/* Restart: re-sort questions keeping same session/difficulty */
+function pspcRestart() {
+  pspcQueue    = pspcBuildQueue();
+  pspcIdx      = 0;
+  pspcCorrect  = 0;
+  pspcStreak   = 0;
+  pspcBestStr  = 0;
+  pspcAnswered = false;
+  pspcShowScreen('pspc-exercise');
+  pspcLoadQ();
+}
+
+addEventListener('DOMContentLoaded', function() {
+  ppUnlocked = 4;  /* Ensure all PP levels unlocked regardless of any cached state */
+  try { localStorage.removeItem(PP_STORAGE_KEY); } catch(e) {}
   renderLevelCards();
   renderExerciseBadges();
   renderPPLevelCards();
