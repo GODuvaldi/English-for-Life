@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>English For Life</title>
-<meta name="version" content="0.47">
+<meta name="version" content="0.53">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════
@@ -1224,6 +1224,40 @@ img { max-width: 100%; }
 .dropdown-item.danger:hover{background:var(--red-100);}
 @media(max-width:600px){.nav-user-name{display:none;}.user-dropdown{right:.75rem;}}
 
+/* ── SPEAKING EXERCISE ────────────────────────────────────────── */
+.sp-wrap { max-width: 720px; margin: 0 auto; padding: 0 1.5rem 4rem; display: flex; flex-direction: column; }
+.sp-intro-card { background: var(--white); border: 1.5px solid var(--gray-200); border-radius: var(--radius-xl); box-shadow: var(--shadow-md); padding: 2.5rem 2rem; text-align: center; max-width: 520px; margin: 3rem auto; }
+.sp-intro-icon { font-size: 3rem; margin-bottom: 1rem; }
+.sp-intro-card h3 { font-size: 1.4rem; font-weight: 800; color: var(--gray-900); margin-bottom: .625rem; }
+.sp-intro-card p { font-size: 14px; color: var(--gray-500); line-height: 1.65; margin-bottom: 1.75rem; }
+.sp-start-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--green-700); color: var(--white); font-size: 15px; font-weight: 700; padding: 13px 28px; border-radius: 99px; box-shadow: 0 4px 14px rgba(26,122,90,.3); transition: all .2s; }
+.sp-start-btn:hover { background: var(--green-800); transform: translateY(-1px); }
+.sp-unsupported { font-size: 13px; color: var(--orange-500); font-weight: 600; margin-top: .75rem; display: none; }
+.sp-chat-wrap { display: none; flex-direction: column; }
+.sp-messages { min-height: 200px; max-height: 52vh; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding: 1.25rem 0; }
+.sp-msg { display: flex; flex-direction: column; max-width: 80%; }
+.sp-msg-user { align-self: flex-end; }
+.sp-msg-ai   { align-self: flex-start; }
+.sp-bubble { padding: .75rem 1.1rem; border-radius: 18px; font-size: 15px; line-height: 1.6; }
+.sp-msg-user .sp-bubble { background: var(--green-700); color: var(--white); border-bottom-right-radius: 5px; }
+.sp-msg-ai   .sp-bubble { background: var(--gray-100); color: var(--gray-900); border-bottom-left-radius: 5px; }
+.sp-bubble.sp-thinking { color: var(--gray-400) !important; font-style: italic; }
+.sp-input-area { border-top: 1px solid var(--gray-200); padding-top: 1.25rem; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.sp-mic-btn { width: 72px; height: 72px; border-radius: 50%; background: var(--green-700); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 16px rgba(26,122,90,.35); transition: all .2s; }
+.sp-mic-btn:hover:not([disabled]) { background: var(--green-800); transform: scale(1.06); }
+.sp-mic-btn.sp-recording { background: var(--red-500); box-shadow: 0 0 0 0 rgba(239,68,68,.4); animation: sp-pulse 1.1s ease-in-out infinite; }
+.sp-mic-btn[disabled] { background: var(--gray-300); cursor: not-allowed; transform: none; box-shadow: none; }
+@keyframes sp-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.4)} 60%{box-shadow:0 0 0 16px rgba(239,68,68,0)} }
+.sp-status { font-size: 13px; color: var(--gray-400); min-height: 18px; text-align: center; }
+.sp-text-row { display: flex; gap: 8px; width: 100%; }
+.sp-text-input { flex: 1; height: 44px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-md); padding: 0 1rem; font-size: 14px; font-family: var(--font); background: var(--gray-50); outline: none; transition: border-color .15s; }
+.sp-text-input:focus { border-color: var(--green-500); background: var(--white); }
+.sp-send-btn { height: 44px; padding: 0 1.25rem; background: var(--green-700); color: var(--white); font-size: 14px; font-weight: 700; border-radius: var(--radius-md); transition: background .15s; white-space: nowrap; }
+.sp-send-btn:hover { background: var(--green-800); }
+.sp-or-divider { font-size: 12px; color: var(--gray-400); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+.sp-reset-btn { font-size: 12px; color: var(--gray-400); cursor: pointer; text-decoration: underline; background: none; border: none; }
+.sp-reset-btn:hover { color: var(--gray-600); }
+
 /* ── ED PRONUNCIATION — highlighted key letter ── */
 .ed-key-letter { color: #3b82f6; font-weight: 900; }
 
@@ -1909,7 +1943,7 @@ img { max-width: 100%; }
 
           <div class="options-grid">
             <button class="opt-btn" id="opt-long" onclick="answer('long')">
-              <span class="opt-phonetic">/Éªd/</span>
+              <span class="opt-phonetic">/ɪd/</span>
               <span class="opt-name">Som Longo</span>
               <span class="opt-example">want<strong>ed</strong>, need<strong>ed</strong></span>
             </button>
@@ -2743,7 +2777,7 @@ img { max-width: 100%; }
         <div class="iv-quiz-intro">
           <div class="iv-quiz-intro-icon">🎯</div>
           <h3>Quiz de Verbos Irregulares</h3>
-          <p>Você verá um verbo em uma forma e deverá completar as outras duas.<br>São <strong>10 rodadas</strong> por sessão.</p>
+          <p>Você verá duas formas do verbo e deverá escolher a terceira.<br>São <strong>10 rodadas</strong> por sessão.</p>
           <button class="iv-btn-start" onclick="ivQuizStart()">Iniciar Quiz →</button>
         </div>
       </div>
@@ -2759,11 +2793,7 @@ img { max-width: 100%; }
         </div>
 
         <div class="ps-q-card" id="iv-quiz-card">
-          <div style="font-size:.8125rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--orange-500);margin-bottom:.625rem;" id="iv-quiz-task"></div>
-          <div class="ps-q-sentence" id="iv-quiz-given"></div>
-          <div style="margin-top:1.25rem;">
-            <div class="iv-quiz-fields" id="iv-quiz-fields"></div>
-          </div>
+          <div class="iv-quiz-fields" id="iv-quiz-fields"></div>
         </div>
 
         <div class="ps-feedback" id="iv-quiz-feedback" style="display:none;">
@@ -2805,11 +2835,65 @@ img { max-width: 100%; }
 <!-- ═══════════ END IRREGULAR VERBS ═══════════ -->
 
 <div class="page" id="page-speaking">
-  <div class="coming-soon">
-    <div class="cs-icon">🗣️</div>
-    <h2>Speaking — Em breve</h2>
-    <p>Exercícios de pronúncia e fala guiada chegando em breve.</p>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="breadcrumb">
+        <a onclick="showPage('home',null)">Início</a>
+        <span>›</span>
+        <span>Speaking</span>
+      </div>
+      <div class="module-tag">🗣️ Conversação</div>
+      <h2>Free Conversation</h2>
+      <p>Pratique inglês falando com seu parceiro de conversação virtual.</p>
+    </div>
   </div>
+
+  <div class="sp-wrap">
+
+    <!-- ── TELA INICIAL ── -->
+    <div id="sp-intro">
+      <div class="sp-intro-card">
+        <div class="sp-intro-icon">🗣️</div>
+        <h3>Conversa Livre em Inglês</h3>
+        <p>Fale ou escreva em inglês e receba respostas naturais em voz e texto.<br>
+           Use o microfone ou digite — o parceiro virtual vai responder e corrigir suavemente.</p>
+        <button class="sp-start-btn" onclick="spStart()">🎙️ Começar conversa</button>
+        <div class="sp-unsupported" id="sp-unsupported-warn">
+          ⚠️ Seu navegador não suporta microfone. Use o Chrome ou Edge para gravar voz.
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CHAT ── -->
+    <div class="sp-chat-wrap" id="sp-chat">
+
+      <div class="sp-messages" id="sp-messages"></div>
+
+      <div class="sp-input-area">
+        <!-- Mic button -->
+        <button class="sp-mic-btn" id="sp-mic-btn" onclick="spToggleMic()" title="Pressione para falar">🎙️</button>
+        <div class="sp-status" id="sp-status">Pressione o microfone para falar</div>
+
+        <div class="sp-or-divider">ou escreva</div>
+
+        <!-- Text fallback -->
+        <div class="sp-text-row">
+          <input class="sp-text-input" id="sp-text-input" type="text"
+                 placeholder="Digite sua mensagem em inglês..."
+                 onkeydown="if(event.key==='Enter')spSendText()">
+          <button class="sp-send-btn" onclick="spSendText()">Enviar →</button>
+        </div>
+
+        <button class="sp-reset-btn" onclick="spReset()">🔄 Reiniciar conversa</button>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.52</span>
+  </footer>
 </div>
 
 <div class="page" id="page-writing">
@@ -2824,7 +2908,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.50';
+var SITE_VERSION = 'v0.53';
 
 var EXERCISE_REGISTRY = [
   {
@@ -3687,7 +3771,7 @@ function answer(chosen) {
 
   var fb=el('feedback'), fbi=el('fb-icon'), fbt=el('fb-text');
   if (fb && fbi && fbt) {
-    var soundLabel = v.sound==='long' ? 'longa /Éªd/' : 'curta';
+    var soundLabel = v.sound==='long' ? 'longa /ɪd/' : 'curta';
     var endNote    = v.sound==='long' ? ' — criando uma sílaba extra!' : '.';
     var pastDisplay = currentLevel === 1
       ? highlightPast(v.past, v.inf, v.end)
@@ -6154,49 +6238,52 @@ function ivQuizLoad() {
 
   var item = ivQuizQueue[ivQuizIdx];
   var v = item.verb;
-  var given = item.type.replace('give-','');
+  var hidden = item.type.replace('give-','');
+  var allKeys = ['inf','ps','pp'];
   var labels = { inf: 'Infinitive', ps: 'Past Simple', pp: 'Past Participle' };
   var givenForms = { inf: v.inf, ps: v.ps.split('/')[0], pp: v.pp.split('/')[0] };
 
-  /* Montar os dois campos que o aluno deve responder */
-  var targets = ['inf','ps','pp'].filter(function(k){ return k !== given; });
+  /* As duas formas dadas (não a oculta) */
+  var givenKeys = allKeys.filter(function(k){ return k !== hidden; });
 
-  /* Gerar distractors: pegar 3 verbos aleatórios diferentes do atual */
+  /* Gerar distractors para o único campo a adivinhar */
   var others = ivQuizShuffle(IV_BANK.filter(function(x){ return x.inf !== v.inf; }));
+  var correct = v[hidden].split('/')[0];
+  var distractors = [];
+  for (var i = 0; i < others.length && distractors.length < 3; i++) {
+    var d = others[i][hidden].split('/')[0];
+    if (d !== correct && distractors.indexOf(d) === -1) distractors.push(d);
+  }
+  var opts = ivQuizShuffle([correct].concat(distractors));
 
   var html = '';
 
-  /* Cabeçalho: verbo dado */
-  html += '<div class="iv-quiz-given-wrap">';
-  html += '<span class="iv-quiz-given-label">' + labels[given] + '</span>';
-  html += '<span class="iv-quiz-given-val">' + givenForms[given] + '</span>';
+  /* Duas formas dadas lado a lado */
+  html += '<div class="iv-quiz-given-wrap" style="display:flex;gap:12px;margin-bottom:1.25rem;">';
+  givenKeys.forEach(function(k) {
+    html += '<div style="flex:1;background:var(--green-50);border:1.5px solid var(--green-200);border-radius:var(--radius-md);padding:.75rem 1rem;text-align:center;">';
+    html += '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:6px;">' + labels[k] + '</div>';
+    html += '<div style="font-size:1.35rem;font-weight:800;color:var(--green-800);">' + givenForms[k] + '</div>';
+    html += '</div>';
+  });
   html += '</div>';
 
-  /* Um campo 2x2 por cada forma a adivinhar */
-  targets.forEach(function(tgt, ti) {
-    var correct = v[tgt].split('/')[0];
-    /* 3 distractors: 1 do mesmo campo de outros verbos, garantindo unicidade */
-    var distractors = [];
-    for (var i = 0; i < others.length && distractors.length < 3; i++) {
-      var d = others[i][tgt].split('/')[0];
-      if (d !== correct && distractors.indexOf(d) === -1) distractors.push(d);
-    }
-    /* Embaralhar as 4 opções */
-    var opts = ivQuizShuffle([correct].concat(distractors));
-
-    html += '<div class="iv-quiz-field-block">';
-    html += '<div class="iv-quiz-field-title">' + labels[tgt] + '</div>';
-    html += '<div class="iv-quiz-grid" id="iv-grid-' + tgt + '">';
-    opts.forEach(function(opt) {
-      var safeOpt = opt.replace(/'/g, "\\'");
-      html += '<button class="iv-quiz-opt" onclick="ivQuizPick(this,\'' + tgt + '\',\'' + safeOpt + '\')">' + opt + '</button>';
-    });
-    html += '</div></div>';
+  /* Um único campo 2x2 para a forma oculta */
+  html += '<div class="iv-quiz-field-block">';
+  html += '<div style="text-align:center;margin-bottom:.875rem;">';
+  html += '<span style="display:inline-block;background:var(--orange-100);color:var(--orange-500);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;border-radius:99px;padding:3px 12px;margin-bottom:6px;">Qual é o</span>';
+  html += '<div style="font-size:1.25rem;font-weight:800;color:var(--gray-900);">' + labels[hidden] + '?</div>';
+  html += '</div>';
+  html += '<div class="iv-quiz-grid" id="iv-grid-' + hidden + '">';
+  opts.forEach(function(opt) {
+    var safeOpt = opt.replace(/'/g, "\\'");
+    html += '<button class="iv-quiz-opt" onclick="ivQuizPick(this,\'' + hidden + '\',\'' + safeOpt + '\')">' + opt + '</button>';
   });
+  html += '</div></div>';
 
   ivEl('iv-quiz-fields').innerHTML = html;
-  /* Armazenar quais targets precisam ser respondidos */
-  ivEl('iv-quiz-fields').setAttribute('data-targets', targets.join(','));
+  /* Apenas um target agora */
+  ivEl('iv-quiz-fields').setAttribute('data-targets', hidden);
   ivEl('iv-quiz-fields').setAttribute('data-answered', '0');
   /* Limpar atributos de resposta da questão anterior para evitar travamento */
   ivEl('iv-quiz-fields').removeAttribute('data-correct-inf');
@@ -6208,13 +6295,22 @@ function ivQuizNorm(s) {
   return (s||'').trim().toLowerCase().replace(/\s+/g,' ');
 }
 
+var IV_PRAISE = [
+  'Excelente! 🎉', 'Perfeito! ✨', 'Muito bem! 👏',
+  'Arrasou! 🌟', 'Correto! 💪', 'Ótimo! 🙌'
+];
+
 function ivQuizPick(btn, tgt, chosen) {
+  var fieldsEl = ivEl('iv-quiz-fields');
+  /* Evitar double-click */
+  if (fieldsEl.getAttribute('data-answered') === '1') return;
+
   var item = ivQuizQueue[ivQuizIdx];
   var v = item.verb;
   var correct = v[tgt].split('/')[0];
   var isOk = ivQuizNorm(chosen) === ivQuizNorm(correct);
 
-  /* Desabilitar todos os botões deste grid */
+  /* Desabilitar todos os botões do grid */
   var grid = ivEl('iv-grid-' + tgt);
   var btns = grid.querySelectorAll('.iv-quiz-opt');
   btns.forEach(function(b) {
@@ -6223,38 +6319,30 @@ function ivQuizPick(btn, tgt, chosen) {
   });
   if (!isOk) btn.classList.add('iv-opt-wrong');
 
-  /* Marcar este target como respondido */
-  var fieldsEl = ivEl('iv-quiz-fields');
-  var answered = parseInt(fieldsEl.getAttribute('data-answered') || '0');
-  var wasCorrectAttr = fieldsEl.getAttribute('data-correct-' + tgt);
-  if (!wasCorrectAttr) {
-    fieldsEl.setAttribute('data-correct-' + tgt, isOk ? '1' : '0');
-    answered++;
-    fieldsEl.setAttribute('data-answered', answered);
-  }
+  /* Marcar como respondido */
+  fieldsEl.setAttribute('data-answered', '1');
 
-  /* Verificar se todos os targets foram respondidos */
-  var targets = fieldsEl.getAttribute('data-targets').split(',');
-  if (answered >= targets.length) {
-    /* Calcular se acertou ambos */
-    var allOk = targets.every(function(t) {
-      return fieldsEl.getAttribute('data-correct-' + t) === '1';
-    });
-    if (allOk) ivQuizCorrect++;
+  if (isOk) {
+    ivQuizCorrect++;
     ivEl('iv-quiz-acertos-top').textContent = ivQuizCorrect + '/' + ivQuizQueue.length + ' acertos';
-
+    /* Feedback de elogio */
     var fbEl = ivEl('iv-quiz-feedback');
     fbEl.style.display = 'flex';
-    if (allOk) {
-      ivEl('iv-quiz-fb-icon').textContent = '✅';
-      ivEl('iv-quiz-fb-title').textContent = 'Correto!';
-      ivEl('iv-quiz-fb-text').innerHTML = '<strong>' + v.inf + ' · ' + v.ps + ' · ' + v.pp + '</strong>';
-    } else {
-      ivEl('iv-quiz-fb-icon').textContent = '❌';
-      ivEl('iv-quiz-fb-title').textContent = 'Forma correta:';
-      ivEl('iv-quiz-fb-text').innerHTML = '<strong>' + v.inf + ' · ' + v.ps + ' · ' + v.pp + '</strong>';
-    }
-    ivEl('iv-quiz-next').style.display = '';
+    var praise = IV_PRAISE[Math.floor(Math.random() * IV_PRAISE.length)];
+    ivEl('iv-quiz-fb-icon').textContent = '✅';
+    ivEl('iv-quiz-fb-title').textContent = praise;
+    ivEl('iv-quiz-fb-text').innerHTML = '<strong>' + v.inf + ' · ' + v.ps + ' · ' + v.pp + '</strong>';
+    /* Avançar automaticamente após 900ms */
+    setTimeout(function() { ivQuizNext(); }, 900);
+  } else {
+    ivEl('iv-quiz-acertos-top').textContent = ivQuizCorrect + '/' + ivQuizQueue.length + ' acertos';
+    var fbEl = ivEl('iv-quiz-feedback');
+    fbEl.style.display = 'flex';
+    ivEl('iv-quiz-fb-icon').textContent = '❌';
+    ivEl('iv-quiz-fb-title').textContent = 'Forma correta:';
+    ivEl('iv-quiz-fb-text').innerHTML = '<strong>' + v.inf + ' · ' + v.ps + ' · ' + v.pp + '</strong>';
+    /* Avançar automaticamente após 1500ms no erro */
+    setTimeout(function() { ivQuizNext(); }, 1500);
   }
 }
 
@@ -6305,6 +6393,234 @@ document.addEventListener('DOMContentLoaded', function() {
   renderExerciseBadges();
   renderPPLevelCards();
 });
+
+/* ═══════════════════════════════════════════════════════════════
+   SPEAKING — Free Conversation (Groq + Web Speech API)
+   ─────────────────────────────────────────────────────────────
+   API URL: aponta para a Netlify Function (netlify/functions/speaking-chat.js)
+   A chave GROQ_API_KEY deve ser configurada nas variáveis de ambiente do Netlify.
+   ═══════════════════════════════════════════════════════════════ */
+
+var SPEAKING_API = '/.netlify/functions/speaking-chat';
+
+var spHistory = [];          /* conversation history sent to Groq  */
+var spRecognition = null;    /* SpeechRecognition instance          */
+var spSynthesis = window.speechSynthesis;
+var spState = 'idle';        /* idle | recording | processing | speaking */
+var spVoice = null;          /* chosen TTS voice                   */
+var spHasSpeechAPI = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+
+/* ── Init voices (async load) ── */
+function spLoadVoice() {
+  var voices = spSynthesis.getVoices();
+  spVoice = null;
+  var prefer = ['Google US English','Google UK English Female',
+                'Microsoft Aria','Microsoft Jenny','Samantha'];
+  for (var i = 0; i < prefer.length; i++) {
+    for (var j = 0; j < voices.length; j++) {
+      if (voices[j].name === prefer[i]) { spVoice = voices[j]; return; }
+    }
+  }
+  /* fallback: first en-US voice */
+  for (var k = 0; k < voices.length; k++) {
+    if (voices[k].lang.startsWith('en')) { spVoice = voices[k]; return; }
+  }
+}
+spSynthesis.addEventListener('voiceschanged', spLoadVoice);
+spLoadVoice();
+
+/* ── Start: show chat UI ── */
+function spStart() {
+  if (!spHasSpeechAPI) {
+    document.getElementById('sp-unsupported-warn').style.display = 'block';
+  }
+  document.getElementById('sp-intro').style.display = 'none';
+  var chat = document.getElementById('sp-chat');
+  chat.style.display = 'flex';
+  /* Opening message from AI */
+  spAddMsg('ai', "Hi there! I'm your English conversation partner. What would you like to talk about today?");
+  spSpeak("Hi there! I'm your English conversation partner. What would you like to talk about today?");
+  spHistory.push({ role: 'assistant', content: "Hi there! I'm your English conversation partner. What would you like to talk about today?" });
+}
+
+/* ── Reset conversation ── */
+function spReset() {
+  spHistory = [];
+  spState = 'idle';
+  if (spRecognition) { try { spRecognition.stop(); } catch(e){} }
+  spSynthesis.cancel();
+  document.getElementById('sp-messages').innerHTML = '';
+  document.getElementById('sp-intro').style.display = 'block';
+  document.getElementById('sp-chat').style.display = 'none';
+  spSetStatus('Pressione o microfone para falar');
+  spSetMicState('idle');
+}
+
+/* ── Add a chat message bubble ── */
+function spAddMsg(role, text) {
+  var msgs = document.getElementById('sp-messages');
+  var div = document.createElement('div');
+  div.className = 'sp-msg sp-msg-' + role;
+  var bubble = document.createElement('div');
+  bubble.className = 'sp-bubble';
+  if (text === '…') bubble.classList.add('sp-thinking');
+  bubble.textContent = text;
+  div.appendChild(bubble);
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return bubble;
+}
+
+/* ── TTS: speak a text ── */
+function spSpeak(text) {
+  if (!spSynthesis) return;
+  spSynthesis.cancel();
+  var utt = new SpeechSynthesisUtterance(text);
+  if (spVoice) utt.voice = spVoice;
+  utt.lang = 'en-US';
+  utt.rate = 0.92;
+  utt.pitch = 1;
+  utt.onstart  = function() { spState = 'speaking'; spSetStatus('🔊 Ouvindo a resposta…'); spSetMicState('disabled'); };
+  utt.onend    = function() { spState = 'idle'; spSetStatus('Pressione o microfone para falar'); spSetMicState('idle'); };
+  utt.onerror  = function() { spState = 'idle'; spSetStatus('Pressione o microfone para falar'); spSetMicState('idle'); };
+  spSynthesis.speak(utt);
+}
+
+/* ── Mic button state ── */
+function spSetMicState(s) {
+  var btn = document.getElementById('sp-mic-btn');
+  if (!btn) return;
+  btn.classList.remove('sp-recording');
+  btn.removeAttribute('disabled');
+  if (s === 'recording') {
+    btn.classList.add('sp-recording');
+    btn.textContent = '⏹️';
+  } else if (s === 'disabled') {
+    btn.setAttribute('disabled','');
+    btn.textContent = '🎙️';
+  } else {
+    btn.textContent = '🎙️';
+  }
+}
+
+function spSetStatus(msg) {
+  var el = document.getElementById('sp-status');
+  if (el) el.textContent = msg;
+}
+
+/* ── Toggle recording ── */
+function spToggleMic() {
+  if (spState === 'recording') { spStopRecording(); return; }
+  if (spState !== 'idle') return;
+  if (!spHasSpeechAPI) {
+    spSetStatus('⚠️ Microfone não disponível — use o campo de texto.');
+    return;
+  }
+  spStartRecording();
+}
+
+function spStartRecording() {
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  spRecognition = new SR();
+  spRecognition.lang = 'en-US';
+  spRecognition.interimResults = false;
+  spRecognition.maxAlternatives = 1;
+  spState = 'recording';
+  spSetMicState('recording');
+  spSetStatus('🔴 Gravando… fale agora');
+
+  spRecognition.onresult = function(e) {
+    var transcript = e.results[0][0].transcript;
+    spStopRecording();
+    spSubmit(transcript);
+  };
+
+  spRecognition.onerror = function(e) {
+    spState = 'idle';
+    spSetMicState('idle');
+    spSetStatus(e.error === 'not-allowed'
+      ? '⚠️ Permissão de microfone negada. Use o campo de texto.'
+      : '⚠️ Não entendi. Tente de novo.');
+  };
+
+  spRecognition.onend = function() {
+    if (spState === 'recording') {
+      spState = 'idle';
+      spSetMicState('idle');
+      spSetStatus('Pressione o microfone para falar');
+    }
+  };
+
+  spRecognition.start();
+}
+
+function spStopRecording() {
+  if (spRecognition) { try { spRecognition.stop(); } catch(e){} }
+  if (spState === 'recording') {
+    spState = 'idle';
+    spSetMicState('idle');
+    spSetStatus('Pressione o microfone para falar');
+  }
+}
+
+/* ── Send via text input ── */
+function spSendText() {
+  if (spState !== 'idle') return;
+  var input = document.getElementById('sp-text-input');
+  var text = (input.value || '').trim();
+  if (!text) return;
+  input.value = '';
+  spSubmit(text);
+}
+
+/* ── Core: send message → Groq → TTS ── */
+function spSubmit(text) {
+  spSynthesis.cancel();
+  spAddMsg('user', text);
+  spHistory.push({ role: 'user', content: text });
+  spTrimHistory();
+
+  spState = 'processing';
+  spSetMicState('disabled');
+  spSetStatus('💭 Pensando…');
+  var thinkingBubble = spAddMsg('ai', '…');
+  thinkingBubble.classList.add('sp-thinking');
+
+  fetch(SPEAKING_API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: text, history: spHistory.slice(0, -1) })
+  })
+  .then(function(r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  })
+  .then(function(data) {
+    var reply = data.response || '(no response)';
+    thinkingBubble.classList.remove('sp-thinking');
+    thinkingBubble.textContent = reply;
+    spHistory.push({ role: 'assistant', content: reply });
+    /* scroll */
+    var msgs = document.getElementById('sp-messages');
+    if (msgs) msgs.scrollTop = msgs.scrollHeight;
+    /* TTS */
+    spState = 'idle';
+    spSpeak(reply);
+  })
+  .catch(function(err) {
+    thinkingBubble.classList.remove('sp-thinking');
+    thinkingBubble.textContent = '⚠️ Erro ao conectar com o servidor. Verifique sua conexão.';
+    spState = 'idle';
+    spSetMicState('idle');
+    spSetStatus('Pressione o microfone para falar');
+    console.error('Speaking API error:', err);
+  });
+}
+
+/* ── Keep history trimmed to last 20 messages ── */
+function spTrimHistory() {
+  if (spHistory.length > 20) spHistory = spHistory.slice(spHistory.length - 20);
+}
 
 </script>
 
