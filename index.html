@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>English For Life</title>
-<meta name="version" content="0.53">
+<meta name="version" content="0.55">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════
@@ -1523,6 +1523,24 @@ img { max-width: 100%; }
 .pspc-btn-back-result { width: 100%; padding: .8rem; border-radius: var(--radius-lg); background: var(--gray-100); color: var(--gray-700); font-size: .9rem; font-weight: 600; border: 1.5px solid var(--gray-200); cursor: pointer; transition: all .18s; }
 .pspc-btn-back-result:hover { background: var(--gray-200); }
 
+/* ── PSPC · TO BE exercise ─────────────────────────── */
+.tobe-launch-wrap { margin-bottom:.75rem; }
+.tobe-launch-card { width:100%; border-color:var(--blue-400) !important; }
+.tobe-launch-card:hover { border-color:var(--blue-500) !important; background:var(--blue-50) !important; }
+.tobe-launch-badge { font-size:.65rem; font-weight:700; padding:.15rem .5rem; border-radius:99px; background:var(--blue-100); color:var(--blue-600); margin-left:.4rem; vertical-align:middle; }
+.tobe-sentence-wrap { text-align:center; margin:1.125rem 0 1.375rem; }
+.tobe-sentence { font-size:1.25rem; font-weight:600; color:var(--gray-800); line-height:1.6; }
+.tobe-blank { display:inline-block; min-width:3.25rem; border-bottom:3px solid var(--blue-500); color:var(--blue-700); text-align:center; padding:0 .2rem; margin:0 .15rem; font-style:italic; }
+.tobe-opts { display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem; max-width:420px; margin:0 auto 1rem; }
+.tobe-opt { padding:1rem .5rem; background:var(--white); border:2px solid var(--gray-200); border-radius:var(--radius-lg); font-size:1.375rem; font-weight:800; color:var(--gray-800); cursor:pointer; transition:all .15s; text-align:center; }
+.tobe-opt:hover:not(:disabled) { border-color:var(--blue-400); background:var(--blue-50); transform:translateY(-2px); box-shadow:0 4px 10px rgba(59,130,246,.12); }
+.tobe-opt:disabled { cursor:not-allowed; }
+.tobe-opt.tobe-ok  { border-color:var(--green-500) !important; background:var(--green-100) !important; color:var(--green-900); }
+.tobe-opt.tobe-err { border-color:var(--orange-500) !important; background:var(--orange-100) !important; color:#7c2d12; }
+.tobe-opt.tobe-reveal { border-color:var(--green-400) !important; background:var(--green-50) !important; opacity:.7; }
+.tobe-flash { text-align:center; padding:.5rem; font-size:.9375rem; font-weight:700; color:var(--green-700); opacity:0; transition:opacity .15s; min-height:2rem; }
+.tobe-flash.tobe-flash-show { opacity:1; }
+
 @media (max-width: 480px) {
   .reading-hub-card { padding: 1.125rem 1.125rem; gap: 1rem; }
   .rhc-icon-wrap { width: 44px; height: 44px; font-size: 1.25rem; }
@@ -1811,12 +1829,12 @@ img { max-width: 100%; }
         <span class="skill-link">Explorar exercícios →</span>
       </div>
 
-      <div class="skill-card disabled">
-        <span class="skill-badge badge-soon">Em breve</span>
+      <div class="skill-card" onclick="showPage('speaking',null)">
+        <span class="skill-badge badge-count">1 exercício</span>
         <div class="skill-icon icon-purple">🗣️</div>
         <h3>Speaking</h3>
-        <p>Pratique pronúncia e fluência com exercícios de fala guiada.</p>
-        <span class="skill-link" style="color:var(--gray-400)">Em construção</span>
+        <p>Pratique pronúncia e fluência conversando com a Coach Alex, sua tutora virtual de inglês.</p>
+        <span class="skill-link">Explorar exercícios →</span>
       </div>
 
       <div class="skill-card disabled">
@@ -1839,7 +1857,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.37</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code" id="home-version"></span>
   </footer>
 </div>
 
@@ -2297,6 +2315,22 @@ img { max-width: 100%; }
   <div id="pspc-setup" class="pspc-screen pspc-active">
     <div class="pspc-setup-wrap">
 
+      <!-- ── BLOCO TO BE — topo, independente das outras escolhas ── -->
+      <div class="pspc-section" style="border:2px solid var(--blue-300);border-radius:var(--radius-lg);padding:1.125rem 1.25rem;background:var(--blue-50);margin-bottom:1.75rem;">
+        <div class="pspc-section-num" style="background:var(--blue-500);">★</div>
+        <div class="pspc-section-body">
+          <h3 class="pspc-section-title" style="color:var(--blue-700);">Comece aqui: Verbo TO BE</h3>
+          <p class="pspc-section-desc">Não precisa escolher sessão nem dificuldade — clique e pratique!</p>
+          <button class="pspc-card tobe-launch-card" onclick="tobeStart()" style="width:100%;">
+            <span class="pspc-card-icon">🔤</span>
+            <div class="pspc-card-title">TO BE — am / is / are <span class="tobe-launch-badge">Nível A1</span></div>
+            <div class="pspc-card-desc">10 frases para completar com <strong>am</strong>, <strong>is</strong> ou <strong>are</strong>. Inclui tabela de referência antes de começar.</div>
+          </button>
+        </div>
+      </div>
+
+      <div style="border-top:2px dashed var(--gray-200);margin-bottom:1.75rem;"></div>
+
       <div class="pspc-section">
         <div class="pspc-section-num">1</div>
         <div class="pspc-section-body">
@@ -2413,11 +2447,124 @@ img { max-width: 100%; }
     </div>
   </div>
 
+  <!-- ── TO BE INTRO SCREEN ── -->
+  <div id="pspc-tobe-intro" class="pspc-screen">
+    <div style="max-width:640px;margin:0 auto;">
+
+      <div class="pspc-q-card" style="margin-bottom:1.25rem;">
+        <div class="pspc-task-label">📖 Referência rápida antes de começar</div>
+        <h3 style="font-size:1.0625rem;font-weight:700;color:var(--gray-900);margin:0 0 1rem;">Verbo TO BE — Present Simple</h3>
+
+        <table style="width:100%;border-collapse:collapse;font-size:.9rem;">
+          <thead>
+            <tr style="background:var(--green-700);color:var(--white);">
+              <th style="padding:.55rem .75rem;text-align:left;border-radius:6px 0 0 0;">Sujeito</th>
+              <th style="padding:.55rem .75rem;text-align:center;">Forma</th>
+              <th style="padding:.55rem .75rem;text-align:left;border-radius:0 6px 0 0;">Contração</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:var(--blue-50);">
+              <td style="padding:.5rem .75rem;border-bottom:1px solid var(--gray-200);"><strong>I</strong></td>
+              <td style="padding:.5rem .75rem;border-bottom:1px solid var(--gray-200);text-align:center;"><strong style="color:var(--blue-600);font-size:1.05rem;">am</strong></td>
+              <td style="padding:.5rem .75rem;border-bottom:1px solid var(--gray-200);color:var(--gray-500);"><em>I'm</em></td>
+            </tr>
+            <tr style="background:var(--green-50);">
+              <td style="padding:.5rem .75rem;border-bottom:1px solid var(--gray-200);"><strong>he / she / it</strong><br><span style="font-size:.78rem;color:var(--gray-400);">e qualquer substantivo singular<br>(the cat, London, my friend…)</span></td>
+              <td style="padding:.5rem .75rem;border-bottom:1px solid var(--gray-200);text-align:center;"><strong style="color:var(--green-700);font-size:1.05rem;">is</strong></td>
+              <td style="padding:.5rem .75rem;border-bottom:1px solid var(--gray-200);color:var(--gray-500);"><em>he's / she's / it's</em></td>
+            </tr>
+            <tr style="background:var(--orange-50, #fff7ed);">
+              <td style="padding:.5rem .75rem;"><strong>you / we / they</strong><br><span style="font-size:.78rem;color:var(--gray-400);">e qualquer substantivo plural<br>(the cats, my friends…)</span></td>
+              <td style="padding:.5rem .75rem;text-align:center;"><strong style="color:#c2410c;font-size:1.05rem;">are</strong></td>
+              <td style="padding:.5rem .75rem;color:var(--gray-500);"><em>you're / we're / they're</em></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top:1rem;padding:.75rem 1rem;background:var(--yellow-100,#fef9c3);border-radius:var(--radius-md);border-left:3px solid #eab308;font-size:.85rem;color:#713f12;">
+          💡 <strong>Dica:</strong> Só existe <strong>uma</strong> forma para cada sujeito. <em>I</em> usa sempre <em>am</em> — nunca <em>is</em> ou <em>are</em>.
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap;">
+        <button class="pspc-btn-back" onclick="tobeGoSetup()">← Voltar</button>
+        <button class="pspc-btn-next pspc-show" onclick="tobeBegin()">Começar exercício →</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── TO BE EXERCISE SCREEN ── -->
+    <div id="pspc-tobe-ex" class="pspc-screen">
+
+      <div class="pspc-meta">
+        <span class="pspc-badge" style="background:var(--blue-100);color:var(--blue-600);">TO BE · Present Simple</span>
+        <div class="pspc-score-wrap">
+          <span class="pspc-score-label">Acertos</span>
+          <span class="pspc-score-num" id="tobe-score">0</span>
+        </div>
+      </div>
+
+      <div class="pspc-progress-wrap">
+        <div class="pspc-progress-info">
+          <span id="tobe-counter">Questão 1 de 10</span>
+          <span id="tobe-streak"></span>
+        </div>
+        <div class="pspc-progress-track">
+          <div class="pspc-progress-fill" id="tobe-progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div class="pspc-q-card" style="max-width:640px;margin:0 auto .875rem;">
+        <div class="pspc-task-label">Complete a frase com o TO BE correto</div>
+        <div class="tobe-sentence-wrap">
+          <div class="tobe-sentence" id="tobe-sentence">—</div>
+        </div>
+        <div class="tobe-opts" id="tobe-opts"></div>
+        <div class="tobe-flash" id="tobe-flash"></div>
+      </div>
+
+      <div class="pspc-feedback" id="tobe-feedback">
+        <span class="pspc-fb-icon" id="tobe-fb-icon">❌</span>
+        <div class="pspc-fb-body">
+          <strong id="tobe-fb-title">Quase!</strong>
+          <div class="pspc-fb-answer" id="tobe-fb-answer"></div>
+          <div class="pspc-fb-rule" id="tobe-fb-rule"></div>
+        </div>
+      </div>
+
+      <div class="pspc-footer">
+        <button class="pspc-btn-back" onclick="tobeGoSetup()">← Voltar</button>
+        <button class="pspc-btn-next" id="tobe-btn-next" onclick="tobeNext()">Próxima →</button>
+      </div>
+
+    </div>
+
+    <!-- ── TO BE RESULT SCREEN ── -->
+    <div id="pspc-tobe-result" class="pspc-screen">
+      <div class="pspc-result-hero">
+        <span id="tobe-result-emoji" style="font-size:3.5rem;display:block;margin-bottom:.875rem;">🎉</span>
+        <div class="pspc-result-score">
+          <em id="tobe-result-correct">0</em>/<span id="tobe-result-total">10</span>
+        </div>
+        <p class="pspc-result-msg" id="tobe-result-msg">Ótimo trabalho!</p>
+      </div>
+      <div class="pspc-result-stats">
+        <div class="pspc-stat"><div class="pspc-stat-num" id="tobe-stat-pct">0%</div><div class="pspc-stat-lbl">Precisão</div></div>
+        <div class="pspc-stat"><div class="pspc-stat-num" id="tobe-stat-wrong">0</div><div class="pspc-stat-lbl">Erros</div></div>
+        <div class="pspc-stat"><div class="pspc-stat-num" id="tobe-stat-streak">0</div><div class="pspc-stat-lbl">Melhor série</div></div>
+      </div>
+      <div class="pspc-result-actions">
+        <button class="pspc-btn-again" onclick="tobeRestart()">🔄 Praticar TO BE novamente</button>
+        <button class="pspc-btn-back-result" onclick="tobeGoSetup()">← Voltar às escolhas</button>
+      </div>
+    </div>
 
   </div>
 
     <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.37</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code" id="pspc-footer-ver"></span>
   </footer>
 </div>
 
@@ -2844,20 +2991,38 @@ img { max-width: 100%; }
         <span>Speaking</span>
       </div>
       <div class="module-tag">🗣️ Conversação</div>
-      <h2>Free Conversation</h2>
-      <p>Pratique inglês falando com seu parceiro de conversação virtual.</p>
+      <h2>Fale com a Coach Alex</h2>
+      <p>Pratique inglês conversando com sua tutora virtual. Ela corrige, motiva e adapta ao seu nível.</p>
     </div>
   </div>
 
   <div class="sp-wrap">
 
+    <!-- ── PORTÃO DE SENHA ── -->
+    <div id="sp-pw-gate">
+      <div class="sp-intro-card">
+        <div class="sp-intro-icon">🔐</div>
+        <h3>Área Restrita</h3>
+        <p>Este exercício de speaking requer uma senha de acesso fornecida pelo seu professor.</p>
+        <div class="sp-text-row" style="max-width:340px;margin:0 auto;">
+          <input type="password" id="sp-pw-input" class="sp-text-input"
+                 placeholder="Digite a senha..."
+                 onkeydown="if(event.key==='Enter')spCheckPw()">
+          <button class="sp-send-btn" onclick="spCheckPw()">Entrar →</button>
+        </div>
+        <div id="sp-pw-error" style="display:none;color:var(--red-500);font-size:13px;font-weight:600;margin-top:.75rem;">
+          ❌ Senha incorreta. Tente novamente.
+        </div>
+      </div>
+    </div>
+
     <!-- ── TELA INICIAL ── -->
-    <div id="sp-intro">
+    <div id="sp-intro" style="display:none">
       <div class="sp-intro-card">
         <div class="sp-intro-icon">🗣️</div>
-        <h3>Conversa Livre em Inglês</h3>
-        <p>Fale ou escreva em inglês e receba respostas naturais em voz e texto.<br>
-           Use o microfone ou digite — o parceiro virtual vai responder e corrigir suavemente.</p>
+        <h3>Fale com a Coach Alex</h3>
+        <p>A Coach Alex é sua tutora virtual de inglês — paciente, encorajadora e especializada em conversação.<br>
+           Fale (microfone) ou escreva e ela responde, corrige suavemente e adapta ao seu nível.</p>
         <button class="sp-start-btn" onclick="spStart()">🎙️ Começar conversa</button>
         <div class="sp-unsupported" id="sp-unsupported-warn">
           ⚠️ Seu navegador não suporta microfone. Use o Chrome ou Edge para gravar voz.
@@ -2890,9 +3055,10 @@ img { max-width: 100%; }
     </div>
 
   </div>
+  
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.52</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.55</span>
   </footer>
 </div>
 
@@ -2908,7 +3074,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.53';
+var SITE_VERSION = 'v0.57';
 
 var EXERCISE_REGISTRY = [
   {
@@ -2951,7 +3117,15 @@ var EXERCISE_REGISTRY = [
     tags: ['#IrregularVerbs', '#PastSimple', '#PastParticiple', '#A2', '#B1'],
     active: true
   },
-];;
+  {
+    id: 'speaking-coach-alex',
+    section: 'speaking',
+    title: 'Fale com a Coach Alex',
+    level: 'A2-C2',
+    tags: ['#Speaking', '#Conversation', '#Pronunciation', '#A2', '#B1', '#B2'],
+    active: true
+  },
+];
 
 var LEVEL_CONFIG = {
   1: { name:'Fácil',   desc:'Iniciante',     showRule:true,  showHint:true,  showPhonetic:true  },
@@ -2960,47 +3134,47 @@ var LEVEL_CONFIG = {
 };
 
 var ALL_VERBS = [
-  { inf:'want',    past:'wanted',    ph:"/ËˆwÉ’n.tÉªd/",    sound:'long',  end:'T'  },
-  { inf:'need',    past:'needed',    ph:"/ËˆniË.dÉªd/",    sound:'long',  end:'D'  },
-  { inf:'wait',    past:'waited',    ph:"/ËˆweÉª.tÉªd/",    sound:'long',  end:'T'  },
-  { inf:'visit',   past:'visited',   ph:"/ËˆvÉª.zÉª.tÉªd/",  sound:'long',  end:'T'  },
-  { inf:'start',   past:'started',   ph:"/ËˆstÉ‘Ë.tÉªd/",   sound:'long',  end:'T'  },
-  { inf:'end',     past:'ended',     ph:"/Ëˆen.dÉªd/",     sound:'long',  end:'D'  },
-  { inf:'add',     past:'added',     ph:"/ˈæ.dɪd/",      sound:'long',  end:'D'  },
-  { inf:'land',    past:'landed',    ph:"/ˈlæn.dɪd/",    sound:'long',  end:'D'  },
-  { inf:'suggest', past:'suggested', ph:"/sÉ™ËˆdÊ’es.tÉªd/", sound:'long',  end:'T'  },
-  { inf:'decide',  past:'decided',   ph:"/dÉªËˆsaÉª.dÉªd/",  sound:'long',  end:'D'  },
-  { inf:'count',   past:'counted',   ph:"/ËˆkaÊŠn.tÉªd/",   sound:'long',  end:'T'  },
-  { inf:'print',   past:'printed',   ph:"/ËˆprÉªn.tÉªd/",   sound:'long',  end:'T'  },
-  { inf:'point',   past:'pointed',   ph:"/ËˆpÉ”Éªn.tÉªd/",   sound:'long',  end:'T'  },
-  { inf:'accept',  past:'accepted',  ph:"/É™kËˆsep.tÉªd/",  sound:'long',  end:'T'  },
-  { inf:'collect', past:'collected', ph:"/kÉ™Ëˆlek.tÉªd/",  sound:'long',  end:'T'  },
-  { inf:'connect', past:'connected', ph:"/kÉ™Ëˆnek.tÉªd/",  sound:'long',  end:'T'  },
-  { inf:'fold',    past:'folded',    ph:"/ËˆfÉ™ÊŠl.dÉªd/",   sound:'long',  end:'D'  },
-  { inf:'record',  past:'recorded',  ph:"/rÉªËˆkÉ”Ë.dÉªd/",  sound:'long',  end:'D'  },
-  { inf:'reward',  past:'rewarded',  ph:"/rÉªËˆwÉ”Ë.dÉªd/",  sound:'long',  end:'D'  },
-  { inf:'include', past:'included',  ph:"/ÉªnËˆkluË.dÉªd/", sound:'long',  end:'D'  },
-  { inf:'watch',   past:'watched',   ph:"/wÉ’tÊƒt/",       sound:'short', end:'CH' },
-  { inf:'talk',    past:'talked',    ph:"/tÉ”Ëkt/",       sound:'short', end:'K'  },
-  { inf:'kiss',    past:'kissed',    ph:"/kÉªst/",        sound:'short', end:'S'  },
-  { inf:'walk',    past:'walked',    ph:"/wÉ”Ëkt/",       sound:'short', end:'K'  },
-  { inf:'stop',    past:'stopped',   ph:"/stÉ’pt/",       sound:'short', end:'P'  },
-  { inf:'jump',    past:'jumped',    ph:"/dÊ’ÊŒmpt/",      sound:'short', end:'P'  },
-  { inf:'push',    past:'pushed',    ph:"/pÊŠÊƒt/",        sound:'short', end:'SH' },
-  { inf:'play',    past:'played',    ph:"/pleÉªd/",       sound:'short', end:'Y'  },
-  { inf:'call',    past:'called',    ph:"/kÉ”Ëld/",       sound:'short', end:'L'  },
-  { inf:'love',    past:'loved',     ph:"/lÊŒvd/",        sound:'short', end:'V'  },
-  { inf:'use',     past:'used',      ph:"/juËzd/",       sound:'short', end:'Z'  },
-  { inf:'live',    past:'lived',     ph:"/lÉªvd/",        sound:'short', end:'V'  },
-  { inf:'open',    past:'opened',    ph:"/ËˆÉ™ÊŠ.pÉ™nd/",    sound:'short', end:'N'  },
-  { inf:'smile',   past:'smiled',    ph:"/smaÉªld/",      sound:'short', end:'L'  },
-  { inf:'learn',   past:'learned',   ph:"/lÉœËnd/",       sound:'short', end:'N'  },
-  { inf:'change',  past:'changed',   ph:"/tÊƒeÉªndÊ’d/",    sound:'short', end:'J'  },
-  { inf:'finish',  past:'finished',  ph:"/ËˆfÉª.nÉªÊƒt/",    sound:'short', end:'SH' },
-  { inf:'wash',    past:'washed',    ph:"/wÉ’Êƒt/",        sound:'short', end:'SH' },
-  { inf:'help',    past:'helped',    ph:"/helpt/",       sound:'short', end:'P'  },
-  { inf:'laugh',   past:'laughed',   ph:"/lÉ‘Ëft/",       sound:'short', end:'F'  },
-];
+    { inf:'want',    past:'wanted',    ph:"/ˈwɒn.tɪd/",    sound:'long',  end:'T'  },
+    { inf:'need',    past:'needed',    ph:"/ˈniː.dɪd/",    sound:'long',  end:'D'  },
+    { inf:'wait',    past:'waited',    ph:"/ˈweɪ.tɪd/",    sound:'long',  end:'T'  },
+    { inf:'visit',   past:'visited',   ph:"/ˈvɪ.zɪ.tɪd/",  sound:'long',  end:'T'  },
+    { inf:'start',   past:'started',   ph:"/ˈstɑː.tɪd/",   sound:'long',  end:'T'  },
+    { inf:'end',     past:'ended',     ph:"/ˈen.dɪd/",     sound:'long',  end:'D'  },
+    { inf:'add',     past:'added',     ph:"/ˈæ.dɪd/",      sound:'long',  end:'D'  },
+    { inf:'land',    past:'landed',    ph:"/ˈlæn.dɪd/",    sound:'long',  end:'D'  },
+    { inf:'suggest', past:'suggested', ph:"/səˈdʒes.tɪd/", sound:'long',  end:'T'  },
+    { inf:'decide',  past:'decided',   ph:"/dɪˈsaɪ.dɪd/",  sound:'long',  end:'D'  },
+    { inf:'count',   past:'counted',   ph:"/ˈkaʊn.tɪd/",   sound:'long',  end:'T'  },
+    { inf:'print',   past:'printed',   ph:"/ˈprɪn.tɪd/",   sound:'long',  end:'T'  },
+    { inf:'point',   past:'pointed',   ph:"/ˈpɔɪn.tɪd/",   sound:'long',  end:'T'  },
+    { inf:'accept',  past:'accepted',  ph:"/əkˈsep.tɪd/",  sound:'long',  end:'T'  },
+    { inf:'collect', past:'collected', ph:"/kəˈlek.tɪd/",  sound:'long',  end:'T'  },
+    { inf:'connect', past:'connected', ph:"/kəˈnek.tɪd/",  sound:'long',  end:'T'  },
+    { inf:'fold',    past:'folded',    ph:"/ˈfəʊl.dɪd/",   sound:'long',  end:'D'  },
+    { inf:'record',  past:'recorded',  ph:"/rɪˈkɔː.dɪd/",  sound:'long',  end:'D'  },
+    { inf:'reward',  past:'rewarded',  ph:"/rɪˈwɔː.dɪd/",  sound:'long',  end:'D'  },
+    { inf:'include', past:'included',  ph:"/ɪnˈkluː.dɪd/", sound:'long',  end:'D'  },
+    { inf:'watch',   past:'watched',   ph:"/wɒtʃt/",       sound:'short', end:'CH' },
+    { inf:'talk',    past:'talked',    ph:"/tɔːkt/",       sound:'short', end:'K'  },
+    { inf:'kiss',    past:'kissed',    ph:"/kɪst/",        sound:'short', end:'S'  },
+    { inf:'walk',    past:'walked',    ph:"/wɔːkt/",       sound:'short', end:'K'  },
+    { inf:'stop',    past:'stopped',   ph:"/stɒpt/",       sound:'short', end:'P'  },
+    { inf:'jump',    past:'jumped',    ph:"/dʒʌmpt/",      sound:'short', end:'P'  },
+    { inf:'push',    past:'pushed',    ph:"/pʊʃt/",        sound:'short', end:'SH' },
+    { inf:'play',    past:'played',    ph:"/pleɪd/",       sound:'short', end:'Y'  },
+    { inf:'call',    past:'called',    ph:"/kɔːld/",       sound:'short', end:'L'  },
+    { inf:'love',    past:'loved',     ph:"/lʌvd/",        sound:'short', end:'V'  },
+    { inf:'use',     past:'used',      ph:"/juːzd/",       sound:'short', end:'Z'  },
+    { inf:'live',    past:'lived',     ph:"/lɪvd/",        sound:'short', end:'V'  },
+    { inf:'open',    past:'opened',    ph:"/ˈəʊ.pənd/",    sound:'short', end:'N'  },
+    { inf:'smile',   past:'smiled',    ph:"/smaɪld/",      sound:'short', end:'L'  },
+    { inf:'learn',   past:'learned',   ph:"/lɜːnd/",       sound:'short', end:'N'  },
+    { inf:'change',  past:'changed',   ph:"/tʃeɪndʒd/",    sound:'short', end:'J'  },
+    { inf:'finish',  past:'finished',  ph:"/ˈfɪ.nɪʃt/",    sound:'short', end:'SH' },
+    { inf:'wash',    past:'washed',    ph:"/wɒʃt/",        sound:'short', end:'SH' },
+    { inf:'help',    past:'helped',    ph:"/helpt/",       sound:'short', end:'P'  },
+    { inf:'laugh',   past:'laughed',   ph:"/lɑːft/",       sound:'short', end:'F'  },
+  ];
 
 var PP_EASY_BANK = [
   { instruction: 'Convert to NEGATIVE:', sentence: 'I have lived here for 5 years.', answer: "I haven't lived here for 5 years.", options: ["I haven't lived here for 5 years.", "I didn't live here for 5 years.", "I don't have lived here for 5 years.", "I have not live here for 5 years."], explanation: `Para negativa do Present Perfect use: have/has + not + particípio. Didn't é o Passado Simples.`, tags: ['#PresentPerfect','#Negative','#A2'] },
@@ -4207,22 +4381,22 @@ document.addEventListener('click', function(e) {
 
 var PS_BANK = [
   {"aff": "She works in a hospital every day.", "neg": "She doesn't work in a hospital every day.", "q": "Does she work in a hospital every day?", "nq": "Doesn't she work in a hospital every day?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She work in a hospital every day.", "She is working in a hospital every day.", "She do work in a hospital every day."], "errNeg": ["She don't work in a hospital every day.", "She doesn't works in a hospital every day.", "She isn't work in a hospital every day."], "errQ": ["Do she work in a hospital every day?", "Does she works in a hospital every day?", "Is she work in a hospital every day?"], "errNQ": ["Don't she work in a hospital every day?", "Doesn't she works in a hospital every day?", "Isn't she working in a hospital every day?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she work."], "errYn": ["No, she don't.", "No, she doesn't work.", "No, she isn't."]},
-  {"aff": "He plays football on Saturdays.", "neg": "He doesn't play football on Saturdays.", "q": "Does he play football on Saturdaysó", "nq": "Doesn't he play football on Saturdaysó", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He play football on Saturdays.", "He is playing football on Saturdays.", "He do play football on Saturdays."], "errNeg": ["He don't play football on Saturdays.", "He doesn't plays football on Saturdays.", "He isn't playing football on Saturdays."], "errQ": ["Do he play football on Saturdaysó", "Does he plays football on Saturdaysó", "Is he play football on Saturdaysó"], "errNQ": ["Don't he play football on Saturdaysó", "Doesn't he plays football on Saturdaysó", "Isn't he playing football on Saturdaysó"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he play."], "errYn": ["No, he don't.", "No, he doesn't play.", "No, he isn't."]},
+  {"aff": "He plays football on Saturdays.", "neg": "He doesn't play football on Saturdays.", "q": "Does he play football on Saturdays?", "nq": "Doesn't he play football on Saturdays?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He play football on Saturdays.", "He is playing football on Saturdays.", "He do play football on Saturdays."], "errNeg": ["He don't play football on Saturdays.", "He doesn't plays football on Saturdays.", "He isn't playing football on Saturdays."], "errQ": ["Do he play football on Saturdays?", "Does he plays football on Saturdays?", "Is he play football on Saturdays?"], "errNQ": ["Don't he play football on Saturdays?", "Doesn't he plays football on Saturdays?", "Isn't he playing football on Saturdays?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he play."], "errYn": ["No, he don't.", "No, he doesn't play.", "No, he isn't."]},
   {"aff": "She studies English every morning.", "neg": "She doesn't study English every morning.", "q": "Does she study English every morning?", "nq": "Doesn't she study English every morning?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She study English every morning.", "She is studying English every morning.", "She do study English every morning."], "errNeg": ["She don't study English every morning.", "She doesn't studies English every morning.", "She isn't studying English every morning."], "errQ": ["Do she study English every morning?", "Does she studies English every morning?", "Is she study English every morning?"], "errNQ": ["Don't she study English every morning?", "Doesn't she studies English every morning?", "Isn't she studying English every morning?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she study."], "errYn": ["No, she don't.", "No, she doesn't study.", "No, she isn't."]},
   {"aff": "He watches TV after dinner.", "neg": "He doesn't watch TV after dinner.", "q": "Does he watch TV after dinner?", "nq": "Doesn't he watch TV after dinner?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He watch TV after dinner.", "He is watching TV after dinner.", "He do watch TV after dinner."], "errNeg": ["He don't watch TV after dinner.", "He doesn't watches TV after dinner.", "He isn't watching TV after dinner."], "errQ": ["Do he watch TV after dinner?", "Does he watches TV after dinner?", "Is he watch TV after dinner?"], "errNQ": ["Don't he watch TV after dinner?", "Doesn't he watches TV after dinner?", "Isn't he watching TV after dinner?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he watch."], "errYn": ["No, he don't.", "No, he doesn't watch.", "No, he isn't."]},
   {"aff": "She goes to the gym three times a week.", "neg": "She doesn't go to the gym three times a week.", "q": "Does she go to the gym three times a week?", "nq": "Doesn't she go to the gym three times a week?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She go to the gym three times a week.", "She is going to the gym three times a week.", "She do go to the gym three times a week."], "errNeg": ["She don't go to the gym three times a week.", "She doesn't goes to the gym three times a week.", "She isn't going to the gym three times a week."], "errQ": ["Do she go to the gym three times a week?", "Does she goes to the gym three times a week?", "Is she go to the gym three times a week?"], "errNQ": ["Don't she go to the gym three times a week?", "Doesn't she goes to the gym three times a week?", "Isn't she going to the gym three times a week?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she go."], "errYn": ["No, she don't.", "No, she doesn't go.", "No, she isn't."]},
-  {"aff": "He teaches maths at the local school.", "neg": "He doesn't teach maths at the local school.", "q": "Does he teach maths at the local schoolá", "nq": "Doesn't he teach maths at the local schoolá", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He teach maths at the local school.", "He is teaching maths at the local school.", "He do teach maths at the local school."], "errNeg": ["He don't teach maths at the local school.", "He doesn't teaches maths at the local school.", "He isn't teaching maths at the local school."], "errQ": ["Do he teach maths at the local schoolá", "Does he teaches maths at the local schoolá", "Is he teach maths at the local schoolá"], "errNQ": ["Don't he teach maths at the local schoolá", "Doesn't he teaches maths at the local schoolá", "Isn't he teaching maths at the local schoolá"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he teach."], "errYn": ["No, he don't.", "No, he doesn't teach.", "No, he isn't."]},
+  {"aff": "He teaches maths at the local school.", "neg": "He doesn't teach maths at the local school.", "q": "Does he teach maths at the local school?", "nq": "Doesn't he teach maths at the local school?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He teach maths at the local school.", "He is teaching maths at the local school.", "He do teach maths at the local school."], "errNeg": ["He don't teach maths at the local school.", "He doesn't teaches maths at the local school.", "He isn't teaching maths at the local school."], "errQ": ["Do he teach maths at the local school?", "Does he teaches maths at the local school?", "Is he teach maths at the local school?"], "errNQ": ["Don't he teach maths at the local school?", "Doesn't he teaches maths at the local school?", "Isn't he teaching maths at the local school?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he teach."], "errYn": ["No, he don't.", "No, he doesn't teach.", "No, he isn't."]},
   {"aff": "She drinks coffee before work.", "neg": "She doesn't drink coffee before work.", "q": "Does she drink coffee before work?", "nq": "Doesn't she drink coffee before work?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She drink coffee before work.", "She is drinking coffee before work.", "She do drink coffee before work."], "errNeg": ["She don't drink coffee before work.", "She doesn't drinks coffee before work.", "She isn't drinking coffee before work."], "errQ": ["Do she drink coffee before work?", "Does she drinks coffee before work?", "Is she drink coffee before work?"], "errNQ": ["Don't she drink coffee before work?", "Doesn't she drinks coffee before work?", "Isn't she drinking coffee before work?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she drink."], "errYn": ["No, she don't.", "No, she doesn't drink.", "No, she isn't."]},
   {"aff": "He reads the newspaper every morning.", "neg": "He doesn't read the newspaper every morning.", "q": "Does he read the newspaper every morning?", "nq": "Doesn't he read the newspaper every morning?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He read the newspaper every morning.", "He is reading the newspaper every morning.", "He do read the newspaper every morning."], "errNeg": ["He don't read the newspaper every morning.", "He doesn't reads the newspaper every morning.", "He isn't reading the newspaper every morning."], "errQ": ["Do he read the newspaper every morning?", "Does he reads the newspaper every morning?", "Is he read the newspaper every morning?"], "errNQ": ["Don't he read the newspaper every morning?", "Doesn't he reads the newspaper every morning?", "Isn't he reading the newspaper every morning?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he read."], "errYn": ["No, he don't.", "No, he doesn't read.", "No, he isn't."]},
   {"aff": "She wakes up at six o'clock.", "neg": "She doesn't wake up at six o'clock.", "q": "Does she wake up at six o'clock?", "nq": "Doesn't she wake up at six o'clock?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She wake up at six o'clock.", "She is waking up at six o'clock.", "She do wake up at six o'clock."], "errNeg": ["She don't wake up at six o'clock.", "She doesn't wakes up at six o'clock.", "She isn't waking up at six o'clock."], "errQ": ["Do she wake up at six o'clock?", "Does she wakes up at six o'clock?", "Is she wake up at six o'clock?"], "errNQ": ["Don't she wake up at six o'clock?", "Doesn't she wakes up at six o'clock?", "Isn't she waking up at six o'clock?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she wake."], "errYn": ["No, she don't.", "No, she doesn't wake.", "No, she isn't."]},
   {"aff": "He drives to work every day.", "neg": "He doesn't drive to work every day.", "q": "Does he drive to work every day?", "nq": "Doesn't he drive to work every day?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He drive to work every day.", "He is driving to work every day.", "He do drive to work every day."], "errNeg": ["He don't drive to work every day.", "He doesn't drives to work every day.", "He isn't driving to work every day."], "errQ": ["Do he drive to work every day?", "Does he drives to work every day?", "Is he drive to work every day?"], "errNQ": ["Don't he drive to work every day?", "Doesn't he drives to work every day?", "Isn't he driving to work every day?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he drive."], "errYn": ["No, he don't.", "No, he doesn't drive.", "No, he isn't."]},
-  {"aff": "She cooks dinner on Sundays.", "neg": "She doesn't cook dinner on Sundays.", "q": "Does she cook dinner on Sundaysó", "nq": "Doesn't she cook dinner on Sundaysó", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She cook dinner on Sundays.", "She is cooking dinner on Sundays.", "She do cook dinner on Sundays."], "errNeg": ["She don't cook dinner on Sundays.", "She doesn't cooks dinner on Sundays.", "She isn't cooking dinner on Sundays."], "errQ": ["Do she cook dinner on Sundaysó", "Does she cooks dinner on Sundaysó", "Is she cook dinner on Sundaysó"], "errNQ": ["Don't she cook dinner on Sundaysó", "Doesn't she cooks dinner on Sundaysó", "Isn't she cooking dinner on Sundaysó"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she cook."], "errYn": ["No, she don't.", "No, she doesn't cook.", "No, she isn't."]},
+  {"aff": "She cooks dinner on Sundays.", "neg": "She doesn't cook dinner on Sundays.", "q": "Does she cook dinner on Sundays?", "nq": "Doesn't she cook dinner on Sundays?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She cook dinner on Sundays.", "She is cooking dinner on Sundays.", "She do cook dinner on Sundays."], "errNeg": ["She don't cook dinner on Sundays.", "She doesn't cooks dinner on Sundays.", "She isn't cooking dinner on Sundays."], "errQ": ["Do she cook dinner on Sundays?", "Does she cooks dinner on Sundays?", "Is she cook dinner on Sundays?"], "errNQ": ["Don't she cook dinner on Sundays?", "Doesn't she cooks dinner on Sundays?", "Isn't she cooking dinner on Sundays?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she cook."], "errYn": ["No, she don't.", "No, she doesn't cook.", "No, she isn't."]},
   {"aff": "He finishes work at five o'clock.", "neg": "He doesn't finish work at five o'clock.", "q": "Does he finish work at five o'clock?", "nq": "Doesn't he finish work at five o'clock?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He finish work at five o'clock.", "He is finishing work at five o'clock.", "He do finish work at five o'clock."], "errNeg": ["He don't finish work at five o'clock.", "He doesn't finishes work at five o'clock.", "He isn't finishing work at five o'clock."], "errQ": ["Do he finish work at five o'clock?", "Does he finishes work at five o'clock?", "Is he finish work at five o'clock?"], "errNQ": ["Don't he finish work at five o'clock?", "Doesn't he finishes work at five o'clock?", "Isn't he finishing work at five o'clock?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he finish."], "errYn": ["No, he don't.", "No, he doesn't finish.", "No, he isn't."]},
-  {"aff": "She visits her grandmother on Sundays.", "neg": "She doesn't visit her grandmother on Sundays.", "q": "Does she visit her grandmother on Sundaysó", "nq": "Doesn't she visit her grandmother on Sundaysó", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She visit her grandmother on Sundays.", "She is visiting her grandmother on Sundays.", "She do visit her grandmother on Sundays."], "errNeg": ["She don't visit her grandmother on Sundays.", "She doesn't visits her grandmother on Sundays.", "She isn't visiting her grandmother on Sundays."], "errQ": ["Do she visit her grandmother on Sundaysó", "Does she visits her grandmother on Sundaysó", "Is she visit her grandmother on Sundaysó"], "errNQ": ["Don't she visit her grandmother on Sundaysó", "Doesn't she visits her grandmother on Sundaysó", "Isn't she visiting her grandmother on Sundaysó"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she visit."], "errYn": ["No, she don't.", "No, she doesn't visit.", "No, she isn't."]},
+  {"aff": "She visits her grandmother on Sundays.", "neg": "She doesn't visit her grandmother on Sundays.", "q": "Does she visit her grandmother on Sundays?", "nq": "Doesn't she visit her grandmother on Sundays?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She visit her grandmother on Sundays.", "She is visiting her grandmother on Sundays.", "She do visit her grandmother on Sundays."], "errNeg": ["She don't visit her grandmother on Sundays.", "She doesn't visits her grandmother on Sundays.", "She isn't visiting her grandmother on Sundays."], "errQ": ["Do she visit her grandmother on Sundays?", "Does she visits her grandmother on Sundays?", "Is she visit her grandmother on Sundays?"], "errNQ": ["Don't she visit her grandmother on Sundays?", "Doesn't she visits her grandmother on Sundays?", "Isn't she visiting her grandmother on Sundays?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she visit."], "errYn": ["No, she don't.", "No, she doesn't visit.", "No, she isn't."]},
   {"aff": "He buys fresh fruit every week.", "neg": "He doesn't buy fresh fruit every week.", "q": "Does he buy fresh fruit every week?", "nq": "Doesn't he buy fresh fruit every week?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He buy fresh fruit every week.", "He is buying fresh fruit every week.", "He do buy fresh fruit every week."], "errNeg": ["He don't buy fresh fruit every week.", "He doesn't buys fresh fruit every week.", "He isn't buying fresh fruit every week."], "errQ": ["Do he buy fresh fruit every week?", "Does he buys fresh fruit every week?", "Is he buy fresh fruit every week?"], "errNQ": ["Don't he buy fresh fruit every week?", "Doesn't he buys fresh fruit every week?", "Isn't he buying fresh fruit every week?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he buy."], "errYn": ["No, he don't.", "No, he doesn't buy.", "No, he isn't."]},
   {"aff": "She helps her parents at the weekend.", "neg": "She doesn't help her parents at the weekend.", "q": "Does she help her parents at the weekend?", "nq": "Doesn't she help her parents at the weekend?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She help her parents at the weekend.", "She is helping her parents at the weekend.", "She do help her parents at the weekend."], "errNeg": ["She don't help her parents at the weekend.", "She doesn't helps her parents at the weekend.", "She isn't helping her parents at the weekend."], "errQ": ["Do she help her parents at the weekend?", "Does she helps her parents at the weekend?", "Is she help her parents at the weekend?"], "errNQ": ["Don't she help her parents at the weekend?", "Doesn't she helps her parents at the weekend?", "Isn't she helping her parents at the weekend?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she help."], "errYn": ["No, she don't.", "No, she doesn't help.", "No, she isn't."]},
   {"aff": "He writes in his diary every night.", "neg": "He doesn't write in his diary every night.", "q": "Does he write in his diary every night?", "nq": "Doesn't he write in his diary every night?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He write in his diary every night.", "He is writing in his diary every night.", "He do write in his diary every night."], "errNeg": ["He don't write in his diary every night.", "He doesn't writes in his diary every night.", "He isn't writing in his diary every night."], "errQ": ["Do he write in his diary every night?", "Does he writes in his diary every night?", "Is he write in his diary every night?"], "errNQ": ["Don't he write in his diary every night?", "Doesn't he writes in his diary every night?", "Isn't he writing in his diary every night?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he write."], "errYn": ["No, he don't.", "No, he doesn't write.", "No, he isn't."]},
-  {"aff": "She loves reading mystery novels.", "neg": "She doesn't love reading mystery novels.", "q": "Does she love reading mystery novelsó", "nq": "Doesn't she love reading mystery novelsó", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She love reading mystery novels.", "She is loving reading mystery novels.", "She do love reading mystery novels."], "errNeg": ["She don't love reading mystery novels.", "She doesn't loves reading mystery novels.", "She isn't loving reading mystery novels."], "errQ": ["Do she love reading mystery novelsó", "Does she loves reading mystery novelsó", "Is she love reading mystery novelsó"], "errNQ": ["Don't she love reading mystery novelsó", "Doesn't she loves reading mystery novelsó", "Isn't she loving reading mystery novelsó"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she love."], "errYn": ["No, she don't.", "No, she doesn't love.", "No, she isn't."]},
+  {"aff": "She loves reading mystery novels.", "neg": "She doesn't love reading mystery novels.", "q": "Does she love reading mystery novels?", "nq": "Doesn't she love reading mystery novels?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She love reading mystery novels.", "She is loving reading mystery novels.", "She do love reading mystery novels."], "errNeg": ["She don't love reading mystery novels.", "She doesn't loves reading mystery novels.", "She isn't loving reading mystery novels."], "errQ": ["Do she love reading mystery novels?", "Does she loves reading mystery novels?", "Is she love reading mystery novels?"], "errNQ": ["Don't she love reading mystery novels?", "Doesn't she loves reading mystery novels?", "Isn't she loving reading mystery novels?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she love."], "errYn": ["No, she don't.", "No, she doesn't love.", "No, she isn't."]},
   {"aff": "He swims in the pool every Wednesday.", "neg": "He doesn't swim in the pool every Wednesday.", "q": "Does he swim in the pool every Wednesday?", "nq": "Doesn't he swim in the pool every Wednesday?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He swim in the pool every Wednesday.", "He is swimming in the pool every Wednesday.", "He do swim in the pool every Wednesday."], "errNeg": ["He don't swim in the pool every Wednesday.", "He doesn't swims in the pool every Wednesday.", "He isn't swimming in the pool every Wednesday."], "errQ": ["Do he swim in the pool every Wednesday?", "Does he swims in the pool every Wednesday?", "Is he swim in the pool every Wednesday?"], "errNQ": ["Don't he swim in the pool every Wednesday?", "Doesn't he swims in the pool every Wednesday?", "Isn't he swimming in the pool every Wednesday?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he swim."], "errYn": ["No, he don't.", "No, he doesn't swim.", "No, he isn't."]},
   {"aff": "She travels by train to work.", "neg": "She doesn't travel by train to work.", "q": "Does she travel by train to work?", "nq": "Doesn't she travel by train to work?", "ya": "Yes, she does.", "yn": "No, she doesn't.", "errAff": ["She travel by train to work.", "She is travelling by train to work.", "She do travel by train to work."], "errNeg": ["She don't travel by train to work.", "She doesn't travels by train to work.", "She isn't travelling by train to work."], "errQ": ["Do she travel by train to work?", "Does she travels by train to work?", "Is she travel by train to work?"], "errNQ": ["Don't she travel by train to work?", "Doesn't she travels by train to work?", "Isn't she travelling by train to work?"], "errYa": ["Yes, she do.", "Yes, she is.", "Yes, she travel."], "errYn": ["No, she don't.", "No, she doesn't travel.", "No, she isn't."]},
   {"aff": "He checks his email first thing in the morning.", "neg": "He doesn't check his email first thing in the morning.", "q": "Does he check his email first thing in the morning?", "nq": "Doesn't he check his email first thing in the morning?", "ya": "Yes, he does.", "yn": "No, he doesn't.", "errAff": ["He check his email first thing in the morning.", "He is checking his email first thing in the morning.", "He do check his email first thing in the morning."], "errNeg": ["He don't check his email first thing in the morning.", "He doesn't checks his email first thing in the morning.", "He isn't checking his email first thing in the morning."], "errQ": ["Do he check his email first thing in the morning?", "Does he checks his email first thing in the morning?", "Is he check his email first thing in the morning?"], "errNQ": ["Don't he check his email first thing in the morning?", "Doesn't he checks his email first thing in the morning?", "Isn't he checking his email first thing in the morning?"], "errYa": ["Yes, he do.", "Yes, he is.", "Yes, he check."], "errYn": ["No, he don't.", "No, he doesn't check.", "No, he isn't."]},
@@ -4230,11 +4404,11 @@ var PS_BANK = [
   {"aff": "I eat lunch at school every day.", "neg": "I don't eat lunch at school every day.", "q": "Do I eat lunch at school every day?", "nq": "Don't I eat lunch at school every day?", "ya": "Yes, I do.", "yn": "No, I don't.", "errAff": ["I eats lunch at school every day.", "I am eating lunch at school every day.", "I does eat lunch at school every day."], "errNeg": ["I doesn't eat lunch at school every day.", "I don't eats lunch at school every day.", "I am not eat lunch at school every day."], "errQ": ["Does I eat lunch at school every day?", "Do I eats lunch at school every day?", "Am I eat lunch at school every day?"], "errNQ": ["Doesn't I eat lunch at school every day?", "Don't I eats lunch at school every day?", "Am I not eating lunch at school every day?"], "errYa": ["Yes, I does.", "Yes, I am.", "Yes, I eats."], "errYn": ["No, I doesn't.", "No, I don't eat.", "No, I'm not."]},
   {"aff": "We walk to school every day.", "neg": "We don't walk to school every day.", "q": "Do we walk to school every day?", "nq": "Don't we walk to school every day?", "ya": "Yes, we do.", "yn": "No, we don't.", "errAff": ["We walks to school every day.", "We are walking to school every day.", "We does walk to school every day."], "errNeg": ["We doesn't walk to school every day.", "We don't walks to school every day.", "We aren't walk to school every day."], "errQ": ["Does we walk to school every day?", "Do we walks to school every day?", "Are we walk to school every day?"], "errNQ": ["Doesn't we walk to school every day?", "Don't we walks to school every day?", "Aren't we walking to school every day?"], "errYa": ["Yes, we does.", "Yes, we are.", "Yes, we walks."], "errYn": ["No, we doesn't.", "No, we don't walk.", "No, we aren't."]},
   {"aff": "You speak French at home.", "neg": "You don't speak French at home.", "q": "Do you speak French at home?", "nq": "Don't you speak French at home?", "ya": "Yes, I do.", "yn": "No, I don't.", "errAff": ["You speaks French at home.", "You are speaking French at home.", "You does speak French at home."], "errNeg": ["You doesn't speak French at home.", "You don't speaks French at home.", "You aren't speak French at home."], "errQ": ["Does you speak French at home?", "Do you speaks French at home?", "Are you speak French at home?"], "errNQ": ["Doesn't you speak French at home?", "Don't you speaks French at home?", "Aren't you speaking French at home?"], "errYa": ["Yes, I does.", "Yes, I am.", "Yes, I speaks."], "errYn": ["No, I doesn't.", "No, I don't speak.", "No, I'm not."]},
-  {"aff": "They play video games after school.", "neg": "They don't play video games after school.", "q": "Do they play video games after schoolá", "nq": "Don't they play video games after schoolá", "ya": "Yes, they do.", "yn": "No, they don't.", "errAff": ["They plays video games after school.", "They are playing video games after school.", "They does play video games after school."], "errNeg": ["They doesn't play video games after school.", "They don't plays video games after school.", "They aren't play video games after school."], "errQ": ["Does they play video games after schoolá", "Do they plays video games after schoolá", "Are they play video games after schoolá"], "errNQ": ["Doesn't they play video games after schoolá", "Don't they plays video games after schoolá", "Aren't they playing video games after schoolá"], "errYa": ["Yes, they does.", "Yes, they are.", "Yes, they plays."], "errYn": ["No, they doesn't.", "No, they don't play.", "No, they aren't."]},
-  {"aff": "We study together on Fridays.", "neg": "We don't study together on Fridays.", "q": "Do we study together on Fridaysó", "nq": "Don't we study together on Fridaysó", "ya": "Yes, we do.", "yn": "No, we don't.", "errAff": ["We studies together on Fridays.", "We are studying together on Fridays.", "We does study together on Fridays."], "errNeg": ["We doesn't study together on Fridays.", "We don't studies together on Fridays.", "We aren't study together on Fridays."], "errQ": ["Does we study together on Fridaysó", "Do we studies together on Fridaysó", "Are we study together on Fridaysó"], "errNQ": ["Doesn't we study together on Fridaysó", "Don't we studies together on Fridaysó", "Aren't we studying together on Fridaysó"], "errYa": ["Yes, we does.", "Yes, we are.", "Yes, we studies."], "errYn": ["No, we doesn't.", "No, we don't study.", "No, we aren't."]},
+  {"aff": "They play video games after school.", "neg": "They don't play video games after school.", "q": "Do they play video games after school?", "nq": "Don't they play video games after school?", "ya": "Yes, they do.", "yn": "No, they don't.", "errAff": ["They plays video games after school.", "They are playing video games after school.", "They does play video games after school."], "errNeg": ["They doesn't play video games after school.", "They don't plays video games after school.", "They aren't play video games after school."], "errQ": ["Does they play video games after school?", "Do they plays video games after school?", "Are they play video games after school?"], "errNQ": ["Doesn't they play video games after school?", "Don't they plays video games after school?", "Aren't they playing video games after school?"], "errYa": ["Yes, they does.", "Yes, they are.", "Yes, they plays."], "errYn": ["No, they doesn't.", "No, they don't play.", "No, they aren't."]},
+  {"aff": "We study together on Fridays.", "neg": "We don't study together on Fridays.", "q": "Do we study together on Fridays?", "nq": "Don't we study together on Fridays?", "ya": "Yes, we do.", "yn": "No, we don't.", "errAff": ["We studies together on Fridays.", "We are studying together on Fridays.", "We does study together on Fridays."], "errNeg": ["We doesn't study together on Fridays.", "We don't studies together on Fridays.", "We aren't study together on Fridays."], "errQ": ["Does we study together on Fridays?", "Do we studies together on Fridays?", "Are we study together on Fridays?"], "errNQ": ["Doesn't we study together on Fridays?", "Don't we studies together on Fridays?", "Aren't we studying together on Fridays?"], "errYa": ["Yes, we does.", "Yes, we are.", "Yes, we studies."], "errYn": ["No, we doesn't.", "No, we don't study.", "No, we aren't."]},
   {"aff": "They clean the house every Saturday.", "neg": "They don't clean the house every Saturday.", "q": "Do they clean the house every Saturday?", "nq": "Don't they clean the house every Saturday?", "ya": "Yes, they do.", "yn": "No, they don't.", "errAff": ["They cleans the house every Saturday.", "They are cleaning the house every Saturday.", "They does clean the house every Saturday."], "errNeg": ["They doesn't clean the house every Saturday.", "They don't cleans the house every Saturday.", "They aren't clean the house every Saturday."], "errQ": ["Does they clean the house every Saturday?", "Do they cleans the house every Saturday?", "Are they clean the house every Saturday?"], "errNQ": ["Doesn't they clean the house every Saturday?", "Don't they cleans the house every Saturday?", "Aren't they cleaning the house every Saturday?"], "errYa": ["Yes, they does.", "Yes, they are.", "Yes, they cleans."], "errYn": ["No, they doesn't.", "No, they don't clean.", "No, they aren't."]},
   {"aff": "I enjoy swimming in the summer.", "neg": "I don't enjoy swimming in the summer.", "q": "Do I enjoy swimming in the summer?", "nq": "Don't I enjoy swimming in the summer?", "ya": "Yes, I do.", "yn": "No, I don't.", "errAff": ["I enjoys swimming in the summer.", "I am enjoying swimming in the summer.", "I does enjoy swimming in the summer."], "errNeg": ["I doesn't enjoy swimming in the summer.", "I don't enjoys swimming in the summer.", "I am not enjoy swimming in the summer."], "errQ": ["Does I enjoy swimming in the summer?", "Do I enjoys swimming in the summer?", "Am I enjoy swimming in the summer?"], "errNQ": ["Doesn't I enjoy swimming in the summer?", "Don't I enjoys swimming in the summer?", "Am I not enjoying swimming in the summer?"], "errYa": ["Yes, I does.", "Yes, I am.", "Yes, I enjoys."], "errYn": ["No, I doesn't.", "No, I don't enjoy.", "No, I'm not."]},
-  {"aff": "They meet their friends on Saturdays.", "neg": "They don't meet their friends on Saturdays.", "q": "Do they meet their friends on Saturdaysó", "nq": "Don't they meet their friends on Saturdaysó", "ya": "Yes, they do.", "yn": "No, they don't.", "errAff": ["They meets their friends on Saturdays.", "They are meeting their friends on Saturdays.", "They does meet their friends on Saturdays."], "errNeg": ["They doesn't meet their friends on Saturdays.", "They don't meets their friends on Saturdays.", "They aren't meet their friends on Saturdays."], "errQ": ["Does they meet their friends on Saturdaysó", "Do they meets their friends on Saturdaysó", "Are they meet their friends on Saturdaysó"], "errNQ": ["Doesn't they meet their friends on Saturdaysó", "Don't they meets their friends on Saturdaysó", "Aren't they meeting their friends on Saturdaysó"], "errYa": ["Yes, they does.", "Yes, they are.", "Yes, they meets."], "errYn": ["No, they doesn't.", "No, they don't meet.", "No, they aren't."]},
+  {"aff": "They meet their friends on Saturdays.", "neg": "They don't meet their friends on Saturdays.", "q": "Do they meet their friends on Saturdays?", "nq": "Don't they meet their friends on Saturdays?", "ya": "Yes, they do.", "yn": "No, they don't.", "errAff": ["They meets their friends on Saturdays.", "They are meeting their friends on Saturdays.", "They does meet their friends on Saturdays."], "errNeg": ["They doesn't meet their friends on Saturdays.", "They don't meets their friends on Saturdays.", "They aren't meet their friends on Saturdays."], "errQ": ["Does they meet their friends on Saturdays?", "Do they meets their friends on Saturdays?", "Are they meet their friends on Saturdays?"], "errNQ": ["Doesn't they meet their friends on Saturdays?", "Don't they meets their friends on Saturdays?", "Aren't they meeting their friends on Saturdays?"], "errYa": ["Yes, they does.", "Yes, they are.", "Yes, they meets."], "errYn": ["No, they doesn't.", "No, they don't meet.", "No, they aren't."]},
   {"aff": "We take the bus to the city centre.", "neg": "We don't take the bus to the city centre.", "q": "Do we take the bus to the city centre?", "nq": "Don't we take the bus to the city centre?", "ya": "Yes, we do.", "yn": "No, we don't.", "errAff": ["We takes the bus to the city centre.", "We are taking the bus to the city centre.", "We does take the bus to the city centre."], "errNeg": ["We doesn't take the bus to the city centre.", "We don't takes the bus to the city centre.", "We aren't take the bus to the city centre."], "errQ": ["Does we take the bus to the city centre?", "Do we takes the bus to the city centre?", "Are we take the bus to the city centre?"], "errNQ": ["Doesn't we take the bus to the city centre?", "Don't we takes the bus to the city centre?", "Aren't we taking the bus to the city centre?"], "errYa": ["Yes, we does.", "Yes, we are.", "Yes, we takes."], "errYn": ["No, we doesn't.", "No, we don't take.", "No, we aren't."]},
   {"aff": "I walk the dog every morning.", "neg": "I don't walk the dog every morning.", "q": "Do I walk the dog every morning?", "nq": "Don't I walk the dog every morning?", "ya": "Yes, I do.", "yn": "No, I don't.", "errAff": ["I walks the dog every morning.", "I am walking the dog every morning.", "I does walk the dog every morning."], "errNeg": ["I doesn't walk the dog every morning.", "I don't walks the dog every morning.", "I am not walk the dog every morning."], "errQ": ["Does I walk the dog every morning?", "Do I walks the dog every morning?", "Am I walk the dog every morning?"], "errNQ": ["Doesn't I walk the dog every morning?", "Don't I walks the dog every morning?", "Am I not walking the dog every morning?"], "errYa": ["Yes, I does.", "Yes, I am.", "Yes, I walks."], "errYn": ["No, I doesn't.", "No, I don't walk.", "No, I'm not."]},
   {"aff": "You exercise three times a week.", "neg": "You don't exercise three times a week.", "q": "Do you exercise three times a week?", "nq": "Don't you exercise three times a week?", "ya": "Yes, I do.", "yn": "No, I don't.", "errAff": ["You exercises three times a week.", "You are exercising three times a week.", "You does exercise three times a week."], "errNeg": ["You doesn't exercise three times a week.", "You don't exercises three times a week.", "You aren't exercise three times a week."], "errQ": ["Does you exercise three times a week?", "Do you exercises three times a week?", "Are you exercise three times a week?"], "errNQ": ["Doesn't you exercise three times a week?", "Don't you exercises three times a week?", "Aren't you exercising three times a week?"], "errYa": ["Yes, I does.", "Yes, I am.", "Yes, I exercises."], "errYn": ["No, I doesn't.", "No, I don't exercise.", "No, I'm not."]},
@@ -4254,7 +4428,7 @@ var PC_BANK = [
   {"aff": "They are travelling around Europe this summer.", "neg": "They aren't travelling around Europe this summer.", "q": "Are they travelling around Europe this summer?", "nq": "Aren't they travelling around Europe this summer?", "ya": "Yes, they are.", "yn": "No, they aren't.", "errAff": ["They travelling around Europe this summer.", "They travel around Europe this summer.", "They are travel around Europe this summer."], "errNeg": ["They not travelling around Europe this summer.", "They don't travel around Europe this summer.", "They aren't travel around Europe this summer."], "errQ": ["They are travelling around Europe this summer?", "Do they travelling around Europe this summer?", "Are they travel around Europe this summer?"], "errNQ": ["Don't they travelling around Europe this summer?", "Not are they travelling around Europe this summer?", "Aren't they travel around Europe this summer?"], "errYa": ["Yes, they do.", "Yes, they travel.", "Yes, they were."], "errYn": ["No, they don't.", "No, they not.", "No, they weren't."]},
   {"aff": "She is cooking a special meal tonight.", "neg": "She isn't cooking a special meal tonight.", "q": "Is she cooking a special meal tonight?", "nq": "Isn't she cooking a special meal tonight?", "ya": "Yes, she is.", "yn": "No, she isn't.", "errAff": ["She cooking a special meal tonight.", "She cooks a special meal tonight.", "She is cook a special meal tonight."], "errNeg": ["She not cooking a special meal tonight.", "She doesn't cook a special meal tonight.", "She isn't cook a special meal tonight."], "errQ": ["She is cooking a special meal tonight?", "Does she cooking a special meal tonight?", "Is she cook a special meal tonight?"], "errNQ": ["Doesn't she cooking a special meal tonight?", "Not is she cooking a special meal tonight?", "Isn't she cook a special meal tonight?"], "errYa": ["Yes, she does.", "Yes, she cooks.", "Yes, she be."], "errYn": ["No, she doesn't.", "No, she not.", "No, she wasn't."]},
   {"aff": "He is writing a report for his boss this week.", "neg": "He isn't writing a report for his boss this week.", "q": "Is he writing a report for his boss this week?", "nq": "Isn't he writing a report for his boss this week?", "ya": "Yes, he is.", "yn": "No, he isn't.", "errAff": ["He writing a report for his boss this week.", "He writes a report for his boss this week.", "He is write a report for his boss this week."], "errNeg": ["He not writing a report for his boss this week.", "He doesn't write a report for his boss this week.", "He isn't write a report for his boss this week."], "errQ": ["He is writing a report for his boss this week?", "Does he writing a report for his boss this week?", "Is he write a report for his boss this week?"], "errNQ": ["Doesn't he writing a report for his boss this week?", "Not is he writing a report for his boss this week?", "Isn't he write a report for his boss this week?"], "errYa": ["Yes, he does.", "Yes, he writes.", "Yes, he be."], "errYn": ["No, he doesn't.", "No, he not.", "No, he wasn't."]},
-  {"aff": "We are planning a trip to the mountains.", "neg": "We aren't planning a trip to the mountains.", "q": "Are we planning a trip to the mountainsó", "nq": "Aren't we planning a trip to the mountainsó", "ya": "Yes, we are.", "yn": "No, we aren't.", "errAff": ["We planning a trip to the mountains.", "We plan a trip to the mountains.", "We are plan a trip to the mountains."], "errNeg": ["We not planning a trip to the mountains.", "We don't plan a trip to the mountains.", "We aren't plan a trip to the mountains."], "errQ": ["We are planning a trip to the mountainsó", "Do we planning a trip to the mountainsó", "Are we plan a trip to the mountainsó"], "errNQ": ["Don't we planning a trip to the mountainsó", "Not are we planning a trip to the mountainsó", "Aren't we plan a trip to the mountainsó"], "errYa": ["Yes, we do.", "Yes, we plan.", "Yes, we were."], "errYn": ["No, we don't.", "No, we not.", "No, we weren't."]},
+  {"aff": "We are planning a trip to the mountains.", "neg": "We aren't planning a trip to the mountains.", "q": "Are we planning a trip to the mountains?", "nq": "Aren't we planning a trip to the mountains?", "ya": "Yes, we are.", "yn": "No, we aren't.", "errAff": ["We planning a trip to the mountains.", "We plan a trip to the mountains.", "We are plan a trip to the mountains."], "errNeg": ["We not planning a trip to the mountains.", "We don't plan a trip to the mountains.", "We aren't plan a trip to the mountains."], "errQ": ["We are planning a trip to the mountains?", "Do we planning a trip to the mountains?", "Are we plan a trip to the mountains?"], "errNQ": ["Don't we planning a trip to the mountains?", "Not are we planning a trip to the mountains?", "Aren't we plan a trip to the mountains?"], "errYa": ["Yes, we do.", "Yes, we plan.", "Yes, we were."], "errYn": ["No, we don't.", "No, we not.", "No, we weren't."]},
   {"aff": "She is learning to drive at the moment.", "neg": "She isn't learning to drive at the moment.", "q": "Is she learning to drive at the moment?", "nq": "Isn't she learning to drive at the moment?", "ya": "Yes, she is.", "yn": "No, she isn't.", "errAff": ["She learning to drive at the moment.", "She learns to drive at the moment.", "She is learn to drive at the moment."], "errNeg": ["She not learning to drive at the moment.", "She doesn't learn to drive at the moment.", "She isn't learn to drive at the moment."], "errQ": ["She is learning to drive at the moment?", "Does she learning to drive at the moment?", "Is she learn to drive at the moment?"], "errNQ": ["Doesn't she learning to drive at the moment?", "Not is she learning to drive at the moment?", "Isn't she learn to drive at the moment?"], "errYa": ["Yes, she does.", "Yes, she learns.", "Yes, she be."], "errYn": ["No, she doesn't.", "No, she not.", "No, she wasn't."]},
   {"aff": "He is playing tennis with his friends today.", "neg": "He isn't playing tennis with his friends today.", "q": "Is he playing tennis with his friends today?", "nq": "Isn't he playing tennis with his friends today?", "ya": "Yes, he is.", "yn": "No, he isn't.", "errAff": ["He playing tennis with his friends today.", "He plays tennis with his friends today.", "He is play tennis with his friends today."], "errNeg": ["He not playing tennis with his friends today.", "He doesn't play tennis with his friends today.", "He isn't play tennis with his friends today."], "errQ": ["He is playing tennis with his friends today?", "Does he playing tennis with his friends today?", "Is he play tennis with his friends today?"], "errNQ": ["Doesn't he playing tennis with his friends today?", "Not is he playing tennis with his friends today?", "Isn't he play tennis with his friends today?"], "errYa": ["Yes, he does.", "Yes, he plays.", "Yes, he be."], "errYn": ["No, he doesn't.", "No, he not.", "No, he wasn't."]},
   {"aff": "They are having dinner at a restaurant tonight.", "neg": "They aren't having dinner at a restaurant tonight.", "q": "Are they having dinner at a restaurant tonight?", "nq": "Aren't they having dinner at a restaurant tonight?", "ya": "Yes, they are.", "yn": "No, they aren't.", "errAff": ["They having dinner at a restaurant tonight.", "They have dinner at a restaurant tonight.", "They are have dinner at a restaurant tonight."], "errNeg": ["They not having dinner at a restaurant tonight.", "They don't have dinner at a restaurant tonight.", "They aren't have dinner at a restaurant tonight."], "errQ": ["They are having dinner at a restaurant tonight?", "Do they having dinner at a restaurant tonight?", "Are they have dinner at a restaurant tonight?"], "errNQ": ["Don't they having dinner at a restaurant tonight?", "Not are they having dinner at a restaurant tonight?", "Aren't they have dinner at a restaurant tonight?"], "errYa": ["Yes, they do.", "Yes, they have.", "Yes, they were."], "errYn": ["No, they don't.", "No, they not.", "No, they weren't."]},
@@ -4314,7 +4488,7 @@ function pspcShuffle(arr) {
 }
 function pspcEl(id) { return document.getElementById(id); }
 function pspcShowScreen(id) {
-  ['pspc-setup','pspc-exercise','pspc-result'].forEach(function(s) {
+  ['pspc-setup','pspc-exercise','pspc-result','pspc-tobe-intro','pspc-tobe-ex','pspc-tobe-result'].forEach(function(s) {
     var el = pspcEl(s);
     if (el) { el.classList.remove('pspc-active'); }
   });
@@ -5121,7 +5295,276 @@ function pspcRestart() {
 }
 
 
-/* ══════════════════════════════════════════════════════
+
+  /* ══════════════════════════════════════════════════════
+     TO BE — Present Simple (am / is / are)
+  ══════════════════════════════════════════════════════ */
+  var TOBE_BANK = [
+
+    /* ══════════════════════════════════════════
+       AFIRMATIVAS (14) — am:5 · is:5 · are:4
+       ══════════════════════════════════════════ */
+    { s:"I ___ a student.", ans:"am",
+      fb:"Usamos <strong>am</strong> apenas com <strong>I</strong> (somente esse sujeito). Nunca use <em>is</em> ou <em>are</em> com <em>I</em>.<br>Certo: <em>I <strong>am</strong> a student.</em>" },
+    { s:"I ___ from Brazil.", ans:"am",
+      fb:"Usamos <strong>am</strong> apenas com <strong>I</strong> (somente esse sujeito). Nunca use <em>is</em> ou <em>are</em> com <em>I</em>. Contraction: <em>I'm</em>.<br>Certo: <em>I <strong>am</strong> from Brazil.</em>" },
+    { s:"I ___ very happy today.", ans:"am",
+      fb:"Usamos <strong>am</strong> apenas com <strong>I</strong> (somente esse sujeito). Nunca use <em>is</em> ou <em>are</em> com <em>I</em>. Lembre: <em>I am → I'm</em>.<br>Certo: <em>I <strong>am</strong> very happy today.</em>" },
+    { s:"I ___ learning English.", ans:"am",
+      fb:"Usamos <strong>am</strong> apenas com <strong>I</strong> (somente esse sujeito). Nunca use <em>is</em> ou <em>are</em> com <em>I</em>. No Present Continuous: <em>I am learning = I'm learning</em>.<br>Certo: <em>I <strong>am</strong> learning English.</em>" },
+    { s:"I ___ your new teacher.", ans:"am",
+      fb:"Usamos <strong>am</strong> apenas com <strong>I</strong> (somente esse sujeito). Nunca use <em>is</em> ou <em>are</em> com <em>I</em>.<br>Certo: <em>I <strong>am</strong> your new teacher.</em>" },
+
+    { s:"He ___ my best friend.", ans:"is",
+      fb:"Usamos <strong>is</strong> com <strong>he, she, it</strong> e com qualquer <strong>substantivo singular</strong> (the cat, London, my friend, the exam…). Contraction: <em>he's / she's / it's</em>.<br>Certo: <em>He <strong>is</strong> my best friend.</em>" },
+    { s:"She ___ a great teacher.", ans:"is",
+      fb:"Usamos <strong>is</strong> com <strong>he, she, it</strong> e com qualquer <strong>substantivo singular</strong> (the cat, London, my friend, the exam…). Contraction: <em>she's</em>.<br>Certo: <em>She <strong>is</strong> a great teacher.</em>" },
+    { s:"The weather ___ cold today.", ans:"is",
+      fb:"Usamos <strong>is</strong> com <strong>he, she, it</strong> e com qualquer <strong>substantivo singular</strong> (the cat, London, my friend, the exam…). <em>The weather</em> é tratado como singular.<br>Certo: <em>The weather <strong>is</strong> cold today.</em>" },
+    { s:"London ___ in England.", ans:"is",
+      fb:"Usamos <strong>is</strong> com <strong>he, she, it</strong> e com qualquer <strong>substantivo singular</strong> (the cat, London, my friend, the exam…). Nomes de cidades são singulares.<br>Certo: <em>London <strong>is</strong> in England.</em>" },
+    { s:"The exam ___ tomorrow.", ans:"is",
+      fb:"Usamos <strong>is</strong> com <strong>he, she, it</strong> e com qualquer <strong>substantivo singular</strong> (the cat, London, my friend, the exam…).<br>Certo: <em>The exam <strong>is</strong> tomorrow.</em>" },
+
+    { s:"We ___ ready for the test.", ans:"are",
+      fb:"Usamos <strong>are</strong> com <strong>you, we, they</strong> e com qualquer <strong>substantivo plural</strong> (the dogs, my friends, the students…). Contraction: <em>we're</em>.<br>Certo: <em>We <strong>are</strong> ready for the test.</em>" },
+    { s:"They ___ from Canada.", ans:"are",
+      fb:"Usamos <strong>are</strong> com <strong>you, we, they</strong> e com qualquer <strong>substantivo plural</strong> (the dogs, my friends, the students…). Contraction: <em>they're</em>.<br>Certo: <em>They <strong>are</strong> from Canada.</em>" },
+    { s:"The children ___ in the park.", ans:"are",
+      fb:"Usamos <strong>are</strong> com <strong>you, we, they</strong> e com qualquer <strong>substantivo plural</strong> (the dogs, my friends, the students…). <em>Children</em> é o plural de <em>child</em>.<br>Certo: <em>The children <strong>are</strong> in the park.</em>" },
+    { s:"You and I ___ friends.", ans:"are",
+      fb:"Usamos <strong>are</strong> com <strong>you, we, they</strong> e com qualquer <strong>substantivo plural</strong> (the dogs, my friends, the students…). <em>You and I</em> = dois sujeitos = plural.<br>Certo: <em>You and I <strong>are</strong> friends.</em>" },
+
+    /* ══════════════════════════════════════════
+       NEGATIVAS (13) — am:4 · is:5 · are:4
+       ══════════════════════════════════════════ */
+    { s:"I ___ not ready yet.", ans:"am",
+      fb:"Usamos <strong>am</strong> apenas com <strong>I</strong> (somente esse sujeito). Nunca use <em>is</em> ou <em>are</em> com <em>I</em>. Negativa: <em>I am not</em> ou <em>I'm not</em>. Não existe <em>I amn't</em>.<br>Certo: <em>I <strong>am</strong> not ready yet.</em>" },
+    { s:"I ___ not from here.", ans:"am",
+      fb:"Usamos <strong>am</strong> apenas com <strong>I</strong> (somente esse sujeito). Nunca use <em>is</em> ou <em>are</em> com <em>I</em>. Negativa: <em>I am not = I'm not</em>.<br>Certo: <em>I <strong>am</strong> not from here.</em>" },
+    { s:"I ___ not a professional chef.", ans:"am",
+      fb:"Usamos <strong>am</strong> apenas com <strong>I</strong> (somente esse sujeito). Nunca use <em>is</em> ou <em>are</em> com <em>I</em>. Negativa: <em>I am not</em> (ou <em>I'm not</em>). Nunca <em>I isn't</em> ou <em>I aren't</em>.<br>Certo: <em>I <strong>am</strong> not a professional chef.</em>" },
+    { s:"I ___ not late, I promise.", ans:"am",
+      fb:"Usamos <strong>am</strong> apenas com <strong>I</strong> (somente esse sujeito). Nunca use <em>is</em> ou <em>are</em> com <em>I</em>. Negativa: <em>I am not = I'm not</em>.<br>Certo: <em>I <strong>am</strong> not late, I promise.</em>" },
+
+    { s:"She ___ not at home right now.", ans:"is",
+      fb:"Usamos <strong>is</strong> com <strong>he, she, it</strong> e com qualquer <strong>substantivo singular</strong> (the cat, London, my friend, the exam…). Negativa: <em>is not</em> ou <em>isn't</em>.<br>Certo: <em>She <strong>is</strong> not at home. / She <strong>isn't</strong> at home.</em>" },
+    { s:"He ___ not a doctor.", ans:"is",
+      fb:"Usamos <strong>is</strong> com <strong>he, she, it</strong> e com qualquer <strong>substantivo singular</strong> (the cat, London, my friend, the exam…). Negativa: <em>is not</em> ou <em>isn't</em>.<br>Certo: <em>He <strong>is</strong> not a doctor.</em>" },
+    { s:"The coffee ___ not cold.", ans:"is",
+      fb:"Usamos <strong>is</strong> com <strong>he, she, it</strong> e com qualquer <strong>substantivo singular</strong> (the cat, London, my friend, the exam…). Negativa: <em>is not</em> / <em>isn't</em>.<br>Certo: <em>The coffee <strong>is</strong> not cold.</em>" },
+    { s:"My brother ___ not very tall.", ans:"is",
+      fb:"Usamos <strong>is</strong> com <strong>he, she, it</strong> e com qualquer <strong>substantivo singular</strong> (the cat, London, my friend, the exam…). <em>My brother</em> equivale a <em>he</em>. Negativa: <em>is not</em> / <em>isn't</em>.<br>Certo: <em>My brother <strong>is</strong> not very tall.</em>" },
+    { s:"The bus ___ not on time.", ans:"is",
+      fb:"Usamos <strong>is</strong> com <strong>he, she, it</strong> e com qualquer <strong>substantivo singular</strong> (the cat, London, my friend, the exam…). Negativa: <em>is not</em> / <em>isn't</em>.<br>Certo: <em>The bus <strong>is</strong> not on time.</em>" },
+
+    { s:"They ___ not in the classroom.", ans:"are",
+      fb:"Usamos <strong>are</strong> com <strong>you, we, they</strong> e com qualquer <strong>substantivo plural</strong> (the dogs, my friends, the students…). Negativa: <em>are not</em> ou <em>aren't</em>.<br>Certo: <em>They <strong>are</strong> not in the classroom.</em>" },
+    { s:"We ___ not ready yet.", ans:"are",
+      fb:"Usamos <strong>are</strong> com <strong>you, we, they</strong> e com qualquer <strong>substantivo plural</strong> (the dogs, my friends, the students…). Negativa: <em>are not</em> ou <em>aren't</em>.<br>Certo: <em>We <strong>are</strong> not ready yet.</em>" },
+    { s:"The dogs ___ not outside.", ans:"are",
+      fb:"Usamos <strong>are</strong> com <strong>you, we, they</strong> e com qualquer <strong>substantivo plural</strong> (the dogs, my friends, the students…). Negativa: <em>are not</em> / <em>aren't</em>.<br>Certo: <em>The dogs <strong>are</strong> not outside.</em>" },
+    { s:"You ___ not wrong.", ans:"are",
+      fb:"Usamos <strong>are</strong> com <strong>you, we, they</strong> e com qualquer <strong>substantivo plural</strong> (the dogs, my friends, the students…). Negativa: <em>are not</em> ou <em>aren't</em>.<br>Certo: <em>You <strong>are</strong> not wrong.</em>" },
+
+    /* ══════════════════════════════════════════
+       INTERROGATIVAS (13) — am:4 · is:5 · are:4
+       ══════════════════════════════════════════ */
+    { s:"___ I in the right place?", ans:"am",
+      fb:"Usamos <strong>am</strong> apenas com <strong>I</strong> (somente esse sujeito). Nunca use <em>is</em> ou <em>are</em> com <em>I</em>. Em perguntas, o verbo vai para o início: <em>Am I…?</em><br>Certo: <em><strong>Am</strong> I in the right place?</em>" },
+    { s:"___ I late again?", ans:"am",
+      fb:"Usamos <strong>am</strong> apenas com <strong>I</strong> (somente esse sujeito). Nunca use <em>is</em> ou <em>are</em> com <em>I</em>. Em perguntas: <em>Am I…?</em> Nunca <em>Is I?</em> ou <em>Are I?</em><br>Certo: <em><strong>Am</strong> I late again?</em>" },
+    { s:"___ I your new student?", ans:"am",
+      fb:"Usamos <strong>am</strong> apenas com <strong>I</strong> (somente esse sujeito). Nunca use <em>is</em> ou <em>are</em> com <em>I</em>. Em perguntas, o auxiliar vai para o início: <em>Am I…?</em><br>Certo: <em><strong>Am</strong> I your new student?</em>" },
+    { s:"___ I on the right track?", ans:"am",
+      fb:"Usamos <strong>am</strong> apenas com <strong>I</strong> (somente esse sujeito). Nunca use <em>is</em> ou <em>are</em> com <em>I</em>. Em perguntas: <em>Am I…?</em><br>Certo: <em><strong>Am</strong> I on the right track?</em>" },
+
+    { s:"___ she your sister?", ans:"is",
+      fb:"Usamos <strong>is</strong> com <strong>he, she, it</strong> e com qualquer <strong>substantivo singular</strong> (the cat, London, my friend, the exam…). Em perguntas: <em>Is he…? / Is she…? / Is it…?</em><br>Certo: <em><strong>Is</strong> she your sister?</em>" },
+    { s:"___ he from England?", ans:"is",
+      fb:"Usamos <strong>is</strong> com <strong>he, she, it</strong> e com qualquer <strong>substantivo singular</strong> (the cat, London, my friend, the exam…). Em perguntas: <em>Is he…?</em> O verbo vai para o início.<br>Certo: <em><strong>Is</strong> he from England?</em>" },
+    { s:"___ the coffee ready?", ans:"is",
+      fb:"Usamos <strong>is</strong> com <strong>he, she, it</strong> e com qualquer <strong>substantivo singular</strong> (the cat, London, my friend, the exam…). Em perguntas com singular: <em>Is…?</em><br>Certo: <em><strong>Is</strong> the coffee ready?</em>" },
+    { s:"___ your name Maria?", ans:"is",
+      fb:"Usamos <strong>is</strong> com <strong>he, she, it</strong> e com qualquer <strong>substantivo singular</strong> (the cat, London, my friend, the exam…). Em perguntas com singular: <em>Is…?</em><br>Certo: <em><strong>Is</strong> your name Maria?</em>" },
+    { s:"___ the exam on Monday?", ans:"is",
+      fb:"Usamos <strong>is</strong> com <strong>he, she, it</strong> e com qualquer <strong>substantivo singular</strong> (the cat, London, my friend, the exam…). Em perguntas com singular: <em>Is…?</em><br>Certo: <em><strong>Is</strong> the exam on Monday?</em>" },
+
+    { s:"___ you ready?", ans:"are",
+      fb:"Usamos <strong>are</strong> com <strong>you, we, they</strong> e com qualquer <strong>substantivo plural</strong> (the dogs, my friends, the students…). Em perguntas: <em>Are you…? / Are we…? / Are they…?</em><br>Certo: <em><strong>Are</strong> you ready?</em>" },
+    { s:"___ they happy?", ans:"are",
+      fb:"Usamos <strong>are</strong> com <strong>you, we, they</strong> e com qualquer <strong>substantivo plural</strong> (the dogs, my friends, the students…). Em perguntas: <em>Are they…?</em><br>Certo: <em><strong>Are</strong> they happy?</em>" },
+    { s:"___ we late?", ans:"are",
+      fb:"Usamos <strong>are</strong> com <strong>you, we, they</strong> e com qualquer <strong>substantivo plural</strong> (the dogs, my friends, the students…). Em perguntas: <em>Are we…?</em><br>Certo: <em><strong>Are</strong> we late?</em>" },
+    { s:"___ the students in class?", ans:"are",
+      fb:"Usamos <strong>are</strong> com <strong>you, we, they</strong> e com qualquer <strong>substantivo plural</strong> (the dogs, my friends, the students…). Em perguntas com plural: <em>Are…?</em><br>Certo: <em><strong>Are</strong> the students in class?</em>" },
+
+  ];
+
+  /* ── TOBE STATE ── */
+  var tobeQ        = [];
+  var tobeIdx      = 0;
+  var tobeCorrect  = 0;
+  var tobeAnswered = false;
+  var tobeStreak   = 0;
+  var tobeBest     = 0;
+  var TOBE_TOTAL   = 10;
+
+  function tobeShuffle(a) {
+    var arr = a.slice();
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    return arr;
+  }
+
+  function tobeEl(id) { return document.getElementById(id); }
+
+  /* ── TOBE SETUP ── */
+  function tobeStart() {
+    pspcShowScreen('pspc-tobe-intro');
+  }
+
+  function tobeBegin() {
+    tobeQ        = tobeShuffle(TOBE_BANK).slice(0, TOBE_TOTAL);
+    tobeIdx      = 0;
+    tobeCorrect  = 0;
+    tobeAnswered = false;
+    tobeStreak   = 0;
+    tobeBest     = 0;
+    pspcShowScreen('pspc-tobe-ex');
+    tobeRender();
+  }
+
+  function tobeRender() {
+    var q = tobeQ[tobeIdx];
+    tobeAnswered = false;
+
+    /* Progress */
+    var counter = tobeEl('tobe-counter');
+    var fill    = tobeEl('tobe-progress-fill');
+    if (counter) counter.textContent = 'Questão ' + (tobeIdx + 1) + ' de ' + TOBE_TOTAL;
+    if (fill)    fill.style.width = (tobeIdx / TOBE_TOTAL * 100) + '%';
+
+    /* Streak */
+    var streakEl = tobeEl('tobe-streak');
+    if (streakEl) streakEl.textContent = tobeStreak >= 3 ? '🔥 Série: ' + tobeStreak : '';
+
+    /* Score */
+    var scoreEl = tobeEl('tobe-score');
+    if (scoreEl) scoreEl.textContent = tobeCorrect;
+
+    /* Sentence with ___ highlighted */
+    var sentEl = tobeEl('tobe-sentence');
+    if (sentEl) {
+      var parts = q.s.split('___');
+      sentEl.innerHTML = parts[0] + '<span class="tobe-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>' + parts[1];
+    }
+
+    /* Build 3 options: am / is / are (shuffled) */
+    var optsEl = tobeEl('tobe-opts');
+    if (optsEl) {
+      var opts = tobeShuffle(['am', 'is', 'are']);
+      optsEl.innerHTML = opts.map(function(o) {
+        return '<button class="tobe-opt" onclick="tobeSelect(\'' + o + '\')">' + o + '</button>';
+      }).join('');
+    }
+
+    /* Reset feedback + next button */
+    var fb = tobeEl('tobe-feedback');
+    if (fb) { fb.classList.remove('pspc-show', 'pspc-ok', 'pspc-err'); }
+    var flash = tobeEl('tobe-flash');
+    if (flash) { flash.className = 'tobe-flash'; flash.textContent = ''; }
+    var nextBtn = tobeEl('tobe-btn-next');
+    if (nextBtn) { nextBtn.style.display = 'none'; }
+  }
+
+  function tobeSelect(chosen) {
+    if (tobeAnswered) return;
+    tobeAnswered = true;
+    var q   = tobeQ[tobeIdx];
+    var ans = q.ans;
+
+    /* Disable all buttons & mark correct/wrong */
+    var btns = tobeEl('tobe-opts').querySelectorAll('.tobe-opt');
+    btns.forEach(function(btn) {
+      btn.disabled = true;
+      if (btn.textContent === ans && chosen !== ans) btn.classList.add('tobe-reveal');
+    });
+
+    if (chosen === ans) {
+      /* ✔ Correct */
+      tobeCorrect++;
+      tobeStreak++;
+      if (tobeStreak > tobeBest) tobeBest = tobeStreak;
+      btns.forEach(function(btn) {
+        if (btn.textContent === chosen) btn.classList.add('tobe-ok');
+      });
+      var flash = tobeEl('tobe-flash');
+      if (flash) { flash.textContent = '✅ Correto!'; flash.className = 'tobe-flash tobe-flash-show'; }
+      setTimeout(tobeNext, 800);
+    } else {
+      /* ✖ Wrong */
+      tobeStreak = 0;
+      btns.forEach(function(btn) {
+        if (btn.textContent === chosen) btn.classList.add('tobe-err');
+      });
+      /* Show feedback */
+      var fb = tobeEl('tobe-feedback');
+      if (fb) {
+        fb.classList.add('pspc-show', 'pspc-err');
+        var icon = tobeEl('tobe-fb-icon');
+        if (icon) icon.textContent = '❌';
+        var title = tobeEl('tobe-fb-title');
+        if (title) title.textContent = 'Quase! A resposta certa é “' + ans + '”';
+        var answer = tobeEl('tobe-fb-answer');
+        if (answer) answer.innerHTML = '';
+        var rule = tobeEl('tobe-fb-rule');
+        if (rule) rule.innerHTML = q.fb;
+      }
+      var nextBtn = tobeEl('tobe-btn-next');
+      if (nextBtn) { nextBtn.style.display = 'inline-flex'; }
+    }
+  }
+
+  function tobeNext() {
+    tobeIdx++;
+    if (tobeIdx >= TOBE_TOTAL) {
+      tobeFinish();
+    } else {
+      tobeRender();
+    }
+  }
+
+  function tobeFinish() {
+    var pct   = Math.round(tobeCorrect / TOBE_TOTAL * 100);
+    var wrong = TOBE_TOTAL - tobeCorrect;
+    var emoji = pct === 100 ? '🌟' : pct >= 80 ? '🎉' : pct >= 60 ? '💪' : '📚';
+    var msg   = pct === 100 ? 'Perfeito! Você dominou o TO BE no Present Simple!'
+              : pct >= 80 ? 'Ótimo trabalho! Quase lá!'
+              : pct >= 60 ? 'Bom começo! Continue praticando.'
+              : 'Continue praticando — você vai melhorar!';
+
+    var el = tobeEl('tobe-result-correct');   if (el) el.textContent = tobeCorrect;
+    var el2 = tobeEl('tobe-result-total');    if (el2) el2.textContent = TOBE_TOTAL;
+    var el3 = tobeEl('tobe-result-msg');      if (el3) el3.textContent = msg;
+    var el4 = tobeEl('tobe-result-emoji');    if (el4) el4.textContent = emoji;
+    var el5 = tobeEl('tobe-stat-pct');        if (el5) el5.textContent = pct + '%';
+    var el6 = tobeEl('tobe-stat-wrong');      if (el6) el6.textContent = wrong;
+    var el7 = tobeEl('tobe-stat-streak');     if (el7) el7.textContent = tobeBest;
+    pspcShowScreen('pspc-tobe-result');
+  }
+
+  function tobeRestart() {
+    tobeBegin();
+  }
+
+  function tobeGoSetup() {
+    pspcShowScreen('pspc-setup');
+  }
+
+  /* ══════════════════════════════════════════════════════
    PAST SIMPLE — exercício 3 níveis
    Nível 1: verbo TO BE (was/were)
    Nível 2: verbos irregulares (múltipla escolha)
@@ -6429,6 +6872,20 @@ function spLoadVoice() {
 spSynthesis.addEventListener('voiceschanged', spLoadVoice);
 spLoadVoice();
 
+/* ── Password gate ── */
+function spCheckPw() {
+  var pw = (document.getElementById('sp-pw-input').value || '').trim();
+  if (pw === 'bestnlast') {
+    document.getElementById('sp-pw-gate').style.display = 'none';
+    document.getElementById('sp-intro').style.display = 'block';
+    document.getElementById('sp-pw-error').style.display = 'none';
+  } else {
+    document.getElementById('sp-pw-error').style.display = 'block';
+    document.getElementById('sp-pw-input').value = '';
+    document.getElementById('sp-pw-input').focus();
+  }
+}
+
 /* ── Start: show chat UI ── */
 function spStart() {
   if (!spHasSpeechAPI) {
@@ -6437,10 +6894,11 @@ function spStart() {
   document.getElementById('sp-intro').style.display = 'none';
   var chat = document.getElementById('sp-chat');
   chat.style.display = 'flex';
-  /* Opening message from AI */
-  spAddMsg('ai', "Hi there! I'm your English conversation partner. What would you like to talk about today?");
-  spSpeak("Hi there! I'm your English conversation partner. What would you like to talk about today?");
-  spHistory.push({ role: 'assistant', content: "Hi there! I'm your English conversation partner. What would you like to talk about today?" });
+  /* Opening message from Coach Alex */
+  var opening = "Hi there! I'm Coach Alex, your English speaking coach! I'm so happy you're here today. Let's get started — how about we talk about travel? Have you been anywhere interesting lately, or is there a place you're dreaming of visiting? 😊";
+  spAddMsg('ai', opening);
+  spSpeak(opening);
+  spHistory.push({ role: 'assistant', content: opening });
 }
 
 /* ── Reset conversation ── */
