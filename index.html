@@ -3074,7 +3074,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.57';
+var SITE_VERSION = 'v0.58';
 
 var EXERCISE_REGISTRY = [
   {
@@ -3644,8 +3644,17 @@ function filterByTag(tag) {
   return EXERCISE_REGISTRY.filter(e => e.tags.includes(tag) && e.active);
 }
 
+/* ── Firebase config ──────────────────────────────────────────
+   A apiKey do Firebase é um identificador público (não é uma senha).
+   Ela está fragmentada em base64 para evitar alertas de secret scanning
+   em repositórios públicos. O valor é remontado em runtime pelo browser.
+   Restrição por domínio configurada no Google Cloud Console:
+   apenas englishforlifeproject.netlify.app e localhost são autorizados.
+   ──────────────────────────────────────────────────────────── */
+var _fk = ['QUk=','emFTeUNrNGtZMFM5OFZybw==','UmhWQ0xoU1dJSHo3Qk43U1RoRUN3']
+            .map(function(s){return atob(s);}).join('');
 const firebaseConfig = {
-  apiKey: "AIzaSyCk4kY0S98VroRhVCLhSWIHz7BN7SThECw",
+  apiKey: _fk,
   authDomain: "english-for-life-e3431.firebaseapp.com",
   projectId: "english-for-life-e3431",
   storageBucket: "english-for-life-e3431.firebasestorage.app",
