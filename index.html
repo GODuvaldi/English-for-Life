@@ -587,6 +587,18 @@ img { max-width: 100%; }
   color: var(--green-800);
 }
 .iv-quiz-opt:disabled { cursor: default; }
+.iv-result-table {
+  width: 100%; border-collapse: collapse; font-size: 14px;
+  border-radius: var(--radius-md); overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+.iv-result-table thead tr { background: var(--gray-100); }
+.iv-result-table th { padding: .5rem .75rem; text-align: left; font-weight: 700; color: var(--gray-600); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+.iv-result-table td { padding: .55rem .75rem; border-top: 1px solid var(--gray-100); }
+.iv-result-ok { background: #f0fdf4; }
+.iv-result-err { background: #fff7f7; }
+.iv-result-ok td { color: var(--gray-800); }
+.iv-result-err td { color: var(--gray-800); }
 .iv-opt-correct {
   border-color: var(--green-500) !important;
   background: var(--green-100) !important;
@@ -2170,7 +2182,7 @@ img { max-width: 100%; }
         <div class="level-card unlocked" id="pp-lcard-1" onclick="startPPLevel(1)">
           <span class="level-icon">🌱</span>
           <div class="level-name">Nível Fácil</div>
-          <div class="level-desc">Have ou Hasó Aprenda o auxiliar correto e a ordem das palavras.</div>
+          <div class="level-desc">Have ou Has? Aprenda o auxiliar correto e a ordem das palavras.</div>
           <span class="level-badge lb-available" id="pp-lbadge-1">Disponível</span>
         </div>
         <div class="level-card locked" id="pp-lcard-2" onclick="startPPLevel(2)">
@@ -2420,7 +2432,7 @@ img { max-width: 100%; }
     </div>
 
     <div class="pspc-footer">
-      <button class="pspc-btn-back" onclick="showPage('reading',null)">← Voltar</button>
+      <button class="pspc-btn-back" onclick="pspcGoSetup()">← Seleção de níveis</button>
       <button class="pspc-btn-next" id="pspc-btn-next" onclick="pspcNext()">Próxima →</button>
     </div>
 
@@ -2607,12 +2619,7 @@ img { max-width: 100%; }
               <span class="ps-diff-tag">Fácil</span>
             </div>
             <div class="ps-diff-title">TO BE no passado</div>
-            <div class="ps-diff-sub">Foque em <strong>was</strong> e <strong>were</strong> com suporte visual e revisão imediata.</div>
-            <div class="ps-diff-list">
-              <span>6 questões por rodada</span>
-              <span>Explicação inicial com regra rápida</span>
-              <span>Ideal para revisar concordância com o sujeito</span>
-            </div>
+            <div class="ps-diff-sub">Pratique <strong>was</strong> e <strong>were</strong> com suporte visual e feedback imediato.</div>
             <div class="ps-diff-btn">Começar nível fácil</div>
           </button>
           <button type="button" class="ps-diff-card medium" onclick="psStartLevel(2)">
@@ -2621,12 +2628,7 @@ img { max-width: 100%; }
               <span class="ps-diff-tag">Médio</span>
             </div>
             <div class="ps-diff-title">Verbos irregulares</div>
-            <div class="ps-diff-sub">Treine os passados mais comuns com alternativas mais claras e menos ambiguidade.</div>
-            <div class="ps-diff-list">
-              <span>7 questões por rodada</span>
-              <span>Distratores com erros comuns reais</span>
-              <span>Feedback gramatical curto e direto</span>
-            </div>
+            <div class="ps-diff-sub">Treine os passados irregulares mais comuns com múltipla escolha.</div>
             <div class="ps-diff-btn">Começar nível médio</div>
           </button>
           <button type="button" class="ps-diff-card hard" onclick="psStartLevel(3)">
@@ -2635,12 +2637,7 @@ img { max-width: 100%; }
               <span class="ps-diff-tag">Difícil</span>
             </div>
             <div class="ps-diff-title">Transformação de frases</div>
-            <div class="ps-diff-sub">Converta frases no passado e termine com um desafio final em grade 2x2.</div>
-            <div class="ps-diff-list">
-              <span>6 questões por rodada</span>
-              <span>2 tentativas com semáforo pastel</span>
-              <span>Inclui negativa, interrogativa e <em>to be</em></span>
-            </div>
+            <div class="ps-diff-sub">Converta frases entre afirmativa, negativa e interrogativa no passado.</div>
             <div class="ps-diff-btn">Começar nível difícil</div>
           </button>
         </div>
@@ -2789,11 +2786,6 @@ img { max-width: 100%; }
           <div class="ps-complete-icon">🏆</div>
           <div class="ps-complete-title">Exercício concluído!</div>
           <div class="ps-complete-subtitle">Você completou os 3 níveis do Past Simple. Parabéns!</div>
-          <div class="ps-complete-stats">
-            <div class="ps-stat"><div class="ps-stat-num" id="ps-final-correct">0</div><div class="ps-stat-label">Acertos</div></div>
-            <div class="ps-stat"><div class="ps-stat-num" id="ps-final-pct">0%</div><div class="ps-stat-label">Aproveitamento</div></div>
-            <div class="ps-stat"><div class="ps-stat-num" id="ps-final-levels">3</div><div class="ps-stat-label">Níveis</div></div>
-          </div>
           <button class="ps-btn-big" onclick="psRestartAll()">🔄 Reiniciar tudo</button>
         </div>
       </div>
@@ -2969,6 +2961,7 @@ img { max-width: 100%; }
           </div>
           <button class="ps-btn-big" onclick="ivQuizRestart()">🔄 Jogar novamente</button>
         </div>
+        <div id="iv-quiz-result-table" style="margin-top:1.5rem;"></div>
       </div>
 
     </div><!-- /#iv-screen-quiz -->
@@ -3051,6 +3044,21 @@ img { max-width: 100%; }
         </div>
 
         <button class="sp-reset-btn" onclick="spReset()">🔄 Reiniciar conversa</button>
+      </div>
+    </div>
+
+    <!-- ── TELA DE RELATÓRIO ── -->
+    <div id="sp-report" style="display:none;">
+      <div class="sp-intro-card" style="text-align:left;max-width:600px;">
+        <div style="text-align:center;margin-bottom:1.25rem;">
+          <div class="sp-intro-icon">📋</div>
+          <h3 style="margin-bottom:.25rem;">Relatório da Conversa</h3>
+          <p style="margin-bottom:0;font-size:13px;color:var(--gray-400);">Avaliação pedagógica gerada pela Coach Alex</p>
+        </div>
+        <div id="sp-report-content" style="font-size:14px;line-height:1.75;color:var(--gray-700);white-space:pre-wrap;"></div>
+        <div style="text-align:center;margin-top:1.75rem;">
+          <button class="sp-start-btn" onclick="spReset()" style="font-size:14px;padding:10px 28px;">🔄 Nova conversa</button>
+        </div>
       </div>
     </div>
 
@@ -3178,13 +3186,13 @@ var ALL_VERBS = [
 
 var PP_EASY_BANK = [
   { instruction: 'Convert to NEGATIVE:', sentence: 'I have lived here for 5 years.', answer: "I haven't lived here for 5 years.", options: ["I haven't lived here for 5 years.", "I didn't live here for 5 years.", "I don't have lived here for 5 years.", "I have not live here for 5 years."], explanation: `Para negativa do Present Perfect use: have/has + not + particípio. Didn't é o Passado Simples.`, tags: ['#PresentPerfect','#Negative','#A2'] },
-  { instruction: 'Convert to QUESTION:', sentence: 'She has visited Paris.', answer: 'Has she visited Parisó', options: ['Has she visited Parisó', 'Did she visit Parisó', 'Have she visited Parisó', 'Has she visit Parisó'], explanation: `Para perguntas inverta: Has/Have + sujeito + particípio? Com "she" usamos "has", não "have".`, tags: ['#PresentPerfect','#Questions','#A2'] },
+  { instruction: 'Convert to QUESTION:', sentence: 'She has visited Paris.', answer: 'Has she visited Paris?', options: ['Has she visited Paris?', 'Did she visit Paris?', 'Have she visited Paris?', 'Has she visit Paris?'], explanation: `Para perguntas inverta: Has/Have + sujeito + particípio? Com "she" usamos "has", não "have".`, tags: ['#PresentPerfect','#Questions','#A2'] },
   { instruction: 'Find the CORRECT sentence:', sentence: 'He ___ to the gym today.', answer: 'He has gone to the gym today.', options: ['He has gone to the gym today.', 'He have gone to the gym today.', 'He has go to the gym today.', 'He gone to the gym today.'], explanation: `"He" é terceira pessoa do singular — usamos "has", não "have". O particípio de "go" é "gone".`, tags: ['#PresentPerfect','#Affirmative','#Irregular','#A2'] },
   { instruction: 'Convert to NEGATIVE:', sentence: 'They have finished the project.', answer: "They haven't finished the project.", options: ["They haven't finished the project.", "They didn't finish the project.", "They have finished not the project.", "They hasn't finished the project."], explanation: `"They" usa "have" como auxiliar. Negativa: They haven't + particípio. "Hasn't" é para he/she/it.`, tags: ['#PresentPerfect','#Negative','#A2'] },
   { instruction: 'Convert to QUESTION:', sentence: 'You have studied English before.', answer: 'Have you studied English before?', options: ['Have you studied English before?', 'Did you study English before?', 'Do you have studied English before?', 'Have you study English before?'], explanation: `Com "you" usamos "Have" para formar perguntas. O particípio de "study" é "studied".`, tags: ['#PresentPerfect','#Questions','#A2'] },
   { instruction: 'Find the CORRECT sentence:', sentence: 'My brother ___ never eaten sushi.', answer: 'My brother has never eaten sushi.', options: ['My brother has never eaten sushi.', 'My brother have never eaten sushi.', 'My brother has never eat sushi.', 'My brother never has eaten sushi.'], explanation: `"My brother" = terceira pessoa do singular → "has". "never" vem entre have/has e o particípio.`, tags: ['#PresentPerfect','#Never','#A2'] },
   { instruction: 'Convert to NEGATIVE:', sentence: 'We have watched that movie.', answer: "We haven't watched that movie.", options: ["We haven't watched that movie.", "We didn't watch that movie.", "We haven't watch that movie.", "We have not watched that movies."], explanation: `"We" usa "haven't". O particípio de "watch" é "watched" — mantém na negativa.`, tags: ['#PresentPerfect','#Negative','#A2'] },
-  { instruction: 'Convert to QUESTION:', sentence: 'He has worked here for 10 years.', answer: 'Has he worked here for 10 yearsó', options: ['Has he worked here for 10 yearsó', 'Did he work here for 10 yearsó', 'Have he worked here for 10 yearsó', 'Has he works here for 10 yearsó'], explanation: `"He" = terceira pessoa → "Has" no início da pergunta. Nunca "Have he".`, tags: ['#PresentPerfect','#Questions','#For','#A2'] },
+  { instruction: 'Convert to QUESTION:', sentence: 'He has worked here for 10 years.', answer: 'Has he worked here for 10 years?', options: ['Has he worked here for 10 years?', 'Did he work here for 10 years?', 'Have he worked here for 10 years?', 'Has he works here for 10 years?'], explanation: `"He" = terceira pessoa → "Has" no início da pergunta. Nunca "Have he".`, tags: ['#PresentPerfect','#Questions','#For','#A2'] },
   { instruction: 'Find the CORRECT sentence:', sentence: 'She ___ already done her homework.', answer: 'She has already done her homework.', options: ['She has already done her homework.', 'She have already done her homework.', 'She has already do her homework.', 'She already has done her homework.'], explanation: `"already" vem entre has/have e o particípio. "done" é o particípio de "do".`, tags: ['#PresentPerfect','#Already','#Irregular','#A2'] },
   { instruction: 'Convert to NEGATIVE:', sentence: 'I have seen this film twice.', answer: "I haven't seen this film twice.", options: ["I haven't seen this film twice.", "I didn't see this film twice.", "I haven't saw this film twice.", "I has not seen this film twice."], explanation: `"I" usa "haven't". "seen" é o particípio de "see" — não muda na negativa.`, tags: ['#PresentPerfect','#Negative','#Irregular','#A2'] },
   { instruction: 'Find the CORRECT sentence:', sentence: 'The children ___ just eaten lunch.', answer: 'The children have just eaten lunch.', options: ['The children have just eaten lunch.', 'The children has just eaten lunch.', 'The children have just eat lunch.', 'The children just have eaten lunch.'], explanation: `"The children" é plural → "have". "just" fica entre have e o particípio.`, tags: ['#PresentPerfect','#Just','#Plural','#A2'] },
@@ -3194,9 +3202,9 @@ var PP_EASY_BANK = [
   { instruction: 'Find the CORRECT sentence:', sentence: 'I ___ this song many times.', answer: 'I have heard this song many times.', options: ['I have heard this song many times.', 'I have hear this song many times.', 'I heard this song many times.', 'I has heard this song many times.'], explanation: `"I" usa "have". "heard" é o particípio de "hear". "many times" indica experiência — Present Perfect.`, tags: ['#PresentPerfect','#Experience','#Irregular','#A2'] },
   { instruction: 'Convert to QUESTION:', sentence: 'She has met your sister before.', answer: 'Has she met your sister before?', options: ['Has she met your sister before?', 'Did she meet your sister before?', 'Have she met your sister before?', 'Has she meet your sister before?'], explanation: `"She" usa "Has" para perguntas. "met" é o particípio de "meet".`, tags: ['#PresentPerfect','#Questions','#Irregular','#A2'] },
   { instruction: 'Find the CORRECT sentence:', sentence: 'We ___ just arrived home.', answer: 'We have just arrived home.', options: ['We have just arrived home.', 'We has just arrived home.', 'We have just arrive home.', 'We just have arrived home.'], explanation: `"We" usa "have". "just" fica entre have e o particípio. "arrived" é o particípio de "arrive".`, tags: ['#PresentPerfect','#Just','#A2'] },
-  { instruction: 'Convert to NEGATIVE:', sentence: 'You have worked here for a long time.', answer: "You haven't worked here for a long time.", options: ["You haven't worked here for a long time.", "You didn't work here for a long time.", "You haven't work here for a long time.", "You hasn't worked here for a long time."], explanation: `"You" usa "haven't". O particípio permanece igual na negativa.`, tags: ['#PresentPerfect','#Negative','#For','#A2'] },
-  { instruction: 'Find the CORRECT sentence:', sentence: 'It ___ not stopped raining since morning.', answer: "It hasn't stopped raining since morning.", options: ["It hasn't stopped raining since morning.", "It haven't stopped raining since morning.", "It has not stop raining since morning.", "It didn't stop raining since morning."], explanation: `"It" = terceira pessoa singular ??' "hasn't". "since" indica ponto de in?cio — Present Perfect.`, tags: ['#PresentPerfect','#Negative','#Since','#A2'] },
-  { instruction: 'Convert to QUESTION:', sentence: 'My friend has called me three times.', answer: 'Has my friend called me three timesó', options: ['Has my friend called me three timesó', 'Did my friend call me three timesó', 'Have my friend called me three timesó', 'Has my friend calls me three timesó'], explanation: `"My friend" = terceira pessoa singular → "Has". O particípio "called" não muda na pergunta.`, tags: ['#PresentPerfect','#Questions','#A2'] },
+  { instruction: 'Convert to NEGATIVE:', sentence: 'You have worked here for a long time.', answer: "You haven't worked here for a long time.", options: ["You haven't worked here for a long time.", "You didn't work here for a long time.", "You haven't work here for a long time.", "You hasn't worked here for a long time."], explanation: `Mais uma vez! "You" usa <strong>haven't</strong> (nunca "hasn't"). O particípio <strong>worked</strong> permanece igual na negativa. → <em>You haven't worked here for a long time.</em>`, tags: ['#PresentPerfect','#Negative','#For','#A2'] },
+  { instruction: 'Find the CORRECT sentence:', sentence: 'It ___ not stopped raining since morning.', answer: "It hasn't stopped raining since morning.", options: ["It hasn't stopped raining since morning.", "It haven't stopped raining since morning.", "It has not stop raining since morning.", "It didn't stop raining since morning."], explanation: `"It" = terceira pessoa singular → "hasn't". "since" indica ponto de início — Present Perfect.`, tags: ['#PresentPerfect','#Negative','#Since','#A2'] },
+  { instruction: 'Convert to QUESTION:', sentence: 'My friend has called me three times.', answer: 'Has my friend called me three times?', options: ['Has my friend called me three times?', 'Did my friend call me three times?', 'Have my friend called me three times?', 'Has my friend calls me three times?'], explanation: `"My friend" = terceira pessoa singular → "Has". O particípio "called" não muda na pergunta.`, tags: ['#PresentPerfect','#Questions','#A2'] },
 ];
 
 var ppUnlocked = 4;  /* All levels unlocked */
@@ -3277,7 +3285,7 @@ var PP_BEGINNER_BANK = [
     explanation: 'Em frases afirmativas, o sujeito vem PRIMEIRO: She has... Para "he/she/it" use HAS.'
   },
   {
-    sentence: '___ ___ ever been to Brazilá',
+    sentence: '___ ___ ever been to Brazil?',
     correct: 'Have you',
     options: ['You have', 'Have you', 'You has', 'Has you'],
     subject: 'you', isQuestion: true,
@@ -3389,14 +3397,14 @@ var PP_BEGINNER_BANK = [
     explanation: 'Em frases afirmativas, o sujeito vem PRIMEIRO: He has... Para "he/she/it" use HAS.'
   },
   {
-    sentence: '___ ___ ever seen the Northern Lightsó',
+    sentence: '___ ___ ever seen the Northern Lights?',
     correct: 'Have you',
     options: ['You have', 'Have you', 'You has', 'Has you'],
     subject: 'you', isQuestion: true,
     explanation: 'Em perguntas, o auxiliar vem ANTES do sujeito: Have you...? Para "I/you/we/they" use HAVE.'
   },
   {
-    sentence: '___ ___ received the emailá',
+    sentence: '___ ___ received the email?',
     correct: 'Has he',
     options: ['He has', 'Has he', 'He have', 'Have he'],
     subject: 'he', isQuestion: true,
@@ -3421,12 +3429,12 @@ var PP_BEGINNER_BANK = [
 var PP_ROUND_SIZE = 10;
 
 var PP_MEDIUM_BANK = [
-  { sentence: 'I have ___ to Paris three times.', verb: 'go',    past: 'went', correct: 'gone',    options: ['gone','went','goen','been'],      explanation: `go ??' went ??' <strong>gone</strong>. "Went" ? o Simple Past — no Present Perfect usamos o partic?pio <strong>gone</strong>.` },
-  { sentence: 'She has ___ all her homework.',    verb: 'do',    past: 'did',  correct: 'done',    options: ['done','did','doed','been'],       explanation: `do ??' did ??' <strong>done</strong>. "Did" ? o Simple Past — aqui precisamos do partic?pio <strong>done</strong>.` },
-  { sentence: 'They have ___ this movie before.', verb: 'see',   past: 'saw', correct: 'seen',    options: ['seen','saw','seed','watched'],    explanation: `see ??' saw ??' <strong>seen</strong>. "Saw" ? o Simple Past — usamos o partic?pio <strong>seen</strong> com Present Perfect.` },
+  { sentence: 'I have ___ to Paris three times.', verb: 'go',    past: 'went', correct: 'gone',    options: ['gone','went','goen','been'],      explanation: `go → went → <strong>gone</strong>. "Went" é o Simple Past — no Present Perfect usamos o particípio <strong>gone</strong>.` },
+  { sentence: 'She has ___ all her homework.',    verb: 'do',    past: 'did',  correct: 'done',    options: ['done','did','doed','been'],       explanation: `do → did → <strong>done</strong>. "Did" é o Simple Past — aqui precisamos do particípio <strong>done</strong>.` },
+  { sentence: 'They have ___ this movie before.', verb: 'see',   past: 'saw', correct: 'seen',    options: ['seen','saw','seed','watched'],    explanation: `see → saw → <strong>seen</strong>. "Saw" é o Simple Past — usamos o particípio <strong>seen</strong> com Present Perfect.` },
   { sentence: 'He has ___ lunch already.',        verb: 'eat',   past: 'ate', correct: 'eaten',   options: ['eaten','ate','eated','had'],      explanation: `eat → ate → <strong>eaten</strong>. "Ate" é o Simple Past — o particípio correto é <strong>eaten</strong>.` },
-  { sentence: 'We have ___ a lot of water today.',verb: 'drink', past: 'drank', correct: 'drunk',   options: ['drunk','drank','drinked','had'],  explanation: `drink ??' drank ??' <strong>drunk</strong>. "Drank" ? o Simple Past — usamos <strong>drunk</strong> no Present Perfect.` },
-  { sentence: 'I have ___ to you many times.',    verb: 'speak', past: 'spoke', correct: 'spoken',  options: ['spoken','spoke','speaked','said'],explanation: `speak ??' spoke ??' <strong>spoken</strong>. "Spoke" ? o Simple Past — precisamos do partic?pio <strong>spoken</strong>.` },
+  { sentence: 'We have ___ a lot of water today.',verb: 'drink', past: 'drank', correct: 'drunk',   options: ['drunk','drank','drinked','had'],  explanation: `drink → drank → <strong>drunk</strong>. "Drank" é o Simple Past — usamos <strong>drunk</strong> no Present Perfect.` },
+  { sentence: 'I have ___ to you many times.',    verb: 'speak', past: 'spoke', correct: 'spoken',  options: ['spoken','spoke','speaked','said'],explanation: `speak → spoke → <strong>spoken</strong>. "Spoke" é o Simple Past — precisamos do particípio <strong>spoken</strong>.` },
   { sentence: 'She has ___ a letter to him.',     verb: 'write', past: 'wrote', correct: 'written', options: ['written','wrote','writed','sent'],explanation: `write → wrote → <strong>written</strong>. "Wrote" é o Simple Past — o particípio é <strong>written</strong>.` },
   { sentence: 'They have ___ there before.',      verb: 'be',    past: 'was/were', correct: 'been',    options: ['been','was','beed','gone'],       explanation: `be → was/were → <strong>been</strong>. "Was" é o Simple Past — "been" é sempre o particípio de "be".` },
   { sentence: 'He has ___ his keys.',             verb: 'lose',  past: 'lost', correct: 'lost',    options: ['lost','losed','lose','missed'],   explanation: `lose → lost → <strong>lost</strong>. "Lose" é irregular — Simple Past e particípio são ambos "lost".` },
@@ -3436,10 +3444,10 @@ var PP_MEDIUM_BANK = [
   { sentence: 'They have ___ a lot recently.',    verb: 'grow',  past: 'grew', correct: 'grown',   options: ['grown','grew','growed','become'], explanation: `grow → grew → <strong>grown</strong>. "Grew" é o Simple Past — o particípio é <strong>grown</strong>.` },
   { sentence: 'He has ___ the window.',           verb: 'break', past: 'broke', correct: 'broken',  options: ['broken','broke','breaked','hit'], explanation: `break → broke → <strong>broken</strong>. "Broke" é o Simple Past — o particípio é <strong>broken</strong>.` },
   { sentence: 'I have ___ this song before.',     verb: 'hear',  past: 'heard', correct: 'heard',   options: ['heard','heared','hear','listened'],explanation: `hear → heard → <strong>heard</strong>. "Hear" é irregular — Simple Past e particípio são ambos "heard".` },
-  { sentence: 'We have ___ hard this week.',      verb: 'work',  past: 'worked', correct: 'worked',  options: ['worked','work','worken','done'],  explanation: `work ??' worked ??' <strong>worked</strong>. "Work" ? regular — acrescenta -ed para formar o partic?pio.` },
+  { sentence: 'We have ___ hard this week.',      verb: 'work',  past: 'worked', correct: 'worked',  options: ['worked','work','worken','done'],  explanation: `work → worked → <strong>worked</strong>. "Work" é regular — acrescenta -ed para formar o particípio.` },
   { sentence: 'She has ___ a new job.',           verb: 'get',   past: 'got', correct: 'gotten',  options: ['gotten','got','getted','taken'],  explanation: `get → got → <strong>gotten</strong>. Em inglês americano usa-se "gotten"; em britânico, "got". Ambos são aceitos.` },
   { sentence: 'They have ___ the truth.',         verb: 'tell',  past: 'told', correct: 'told',    options: ['told','telled','tell','said'],    explanation: `tell → told → <strong>told</strong>. "Tell" é irregular — Simple Past e particípio são ambos "told".` },
-  { sentence: 'I have ___ the news.',             verb: 'read',  past: 'read', correct: 'read',    options: ['read','readed','red','seen'],     explanation: `read ??' read ??' <strong>read</strong>. "Read" ? especial — a grafia ? igual mas a pron?ncia muda: /ri?d/ ??' /r?>d/.` },
+  { sentence: 'I have ___ the news.',             verb: 'read',  past: 'read', correct: 'read',    options: ['read','readed','red','seen'],     explanation: `read → read → <strong>read</strong>. "Read" ? especial — a grafia ? igual mas a pron?ncia muda: /ri?d/ → /r?>d/.` },
   { sentence: 'He has ___ asleep on the sofa.',   verb: 'fall',  past: 'fell', correct: 'fallen',  options: ['fallen','fell','falled','slept'], explanation: `fall → fell → <strong>fallen</strong>. "Fell" é o Simple Past — o particípio é <strong>fallen</strong>.` },
 ];
 
@@ -5966,22 +5974,22 @@ function psShowNext(level, show) {
 function psL1BuildExplanation(q, chosen, correct) {
   var baseRule = q.correct === 'was'
     ? 'Regra: sujeito singular no passado usa <strong>was</strong>.'
-    : 'Regra: sujeito plural usa <strong>were</strong>; com <strong>you</strong>, tambem usamos <strong>were</strong>.';
+    : 'Regra: sujeito plural usa <strong>were</strong>; com <strong>you</strong>, também usamos <strong>were</strong>.';
 
   if (correct) {
     return baseRule + ' Forma correta: <strong>' + q.sentence.replace('_____', q.correct) + '</strong>';
   }
   if (chosen === 'is' || chosen === 'are') {
-    return 'Erro gramatical: voce usou a forma do presente. No Passado Simples de <strong>to be</strong>, so existem <strong>was</strong> e <strong>were</strong>. ' + baseRule;
+    return 'Erro gramatical: você usou a forma do presente. No Passado Simples de <strong>to be</strong>, só existem <strong>was</strong> e <strong>were</strong>. ' + baseRule;
   }
   if (chosen === 'been') {
-    return 'Erro gramatical: <strong>been</strong> e particpio, nao forma de Passado Simples. Ele aparece com auxiliares como <em>have/has/had</em>. Aqui, a forma correta e <strong>' + q.correct + '</strong>.';
+    return 'Erro gramatical: <strong>been</strong> é particípio, não forma de Passado Simples. Ele aparece com auxiliares como <em>have/has/had</em>. Aqui, a forma correta é <strong>' + q.correct + '</strong>.';
   }
   if (chosen === 'where') {
-    return 'Erro gramatical: <strong>where</strong> significa "onde" e nao e verbo. A frase precisa do passado de <strong>to be</strong>: <strong>' + q.correct + '</strong>.';
+    return 'Erro gramatical: <strong>where</strong> significa "onde" e não é verbo. A frase precisa do passado de <strong>to be</strong>: <strong>' + q.correct + '</strong>.';
   }
   if (chosen === 'waz' || chosen === 'wer') {
-    return 'Erro de forma: <strong>' + chosen + '</strong> nao existe em ingles padrao. As unicas formas corretas no passado de <strong>to be</strong> sao <strong>was</strong> e <strong>were</strong>.';
+    return 'Erro de forma: <strong>' + chosen + '</strong> não existe em inglês padrão. As únicas formas corretas no passado de <strong>to be</strong> são <strong>was</strong> e <strong>were</strong>.';
   }
   return 'Erro gramatical: o sujeito desta frase pede <strong>' + q.correct + '</strong>. ' + baseRule;
 }
@@ -5991,48 +5999,64 @@ function psL2BuildExplanation(q, chosen, correct) {
     return 'No Passado Simples afirmativo, o verbo irregular vai direto para a forma passada. Regra: <strong>' + q.verb + ' -> ' + q.correct + '</strong>. Forma correta: <strong>' + q.sentence.replace('_____', q.correct) + '</strong>';
   }
   if (chosen === q.verb) {
-    return 'Erro gramatical: voce manteve o verbo no infinitivo/presente. Em frase afirmativa no Passado Simples, o verbo principal precisa ir para a forma passada. Regra correta: <strong>' + q.verb + ' -> ' + q.correct + '</strong>.';
+    return 'Erro gramatical: você manteve o verbo no infinitivo/presente. Em frase afirmativa no Passado Simples, o verbo principal precisa ir para a forma passada. Regra correta: <strong>' + q.verb + ' -> ' + q.correct + '</strong>.';
   }
   if (chosen === 'done' || chosen === 'been' || chosen === 'gone') {
-    return 'Erro gramatical: <strong>' + chosen + '</strong> e particpio, usado com auxiliares como <em>have/has/had</em>. Aqui precisamos do passado simples do verbo principal: <strong>' + q.correct + '</strong>.';
+    return 'Erro gramatical: <strong>' + chosen + '</strong> é particípio, usado com auxiliares como <em>have/has/had</em>. Aqui precisamos do passado simples do verbo principal: <strong>' + q.correct + '</strong>.';
   }
   if (chosen.endsWith('ed') || chosen.endsWith('d')) {
-    return 'Erro gramatical: voce regularizou um verbo irregular. Verbos irregulares nao formam o passado com <strong>-ed</strong>; eles tem uma forma propria. Regra correta: <strong>' + q.verb + ' -> ' + q.correct + '</strong>.';
+    return 'Erro gramatical: você regularizou um verbo irregular. Verbos irregulares não formam o passado com <strong>-ed</strong>; eles têm uma forma própria. Regra correta: <strong>' + q.verb + ' -> ' + q.correct + '</strong>.';
   }
-  return 'Erro de vocabulario verbal: <strong>' + chosen + '</strong> e passado de outro verbo. Nesta frase, o passado correto de <strong>' + q.verb + '</strong> e <strong>' + q.correct + '</strong>.';
+  return 'Erro de vocabulário verbal: <strong>' + chosen + '</strong> é passado de outro verbo. Nesta frase, o passado correto de <strong>' + q.verb + '</strong> é <strong>' + q.correct + '</strong>.';
 }
 
 function psL3BuildRule(q) {
+  var correct = '<strong>' + q.answers[0] + '</strong>';
   if (q.type.indexOf('aff') === 0 && q.type.indexOf('neg') !== -1 && q.type.indexOf('be') !== 0) {
-    return 'Regra gramatical: na negativa do Passado Simples com verbos comuns, usamos <strong>sujeito + did not/didn\'t + infinitivo</strong>. O auxiliar ja marca o passado, por isso o verbo volta para a forma base. Forma correta: <strong>' + q.answers[0] + '</strong>.';
+    return '<strong>Regra gramatical:</strong> na negativa do Passado Simples com verbos comuns, a estrutura é <strong>sujeito + didn\'t + infinitivo</strong>. O auxiliar <strong>didn\'t</strong> já carrega o passado — o verbo principal volta para a forma base (sem -ed).'
+      + '<br><br>📌 <em>She studied</em> → <em>She <strong>didn\'t study</strong></em> (não: ~~didn\'t studied~~)'
+      + '<br>📌 <em>They went</em> → <em>They <strong>didn\'t go</strong></em>'
+      + '<br><br>✅ Forma correta: ' + correct;
   }
   if (q.type.indexOf('aff') === 0 && q.type.indexOf('int') !== -1) {
-    return 'Regra gramatical: na interrogativa com verbos comuns, usamos <strong>Did + sujeito + infinitivo + ?</strong>. O verbo principal nao fica no passado porque <strong>Did</strong> ja indica o tempo verbal. Forma correta: <strong>' + q.answers[0] + '</strong>.';
+    return '<strong>Regra gramatical:</strong> na interrogativa com verbos comuns, a estrutura é <strong>Did + sujeito + infinitivo + ?</strong>. O verbo principal não fica no passado porque <strong>Did</strong> já indica o tempo verbal.'
+      + '<br><br>📌 <em>He played</em> → <em><strong>Did</strong> he <strong>play</strong>?</em> (não: ~~Did he played?~~)'
+      + '<br>📌 <em>They worked</em> → <em><strong>Did</strong> they <strong>work</strong>?</em>'
+      + '<br><br>✅ Forma correta: ' + correct;
   }
   if (q.type.indexOf('neg') === 0 && q.type.indexOf('int') !== -1) {
-    return 'Regra gramatical: para transformar a negativa em interrogativa, retiramos <strong>didn\'t</strong> e levamos <strong>Did</strong> para o inicio. O verbo permanece no infinitivo. Forma correta: <strong>' + q.answers[0] + '</strong>.';
+    return '<strong>Regra gramatical:</strong> para transformar a negativa em interrogativa, retire <strong>didn\'t</strong> e leve <strong>Did</strong> para o início — <em>antes do sujeito</em>. O verbo permanece no infinitivo.'
+      + '<br><br>📌 <em>She didn\'t study</em> → <em><strong>Did</strong> she <strong>study</strong>?</em>'
+      + '<br>📌 <em>He didn\'t come</em> → <em><strong>Did</strong> he <strong>come</strong>?</em>'
+      + '<br><br>✅ Forma correta: ' + correct;
   }
   if (q.type.indexOf('be') === 0 && q.type.indexOf('neg') !== -1) {
-    return 'Regra gramatical: com <strong>to be</strong>, nao usamos <strong>did/didn\'t</strong>. A negativa e formada com <strong>was not/wasn\'t</strong> ou <strong>were not/weren\'t</strong>. Forma correta: <strong>' + q.answers[0] + '</strong>.';
+    return '<strong>Regra gramatical:</strong> com <strong>to be</strong>, nunca usamos <strong>did/didn\'t</strong>. A negativa é <strong>was not / wasn\'t</strong> (singular) ou <strong>were not / weren\'t</strong> (plural / you).'
+      + '<br><br>📌 <em>She was happy</em> → <em>She <strong>wasn\'t</strong> happy</em>'
+      + '<br>📌 <em>They were home</em> → <em>They <strong>weren\'t</strong> home</em>'
+      + '<br><br>✅ Forma correta: ' + correct;
   }
   if (q.type.indexOf('be') === 0 && q.type.indexOf('int') !== -1) {
-    return 'Regra gramatical: com <strong>to be</strong>, a interrogativa e feita por inversao, sem <strong>Did</strong>: <strong>Was/Were + sujeito + ...?</strong> Forma correta: <strong>' + q.answers[0] + '</strong>.';
+    return '<strong>Regra gramatical:</strong> com <strong>to be</strong>, a interrogativa é feita por inversão — sem <strong>Did</strong>. O verbo <strong>was/were</strong> vai para antes do sujeito.'
+      + '<br><br>📌 <em>She was tired</em> → <em><strong>Was</strong> she tired?</em>'
+      + '<br>📌 <em>They were late</em> → <em><strong>Were</strong> they late?</em>'
+      + '<br><br>✅ Forma correta: ' + correct;
   }
-  return 'Forma correta: <strong>' + q.answers[0] + '</strong>.';
+  return '✅ Forma correta: ' + correct;
 }
 
 function psL3BuildHint(q) {
   if (q.type.indexOf('aff') === 0 && q.type.indexOf('neg') !== -1 && q.type.indexOf('be') !== 0) {
-    return 'Dica curta: negativa com verbo comum = <strong>sujeito + didn\'t + infinitivo</strong>. Nao repita o passado no verbo principal.';
+    return 'Dica curta: negativa com verbo comum = <strong>sujeito + didn\'t + infinitivo</strong>. Não repita o passado no verbo principal.';
   }
   if (q.type.indexOf('aff') === 0 && q.type.indexOf('int') !== -1) {
     return 'Dica curta: interrogativa com verbo comum = <strong>Did + sujeito + infinitivo + ?</strong>.';
   }
   if (q.type.indexOf('neg') === 0 && q.type.indexOf('int') !== -1) {
-    return 'Dica curta: troque <strong>didn\'t</strong> por <strong>Did</strong> no inicio e mantenha o verbo no infinitivo.';
+    return 'Dica curta: troque <strong>didn\'t</strong> por <strong>Did</strong> no início e mantenha o verbo no infinitivo.';
   }
   if (q.type.indexOf('be') === 0 && q.type.indexOf('neg') !== -1) {
-    return 'Dica curta: com <strong>to be</strong>, use <strong>wasn\'t</strong> ou <strong>weren\'t</strong>. Nao use <strong>didn\'t</strong>.';
+    return 'Dica curta: com <strong>to be</strong>, use <strong>wasn\'t</strong> ou <strong>weren\'t</strong>. Não use <strong>didn\'t</strong>.';
   }
   if (q.type.indexOf('be') === 0 && q.type.indexOf('int') !== -1) {
     return 'Dica curta: com <strong>to be</strong>, basta inverter: <strong>Was/Were + sujeito + ...?</strong>';
@@ -6173,8 +6197,6 @@ function psL1Answer(btn, chosen) {
       '');
   } else {
     psL1Score += 10;
-    psTotalScore += 10;
-    psTotalCorrect++;
     psUpdateScore(1, psL1Score);
     psShowFeedback(1, 'ok', '✅',
       'Correto.',
@@ -6202,6 +6224,7 @@ function psL1Finish() {
     : '💪 Acertou ' + pct + '%. Lembre: I/He/She/It → was · You/We/They → were. Continue!';
   psEl('ps-l1-comp-msg').textContent = msg;
   psEl('ps-l1-complete').style.display = 'block';
+  setTimeout(psBackToMenu, 3000);
 }
 
 /* ══════════════════════════════════
@@ -6242,8 +6265,6 @@ function psL2Answer(btn, chosen) {
       '');
   } else {
     psL2Score += 10;
-    psTotalScore += 10;
-    psTotalCorrect++;
     psUpdateScore(2, psL2Score);
     psShowFeedback(2, 'ok', '✅',
       'Correto.',
@@ -6265,6 +6286,7 @@ function psL2Finish() {
     : '💪 ' + pct + '% de acertos! Verbos irregulares precisam de prática. Não desanime — vamos ao Nível 3!';
   psEl('ps-l2-comp-msg').textContent = msg;
   psEl('ps-l2-complete').style.display = 'block';
+  setTimeout(psBackToMenu, 3000);
 }
 
 /* ══════════════════════════════════
@@ -6324,12 +6346,7 @@ function psL3Submit() {
     inp.className = 'ps-input ps-inp-ok';
     inp.disabled = true;
     psEl('ps-l3-submit').disabled = true;
-    var pts = psL3Attempt === 0 ? 10 : 5;
-    psL3Score += pts;
-    psTotalScore += pts;
-    psTotalCorrect++;
-    psUpdateScore(3, psL3Score);
-    psEl('ps-l3-badge-wrap').innerHTML = '<span class="ps-badge-ok">🟢 ' + (psL3Attempt === 0 ? 'Correto! +10 pts' : 'Correto na 2ª tentativa! +5 pts') + '</span>';
+    psEl('ps-l3-badge-wrap').innerHTML = '<span class="ps-badge-ok">🟢 ' + (psL3Attempt === 0 ? 'Correto!' : 'Correto na 2ª tentativa!') + '</span>';
     psShowFeedback(3, 'ok', '✅',
       psL3Attempt === 0 ? 'Correto de primeira.' : 'Correto na segunda tentativa.',
       'Forma correta: <strong>' + q.answers[0] + '</strong>',
@@ -6367,14 +6384,9 @@ function psL3Choose(btn, chosen) {
   var correct = q.answers.some(function(a) { return psL3Normalize(a) === psL3Normalize(chosen); });
 
   if (correct) {
-    var pts = psL3Attempt === 0 ? 10 : 5;
-    psL3Score += pts;
-    psTotalScore += pts;
-    psTotalCorrect++;
-    psUpdateScore(3, psL3Score);
     psL3SetChoiceState(true);
     btn.classList.add('ps-correct');
-    psEl('ps-l3-badge-wrap').innerHTML = '<span class="ps-badge-ok">🟢 ' + (psL3Attempt === 0 ? 'Correto! +10 pts' : 'Correto na 2ª tentativa! +5 pts') + '</span>';
+    psEl('ps-l3-badge-wrap').innerHTML = '<span class="ps-badge-ok">🟢 ' + (psL3Attempt === 0 ? 'Correto!' : 'Correto na 2ª tentativa!') + '</span>';
     psShowFeedback(3, 'ok', '✅',
       psL3Attempt === 0 ? 'Correto de primeira.' : 'Correto na segunda tentativa.',
       'Forma correta: <strong>' + q.answers[0] + '</strong>',
@@ -6420,11 +6432,8 @@ function psL3Finish() {
   psEl('ps-l3-card').style.display = 'none';
   psHideFeedback(3);
   psShowNext(3, false);
-  var totalQs = (psL1Queue.length || 6) + (psL2Queue.length || 7) + (psL3Queue.length || 6);
-  var pct = Math.round((psTotalCorrect / totalQs) * 100);
-  psEl('ps-final-correct').textContent = psTotalCorrect;
-  psEl('ps-final-pct').textContent = pct + '%';
   psEl('ps-l3-complete').style.display = 'block';
+  setTimeout(psBackToMenu, 4000);
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -6598,7 +6607,7 @@ IV_BANK.forEach(function(v) {
 var IV_CHIPS = ['go','eat','write','see','have','bring','make','buy','think','swim','know','teach','forget','lose'];
 
 /* Estado Quiz */
-var ivQuizQueue = [], ivQuizIdx = 0, ivQuizCorrect = 0;
+var ivQuizQueue = [], ivQuizIdx = 0, ivQuizCorrect = 0, ivQuizLog = [];
 
 function ivEl(id) { return document.getElementById(id); }
 
@@ -6667,6 +6676,7 @@ function ivQuizShuffle(arr) {
 
 function ivQuizStart() {
   ivQuizCorrect = 0;
+  ivQuizLog = [];
   var pool = ivQuizShuffle(IV_BANK).slice(0, 10);
   ivQuizQueue = pool.map(function(v) {
     var type = IV_QUIZ_TYPES[Math.floor(Math.random()*3)];
@@ -6774,6 +6784,9 @@ function ivQuizPick(btn, tgt, chosen) {
   /* Marcar como respondido */
   fieldsEl.setAttribute('data-answered', '1');
 
+  /* Registrar no log para tabela de resultados */
+  ivQuizLog.push({ verb: v, ok: isOk });
+
   if (isOk) {
     ivQuizCorrect++;
     ivEl('iv-quiz-acertos-top').textContent = ivQuizCorrect + '/' + ivQuizQueue.length + ' acertos';
@@ -6784,7 +6797,7 @@ function ivQuizPick(btn, tgt, chosen) {
     ivEl('iv-quiz-fb-icon').textContent = '✅';
     ivEl('iv-quiz-fb-title').textContent = praise;
     ivEl('iv-quiz-fb-text').innerHTML = '<strong>' + v.inf + ' · ' + v.ps + ' · ' + v.pp + '</strong>';
-    /* Avançar automaticamente após 900ms */
+    /* Acerto: avança automaticamente após 900ms */
     setTimeout(function() { ivQuizNext(); }, 900);
   } else {
     ivEl('iv-quiz-acertos-top').textContent = ivQuizCorrect + '/' + ivQuizQueue.length + ' acertos';
@@ -6793,8 +6806,8 @@ function ivQuizPick(btn, tgt, chosen) {
     ivEl('iv-quiz-fb-icon').textContent = '❌';
     ivEl('iv-quiz-fb-title').textContent = 'Forma correta:';
     ivEl('iv-quiz-fb-text').innerHTML = '<strong>' + v.inf + ' · ' + v.ps + ' · ' + v.pp + '</strong>';
-    /* Avançar automaticamente após 1500ms no erro */
-    setTimeout(function() { ivQuizNext(); }, 1500);
+    /* Erro: pausar e exibir botão Continuar */
+    ivEl('iv-quiz-next').style.display = 'inline-flex';
   }
 }
 
@@ -6805,6 +6818,24 @@ function ivQuizNext() {
     var pct = Math.round((ivQuizCorrect / ivQuizQueue.length) * 100);
     ivEl('iv-final-correct').textContent = ivQuizCorrect;
     ivEl('iv-final-pct').textContent     = pct + '%';
+    /* Montar tabela de resultados */
+    var rows = ivQuizLog.map(function(entry, i) {
+      var icon = entry.ok ? '✅' : '❌';
+      var rowClass = entry.ok ? 'iv-result-ok' : 'iv-result-err';
+      return '<tr class="' + rowClass + '">'
+        + '<td style="text-align:center;font-size:1.1rem;">' + icon + '</td>'
+        + '<td><strong>' + entry.verb.inf + '</strong></td>'
+        + '<td>' + entry.verb.ps + '</td>'
+        + '<td>' + entry.verb.pp + '</td>'
+        + '</tr>';
+    }).join('');
+    var tableEl = ivEl('iv-quiz-result-table');
+    if (tableEl) {
+      tableEl.innerHTML = '<table class="iv-result-table">'
+        + '<thead><tr><th></th><th>Infinitivo</th><th>Past Simple</th><th>Past Participle</th></tr></thead>'
+        + '<tbody>' + rows + '</tbody>'
+        + '</table>';
+    }
     ivEl('iv-quiz-finish').style.display = 'block';
   } else {
     ivQuizLoad();
@@ -6815,6 +6846,8 @@ function ivQuizRestart() {
   ivEl('iv-quiz-finish').style.display = 'none';
   ivEl('iv-quiz-active').style.display = 'none';
   ivEl('iv-quiz-start').style.display  = '';
+  var tableEl = ivEl('iv-quiz-result-table');
+  if (tableEl) tableEl.innerHTML = '';
 }
 
 
@@ -6861,6 +6894,8 @@ var spSynthesis = window.speechSynthesis;
 var spState = 'idle';        /* idle | recording | processing | speaking */
 var spVoice = null;          /* chosen TTS voice                   */
 var spHasSpeechAPI = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+var spTranscriptBuffer = ''; /* accumulated transcript while recording */
+var spUserTurns = 0;         /* counts user messages — report at 5  */
 
 /* ── Init voices (async load) ── */
 function spLoadVoice() {
@@ -6904,7 +6939,7 @@ function spStart() {
   var chat = document.getElementById('sp-chat');
   chat.style.display = 'flex';
   /* Opening message from Coach Alex */
-  var opening = "Hi there! I'm Coach Alex, your English speaking coach! I'm so happy you're here today. Let's get started — how about we talk about travel? Have you been anywhere interesting lately, or is there a place you're dreaming of visiting? 😊";
+  var opening = "Hi! I'm Coach Alex, your English speaking coach. Great to have you here! So — what's been on your mind lately? We can talk about anything you like: your daily routine, hobbies, work, a movie you watched, or whatever feels natural. What would you like to chat about? 😊";
   spAddMsg('ai', opening);
   spSpeak(opening);
   spHistory.push({ role: 'assistant', content: opening });
@@ -6914,11 +6949,14 @@ function spStart() {
 function spReset() {
   spHistory = [];
   spState = 'idle';
+  spUserTurns = 0;
+  spTranscriptBuffer = '';
   if (spRecognition) { try { spRecognition.stop(); } catch(e){} }
   spSynthesis.cancel();
   document.getElementById('sp-messages').innerHTML = '';
   document.getElementById('sp-intro').style.display = 'block';
   document.getElementById('sp-chat').style.display = 'none';
+  document.getElementById('sp-report').style.display = 'none';
   spSetStatus('Pressione o microfone para falar');
   spSetMicState('idle');
 }
@@ -6990,31 +7028,49 @@ function spStartRecording() {
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   spRecognition = new SR();
   spRecognition.lang = 'en-US';
-  spRecognition.interimResults = false;
+  spRecognition.continuous = true;      /* nunca para automaticamente */
+  spRecognition.interimResults = true;  /* resultados parciais em tempo real */
   spRecognition.maxAlternatives = 1;
+  spTranscriptBuffer = '';
   spState = 'recording';
   spSetMicState('recording');
-  spSetStatus('🔴 Gravando… fale agora');
+  spSetStatus('🔴 Gravando… clique ⏹️ para enviar');
 
   spRecognition.onresult = function(e) {
-    var transcript = e.results[0][0].transcript;
-    spStopRecording();
-    spSubmit(transcript);
+    /* Acumula todos os segmentos finais no buffer */
+    var full = '';
+    for (var i = 0; i < e.results.length; i++) {
+      if (e.results[i].isFinal) {
+        full += e.results[i][0].transcript + ' ';
+      }
+    }
+    spTranscriptBuffer = full.trim();
+
+    /* Mostra preview do que está sendo transcrito */
+    var preview = spTranscriptBuffer ||
+      (e.results[e.results.length - 1][0].transcript); /* interim */
+    spSetStatus('🔴 "' + preview.slice(0, 60) + (preview.length > 60 ? '…' : '') + '" — clique ⏹️ para enviar');
   };
 
   spRecognition.onerror = function(e) {
+    if (e.error === 'no-speech') return; /* ignora silêncio — modo contínuo */
+    spTranscriptBuffer = '';
     spState = 'idle';
     spSetMicState('idle');
     spSetStatus(e.error === 'not-allowed'
       ? '⚠️ Permissão de microfone negada. Use o campo de texto.'
-      : '⚠️ Não entendi. Tente de novo.');
+      : '⚠️ Erro no microfone. Tente de novo.');
   };
 
   spRecognition.onend = function() {
+    /* Em modo contínuo, onend só dispara se o browser forçar parada.
+       Se ainda estamos em 'recording', reinicia automaticamente. */
     if (spState === 'recording') {
-      spState = 'idle';
-      spSetMicState('idle');
-      spSetStatus('Pressione o microfone para falar');
+      try { spRecognition.start(); } catch(e) {
+        spState = 'idle';
+        spSetMicState('idle');
+        spSetStatus('Pressione o microfone para falar');
+      }
     }
   };
 
@@ -7022,11 +7078,17 @@ function spStartRecording() {
 }
 
 function spStopRecording() {
+  /* Salva o buffer ANTES de parar (stop() dispara onend que pode limpar estado) */
+  var transcript = spTranscriptBuffer;
+  spTranscriptBuffer = '';
+  spState = 'idle'; /* muda estado antes do stop para onend não reiniciar */
   if (spRecognition) { try { spRecognition.stop(); } catch(e){} }
-  if (spState === 'recording') {
-    spState = 'idle';
-    spSetMicState('idle');
-    spSetStatus('Pressione o microfone para falar');
+  spSetMicState('idle');
+
+  if (transcript) {
+    spSubmit(transcript);
+  } else {
+    spSetStatus('Nada gravado — pressione o microfone e fale antes de enviar.');
   }
 }
 
@@ -7045,6 +7107,7 @@ function spSubmit(text) {
   spSynthesis.cancel();
   spAddMsg('user', text);
   spHistory.push({ role: 'user', content: text });
+  spUserTurns++;
   spTrimHistory();
 
   spState = 'processing';
@@ -7053,10 +7116,22 @@ function spSubmit(text) {
   var thinkingBubble = spAddMsg('ai', '…');
   thinkingBubble.classList.add('sp-thinking');
 
+  var isLastTurn = (spUserTurns >= 5);
+
+  var conversationSystem = 'You are Coach Alex, a friendly and encouraging English conversation coach. '
+    + 'Your role during THIS conversation is to be a natural, engaged conversation partner. '
+    + 'IMPORTANT RULES: '
+    + '(1) NEVER correct pronunciation or grammar mid-conversation — not even gently. '
+    + '(2) Focus entirely on understanding what the student says and responding naturally. '
+    + '(3) Keep your replies concise (2–4 sentences max) and adapted to the student\'s apparent level. '
+    + '(4) Ask one follow-up question per turn to keep the conversation flowing. '
+    + '(5) Be warm and encouraging — make the student feel confident, not judged. '
+    + '(6) Talk about varied everyday topics (hobbies, routines, food, work, movies, etc.) — not just travel.';
+
   fetch(SPEAKING_API, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: text, history: spHistory.slice(0, -1) })
+    body: JSON.stringify({ message: text, history: spHistory.slice(0, -1), system: conversationSystem })
   })
   .then(function(r) {
     if (!r.ok) throw new Error('HTTP ' + r.status);
@@ -7067,12 +7142,17 @@ function spSubmit(text) {
     thinkingBubble.classList.remove('sp-thinking');
     thinkingBubble.textContent = reply;
     spHistory.push({ role: 'assistant', content: reply });
-    /* scroll */
     var msgs = document.getElementById('sp-messages');
     if (msgs) msgs.scrollTop = msgs.scrollHeight;
-    /* TTS */
-    spState = 'idle';
-    spSpeak(reply);
+
+    if (isLastTurn) {
+      /* 5 trocas concluídas — fala última resposta e depois gera relatório */
+      spSetStatus('✅ Conversa concluída! Aguarde o relatório…');
+      spSpeakThenReport(reply);
+    } else {
+      spState = 'idle';
+      spSpeak(reply);
+    }
   })
   .catch(function(err) {
     thinkingBubble.classList.remove('sp-thinking');
@@ -7081,6 +7161,70 @@ function spSubmit(text) {
     spSetMicState('idle');
     spSetStatus('Pressione o microfone para falar');
     console.error('Speaking API error:', err);
+  });
+}
+
+/* ── Fala a última resposta e, ao terminar, gera o relatório ── */
+function spSpeakThenReport(text) {
+  if (!spSynthesis) { spGenerateReport(); return; }
+  spSynthesis.cancel();
+  var utt = new SpeechSynthesisUtterance(text);
+  if (spVoice) utt.voice = spVoice;
+  utt.lang = 'en-US';
+  utt.rate = 0.92;
+  utt.onend   = function() { spGenerateReport(); };
+  utt.onerror = function() { spGenerateReport(); };
+  spSynthesis.speak(utt);
+}
+
+/* ── Gera relatório pedagógico via API ── */
+function spGenerateReport() {
+  spSetStatus('📋 Gerando relatório pedagógico…');
+
+  /* Monta a transcrição da conversa para o prompt */
+  var transcript = spHistory.map(function(m) {
+    return (m.role === 'user' ? 'Aluno: ' : 'Coach Alex: ') + m.content;
+  }).join('\n');
+
+  var reportPrompt = 'You are an English language coach writing a brief pedagogical report in PORTUGUESE (pt-BR) about a student\'s spoken English practice session.\n\n'
+    + 'STRICT RULES — follow every one without exception:\n'
+    + '1. DO NOT include a "Tópicos Discutidos" section. It does not exist in this report.\n'
+    + '2. Pronunciation: mention difficulty TYPES only (e.g., "vogais curtas", "consoantes finais nasais") — NEVER list individual words or specific errors.\n'
+    + '3. Grammar: mention error CATEGORIES only (e.g., "uso de auxiliares", "concordância verbal") — NEVER list individual mistakes.\n'
+    + '4. The "🌟 Pontos Fortes" section MUST be written in full with 2–3 specific, genuine observations. It is the most important section. If the report risks being too long, CUT from the negative sections — NEVER from Pontos Fortes.\n'
+    + '5. The overall tone must be encouraging and balanced. Positive observations dominate.\n'
+    + '6. Total report: 220–280 words maximum.\n\n'
+    + 'REQUIRED STRUCTURE (use exactly these headings):\n'
+    + '🌟 Pontos Fortes\n'
+    + '[2–3 specific, encouraging observations about what the student did well]\n\n'
+    + '📈 Áreas para Desenvolver\n'
+    + '[1–2 improvement categories — brief, constructive, no lists of errors]\n\n'
+    + '🎯 Dica da Coach Alex\n'
+    + '[One short, actionable, motivating tip to practice]\n\n'
+    + 'CONVERSATION TRANSCRIPT:\n' + transcript;
+
+  fetch(SPEAKING_API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: reportPrompt, history: [] })
+  })
+  .then(function(r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  })
+  .then(function(data) {
+    var report = data.response || '(sem relatório)';
+    /* Exibe tela de relatório */
+    document.getElementById('sp-chat').style.display = 'none';
+    document.getElementById('sp-report-content').textContent = report;
+    document.getElementById('sp-report').style.display = 'block';
+  })
+  .catch(function(err) {
+    /* Em caso de erro, exibe mensagem simples na tela de relatório */
+    document.getElementById('sp-chat').style.display = 'none';
+    document.getElementById('sp-report-content').textContent = '⚠️ Não foi possível gerar o relatório. Reinicie a conversa e tente novamente.';
+    document.getElementById('sp-report').style.display = 'block';
+    console.error('Report generation error:', err);
   });
 }
 
