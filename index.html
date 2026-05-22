@@ -2139,7 +2139,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.79</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.80</span>
   </footer>
 </div>
 
@@ -2388,7 +2388,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.79</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.80</span>
   </footer>
 </div>
 
@@ -2498,12 +2498,6 @@ img { max-width: 100%; }
             
             <div id="pp-options-area"></div>
 
-            <div style="text-align:right;margin-top:.5rem;">
-              <button class="next-btn" id="pp-next-btn" onclick="ppNextQuestion()">
-                → Próxima →
-              </button>
-            </div>
-
             <div class="feedback" id="pp-feedback">
               <span class="feedback-icon" id="pp-fb-icon"></span>
               <span id="pp-fb-text"></span>
@@ -2511,6 +2505,9 @@ img { max-width: 100%; }
 
             <div class="q-footer">
               <span style="font-size:12px;color:var(--gray-400);font-style:italic" id="pp-tags-display"></span>
+              <button class="next-btn" id="pp-next-btn" onclick="ppNextQuestion()">
+                → Próxima →
+              </button>
             </div>
           </div>
         </div>
@@ -2540,7 +2537,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.79</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.80</span>
   </footer>
 </div>
 
@@ -2667,9 +2664,6 @@ img { max-width: 100%; }
         Como fica na forma <strong id="pspc-target-name">Negativa</strong>?
       </div>
       <div class="pspc-options" id="pspc-options"></div>
-    <div style="text-align:center;margin-top:.75rem;">
-      <button class="pspc-btn-next" id="pspc-btn-next" onclick="pspcNext()">Próxima →</button>
-    </div>
     </div>
 
     <div class="pspc-feedback" id="pspc-feedback">
@@ -2684,6 +2678,7 @@ img { max-width: 100%; }
 
     <div class="pspc-footer">
       <button class="pspc-btn-back" onclick="pspcGoSetup()">← Seleção de níveis</button>
+      <button class="pspc-btn-next" id="pspc-btn-next" onclick="pspcNext()">Próxima →</button>
     </div>
 
   </div>
@@ -2702,7 +2697,6 @@ img { max-width: 100%; }
       <div class="pspc-stat"><div class="pspc-stat-num" id="pspc-stat-wrong">0</div><div class="pspc-stat-lbl">Erros</div></div>
       <div class="pspc-stat"><div class="pspc-stat-num" id="pspc-stat-streak">0</div><div class="pspc-stat-lbl">Melhor série</div></div>
     </div>
-    <div id="pspc-review-wrap" style="display:none;margin-top:1.25rem;"></div>
     <div class="pspc-result-actions">
       <button class="pspc-btn-again" onclick="pspcRestart()">🔄 Praticar novamente</button>
       <button class="pspc-btn-back-result" onclick="pspcGoSetup()">← Voltar às escolhas de níveis</button>
@@ -3046,7 +3040,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.79</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.80</span>
   </footer>
 </div>
 <!-- ═══════════ END PAST SIMPLE ═══════════ -->
@@ -3192,13 +3186,11 @@ img { max-width: 100%; }
             <strong id="iv-quiz-fb-title"></strong>
             <div id="iv-quiz-fb-text"></div>
           </div>
-        <div style="text-align:center;margin-top:.75rem;">
-          <button class="ps-btn-next" id="iv-quiz-next" onclick="ivQuizNext()" style="display:none;">Próxima →</button>
-        </div>
         </div>
 
-        <div style="display:flex;justify-content:flex-start;margin-top:.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1rem;">
           <button class="ps-btn-restart" onclick="ivQuizRestart()">🔄 Reiniciar</button>
+          <button class="ps-btn-next" id="iv-quiz-next" onclick="ivQuizNext()" style="display:none;">Próxima →</button>
         </div>
       </div>
 
@@ -3222,7 +3214,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.79</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.80</span>
   </footer>
 </div>
 <!-- ═══════════ END IRREGULAR VERBS ═══════════ -->
@@ -3319,7 +3311,7 @@ img { max-width: 100%; }
   
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.79</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.80</span>
   </footer>
 </div>
 
@@ -5621,7 +5613,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.79';
+var SITE_VERSION = 'v0.80';
 
 var EXERCISE_REGISTRY = [
   {
@@ -6932,28 +6924,21 @@ function ppShowResult() {
     renderPPLevelCards();
   }
 
-  /* Tabela de revisão completa - todos os acertos e erros */
+  /* Questões com erro */
+  var errors  = ppLog.filter(function(l) { return !l.ok; });
   var errCard = ppEl('pp-review-errors-card');
   var errList = ppEl('pp-review-errors-list');
-  if (errCard && errList && ppLog.length > 0) {
-    errCard.style.display = 'block';
-    var rows = ppLog.map(function(l) {
-      var rowCls = l.ok ? 'ppc-trow-ok' : 'ppc-trow-err';
-      var correctAns = l.q.answer || l.q.correct || '';
-      return '<tr class="' + rowCls + '">'
-        + '<td style="padding:.5rem .625rem;text-align:center;">' + (l.ok ? '✅' : '❌') + '</td>'
-        + '<td style="padding:.5rem .625rem;font-size:.8rem;color:var(--gray-700);">' + l.q.sentence + '</td>'
-        + '<td style="padding:.5rem .625rem;font-size:.85rem;font-weight:700;color:var(--green-800);">' + correctAns + '</td>'
-        + (!l.ok ? '<td style="padding:.5rem .625rem;font-size:.85rem;color:var(--red-700);">' + (l.chosen || '') + '</td>' : '<td></td>')
-        + '</tr>';
-    }).join('');
-    errList.innerHTML = '<div class="ppc-review-wrap"><h4 class="ppc-review-title">📋 Revisão</h4>'
-      + '<div style="overflow-x:auto;"><table class="ppc-review-table"><thead><tr>'
-      + '<th style="padding:.5rem .625rem;width:2rem;"></th>'
-      + '<th style="padding:.5rem .625rem;text-align:left;">Frase</th>'
-      + '<th style="padding:.5rem .625rem;text-align:left;">Correto</th>'
-      + '<th style="padding:.5rem .625rem;text-align:left;">Sua resp.</th>'
-      + '</tr></thead><tbody>' + rows + '</tbody></table></div></div>';
+  if (errCard && errList) {
+    if (errors.length > 0) {
+      errCard.style.display = 'block';
+      errList.innerHTML = errors.map(function(l) {
+        return '<div class="review-item"><div>' +
+          '<div class="review-past" style="font-size:14px">' + l.q.sentence + '</div>' +
+          '<div class="review-ph">Correto: ' + (l.q.answer || l.q.correct) + '</div>' +
+          '<div class="review-ph">' + l.q.tags.join(' ') + '</div>' +
+          '</div><span class="badge-err">Rever</span></div>';
+      }).join('');
+    } else { errCard.style.display = 'none'; }
   }
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -7103,7 +7088,6 @@ var pspcAnswered = false;
 var pspcTotal    = 15;
 var pspcStreak   = 0;
 var pspcBestStr  = 0;
-var pspcLog     = []; /* { sentence, srcLabel, tgtLabel, correct, chosen, ok } */
 
 /* ── PSPC HELPERS ── */
 function pspcShuffle(arr) {
@@ -7729,7 +7713,6 @@ function pspcStart() {
   pspcStreak   = 0;
   pspcBestStr  = 0;
   pspcAnswered = false;
-  pspcLog      = [];
 
   var badge = pspcEl('pspc-badge');
   if (badge) {
@@ -7860,17 +7843,6 @@ function pspcAnswer(btnEl, chosen, correct) {
     }
   }
 
-  /* Log for review table */
-  var _q = pspcQueue[pspcIdx];
-  pspcLog.push({
-    sentence: _q ? _q[pspcSrcKey] : '',
-    srcLabel: (window.PSPC_FORMS && window.PSPC_FORMS[pspcSrcKey]) ? PSPC_FORMS[pspcSrcKey].label : pspcSrcKey,
-    tgtLabel: (window.PSPC_FORMS && window.PSPC_FORMS[pspcTgtKey]) ? PSPC_FORMS[pspcTgtKey].label : pspcTgtKey,
-    correct: correct,
-    chosen: chosen,
-    ok: ok
-  });
-
   var nextBtn = pspcEl('pspc-btn-next');
   if (nextBtn) nextBtn.className = 'pspc-btn-next pspc-show';
 }
@@ -7908,30 +7880,6 @@ function pspcShowResult() {
   if (wrongEl) wrongEl.textContent = (pspcTotal - pspcCorrect);
   if (strEl)   strEl.textContent   = pspcBestStr;
 
-  /* Review table */
-  var reviewEl = pspcEl('pspc-review-wrap');
-  if (reviewEl && pspcLog.length > 0) {
-    var rows = pspcLog.map(function(entry, i) {
-      var rowCls = entry.ok ? 'ppc-trow-ok' : 'ppc-trow-err';
-      return '<tr class="' + rowCls + '">'
-        + '<td style="padding:.5rem .625rem;text-align:center;">' + (entry.ok ? '✅' : '❌') + '</td>'
-        + '<td style="padding:.5rem .625rem;font-size:.8rem;color:var(--gray-700);">' + entry.sentence + '</td>'
-        + '<td style="padding:.5rem .625rem;font-size:.8rem;color:var(--gray-700);">' + entry.tgtLabel + '</td>'
-        + '<td style="padding:.5rem .625rem;font-size:.85rem;font-weight:700;color:var(--green-800);">' + entry.correct + '</td>'
-        + (!entry.ok ? '<td style="padding:.5rem .625rem;font-size:.85rem;color:var(--red-700);">' + entry.chosen + '</td>' : '<td></td>')
-        + '</tr>';
-    }).join('');
-    reviewEl.innerHTML = '<div class="ppc-review-wrap"><h4 class="ppc-review-title">📋 Revisão</h4>'
-      + '<div style="overflow-x:auto;"><table class="ppc-review-table"><thead><tr>'
-      + '<th style="padding:.5rem .625rem;width:2rem;"></th>'
-      + '<th style="padding:.5rem .625rem;text-align:left;">Frase</th>'
-      + '<th style="padding:.5rem .625rem;text-align:left;">Tipo</th>'
-      + '<th style="padding:.5rem .625rem;text-align:left;">Correto</th>'
-      + '<th style="padding:.5rem .625rem;text-align:left;">Sua resp.</th>'
-      + '</tr></thead><tbody>' + rows + '</tbody></table></div></div>';
-    reviewEl.style.display = 'block';
-  }
-
   pspcShowScreen('pspc-result');
 }
 
@@ -7954,7 +7902,6 @@ function pspcRestart() {
   pspcStreak   = 0;
   pspcBestStr  = 0;
   pspcAnswered = false;
-  pspcLog      = [];
   pspcShowScreen('pspc-exercise');
   pspcLoadQ();
 }
@@ -9425,10 +9372,70 @@ document.addEventListener('DOMContentLoaded', function() {
       ppcGo(0);
     }
     origShowPage(id, arg);
+
+    /* Push hash to URL (REGRA-59) — skip if already on correct hash */
+    var _expectedHash = PAGE_TO_HASH.hasOwnProperty(id) ? '#' + PAGE_TO_HASH[id] : null;
+    if (_expectedHash !== null) {
+      var _currentHash = window.location.hash || '';
+      if (_currentHash !== _expectedHash && !(_expectedHash === '#' && _currentHash === '')) {
+        history.pushState(null, '', _expectedHash === '#' ? window.location.pathname.split('#')[0] : _expectedHash);
+      }
+    }
   };
 
   /* Inject version into all footer spans */
   document.querySelectorAll('.pp-code').forEach(function(el) { el.textContent = SITE_VERSION; });
+
+  /* ══════════════════════════════════════════════════════
+     HASH ROUTING  (REGRA-59)
+     Routes:  #grammar/slug  →  exercise pages
+              #grammar        →  Grammar Hub
+              #speaking       →  Coach Alex
+              #listening      →  Listening
+              #writing        →  Writing
+              (root / empty)  →  Home
+     Tag filters (future):  #level/A2  #tag/B1  — reserved prefix
+  ══════════════════════════════════════════════════════ */
+
+  var HASH_TO_PAGE = {
+    '':                            'home',
+    'grammar':                     'reading',
+    'grammar/present-perfect':     'pp',
+    'grammar/present-simple-continuous': 'ps-pc',
+    'grammar/past-simple':         'past-simple',
+    'grammar/irregular-verbs':     'irregular-verbs',
+    'grammar/present-perfect-continuous': 'ppc',
+    'grammar/past-perfect':        'past-perfect',
+    'grammar/used-to':             'used-to',
+    'grammar/present-as-future':   'present-future',
+    'grammar/will-going-to':       'will-going',
+    'grammar/there-to-be':         'there-to-be',
+    'grammar/articles':            'articles',
+    'grammar/prepositions-place-time': 'prepositions-place-time',
+    'speaking':                    'speaking',
+    'listening':                   'listening',
+    'writing':                     'writing'
+  };
+
+  var PAGE_TO_HASH = {};
+  Object.keys(HASH_TO_PAGE).forEach(function(h) {
+    PAGE_TO_HASH[HASH_TO_PAGE[h]] = h;
+  });
+
+  function hashRouter() {
+    var raw = window.location.hash.replace(/^#/, '').replace(/\/+$/, '');
+    /* Ignore reserved prefixes (future: level/, tag/) */
+    if (raw.indexOf('level/') === 0 || raw.indexOf('tag/') === 0) return;
+    var pageId = HASH_TO_PAGE.hasOwnProperty(raw) ? HASH_TO_PAGE[raw] : null;
+    if (pageId) { window.showPage(pageId, null); }
+  }
+
+  window.addEventListener('hashchange', hashRouter);
+  /* Run on first load */
+  if (window.location.hash && window.location.hash !== '#') {
+    hashRouter();
+  }
+
 
   ppUnlocked = 4;  /* Ensure all PP levels unlocked regardless of any cached state */
   try { localStorage.removeItem(PP_STORAGE_KEY); } catch(e) {}
