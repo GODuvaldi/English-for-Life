@@ -1394,6 +1394,15 @@ img { max-width: 100%; }
 .rhc-tag-blue { background: var(--blue-100); color: var(--blue-500); }
 .rhc-tag-gray { background: var(--gray-100); color: var(--gray-600); }
 .rhc-arrow { font-size: 1.375rem; color: var(--gray-300); flex-shrink: 0; transition: color .15s; }
+
+/* ── Hub progress badge (Etapa 2) ── */
+.rhc-progress { display:flex; align-items:center; gap:.375rem; margin-top:.4rem; flex-wrap:wrap; }
+.rhc-badge-done { font-size:.7rem; font-weight:700; padding:2px 7px; border-radius:99px;
+  background:var(--green-100); color:var(--green-700); display:inline-flex; align-items:center; gap:3px; }
+.rhc-badge-partial { font-size:.7rem; font-weight:700; padding:2px 7px; border-radius:99px;
+  background:#fef9c3; color:#854d0e; display:inline-flex; align-items:center; gap:3px; }
+.rhc-badge-score { font-size:.7rem; font-weight:600; padding:2px 7px; border-radius:99px;
+  background:var(--gray-100); color:var(--gray-600); }
 .reading-hub-card:hover .rhc-arrow { color: var(--green-500); }
 
 /* ── PSPC OVERHAUL — align to PP style ──────────────────────── */
@@ -2140,7 +2149,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.82</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
   </footer>
 </div>
 
@@ -2171,7 +2180,7 @@ img { max-width: 100%; }
       <div class="reading-hub-grid">
 
         <!-- Card: Present Simple & Continuous -->
-        <div class="reading-hub-card" onclick="showPage('ps-pc',null)">
+        <div class="reading-hub-card" data-hub-page="ps-pc" onclick="showPage('ps-pc',null)">
           <div class="rhc-left"><div class="rhc-icon-wrap rhc-blue">✏️</div></div>
           <div class="rhc-body">
             <div class="rhc-title">Present Simple &amp; Continuous</div>
@@ -2186,7 +2195,7 @@ img { max-width: 100%; }
         </div>
 
         <!-- Card: Articles -->
-        <div class="reading-hub-card" onclick="showPage('articles',null)">
+        <div class="reading-hub-card" data-hub-page="articles" onclick="showPage('articles',null)">
           <div class="rhc-left"><div class="rhc-icon-wrap" style="background:#fef3c7;">🔤</div></div>
           <div class="rhc-body">
             <div class="rhc-title">Articles — a, an, the, Ø</div>
@@ -2201,7 +2210,7 @@ img { max-width: 100%; }
         </div>
 
         <!-- Card: There To Be -->
-        <div class="reading-hub-card" onclick="showPage('there-to-be',null)">
+        <div class="reading-hub-card" data-hub-page="there-to-be" onclick="showPage('there-to-be',null)">
           <div class="rhc-left"><div class="rhc-icon-wrap" style="background:#ede9fe;">🏠</div></div>
           <div class="rhc-body">
             <div class="rhc-title">There To Be</div>
@@ -2227,7 +2236,7 @@ img { max-width: 100%; }
       <div class="reading-hub-grid">
 
         <!-- Card: Past Simple -->
-        <div class="reading-hub-card" onclick="showPage('past-simple',null)">
+        <div class="reading-hub-card" data-hub-page="past-simple" onclick="showPage('past-simple',null)">
           <div class="rhc-left"><div class="rhc-icon-wrap" style="background:var(--purple-100);">⏪</div></div>
           <div class="rhc-body">
             <div class="rhc-title">Past Simple</div>
@@ -2242,7 +2251,7 @@ img { max-width: 100%; }
         </div>
 
         <!-- Card: Present Perfect -->
-        <div class="reading-hub-card" onclick="showPage('pp',null)">
+        <div class="reading-hub-card" data-hub-page="pp" onclick="showPage('pp',null)">
           <div class="rhc-left"><div class="rhc-icon-wrap rhc-green">📚</div></div>
           <div class="rhc-body">
             <div class="rhc-title">Present Perfect</div>
@@ -2257,7 +2266,7 @@ img { max-width: 100%; }
         </div>
 
         <!-- Card: Irregular Verbs -->
-        <div class="reading-hub-card" onclick="showPage('irregular-verbs',null)">
+        <div class="reading-hub-card" data-hub-page="irregular-verbs" onclick="showPage('irregular-verbs',null)">
           <div class="rhc-left"><div class="rhc-icon-wrap" style="background:var(--orange-100);">🔀</div></div>
           <div class="rhc-body">
             <div class="rhc-title">Irregular Verbs</div>
@@ -2272,7 +2281,7 @@ img { max-width: 100%; }
         </div>
 
         <!-- Card: Present Perfect Continuous -->
-        <div class="reading-hub-card" onclick="showPage('ppc',null)">
+        <div class="reading-hub-card" data-hub-page="ppc" onclick="showPage('ppc',null)">
           <div class="rhc-left"><div class="rhc-icon-wrap" style="background:var(--teal-100);">🔄</div></div>
           <div class="rhc-body">
             <div class="rhc-title">Present Perfect Continuous</div>
@@ -2287,7 +2296,7 @@ img { max-width: 100%; }
         </div>
 
         <!-- Card: Past Perfect -->
-        <div class="reading-hub-card" onclick="showPage('past-perfect',null)">
+        <div class="reading-hub-card" data-hub-page="past-perfect" onclick="showPage('past-perfect',null)">
           <div class="rhc-left"><div class="rhc-icon-wrap" style="background:var(--yellow-100);">🕰️</div></div>
           <div class="rhc-body">
             <div class="rhc-title">Past Perfect</div>
@@ -2302,7 +2311,7 @@ img { max-width: 100%; }
         </div>
 
         <!-- Card: Used to & Would -->
-        <div class="reading-hub-card" onclick="showPage('used-to',null)">
+        <div class="reading-hub-card" data-hub-page="used-to" onclick="showPage('used-to',null)">
           <div class="rhc-left"><div class="rhc-icon-wrap" style="background:var(--blue-100);">📝</div></div>
           <div class="rhc-body">
             <div class="rhc-title">Used to &amp; Would</div>
@@ -2328,7 +2337,7 @@ img { max-width: 100%; }
       <div class="reading-hub-grid">
 
         <!-- Card: Present as Future -->
-        <div class="reading-hub-card" onclick="showPage('present-future',null)">
+        <div class="reading-hub-card" data-hub-page="present-future" onclick="showPage('present-future',null)">
           <div class="rhc-left"><div class="rhc-icon-wrap" style="background:var(--green-100);">🔮</div></div>
           <div class="rhc-body">
             <div class="rhc-title">Present as Future</div>
@@ -2343,7 +2352,7 @@ img { max-width: 100%; }
         </div>
 
         <!-- Card: Will vs Going To -->
-        <div class="reading-hub-card" onclick="showPage('will-going',null)">
+        <div class="reading-hub-card" data-hub-page="will-going" onclick="showPage('will-going',null)">
           <div class="rhc-left"><div class="rhc-icon-wrap" style="background:var(--purple-100);">🎯</div></div>
           <div class="rhc-body">
             <div class="rhc-title">Will vs Going To</div>
@@ -2369,7 +2378,7 @@ img { max-width: 100%; }
       <div class="reading-hub-grid">
 
         <!-- Card: IN, ON, AT -->
-        <div class="reading-hub-card" onclick="showPage('prepositions-place-time',null)">
+        <div class="reading-hub-card" data-hub-page="prepositions-place-time" onclick="showPage('prepositions-place-time',null)">
           <div class="rhc-left"><div class="rhc-icon-wrap" style="background:#fef3c7;">📍</div></div>
           <div class="rhc-body">
             <div class="rhc-title">IN, ON &amp; AT — Place &amp; Time</div>
@@ -2389,7 +2398,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.82</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
   </footer>
 </div>
 
@@ -2538,7 +2547,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.82</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
   </footer>
 </div>
 
@@ -3041,7 +3050,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.82</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
   </footer>
 </div>
 <!-- ═══════════ END PAST SIMPLE ═══════════ -->
@@ -3215,7 +3224,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.82</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
   </footer>
 </div>
 <!-- ═══════════ END IRREGULAR VERBS ═══════════ -->
@@ -3312,7 +3321,7 @@ img { max-width: 100%; }
   
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.82</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
   </footer>
 </div>
 
@@ -5614,7 +5623,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.82';
+var SITE_VERSION = 'v0.83';
 
 var EXERCISE_REGISTRY = [
   {
@@ -6279,7 +6288,10 @@ var currentUser = null;
 if (auth) auth.onAuthStateChanged(function(user) {
   currentUser = user;
   updateNavAuth(user);
-  if (user) { ensureUserProfile(user); }
+  if (user) {
+    ensureUserProfile(user);
+    loadAllProgress();
+  }
 });
 
 function updateNavAuth(user) {
@@ -6355,6 +6367,104 @@ function signOutUser() {
    Cria perfil do usuário no primeiro acesso.
 ══════════════════════════════════════════════════════ */
 
+/* ══════════════════════════════════════════════════════
+   FIRESTORE — ETAPA 2: Hub Progress Badges
+   loadAllProgress()  → lê subcoleção progress do usuário
+   renderHubBadges()  → injeta badges nos cards do Grammar Hub
+══════════════════════════════════════════════════════ */
+
+var HUB_EXERCISE_MAP = {
+  'ps-pc':                 ['present-simple-continuous'],
+  'articles':              ['articles-t2','articles-t3','articles-t4'],
+  'there-to-be':           ['there-to-be-t2','there-to-be-t3','there-to-be-t4','there-to-be-t5'],
+  'past-simple':           ['past-simple-l1','past-simple-l2','past-simple-l3'],
+  'pp':                    ['present-perfect-hub','present-perfect-t2','present-perfect-t3','present-perfect-t4'],
+  'irregular-verbs':       ['irregular-verbs-quiz'],
+  'ppc':                   ['present-perfect-continuous-t2','present-perfect-continuous-t3'],
+  'past-perfect':          ['past-perfect-t2','past-perfect-t3','past-perfect-t4'],
+  'used-to':               ['used-to-t2','used-to-t3'],
+  'present-future':        ['present-as-future-t2','present-as-future-t3','present-as-future-t4'],
+  'will-going':            ['will-going-to-t2','will-going-to-t3'],
+  'prepositions-place-time':['prepositions-t2','prepositions-t3','prepositions-t4']
+};
+
+var userProgressCache = {}; /* exerciseId → {bestScore, maxScore, completed} */
+
+function loadAllProgress() {
+  if (!db || !currentUser) return;
+  db.collection('users').doc(currentUser.uid)
+    .collection('progress')
+    .get()
+    .then(function(snapshot) {
+      userProgressCache = {};
+      snapshot.forEach(function(doc) {
+        userProgressCache[doc.id] = doc.data();
+      });
+      renderHubBadges();
+    })
+    .catch(function(e) {
+      console.warn('Erro ao carregar progresso:', e.message);
+    });
+}
+
+function renderHubBadges() {
+  var cards = document.querySelectorAll('[data-hub-page]');
+  cards.forEach(function(card) {
+    var pageId   = card.getAttribute('data-hub-page');
+    var exIds    = HUB_EXERCISE_MAP[pageId] || [];
+    var total    = exIds.length;
+    if (total === 0) return;
+
+    var done     = 0;
+    var bestPct  = 0;
+    exIds.forEach(function(id) {
+      var p = userProgressCache[id];
+      if (p && p.completed) {
+        done++;
+        var pct = p.maxScore > 0 ? Math.round((p.bestScore / p.maxScore) * 100) : 0;
+        if (pct > bestPct) bestPct = pct;
+      }
+    });
+
+    /* Remove badge anterior */
+    var old = card.querySelector('.rhc-progress');
+    if (old) old.remove();
+
+    if (done === 0) return; /* nunca feito — sem badge */
+
+    var wrap = document.createElement('div');
+    wrap.className = 'rhc-progress';
+
+    if (done === total) {
+      /* Todos os sub-exercícios concluídos */
+      var badge = document.createElement('span');
+      badge.className = 'rhc-badge-done';
+      badge.innerHTML = '✅ Concluído';
+      wrap.appendChild(badge);
+    } else {
+      /* Parcialmente feito */
+      var badge = document.createElement('span');
+      badge.className = 'rhc-badge-partial';
+      badge.innerHTML = '⏳ ' + done + '/' + total + ' feitos';
+      wrap.appendChild(badge);
+    }
+
+    /* Melhor pontuação */
+    if (bestPct > 0) {
+      var score = document.createElement('span');
+      score.className = 'rhc-badge-score';
+      score.textContent = 'Melhor: ' + bestPct + '%';
+      wrap.appendChild(score);
+    }
+
+    /* Injetar após rhc-tags */
+    var tags = card.querySelector('.rhc-tags');
+    if (tags) tags.after(wrap);
+    else card.querySelector('.rhc-body').appendChild(wrap);
+  });
+}
+
+
 function ensureUserProfile(user) {
   if (!db || !user) return;
   var ref = db.collection('users').doc(user.uid);
@@ -6396,6 +6506,15 @@ function saveProgress(exerciseId, score, maxScore) {
     ref.set(update, { merge: true })
       .then(function() {
         console.log('Progresso salvo:', exerciseId, score + '/' + maxScore);
+        /* Atualiza cache local e re-renderiza badges imediatamente */
+        if (!userProgressCache[exerciseId] || score > (userProgressCache[exerciseId].bestScore || 0)) {
+          if (!userProgressCache[exerciseId]) userProgressCache[exerciseId] = {};
+          userProgressCache[exerciseId].bestScore = Math.max(score, userProgressCache[exerciseId].bestScore || 0);
+        }
+        userProgressCache[exerciseId].completed  = true;
+        userProgressCache[exerciseId].lastScore  = score;
+        userProgressCache[exerciseId].maxScore   = maxScore;
+        renderHubBadges();
       })
       .catch(function(e) {
         console.warn('Erro ao salvar progresso:', e.message);
@@ -9408,6 +9527,7 @@ document.addEventListener('DOMContentLoaded', function() {
   /* Past Simple: wrap showPage to init on first visit */
   var origShowPage = window.showPage;
   window.showPage = function(id, arg) {
+    if (id === 'reading') { renderHubBadges(); }
     if (id === 'past-simple') {
       if (psL1Queue.length === 0) {
         psInit();
