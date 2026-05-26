@@ -1832,6 +1832,7 @@ img { max-width: 100%; }
 </script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
@@ -2139,7 +2140,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.80</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.82</span>
   </footer>
 </div>
 
@@ -2388,7 +2389,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.80</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.82</span>
   </footer>
 </div>
 
@@ -2537,7 +2538,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.80</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.82</span>
   </footer>
 </div>
 
@@ -3040,7 +3041,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.80</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.82</span>
   </footer>
 </div>
 <!-- ═══════════ END PAST SIMPLE ═══════════ -->
@@ -3214,7 +3215,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.80</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.82</span>
   </footer>
 </div>
 <!-- ═══════════ END IRREGULAR VERBS ═══════════ -->
@@ -3311,7 +3312,7 @@ img { max-width: 100%; }
   
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.80</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.82</span>
   </footer>
 </div>
 
@@ -5613,7 +5614,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.80';
+var SITE_VERSION = 'v0.82';
 
 var EXERCISE_REGISTRY = [
   {
@@ -6264,10 +6265,11 @@ const firebaseConfig = {
   messagingSenderId: "741655322498",
   appId: "1:741655322498:web:e81573d47773b399aa799b"
 };
-var auth = null, provider = null;
+var auth = null, provider = null, db = null;
 try {
   firebase.initializeApp(firebaseConfig);
   auth     = firebase.auth();
+  db       = firebase.firestore();
   provider = new firebase.auth.GoogleAuthProvider();
   provider.setCustomParameters({ prompt: 'select_account' });
 } catch(e) { console.warn('Firebase init failed (domínio não autorizado):', e.message); }
@@ -6277,6 +6279,7 @@ var currentUser = null;
 if (auth) auth.onAuthStateChanged(function(user) {
   currentUser = user;
   updateNavAuth(user);
+  if (user) { ensureUserProfile(user); }
 });
 
 function updateNavAuth(user) {
@@ -6344,6 +6347,65 @@ function signOutUser() {
     toggleDropdown(true);
   });
 }
+
+/* ══════════════════════════════════════════════════════
+   FIRESTORE — PROGRESS (Etapa 1)
+   saveProgress(exerciseId, score, maxScore)
+   Salva apenas se for melhor que o resultado anterior.
+   Cria perfil do usuário no primeiro acesso.
+══════════════════════════════════════════════════════ */
+
+function ensureUserProfile(user) {
+  if (!db || !user) return;
+  var ref = db.collection('users').doc(user.uid);
+  ref.get().then(function(doc) {
+    if (!doc.exists) {
+      ref.set({
+        name:      user.displayName || '',
+        email:     user.email || '',
+        role:      'student',
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(function() {
+        console.log('Perfil criado para', user.email);
+      }).catch(function(e) {
+        console.warn('Erro ao criar perfil:', e.message);
+      });
+    }
+  }).catch(function(e) {
+    console.warn('Erro ao verificar perfil:', e.message);
+  });
+}
+
+function saveProgress(exerciseId, score, maxScore) {
+  if (!db || !currentUser) return;
+  var ref = db.collection('users').doc(currentUser.uid)
+              .collection('progress').doc(exerciseId);
+  ref.get().then(function(doc) {
+    var data = doc.exists ? doc.data() : null;
+    var prevBest = data ? (data.bestScore || 0) : 0;
+    var isNewBest = score > prevBest;
+    var update = {
+      completed:   true,
+      lastScore:   score,
+      maxScore:    maxScore,
+      lastAttempt: firebase.firestore.FieldValue.serverTimestamp(),
+      attempts:    firebase.firestore.FieldValue.increment(1)
+    };
+    if (isNewBest) { update.bestScore = score; }
+    if (!data)     { update.bestScore = score; update.attempts = 1; }
+    ref.set(update, { merge: true })
+      .then(function() {
+        console.log('Progresso salvo:', exerciseId, score + '/' + maxScore);
+      })
+      .catch(function(e) {
+        console.warn('Erro ao salvar progresso:', e.message);
+      });
+  }).catch(function(e) {
+    console.warn('Erro ao ler progresso anterior:', e.message);
+  });
+}
+
+
 
 function toggleDropdown(forceClose) {
   var dd = document.getElementById('user-dropdown');
@@ -6941,6 +7003,7 @@ function ppShowResult() {
     } else { errCard.style.display = 'none'; }
   }
   window.scrollTo({top:0,behavior:'smooth'});
+  saveProgress('present-perfect-hub', ppCorrect, PP_ROUND_SIZE);
 }
 
 function ppRestart() {
@@ -7881,6 +7944,7 @@ function pspcShowResult() {
   if (strEl)   strEl.textContent   = pspcBestStr;
 
   pspcShowScreen('pspc-result');
+  saveProgress('present-simple-continuous', pspcCorrect, pspcTotal);
 }
 
 function pspcGoSetup() {
@@ -8640,6 +8704,7 @@ function psL1Finish() {
     tableEl.innerHTML = tableHtml;
   }
   compDiv.style.display = 'block';
+  saveProgress('past-simple-l1', correct, total);
 }
 
 /* ══════════════════════════════════
@@ -8733,6 +8798,7 @@ function psL2Finish() {
     tableEl.innerHTML = tableHtml;
   }
   compDiv.style.display = 'block';
+  saveProgress('past-simple-l2', correct, total);
 }
 
 /* ══════════════════════════════════
@@ -8915,6 +8981,7 @@ function psL3Finish() {
     tableEl.innerHTML = tableHtml;
   }
   compDiv.style.display = 'block';
+  saveProgress('past-simple-l3', correct, total);
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -9318,6 +9385,7 @@ function ivQuizNext() {
         + '</table>';
     }
     ivEl('iv-quiz-finish').style.display = 'block';
+    saveProgress('irregular-verbs-quiz', ivQuizCorrect, ivQuizQueue.length);
   } else {
     ivQuizLoad();
   }
@@ -9373,12 +9441,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     origShowPage(id, arg);
 
-    /* Push hash to URL (REGRA-59) — skip if already on correct hash */
+    /* Push hash (REGRA-59) */
     var _expectedHash = PAGE_TO_HASH.hasOwnProperty(id) ? '#' + PAGE_TO_HASH[id] : null;
     if (_expectedHash !== null) {
       var _currentHash = window.location.hash || '';
       if (_currentHash !== _expectedHash && !(_expectedHash === '#' && _currentHash === '')) {
-        history.pushState(null, '', _expectedHash === '#' ? window.location.pathname.split('#')[0] : _expectedHash);
+        try {
+          history.pushState(null, '', _expectedHash === '#' ? window.location.pathname.split('#')[0] : _expectedHash);
+        } catch(e) { /* iframe preview — ignore */ }
       }
     }
   };
@@ -9388,15 +9458,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /* ══════════════════════════════════════════════════════
      HASH ROUTING  (REGRA-59)
-     Routes:  #grammar/slug  →  exercise pages
-              #grammar        →  Grammar Hub
-              #speaking       →  Coach Alex
-              #listening      →  Listening
-              #writing        →  Writing
-              (root / empty)  →  Home
-     Tag filters (future):  #level/A2  #tag/B1  — reserved prefix
   ══════════════════════════════════════════════════════ */
-
   var HASH_TO_PAGE = {
     '':                            'home',
     'grammar':                     'reading',
@@ -9416,25 +9478,18 @@ document.addEventListener('DOMContentLoaded', function() {
     'listening':                   'listening',
     'writing':                     'writing'
   };
-
   var PAGE_TO_HASH = {};
   Object.keys(HASH_TO_PAGE).forEach(function(h) {
     PAGE_TO_HASH[HASH_TO_PAGE[h]] = h;
   });
-
   function hashRouter() {
     var raw = window.location.hash.replace(/^#/, '').replace(/\/+$/, '');
-    /* Ignore reserved prefixes (future: level/, tag/) */
     if (raw.indexOf('level/') === 0 || raw.indexOf('tag/') === 0) return;
     var pageId = HASH_TO_PAGE.hasOwnProperty(raw) ? HASH_TO_PAGE[raw] : null;
     if (pageId) { window.showPage(pageId, null); }
   }
-
   window.addEventListener('hashchange', hashRouter);
-  /* Run on first load */
-  if (window.location.hash && window.location.hash !== '#') {
-    hashRouter();
-  }
+  if (window.location.hash && window.location.hash !== '#') { hashRouter(); }
 
 
   ppUnlocked = 4;  /* Ensure all PP levels unlocked regardless of any cached state */
@@ -9645,6 +9700,7 @@ function pf2ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('pf2-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('present-as-future-t2', correct, 10);
 }
 
 /* ══════════════════════════════════════════════════════
@@ -9857,6 +9913,7 @@ function pf3ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('pf3-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('present-as-future-t3', correct, 10);
 }
 
 /* ══════════════════════════════════════════════════════
@@ -10030,6 +10087,7 @@ function pf4ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('pf4-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('present-as-future-t4', correct, 10);
 }
 
 
@@ -10279,6 +10337,7 @@ function wg2ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('wg2-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('will-going-to-t2', correct, 10);
 }
 
 /* ═══ TELA 3 — Will vs Going To ═══ */
@@ -10447,6 +10506,7 @@ function wg3ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('wg3-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('will-going-to-t3', correct, 10);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -10713,6 +10773,7 @@ function pr2ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('pr2-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('prepositions-t2', correct, 10);
 }
 
 /* ── Estado global T3 ── */
@@ -10826,6 +10887,7 @@ function pr3ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('pr3-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('prepositions-t3', correct, 10);
 }
 
 /* ── Estado global T4 ── */
@@ -10969,6 +11031,7 @@ function pr4ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('pr4-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('prepositions-t4', correct, 10);
 }
 
 
@@ -11276,6 +11339,7 @@ function tb2ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('tb2-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior:'smooth', block:'start' });
+  saveProgress('there-to-be-t2', correct, 10);
 }
 
 /* ══════════════════════════════════════════════════════
@@ -11365,6 +11429,7 @@ function tb3ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('tb3-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior:'smooth', block:'start' });
+  saveProgress('there-to-be-t3', correct, 10);
 }
 
 /* ══════════════════════════════════════════════════════
@@ -11498,6 +11563,7 @@ function tb4ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('tb4-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior:'smooth', block:'start' });
+  saveProgress('there-to-be-t4', correct, 10);
 }
 
 /* ══════════════════════════════════════════════════════
@@ -11588,6 +11654,7 @@ function tb5ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('tb5-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior:'smooth', block:'start' });
+  saveProgress('there-to-be-t5', correct, 10);
 }
 
 /* ── Helper: gera HTML do resultado ── */
@@ -11788,6 +11855,7 @@ function ar2ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('ar2-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('articles-t2', correct, 10);
 }
 
 /* ══════════════════════════════════════════════════════
@@ -11953,6 +12021,7 @@ function ar3ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('ar3-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('articles-t3', correct, 10);
 }
 
 /* ══════════════════════════════════════════════════════
@@ -12166,6 +12235,7 @@ function ar4ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('ar4-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('articles-t4', correct, 10);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -12775,6 +12845,7 @@ function ut2ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('ut2-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('used-to-t2', correct, 10);
 }
 
 /* ═══ TELA 3 — Used to vs Would ═══ */
@@ -12943,6 +13014,7 @@ function ut3ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('ut3-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('used-to-t3', correct, 10);
 }
 
 
@@ -13154,6 +13226,7 @@ function pp2t2ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('pp2t2-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('present-perfect-t2', correct, 10);
 }
 
 /* ══════════════════════════════════
@@ -13273,6 +13346,7 @@ function pp2t3ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('pp2t3-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('present-perfect-t3', correct, 10);
 }
 
 /* ══════════════════════════════════
@@ -13447,6 +13521,7 @@ function pp2t4ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('pp2t4-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('present-perfect-t4', correct, 10);
 }
 
 
@@ -13713,6 +13788,7 @@ function ppc2ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('ppc2-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('present-perfect-continuous-t2', correct, 10);
 }
 
 /* ─────────── TELA 3 — PPC vs. PPS (one-by-one, 2×2 grid) ─────────── */
@@ -13908,6 +13984,7 @@ function ppc3ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('ppc3-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveProgress('present-perfect-continuous-t3', correct, 10);
 }
 
 </script>
