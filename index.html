@@ -1403,6 +1403,14 @@ img { max-width: 100%; }
   background:#fef9c3; color:#854d0e; display:inline-flex; align-items:center; gap:3px; }
 .rhc-badge-score { font-size:.7rem; font-weight:600; padding:2px 7px; border-radius:99px;
   background:var(--gray-100); color:var(--gray-600); }
+.rhc-badge-fail { font-size:.7rem; font-weight:700; padding:2px 7px; border-radius:99px;
+  background:#fee2e2; color:#b91c1c; display:inline-flex; align-items:center; gap:3px; }
+.rhc-bar-wrap { position:relative; flex:1; min-width:80px; max-width:160px; height:6px;
+  background:var(--gray-200); border-radius:99px; overflow:hidden; margin-left:4px; align-self:center; }
+.rhc-bar-fill { height:100%; border-radius:99px; transition:width .4s ease; min-width:2px; }
+.rhc-bar-label { position:absolute; right:0; top:-14px; font-size:.65rem; font-weight:700;
+  color:var(--gray-500); white-space:nowrap; }
+.rhc-progress { display:flex; align-items:center; gap:.375rem; margin-top:.5rem; flex-wrap:wrap; }
 .reading-hub-card:hover .rhc-arrow { color: var(--green-500); }
 
 /* ── PSPC OVERHAUL — align to PP style ──────────────────────── */
@@ -1810,6 +1818,50 @@ img { max-width: 100%; }
 .ppc-review-table tbody tr:last-child { border-bottom: none; }
 .ppc-trow-ok  { background: #f0fdf4; }
 .ppc-trow-err { background: #fff7ed; }
+
+/* ══════════════════════════════════════════════
+   STUDENT PANEL (page-student)
+══════════════════════════════════════════════ */
+.sp-hero { background:linear-gradient(135deg,var(--green-700),var(--green-500));
+  border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:1.5rem;
+  display:flex; align-items:center; gap:1rem; color:white; }
+.sp-avatar { width:56px; height:56px; border-radius:50%; background:rgba(255,255,255,.25);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.375rem; font-weight:700; flex-shrink:0; }
+.sp-hero-name { font-size:1.125rem; font-weight:700; margin-bottom:.2rem; }
+.sp-hero-sub  { font-size:.8125rem; opacity:.85; }
+
+.sp-overall { background:var(--white); border:1px solid var(--gray-200);
+  border-radius:var(--radius-md); padding:1.125rem 1.25rem; margin-bottom:1.5rem; }
+.sp-overall-title { font-size:.75rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:.07em; color:var(--gray-500); margin-bottom:.625rem; }
+.sp-overall-bar-wrap { height:10px; background:var(--gray-200); border-radius:99px;
+  overflow:hidden; margin-bottom:.375rem; }
+.sp-overall-bar-fill { height:100%; border-radius:99px; transition:width .5s ease; }
+.sp-overall-stats { display:flex; gap:1.5rem; flex-wrap:wrap; margin-top:.5rem; }
+.sp-stat { text-align:center; }
+.sp-stat-num { font-size:1.25rem; font-weight:800; color:var(--green-700); }
+.sp-stat-lbl { font-size:.7rem; color:var(--gray-500); font-weight:600;
+  text-transform:uppercase; letter-spacing:.05em; }
+
+.sp-group { margin-bottom:1.25rem; }
+.sp-group-header { display:flex; align-items:center; gap:.5rem; margin-bottom:.625rem; }
+.sp-group-bar  { width:4px; height:18px; border-radius:2px; flex-shrink:0; }
+.sp-group-name { font-size:.9375rem; font-weight:700; color:var(--gray-900); }
+.sp-group-pct  { font-size:.8rem; color:var(--gray-500); margin-left:auto; font-weight:600; }
+
+.sp-exercise { display:flex; align-items:center; gap:.75rem;
+  background:var(--white); border:1px solid var(--gray-200);
+  border-radius:var(--radius-md); padding:.75rem 1rem; margin-bottom:.5rem; }
+.sp-ex-icon  { font-size:1.125rem; flex-shrink:0; width:28px; text-align:center; }
+.sp-ex-body  { flex:1; min-width:0; }
+.sp-ex-name  { font-size:.875rem; font-weight:600; color:var(--gray-800);
+  margin-bottom:.3rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.sp-ex-bar-wrap { height:5px; background:var(--gray-200); border-radius:99px; overflow:hidden; }
+.sp-ex-bar-fill { height:100%; border-radius:99px; transition:width .4s ease; }
+.sp-ex-score { font-size:.8rem; font-weight:700; color:var(--gray-600);
+  flex-shrink:0; min-width:36px; text-align:right; }
+.sp-ex-untried { opacity:.45; }
 </style>
 <!-- Firebase SDKs -->
 <script>
@@ -1905,6 +1957,11 @@ img { max-width: 100%; }
       <div class="dropdown-name" id="dd-name"></div>
       <div class="dropdown-email" id="dd-email"></div>
     </div>
+    <button class="dropdown-item" onclick="showPage('student',null);toggleDropdown(true);">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      Meu Progresso
+    </button>
+    <div style="height:1px;background:var(--gray-100);margin:4px 0;"></div>
     <button class="dropdown-item danger" onclick="signOutUser()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
       Sair da conta
@@ -1968,6 +2025,66 @@ img { max-width: 100%; }
 
     </div>
   </div>
+
+<!-- ═══════════ STUDENT PROGRESS PANEL ═══════════ -->
+<div id="page-student" class="page">
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="breadcrumb">
+        <a onclick="showPage('home',null)">Início</a>
+        <span>›</span>
+        <span>Meu Progresso</span>
+      </div>
+      <div class="module-tag">📊 Painel do Aluno</div>
+      <h2>Meu Progresso</h2>
+      <p>Acompanhe seu desempenho em todos os exercícios.</p>
+    </div>
+  </div>
+
+  <div class="exercise-wrap" style="max-width:800px;margin:0 auto;">
+
+    <!-- Hero com nome e foto -->
+    <div class="sp-hero" id="sp-hero">
+      <div class="sp-avatar" id="sp-avatar-initials">?</div>
+      <div>
+        <div class="sp-hero-name" id="sp-hero-name">Carregando...</div>
+        <div class="sp-hero-sub" id="sp-hero-sub">Painel de progresso pessoal</div>
+      </div>
+    </div>
+
+    <!-- Barra geral -->
+    <div class="sp-overall">
+      <div class="sp-overall-title">Progresso Geral</div>
+      <div class="sp-overall-bar-wrap">
+        <div class="sp-overall-bar-fill" id="sp-overall-fill" style="width:0%;background:var(--green-500);"></div>
+      </div>
+      <div class="sp-overall-stats">
+        <div class="sp-stat">
+          <div class="sp-stat-num" id="sp-stat-pct">0%</div>
+          <div class="sp-stat-lbl">Média geral</div>
+        </div>
+        <div class="sp-stat">
+          <div class="sp-stat-num" id="sp-stat-done">0</div>
+          <div class="sp-stat-lbl">Exercícios feitos</div>
+        </div>
+        <div class="sp-stat">
+          <div class="sp-stat-num" id="sp-stat-pass">0</div>
+          <div class="sp-stat-lbl">Aprovados (≥70%)</div>
+        </div>
+        <div class="sp-stat">
+          <div class="sp-stat-num" id="sp-stat-total">0</div>
+          <div class="sp-stat-lbl">Total de exercícios</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grupos de exercícios — gerado por JS -->
+    <div id="sp-groups"></div>
+
+  </div>
+</div>
+
 
   <footer class="footer">
     © 2026 English For Life · Todos os direitos reservados · <span class="pp-code" id="home-version"></span>
@@ -2149,7 +2266,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.85</span>
   </footer>
 </div>
 
@@ -2398,7 +2515,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.85</span>
   </footer>
 </div>
 
@@ -2547,7 +2664,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.85</span>
   </footer>
 </div>
 
@@ -3050,7 +3167,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.85</span>
   </footer>
 </div>
 <!-- ═══════════ END PAST SIMPLE ═══════════ -->
@@ -3224,7 +3341,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.85</span>
   </footer>
 </div>
 <!-- ═══════════ END IRREGULAR VERBS ═══════════ -->
@@ -3321,7 +3438,7 @@ img { max-width: 100%; }
   
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.85</span>
   </footer>
 </div>
 
@@ -5623,7 +5740,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.83';
+var SITE_VERSION = 'v0.85';
 
 var EXERCISE_REGISTRY = [
   {
@@ -6410,57 +6527,228 @@ function loadAllProgress() {
 function renderHubBadges() {
   var cards = document.querySelectorAll('[data-hub-page]');
   cards.forEach(function(card) {
-    var pageId   = card.getAttribute('data-hub-page');
-    var exIds    = HUB_EXERCISE_MAP[pageId] || [];
-    var total    = exIds.length;
+    var pageId = card.getAttribute('data-hub-page');
+    var exIds  = HUB_EXERCISE_MAP[pageId] || [];
+    var total  = exIds.length;
     if (total === 0) return;
 
-    var done     = 0;
-    var bestPct  = 0;
+    /* Calcular métricas por exercício */
+    var attempted   = 0;   /* quantos foram feitos ao menos uma vez */
+    var passed      = 0;   /* quantos têm bestScore >= 70% */
+    var sumBest     = 0;   /* soma dos bestScores */
+    var sumMax      = 0;   /* soma dos maxScores dos tentados */
+
     exIds.forEach(function(id) {
       var p = userProgressCache[id];
       if (p && p.completed) {
-        done++;
-        var pct = p.maxScore > 0 ? Math.round((p.bestScore / p.maxScore) * 100) : 0;
-        if (pct > bestPct) bestPct = pct;
+        attempted++;
+        var best = p.bestScore || 0;
+        var max  = p.maxScore  || 10;
+        sumBest += best;
+        sumMax  += max;
+        if (max > 0 && (best / max) >= 0.7) { passed++; }
       }
     });
 
     /* Remove badge anterior */
-    var old = card.querySelector('.rhc-progress');
-    if (old) old.remove();
+    var oldWrap = card.querySelector('.rhc-progress');
+    if (oldWrap) oldWrap.remove();
 
-    if (done === 0) return; /* nunca feito — sem badge */
+    if (attempted === 0) return; /* nunca feito */
+
+    var overallPct = sumMax > 0 ? Math.round((sumBest / sumMax) * 100) : 0;
+    var allDone    = attempted === total;
+    var allPassed  = passed === total;
 
     var wrap = document.createElement('div');
     wrap.className = 'rhc-progress';
 
-    if (done === total) {
-      /* Todos os sub-exercícios concluídos */
-      var badge = document.createElement('span');
+    /* Badge de status */
+    var badge = document.createElement('span');
+    if (allDone && allPassed) {
       badge.className = 'rhc-badge-done';
       badge.innerHTML = '✅ Concluído';
-      wrap.appendChild(badge);
+    } else if (allDone && !allPassed) {
+      badge.className = 'rhc-badge-fail';
+      badge.innerHTML = '⚠️ ' + passed + '/' + total + ' aprovados';
     } else {
-      /* Parcialmente feito */
-      var badge = document.createElement('span');
       badge.className = 'rhc-badge-partial';
-      badge.innerHTML = '⏳ ' + done + '/' + total + ' feitos';
-      wrap.appendChild(badge);
+      badge.innerHTML = '⏳ ' + attempted + '/' + total + ' feitos · ' + passed + ' aprovados';
     }
+    wrap.appendChild(badge);
 
-    /* Melhor pontuação */
-    if (bestPct > 0) {
-      var score = document.createElement('span');
-      score.className = 'rhc-badge-score';
-      score.textContent = 'Melhor: ' + bestPct + '%';
-      wrap.appendChild(score);
-    }
+    /* Barra de progresso geral */
+    var barWrap = document.createElement('div');
+    barWrap.className = 'rhc-bar-wrap';
+    barWrap.title = sumBest + ' acertos de ' + sumMax + ' possíveis (' + overallPct + '%)';
+    var barFill = document.createElement('div');
+    barFill.className = 'rhc-bar-fill';
+    var barColor = overallPct >= 70 ? 'var(--green-500)' : overallPct >= 40 ? '#f59e0b' : 'var(--red-400)';
+    barFill.style.cssText = 'width:' + overallPct + '%;background:' + barColor + ';';
+    var barLabel = document.createElement('span');
+    barLabel.className = 'rhc-bar-label';
+    barLabel.textContent = overallPct + '%';
+    barWrap.appendChild(barFill);
+    barWrap.appendChild(barLabel);
+    wrap.appendChild(barWrap);
 
     /* Injetar após rhc-tags */
     var tags = card.querySelector('.rhc-tags');
     if (tags) tags.after(wrap);
     else card.querySelector('.rhc-body').appendChild(wrap);
+  });
+}
+
+
+/* ══════════════════════════════════════════════════════
+   STUDENT PANEL — renderStudentPanel()
+   Lê userProgressCache (já carregado no login) e monta
+   o painel completo do aluno sem nenhuma query extra.
+══════════════════════════════════════════════════════ */
+
+var STUDENT_GROUPS = [
+  { name: 'Present Tenses', color: 'var(--blue-500)', exercises: [
+    { id: 'present-simple-continuous',    label: 'Present Simple & Continuous' },
+    { id: 'present-perfect-hub',          label: 'Present Perfect — Hub' },
+    { id: 'present-perfect-t2',           label: 'Present Perfect — T2' },
+    { id: 'present-perfect-t3',           label: 'Present Perfect — T3' },
+    { id: 'present-perfect-t4',           label: 'Present Perfect — T4' },
+    { id: 'present-perfect-continuous-t2',label: 'PPC — T2' },
+    { id: 'present-perfect-continuous-t3',label: 'PPC — T3' },
+    { id: 'articles-t2',                  label: 'Articles — T2' },
+    { id: 'articles-t3',                  label: 'Articles — T3' },
+    { id: 'articles-t4',                  label: 'Articles — T4' },
+    { id: 'there-to-be-t2',              label: 'There To Be — T2' },
+    { id: 'there-to-be-t3',              label: 'There To Be — T3' },
+    { id: 'there-to-be-t4',              label: 'There To Be — T4' },
+    { id: 'there-to-be-t5',              label: 'There To Be — T5' },
+  ]},
+  { name: 'Past Tenses', color: 'var(--purple-500)', exercises: [
+    { id: 'past-simple-l1',              label: 'Past Simple — Nível 1 (TO BE)' },
+    { id: 'past-simple-l2',              label: 'Past Simple — Nível 2 (Irregulares)' },
+    { id: 'past-simple-l3',              label: 'Past Simple — Nível 3 (Transformação)' },
+    { id: 'irregular-verbs-quiz',        label: 'Irregular Verbs — Quiz' },
+    { id: 'past-perfect-t2',             label: 'Past Perfect — T2' },
+    { id: 'past-perfect-t3',             label: 'Past Perfect — T3' },
+    { id: 'past-perfect-t4',             label: 'Past Perfect — T4' },
+    { id: 'used-to-t2',                  label: 'Used To & Would — T2' },
+    { id: 'used-to-t3',                  label: 'Used To & Would — T3' },
+  ]},
+  { name: 'Future Tenses', color: 'var(--green-600)', exercises: [
+    { id: 'present-as-future-t2',        label: 'Present as Future — T2' },
+    { id: 'present-as-future-t3',        label: 'Present as Future — T3' },
+    { id: 'present-as-future-t4',        label: 'Present as Future — T4' },
+    { id: 'will-going-to-t2',            label: 'Will vs Going To — T2' },
+    { id: 'will-going-to-t3',            label: 'Will vs Going To — T3' },
+  ]},
+  { name: 'Prepositions', color: '#f59e0b', exercises: [
+    { id: 'prepositions-t2',             label: 'IN, ON & AT — T2' },
+    { id: 'prepositions-t3',             label: 'IN, ON & AT — T3' },
+    { id: 'prepositions-t4',             label: 'IN, ON & AT — T4' },
+  ]},
+];
+
+function spBarColor(pct) {
+  return pct >= 70 ? 'var(--green-500)' : pct >= 40 ? '#f59e0b' : 'var(--red-500)';
+}
+
+function renderStudentPanel() {
+  if (!currentUser) return;
+
+  /* Hero */
+  var name = currentUser.displayName || currentUser.email || 'Aluno';
+  var initials = name.split(' ').slice(0,2).map(function(w){ return w[0]; }).join('').toUpperCase();
+  var heroName = document.getElementById('sp-hero-name');
+  var heroSub  = document.getElementById('sp-hero-sub');
+  var heroInit = document.getElementById('sp-avatar-initials');
+  if (heroName) heroName.textContent = name;
+  if (heroSub)  heroSub.textContent  = currentUser.email || '';
+  if (heroInit) heroInit.textContent  = initials;
+
+  /* Métricas globais */
+  var globalAttempted = 0, globalPassed = 0, globalSumBest = 0, globalSumMax = 0;
+  var allExIds = [];
+  STUDENT_GROUPS.forEach(function(g) { g.exercises.forEach(function(e) { allExIds.push(e.id); }); });
+
+  allExIds.forEach(function(id) {
+    var p = userProgressCache[id];
+    if (p && p.completed) {
+      globalAttempted++;
+      var best = p.bestScore || 0;
+      var max  = p.maxScore  || 10;
+      globalSumBest += best;
+      globalSumMax  += max;
+      if (max > 0 && (best / max) >= 0.7) globalPassed++;
+    }
+  });
+
+  var globalPct = globalSumMax > 0 ? Math.round((globalSumBest / globalSumMax) * 100) : 0;
+
+  var fillEl = document.getElementById('sp-overall-fill');
+  if (fillEl) { fillEl.style.width = globalPct + '%'; fillEl.style.background = spBarColor(globalPct); }
+  var el = function(id, txt) { var e = document.getElementById(id); if(e) e.textContent = txt; };
+  el('sp-stat-pct',   globalPct + '%');
+  el('sp-stat-done',  globalAttempted);
+  el('sp-stat-pass',  globalPassed);
+  el('sp-stat-total', allExIds.length);
+
+  /* Grupos */
+  var groupsEl = document.getElementById('sp-groups');
+  if (!groupsEl) return;
+  groupsEl.innerHTML = '';
+
+  STUDENT_GROUPS.forEach(function(group) {
+    var gAttempted = 0, gPassed = 0, gSumBest = 0, gSumMax = 0;
+    group.exercises.forEach(function(ex) {
+      var p = userProgressCache[ex.id];
+      if (p && p.completed) {
+        gAttempted++;
+        var best = p.bestScore || 0;
+        var max  = p.maxScore  || 10;
+        gSumBest += best; gSumMax += max;
+        if (max > 0 && (best/max) >= 0.7) gPassed++;
+      }
+    });
+    var gPct = gSumMax > 0 ? Math.round((gSumBest / gSumMax) * 100) : 0;
+
+    var groupDiv = document.createElement('div');
+    groupDiv.className = 'sp-group';
+
+    /* Group header */
+    groupDiv.innerHTML =
+      '<div class="sp-group-header">' +
+        '<div class="sp-group-bar" style="background:' + group.color + '"></div>' +
+        '<span class="sp-group-name">' + group.name + '</span>' +
+        (gAttempted > 0 ? '<span class="sp-group-pct">' + gPassed + '/' + group.exercises.length + ' aprovados · ' + gPct + '%</span>' : '') +
+      '</div>';
+
+    /* Exercise rows */
+    group.exercises.forEach(function(ex) {
+      var p   = userProgressCache[ex.id];
+      var row = document.createElement('div');
+      row.className = 'sp-exercise' + ((!p || !p.completed) ? ' sp-ex-untried' : '');
+
+      var best = p ? (p.bestScore || 0) : 0;
+      var max  = p ? (p.maxScore  || 10) : 10;
+      var pct  = (p && p.completed && max > 0) ? Math.round((best / max) * 100) : 0;
+      var passed = pct >= 70;
+
+      var icon = (!p || !p.completed) ? '🔒' : passed ? '✅' : '⚠️';
+
+      row.innerHTML =
+        '<div class="sp-ex-icon">' + icon + '</div>' +
+        '<div class="sp-ex-body">' +
+          '<div class="sp-ex-name">' + ex.label + '</div>' +
+          (p && p.completed ?
+            '<div class="sp-ex-bar-wrap"><div class="sp-ex-bar-fill" style="width:' + pct + '%;background:' + spBarColor(pct) + ';"></div></div>'
+            : '<div class="sp-ex-bar-wrap"><div class="sp-ex-bar-fill" style="width:0%;"></div></div>') +
+        '</div>' +
+        '<div class="sp-ex-score">' + (p && p.completed ? best + '/' + max : '—') + '</div>';
+
+      groupDiv.appendChild(row);
+    });
+
+    groupsEl.appendChild(groupDiv);
   });
 }
 
@@ -6507,13 +6795,12 @@ function saveProgress(exerciseId, score, maxScore) {
       .then(function() {
         console.log('Progresso salvo:', exerciseId, score + '/' + maxScore);
         /* Atualiza cache local e re-renderiza badges imediatamente */
-        if (!userProgressCache[exerciseId] || score > (userProgressCache[exerciseId].bestScore || 0)) {
-          if (!userProgressCache[exerciseId]) userProgressCache[exerciseId] = {};
-          userProgressCache[exerciseId].bestScore = Math.max(score, userProgressCache[exerciseId].bestScore || 0);
-        }
-        userProgressCache[exerciseId].completed  = true;
-        userProgressCache[exerciseId].lastScore  = score;
-        userProgressCache[exerciseId].maxScore   = maxScore;
+        if (!userProgressCache[exerciseId]) { userProgressCache[exerciseId] = {}; }
+        var _prev = userProgressCache[exerciseId];
+        _prev.bestScore = Math.max(score, _prev.bestScore || 0);
+        _prev.completed = true;
+        _prev.lastScore = score;
+        _prev.maxScore  = maxScore;
         renderHubBadges();
       })
       .catch(function(e) {
@@ -9528,6 +9815,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var origShowPage = window.showPage;
   window.showPage = function(id, arg) {
     if (id === 'reading') { renderHubBadges(); }
+    if (id === 'student') { renderStudentPanel(); }
     if (id === 'past-simple') {
       if (psL1Queue.length === 0) {
         psInit();
@@ -9596,7 +9884,8 @@ document.addEventListener('DOMContentLoaded', function() {
     'grammar/prepositions-place-time': 'prepositions-place-time',
     'speaking':                    'speaking',
     'listening':                   'listening',
-    'writing':                     'writing'
+    'writing':                     'writing',
+    'progress':                    'student'
   };
   var PAGE_TO_HASH = {};
   Object.keys(HASH_TO_PAGE).forEach(function(h) {
