@@ -1403,6 +1403,14 @@ img { max-width: 100%; }
   background:#fef9c3; color:#854d0e; display:inline-flex; align-items:center; gap:3px; }
 .rhc-badge-score { font-size:.7rem; font-weight:600; padding:2px 7px; border-radius:99px;
   background:var(--gray-100); color:var(--gray-600); }
+.rhc-badge-fail { font-size:.7rem; font-weight:700; padding:2px 7px; border-radius:99px;
+  background:#fee2e2; color:#b91c1c; display:inline-flex; align-items:center; gap:3px; }
+.rhc-bar-wrap { position:relative; flex:1; min-width:80px; max-width:160px; height:6px;
+  background:var(--gray-200); border-radius:99px; overflow:hidden; margin-left:4px; align-self:center; }
+.rhc-bar-fill { height:100%; border-radius:99px; transition:width .4s ease; min-width:2px; }
+.rhc-bar-label { position:absolute; right:0; top:-14px; font-size:.65rem; font-weight:700;
+  color:var(--gray-500); white-space:nowrap; }
+.rhc-progress { display:flex; align-items:center; gap:.375rem; margin-top:.5rem; flex-wrap:wrap; }
 .reading-hub-card:hover .rhc-arrow { color: var(--green-500); }
 
 /* ── PSPC OVERHAUL — align to PP style ──────────────────────── */
@@ -1810,6 +1818,90 @@ img { max-width: 100%; }
 .ppc-review-table tbody tr:last-child { border-bottom: none; }
 .ppc-trow-ok  { background: #f0fdf4; }
 .ppc-trow-err { background: #fff7ed; }
+
+/* ══════════════════════════════════════════════
+   STUDENT PANEL (page-student)
+══════════════════════════════════════════════ */
+.sp-hero { background:linear-gradient(135deg,var(--green-700),var(--green-500));
+  border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:1.5rem;
+  display:flex; align-items:center; gap:1rem; color:white; }
+.sp-avatar { width:56px; height:56px; border-radius:50%; background:rgba(255,255,255,.25);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.375rem; font-weight:700; flex-shrink:0; }
+.sp-hero-name { font-size:1.125rem; font-weight:700; margin-bottom:.2rem; }
+.sp-hero-sub  { font-size:.8125rem; opacity:.85; }
+
+.sp-overall { background:var(--white); border:1px solid var(--gray-200);
+  border-radius:var(--radius-md); padding:1.125rem 1.25rem; margin-bottom:1.5rem; }
+.sp-overall-title { font-size:.75rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:.07em; color:var(--gray-500); margin-bottom:.625rem; }
+.sp-overall-bar-wrap { height:10px; background:var(--gray-200); border-radius:99px;
+  overflow:hidden; margin-bottom:.375rem; }
+.sp-overall-bar-fill { height:100%; border-radius:99px; transition:width .5s ease; }
+.sp-overall-stats { display:flex; gap:1.5rem; flex-wrap:wrap; margin-top:.5rem; }
+.sp-stat { text-align:center; }
+.sp-stat-num { font-size:1.25rem; font-weight:800; color:var(--green-700); }
+.sp-stat-lbl { font-size:.7rem; color:var(--gray-500); font-weight:600;
+  text-transform:uppercase; letter-spacing:.05em; }
+
+.sp-group { margin-bottom:1.25rem; }
+.sp-group-header { display:flex; align-items:center; gap:.5rem; margin-bottom:.625rem; }
+.sp-group-bar  { width:4px; height:18px; border-radius:2px; flex-shrink:0; }
+.sp-group-name { font-size:.9375rem; font-weight:700; color:var(--gray-900); }
+.sp-group-pct  { font-size:.8rem; color:var(--gray-500); margin-left:auto; font-weight:600; }
+
+.sp-exercise { display:flex; align-items:center; gap:.75rem;
+  background:var(--white); border:1px solid var(--gray-200);
+  border-radius:var(--radius-md); padding:.75rem 1rem; margin-bottom:.5rem; }
+.sp-ex-icon  { font-size:1.125rem; flex-shrink:0; width:28px; text-align:center; }
+.sp-ex-body  { flex:1; min-width:0; }
+.sp-ex-name  { font-size:.875rem; font-weight:600; color:var(--gray-800);
+  margin-bottom:.3rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.sp-ex-bar-wrap { height:5px; background:var(--gray-200); border-radius:99px; overflow:hidden; }
+.sp-ex-bar-fill { height:100%; border-radius:99px; transition:width .4s ease; }
+.sp-ex-score { font-size:.8rem; font-weight:700; color:var(--gray-600);
+  flex-shrink:0; min-width:36px; text-align:right; }
+.sp-ex-untried { opacity:.45; }
+
+/* ══ TEACHER PANEL ══ */
+.tp-card { background:var(--white); border:1px solid var(--gray-200);
+  border-radius:var(--radius-md); margin-bottom:.625rem; overflow:hidden; }
+.tp-card-header { display:flex; align-items:center; gap:.875rem; padding:.875rem 1rem;
+  cursor:pointer; transition:background .1s; }
+.tp-card-header:hover { background:var(--gray-50); }
+.tp-avatar { width:36px; height:36px; border-radius:50%; background:var(--green-100);
+  color:var(--green-700); display:flex; align-items:center; justify-content:center;
+  font-size:.8125rem; font-weight:700; flex-shrink:0; }
+.tp-student-name { font-size:.9rem; font-weight:700; color:var(--gray-900); }
+.tp-student-email { font-size:.75rem; color:var(--gray-400); }
+.tp-summary { display:flex; gap:1rem; margin-left:auto; align-items:center; flex-wrap:wrap; }
+.tp-pill { font-size:.7rem; font-weight:700; padding:2px 8px; border-radius:99px; }
+.tp-pill-green { background:var(--green-100); color:var(--green-700); }
+.tp-pill-gray  { background:var(--gray-100);  color:var(--gray-600);  }
+.tp-pill-amber { background:#fef9c3; color:#854d0e; }
+.tp-chevron { color:var(--gray-300); font-size:1.125rem; transition:transform .2s; flex-shrink:0; }
+.tp-chevron.open { transform:rotate(90deg); }
+.tp-detail { display:none; padding:0 1rem .875rem; border-top:1px solid var(--gray-100); }
+.tp-detail.open { display:block; }
+.tp-group-title { font-size:.7rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:.06em; color:var(--gray-400); margin:.75rem 0 .375rem; }
+.tp-ex-row { display:flex; align-items:center; gap:.625rem; padding:.3rem 0;
+  border-bottom:1px solid var(--gray-100); font-size:.8125rem; }
+.tp-ex-row:last-child { border-bottom:none; }
+.tp-ex-icon  { width:18px; text-align:center; flex-shrink:0; }
+.tp-ex-label { flex:1; color:var(--gray-700); }
+.tp-ex-score { font-weight:700; color:var(--gray-600); min-width:36px; text-align:right; }
+.tp-ex-bar-wrap { width:80px; height:5px; background:var(--gray-200);
+  border-radius:99px; overflow:hidden; flex-shrink:0; }
+.tp-ex-bar-fill { height:100%; border-radius:99px; }
+
+/* ══ ASSIGNMENT BADGES ══ */
+.rhc-badge-assign { font-size:.7rem; font-weight:700; padding:2px 7px; border-radius:99px;
+  background:#fef3c7; color:#92400e; display:inline-flex; align-items:center; gap:3px; }
+.sp-ex-assign { font-size:.85rem; flex-shrink:0; }
+.tp-assign-btn { background:none; border:none; cursor:pointer; font-size:.9rem;
+  padding:2px 4px; border-radius:4px; transition:opacity .15s; line-height:1; }
+.tp-assign-btn:hover { background:var(--gray-100); }
 </style>
 <!-- Firebase SDKs -->
 <script>
@@ -1905,6 +1997,19 @@ img { max-width: 100%; }
       <div class="dropdown-name" id="dd-name"></div>
       <div class="dropdown-email" id="dd-email"></div>
     </div>
+    <button class="dropdown-item" onclick="showPage('student',null);toggleDropdown(true);">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      Meu Progresso
+    </button>
+    <button class="dropdown-item" id="dd-teacher-link" style="display:none;"
+      onclick="showPage('teacher',null);toggleDropdown(true);">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+      Painel do Professor
+    </button>
+    <div style="height:1px;background:var(--gray-100);margin:4px 0;"></div>
     <button class="dropdown-item danger" onclick="signOutUser()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
       Sair da conta
@@ -1968,6 +2073,105 @@ img { max-width: 100%; }
 
     </div>
   </div>
+
+<!-- ═══════════ STUDENT PROGRESS PANEL ═══════════ -->
+<div id="page-student" class="page">
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="breadcrumb">
+        <a onclick="showPage('home',null)">Início</a>
+        <span>›</span>
+        <span>Meu Progresso</span>
+      </div>
+      <div class="module-tag">📊 Painel do Aluno</div>
+      <h2>Meu Progresso</h2>
+      <p>Acompanhe seu desempenho em todos os exercícios.</p>
+    </div>
+  </div>
+
+  <div class="exercise-wrap" style="max-width:800px;margin:0 auto;">
+
+    <!-- Hero com nome e foto -->
+    <div class="sp-hero" id="sp-hero">
+      <div class="sp-avatar" id="sp-avatar-initials">?</div>
+      <div>
+        <div class="sp-hero-name" id="sp-hero-name">Carregando...</div>
+        <div class="sp-hero-sub" id="sp-hero-sub">Painel de progresso pessoal</div>
+      </div>
+    </div>
+
+    <!-- Barra geral -->
+    <div class="sp-overall">
+      <div class="sp-overall-title">Progresso Geral</div>
+      <div class="sp-overall-bar-wrap">
+        <div class="sp-overall-bar-fill" id="sp-overall-fill" style="width:0%;background:var(--green-500);"></div>
+      </div>
+      <div class="sp-overall-stats">
+        <div class="sp-stat">
+          <div class="sp-stat-num" id="sp-stat-pct">0%</div>
+          <div class="sp-stat-lbl">Média geral</div>
+        </div>
+        <div class="sp-stat">
+          <div class="sp-stat-num" id="sp-stat-done">0</div>
+          <div class="sp-stat-lbl">Exercícios feitos</div>
+        </div>
+        <div class="sp-stat">
+          <div class="sp-stat-num" id="sp-stat-pass">0</div>
+          <div class="sp-stat-lbl">Aprovados (≥70%)</div>
+        </div>
+        <div class="sp-stat">
+          <div class="sp-stat-num" id="sp-stat-total">0</div>
+          <div class="sp-stat-lbl">Total de exercícios</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grupos de exercícios — gerado por JS -->
+    <div id="sp-groups"></div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════ TEACHER PANEL (page-teacher) ═══════════ -->
+<div id="page-teacher" class="page">
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="breadcrumb">
+        <a onclick="showPage('home',null)">Início</a>
+        <span>›</span><span>Painel do Professor</span>
+      </div>
+      <div class="module-tag">👨‍🏫 Professor</div>
+      <h2>Painel do Professor</h2>
+      <p>Progresso de todos os alunos cadastrados.</p>
+    </div>
+  </div>
+
+  <div class="exercise-wrap" style="max-width:900px;margin:0 auto;">
+
+    <!-- Barra de busca / filtros -->
+    <div style="display:flex;gap:.75rem;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;">
+      <input id="tp-search" type="text" placeholder="Buscar aluno..."
+        oninput="tpFilter()"
+        style="flex:1;min-width:180px;padding:.6rem .875rem;border:1px solid var(--gray-200);
+               border-radius:var(--radius-md);font-size:.875rem;outline:none;">
+      <span id="tp-count" style="font-size:.8rem;color:var(--gray-500);white-space:nowrap;"></span>
+    </div>
+
+    <!-- Loading state -->
+    <div id="tp-loading" style="text-align:center;padding:3rem;color:var(--gray-400);">
+      <div style="font-size:2rem;margin-bottom:.5rem;">⏳</div>
+      <div>Carregando dados dos alunos...</div>
+    </div>
+
+    <!-- Student table -->
+    <div id="tp-table" style="display:none;"></div>
+
+  </div>
+</div>
+
 
   <footer class="footer">
     © 2026 English For Life · Todos os direitos reservados · <span class="pp-code" id="home-version"></span>
@@ -2149,7 +2353,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.87</span>
   </footer>
 </div>
 
@@ -2398,7 +2602,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.87</span>
   </footer>
 </div>
 
@@ -2547,7 +2751,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.87</span>
   </footer>
 </div>
 
@@ -3050,7 +3254,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.87</span>
   </footer>
 </div>
 <!-- ═══════════ END PAST SIMPLE ═══════════ -->
@@ -3224,7 +3428,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.87</span>
   </footer>
 </div>
 <!-- ═══════════ END IRREGULAR VERBS ═══════════ -->
@@ -3321,7 +3525,7 @@ img { max-width: 100%; }
   
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.83</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.87</span>
   </footer>
 </div>
 
@@ -5623,7 +5827,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.83';
+var SITE_VERSION = 'v0.87';
 
 var EXERCISE_REGISTRY = [
   {
@@ -6283,7 +6487,9 @@ try {
   provider.setCustomParameters({ prompt: 'select_account' });
 } catch(e) { console.warn('Firebase init failed (domínio não autorizado):', e.message); }
 
-var currentUser = null;
+var currentUser     = null;
+var currentUserRole = null; /* 'student' | 'teacher' */
+var TEACHER_EMAIL   = 'hannibal.duvaldi@gmail.com'; /* ← substitua pelo seu email */
 
 if (auth) auth.onAuthStateChanged(function(user) {
   currentUser = user;
@@ -6291,6 +6497,7 @@ if (auth) auth.onAuthStateChanged(function(user) {
   if (user) {
     ensureUserProfile(user);
     loadAllProgress();
+    loadAssignments();
   }
 });
 
@@ -6388,7 +6595,8 @@ var HUB_EXERCISE_MAP = {
   'prepositions-place-time':['prepositions-t2','prepositions-t3','prepositions-t4']
 };
 
-var userProgressCache = {}; /* exerciseId → {bestScore, maxScore, completed} */
+var userProgressCache  = {}; /* exerciseId → {bestScore, maxScore, completed} */
+var assignmentsCache   = {}; /* exerciseId → true (se for tarefa ativa) */
 
 function loadAllProgress() {
   if (!db || !currentUser) return;
@@ -6410,52 +6618,84 @@ function loadAllProgress() {
 function renderHubBadges() {
   var cards = document.querySelectorAll('[data-hub-page]');
   cards.forEach(function(card) {
-    var pageId   = card.getAttribute('data-hub-page');
-    var exIds    = HUB_EXERCISE_MAP[pageId] || [];
-    var total    = exIds.length;
+    var pageId = card.getAttribute('data-hub-page');
+    var exIds  = HUB_EXERCISE_MAP[pageId] || [];
+    var total  = exIds.length;
     if (total === 0) return;
 
-    var done     = 0;
-    var bestPct  = 0;
+    /* Calcular métricas por exercício */
+    var attempted   = 0;   /* quantos foram feitos ao menos uma vez */
+    var passed      = 0;   /* quantos têm bestScore >= 70% */
+    var sumBest     = 0;   /* soma dos bestScores */
+    var sumMax      = 0;   /* soma dos maxScores dos tentados */
+
     exIds.forEach(function(id) {
       var p = userProgressCache[id];
       if (p && p.completed) {
-        done++;
-        var pct = p.maxScore > 0 ? Math.round((p.bestScore / p.maxScore) * 100) : 0;
-        if (pct > bestPct) bestPct = pct;
+        attempted++;
+        var best = p.bestScore || 0;
+        var max  = p.maxScore  || 10;
+        sumBest += best;
+        sumMax  += max;
+        if (max > 0 && (best / max) >= 0.7) { passed++; }
       }
     });
 
     /* Remove badge anterior */
-    var old = card.querySelector('.rhc-progress');
-    if (old) old.remove();
+    var oldWrap = card.querySelector('.rhc-progress');
+    if (oldWrap) oldWrap.remove();
 
-    if (done === 0) return; /* nunca feito — sem badge */
+    if (attempted === 0) return; /* nunca feito */
+
+    var overallPct = sumMax > 0 ? Math.round((sumBest / sumMax) * 100) : 0;
+    var allDone    = attempted === total;
+    var allPassed  = passed === total;
 
     var wrap = document.createElement('div');
     wrap.className = 'rhc-progress';
 
-    if (done === total) {
-      /* Todos os sub-exercícios concluídos */
-      var badge = document.createElement('span');
+    /* Badge de status */
+    var badge = document.createElement('span');
+    if (allDone && allPassed) {
       badge.className = 'rhc-badge-done';
       badge.innerHTML = '✅ Concluído';
-      wrap.appendChild(badge);
+    } else if (allDone && !allPassed) {
+      badge.className = 'rhc-badge-fail';
+      badge.innerHTML = '⚠️ ' + passed + '/' + total + ' aprovados';
     } else {
-      /* Parcialmente feito */
-      var badge = document.createElement('span');
       badge.className = 'rhc-badge-partial';
-      badge.innerHTML = '⏳ ' + done + '/' + total + ' feitos';
-      wrap.appendChild(badge);
+      badge.innerHTML = '⏳ ' + attempted + '/' + total + ' feitos · ' + passed + ' aprovados';
+    }
+    wrap.appendChild(badge);
+
+    /* Assignment badge */
+    var hasAssign = exIds.some(function(id) { return assignmentsCache[id] === true; });
+    var assignedIds = exIds.filter(function(id) { return assignmentsCache[id] === true; });
+    var allAssignDone = hasAssign && assignedIds.every(function(id) {
+      var p = userProgressCache[id];
+      return p && p.completed && p.maxScore > 0 && (p.bestScore / p.maxScore) >= 0.7;
+    });
+    if (hasAssign && !allAssignDone) {
+      var abadge = document.createElement('span');
+      abadge.className = 'rhc-badge-assign';
+      abadge.innerHTML = '📌 Tarefa pendente';
+      wrap.appendChild(abadge);
     }
 
-    /* Melhor pontuação */
-    if (bestPct > 0) {
-      var score = document.createElement('span');
-      score.className = 'rhc-badge-score';
-      score.textContent = 'Melhor: ' + bestPct + '%';
-      wrap.appendChild(score);
-    }
+    /* Barra de progresso geral */
+    var barWrap = document.createElement('div');
+    barWrap.className = 'rhc-bar-wrap';
+    barWrap.title = sumBest + ' acertos de ' + sumMax + ' possíveis (' + overallPct + '%)';
+    var barFill = document.createElement('div');
+    barFill.className = 'rhc-bar-fill';
+    var barColor = overallPct >= 70 ? 'var(--green-500)' : overallPct >= 40 ? '#f59e0b' : 'var(--red-400)';
+    barFill.style.cssText = 'width:' + overallPct + '%;background:' + barColor + ';';
+    var barLabel = document.createElement('span');
+    barLabel.className = 'rhc-bar-label';
+    barLabel.textContent = overallPct + '%';
+    barWrap.appendChild(barFill);
+    barWrap.appendChild(barLabel);
+    wrap.appendChild(barWrap);
 
     /* Injetar após rhc-tags */
     var tags = card.querySelector('.rhc-tags');
@@ -6465,25 +6705,406 @@ function renderHubBadges() {
 }
 
 
+/* ══════════════════════════════════════════════════════
+   STUDENT PANEL — renderStudentPanel()
+   Lê userProgressCache (já carregado no login) e monta
+   o painel completo do aluno sem nenhuma query extra.
+══════════════════════════════════════════════════════ */
+
+var STUDENT_GROUPS = [
+  { name: 'Present Tenses', color: 'var(--blue-500)', exercises: [
+    { id: 'present-simple-continuous',    label: 'Present Simple & Continuous' },
+    { id: 'present-perfect-hub',          label: 'Present Perfect — Hub' },
+    { id: 'present-perfect-t2',           label: 'Present Perfect — T2' },
+    { id: 'present-perfect-t3',           label: 'Present Perfect — T3' },
+    { id: 'present-perfect-t4',           label: 'Present Perfect — T4' },
+    { id: 'present-perfect-continuous-t2',label: 'PPC — T2' },
+    { id: 'present-perfect-continuous-t3',label: 'PPC — T3' },
+    { id: 'articles-t2',                  label: 'Articles — T2' },
+    { id: 'articles-t3',                  label: 'Articles — T3' },
+    { id: 'articles-t4',                  label: 'Articles — T4' },
+    { id: 'there-to-be-t2',              label: 'There To Be — T2' },
+    { id: 'there-to-be-t3',              label: 'There To Be — T3' },
+    { id: 'there-to-be-t4',              label: 'There To Be — T4' },
+    { id: 'there-to-be-t5',              label: 'There To Be — T5' },
+  ]},
+  { name: 'Past Tenses', color: 'var(--purple-500)', exercises: [
+    { id: 'past-simple-l1',              label: 'Past Simple — Nível 1 (TO BE)' },
+    { id: 'past-simple-l2',              label: 'Past Simple — Nível 2 (Irregulares)' },
+    { id: 'past-simple-l3',              label: 'Past Simple — Nível 3 (Transformação)' },
+    { id: 'irregular-verbs-quiz',        label: 'Irregular Verbs — Quiz' },
+    { id: 'past-perfect-t2',             label: 'Past Perfect — T2' },
+    { id: 'past-perfect-t3',             label: 'Past Perfect — T3' },
+    { id: 'past-perfect-t4',             label: 'Past Perfect — T4' },
+    { id: 'used-to-t2',                  label: 'Used To & Would — T2' },
+    { id: 'used-to-t3',                  label: 'Used To & Would — T3' },
+  ]},
+  { name: 'Future Tenses', color: 'var(--green-600)', exercises: [
+    { id: 'present-as-future-t2',        label: 'Present as Future — T2' },
+    { id: 'present-as-future-t3',        label: 'Present as Future — T3' },
+    { id: 'present-as-future-t4',        label: 'Present as Future — T4' },
+    { id: 'will-going-to-t2',            label: 'Will vs Going To — T2' },
+    { id: 'will-going-to-t3',            label: 'Will vs Going To — T3' },
+  ]},
+  { name: 'Prepositions', color: '#f59e0b', exercises: [
+    { id: 'prepositions-t2',             label: 'IN, ON & AT — T2' },
+    { id: 'prepositions-t3',             label: 'IN, ON & AT — T3' },
+    { id: 'prepositions-t4',             label: 'IN, ON & AT — T4' },
+  ]},
+];
+
+function spBarColor(pct) {
+  return pct >= 70 ? 'var(--green-500)' : pct >= 40 ? '#f59e0b' : 'var(--red-500)';
+}
+
+function renderStudentPanel() {
+  if (!currentUser) return;
+
+  /* Hero */
+  var name = currentUser.displayName || currentUser.email || 'Aluno';
+  var initials = name.split(' ').slice(0,2).map(function(w){ return w[0]; }).join('').toUpperCase();
+  var heroName = document.getElementById('sp-hero-name');
+  var heroSub  = document.getElementById('sp-hero-sub');
+  var heroInit = document.getElementById('sp-avatar-initials');
+  if (heroName) heroName.textContent = name;
+  if (heroSub)  heroSub.textContent  = currentUser.email || '';
+  if (heroInit) heroInit.textContent  = initials;
+
+  /* Métricas globais */
+  var globalAttempted = 0, globalPassed = 0, globalSumBest = 0, globalSumMax = 0;
+  var allExIds = [];
+  STUDENT_GROUPS.forEach(function(g) { g.exercises.forEach(function(e) { allExIds.push(e.id); }); });
+
+  allExIds.forEach(function(id) {
+    var p = userProgressCache[id];
+    if (p && p.completed) {
+      globalAttempted++;
+      var best = p.bestScore || 0;
+      var max  = p.maxScore  || 10;
+      globalSumBest += best;
+      globalSumMax  += max;
+      if (max > 0 && (best / max) >= 0.7) globalPassed++;
+    }
+  });
+
+  var globalPct = globalSumMax > 0 ? Math.round((globalSumBest / globalSumMax) * 100) : 0;
+
+  var fillEl = document.getElementById('sp-overall-fill');
+  if (fillEl) { fillEl.style.width = globalPct + '%'; fillEl.style.background = spBarColor(globalPct); }
+  var el = function(id, txt) { var e = document.getElementById(id); if(e) e.textContent = txt; };
+  el('sp-stat-pct',   globalPct + '%');
+  el('sp-stat-done',  globalAttempted);
+  el('sp-stat-pass',  globalPassed);
+  el('sp-stat-total', allExIds.length);
+
+  /* Grupos */
+  var groupsEl = document.getElementById('sp-groups');
+  if (!groupsEl) return;
+  groupsEl.innerHTML = '';
+
+  STUDENT_GROUPS.forEach(function(group) {
+    var gAttempted = 0, gPassed = 0, gSumBest = 0, gSumMax = 0;
+    group.exercises.forEach(function(ex) {
+      var p = userProgressCache[ex.id];
+      if (p && p.completed) {
+        gAttempted++;
+        var best = p.bestScore || 0;
+        var max  = p.maxScore  || 10;
+        gSumBest += best; gSumMax += max;
+        if (max > 0 && (best/max) >= 0.7) gPassed++;
+      }
+    });
+    var gPct = gSumMax > 0 ? Math.round((gSumBest / gSumMax) * 100) : 0;
+
+    var groupDiv = document.createElement('div');
+    groupDiv.className = 'sp-group';
+
+    /* Group header */
+    groupDiv.innerHTML =
+      '<div class="sp-group-header">' +
+        '<div class="sp-group-bar" style="background:' + group.color + '"></div>' +
+        '<span class="sp-group-name">' + group.name + '</span>' +
+        (gAttempted > 0 ? '<span class="sp-group-pct">' + gPassed + '/' + group.exercises.length + ' aprovados · ' + gPct + '%</span>' : '') +
+      '</div>';
+
+    /* Exercise rows */
+    group.exercises.forEach(function(ex) {
+      var p   = userProgressCache[ex.id];
+      var row = document.createElement('div');
+      row.className = 'sp-exercise' + ((!p || !p.completed) ? ' sp-ex-untried' : '');
+
+      var best = p ? (p.bestScore || 0) : 0;
+      var max  = p ? (p.maxScore  || 10) : 10;
+      var pct  = (p && p.completed && max > 0) ? Math.round((best / max) * 100) : 0;
+      var passed = pct >= 70;
+
+      var isAssigned = assignmentsCache[ex.id] === true;
+      var assignPending = isAssigned && !(passed);
+      var icon = (!p || !p.completed) ? (isAssigned ? '📌' : '🔒') : passed ? '✅' : '⚠️';
+
+      row.innerHTML =
+        '<div class="sp-ex-icon">' + icon + '</div>' +
+        '<div class="sp-ex-body">' +
+          '<div class="sp-ex-name">' + ex.label + (isAssigned ? ' <span class="sp-ex-assign">📌</span>' : '') + '</div>' +
+          (p && p.completed ?
+            '<div class="sp-ex-bar-wrap"><div class="sp-ex-bar-fill" style="width:' + pct + '%;background:' + spBarColor(pct) + ';"></div></div>'
+            : '<div class="sp-ex-bar-wrap"><div class="sp-ex-bar-fill" style="width:0%;"></div></div>') +
+        '</div>' +
+        '<div class="sp-ex-score">' + (p && p.completed ? best + '/' + max : '—') + '</div>';
+
+      groupDiv.appendChild(row);
+    });
+
+    groupsEl.appendChild(groupDiv);
+  });
+}
+
+
+/* ══════════════════════════════════════════════════════
+   TEACHER PANEL — renderTeacherPanel()
+   Lê todos os users com role='student' do Firestore,
+   depois lê a subcoleção progress de cada um.
+   Exibe tabela expansível por aluno.
+══════════════════════════════════════════════════════ */
+
+var tpAllStudents = []; /* cache dos dados carregados */
+
+function renderTeacherPanel() {
+  if (!db || !currentUser || currentUserRole !== 'teacher') {
+    showPage('home', null);
+    return;
+  }
+  tpAllStudents = [];
+  var loading = document.getElementById('tp-loading');
+  var table   = document.getElementById('tp-table');
+  var count   = document.getElementById('tp-count');
+  if (loading) loading.style.display = 'block';
+  if (table)   table.style.display   = 'none';
+
+  /* Busca todos os usuários com role = student */
+  db.collection('users').where('role', '==', 'student').get()
+    .then(function(snap) {
+      var students = [];
+      snap.forEach(function(doc) { students.push({ uid: doc.id, profile: doc.data() }); });
+
+      if (students.length === 0) {
+        if (loading) loading.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--gray-400);">Nenhum aluno cadastrado ainda.</div>';
+        return;
+      }
+
+      /* Para cada aluno, busca a subcoleção progress */
+      var promises = students.map(function(s) {
+        return db.collection('users').doc(s.uid).collection('progress').get()
+          .then(function(pSnap) {
+            var progress = {};
+            pSnap.forEach(function(d) { progress[d.id] = d.data(); });
+            s.progress = progress;
+            return s;
+          });
+      });
+
+      return Promise.all(promises);
+    })
+    .then(function(students) {
+      if (!students) return;
+      tpAllStudents = students.sort(function(a, b) {
+        return (a.profile.name || '').localeCompare(b.profile.name || '');
+      });
+      if (loading) loading.style.display = 'none';
+      if (table)   table.style.display   = 'block';
+      if (count)   count.textContent      = students.length + ' aluno(s)';
+      tpRender(tpAllStudents);
+    })
+    .catch(function(e) {
+      console.warn('Erro ao carregar alunos:', e.message);
+      if (loading) loading.innerHTML = '<div style="color:var(--red-500);padding:2rem;">Erro ao carregar dados: ' + e.message + '</div>';
+    });
+}
+
+function tpStudentSummary(progress) {
+  var allIds = [];
+  STUDENT_GROUPS.forEach(function(g) { g.exercises.forEach(function(e) { allIds.push(e.id); }); });
+  var done = 0, passed = 0, sumBest = 0, sumMax = 0;
+  allIds.forEach(function(id) {
+    var p = progress[id];
+    if (p && p.completed) {
+      done++;
+      var best = p.bestScore || 0, max = p.maxScore || 10;
+      sumBest += best; sumMax += max;
+      if (max > 0 && (best/max) >= 0.7) passed++;
+    }
+  });
+  var pct = sumMax > 0 ? Math.round((sumBest/sumMax)*100) : 0;
+  /* Count assigned exercises not yet passed */
+  var pendingAssign = 0;
+  allIds.forEach(function(id) {
+    if (assignmentsCache[id] === true) {
+      var p = progress[id];
+      var isPassed = p && p.completed && p.maxScore > 0 && (p.bestScore/p.maxScore) >= 0.7;
+      if (!isPassed) pendingAssign++;
+    }
+  });
+  return { done: done, passed: passed, pct: pct, total: allIds.length, pendingAssign: pendingAssign };
+}
+
+function tpRender(students) {
+  var table = document.getElementById('tp-table');
+  if (!table) return;
+  table.innerHTML = '';
+  if (students.length === 0) {
+    table.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--gray-400);">Nenhum aluno encontrado.</div>';
+    return;
+  }
+  students.forEach(function(s, idx) {
+    var sum  = tpStudentSummary(s.progress);
+    var name = s.profile.name || s.profile.email || 'Aluno';
+    var ini  = name.split(' ').slice(0,2).map(function(w){ return w[0]||''; }).join('').toUpperCase();
+    var pillCls = sum.pct >= 70 ? 'tp-pill-green' : sum.pct > 0 ? 'tp-pill-amber' : 'tp-pill-gray';
+
+    var card = document.createElement('div');
+    card.className = 'tp-card';
+    card.innerHTML =
+      '<div class="tp-card-header" onclick="tpToggle(this)">' +
+        '<div class="tp-avatar">' + ini + '</div>' +
+        '<div>' +
+          '<div class="tp-student-name">' + name + '</div>' +
+          '<div class="tp-student-email">' + (s.profile.email || '') + '</div>' +
+        '</div>' +
+        '<div class="tp-summary">' +
+          '<span class="tp-pill ' + pillCls + '">' + sum.pct + '%</span>' +
+          '<span class="tp-pill tp-pill-gray">' + sum.done + '/' + sum.total + ' feitos</span>' +
+          '<span class="tp-pill ' + (sum.passed === sum.total ? 'tp-pill-green' : 'tp-pill-amber') + '">' + sum.passed + ' aprovados</span>' +
+          (sum.pendingAssign > 0 ? '<span class="tp-pill" style="background:#fee2e2;color:#b91c1c;">📌 ' + sum.pendingAssign + ' pendente(s)</span>' : '') +
+        '</div>' +
+        '<span class="tp-chevron">›</span>' +
+      '</div>' +
+      '<div class="tp-detail" id="tp-detail-' + idx + '">' +
+        tpBuildDetail(s.progress) +
+      '</div>';
+
+    table.appendChild(card);
+  });
+}
+
+function tpBuildDetail(progress) {
+  var html = '';
+  STUDENT_GROUPS.forEach(function(g) {
+    html += '<div class="tp-group-title">' + g.name + '</div>';
+    g.exercises.forEach(function(ex) {
+      var p    = progress[ex.id];
+      var done = p && p.completed;
+      var best = done ? (p.bestScore || 0) : 0;
+      var max  = done ? (p.maxScore  || 10) : 10;
+      var pct  = done && max > 0 ? Math.round((best/max)*100) : 0;
+      var icon = !done ? '🔒' : pct >= 70 ? '✅' : '⚠️';
+      var barColor = pct >= 70 ? 'var(--green-500)' : pct >= 40 ? '#f59e0b' : 'var(--red-500)';
+      var isAssign = assignmentsCache[ex.id] === true;
+      html +=
+        '<div class="tp-ex-row">' +
+          '<span class="tp-ex-icon">' + icon + '</span>' +
+          '<span class="tp-ex-label">' + ex.label + '</span>' +
+          '<div class="tp-ex-bar-wrap"><div class="tp-ex-bar-fill" style="width:' + pct + '%;background:' + (done ? barColor : 'var(--gray-200)') + ';"></div></div>' +
+          '<span class="tp-ex-score">' + (done ? best + '/' + max : '—') + '</span>' +
+          '<button class="tp-assign-btn" title="' + (isAssign ? 'Remover tarefa' : 'Marcar como tarefa') + '" ' +
+            'style="opacity:' + (isAssign ? '1' : '0.35') + ';" ' +
+            'onclick="tpToggleAssignment(\'' + ex.id + '\', this)">' +
+            (isAssign ? '📌' : '📎') +
+          '</button>' +
+        '</div>';
+    });
+  });
+  return html;
+}
+
+function tpToggle(header) {
+  var chevron = header.querySelector('.tp-chevron');
+  var detail  = header.nextElementSibling;
+  if (!detail) return;
+  var isOpen = detail.classList.contains('open');
+  detail.classList.toggle('open', !isOpen);
+  if (chevron) chevron.classList.toggle('open', !isOpen);
+}
+
+function tpFilter() {
+  var q = (document.getElementById('tp-search').value || '').toLowerCase().trim();
+  var filtered = q
+    ? tpAllStudents.filter(function(s) {
+        return (s.profile.name  || '').toLowerCase().includes(q) ||
+               (s.profile.email || '').toLowerCase().includes(q);
+      })
+    : tpAllStudents;
+  var count = document.getElementById('tp-count');
+  if (count) count.textContent = filtered.length + '/' + tpAllStudents.length + ' aluno(s)';
+  tpRender(filtered);
+}
+
+
+/* ══════════════════════════════════════════════════════
+   ASSIGNMENTS — tarefas marcadas pelo professor
+   Coleção Firestore: assignments/{exerciseId} → {active, setAt}
+   Lida por todos os usuários logados; escrita só pelo professor.
+══════════════════════════════════════════════════════ */
+
+function loadAssignments() {
+  if (!db || !currentUser) return;
+  db.collection('assignments').where('active', '==', true).get()
+    .then(function(snap) {
+      assignmentsCache = {};
+      snap.forEach(function(doc) { assignmentsCache[doc.id] = true; });
+      renderHubBadges();
+      /* Re-render painéis se estiverem visíveis */
+      var sp = document.getElementById('page-student');
+      if (sp && sp.classList.contains('active')) { renderStudentPanel(); }
+    })
+    .catch(function(e) { console.warn('Erro ao carregar tarefas:', e.message); });
+}
+
+function tpToggleAssignment(exerciseId, btn) {
+  if (!db || currentUserRole !== 'teacher') return;
+  var isActive = assignmentsCache[exerciseId] === true;
+  var newState = !isActive;
+  db.collection('assignments').doc(exerciseId).set({
+    active: newState,
+    setAt:  firebase.firestore.FieldValue.serverTimestamp()
+  }).then(function() {
+    if (newState) { assignmentsCache[exerciseId] = true; }
+    else          { delete assignmentsCache[exerciseId]; }
+    /* Update button appearance */
+    btn.textContent = newState ? '📌' : '📎';
+    btn.title = newState ? 'Remover tarefa' : 'Marcar como tarefa';
+    btn.style.opacity = newState ? '1' : '0.4';
+    renderHubBadges();
+  }).catch(function(e) { console.warn('Erro ao salvar tarefa:', e.message); });
+}
+
+
 function ensureUserProfile(user) {
   if (!db || !user) return;
+  /* Detect teacher by email (matches Firestore rules) */
+  var isTeacher = (user.email === TEACHER_EMAIL);
   var ref = db.collection('users').doc(user.uid);
   ref.get().then(function(doc) {
     if (!doc.exists) {
       ref.set({
         name:      user.displayName || '',
         email:     user.email || '',
-        role:      'student',
+        role:      isTeacher ? 'teacher' : 'student',
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       }).then(function() {
         console.log('Perfil criado para', user.email);
-      }).catch(function(e) {
-        console.warn('Erro ao criar perfil:', e.message);
-      });
+        currentUserRole = isTeacher ? 'teacher' : 'student';
+        updateTeacherLink();
+      }).catch(function(e) { console.warn('Erro ao criar perfil:', e.message); });
+    } else {
+      currentUserRole = isTeacher ? 'teacher' : (doc.data().role || 'student');
+      updateTeacherLink();
     }
-  }).catch(function(e) {
-    console.warn('Erro ao verificar perfil:', e.message);
-  });
+  }).catch(function(e) { console.warn('Erro ao verificar perfil:', e.message); });
+}
+
+function updateTeacherLink() {
+  var link = document.getElementById('dd-teacher-link');
+  if (link) link.style.display = (currentUserRole === 'teacher') ? 'flex' : 'none';
 }
 
 function saveProgress(exerciseId, score, maxScore) {
@@ -6507,13 +7128,12 @@ function saveProgress(exerciseId, score, maxScore) {
       .then(function() {
         console.log('Progresso salvo:', exerciseId, score + '/' + maxScore);
         /* Atualiza cache local e re-renderiza badges imediatamente */
-        if (!userProgressCache[exerciseId] || score > (userProgressCache[exerciseId].bestScore || 0)) {
-          if (!userProgressCache[exerciseId]) userProgressCache[exerciseId] = {};
-          userProgressCache[exerciseId].bestScore = Math.max(score, userProgressCache[exerciseId].bestScore || 0);
-        }
-        userProgressCache[exerciseId].completed  = true;
-        userProgressCache[exerciseId].lastScore  = score;
-        userProgressCache[exerciseId].maxScore   = maxScore;
+        if (!userProgressCache[exerciseId]) { userProgressCache[exerciseId] = {}; }
+        var _prev = userProgressCache[exerciseId];
+        _prev.bestScore = Math.max(score, _prev.bestScore || 0);
+        _prev.completed = true;
+        _prev.lastScore = score;
+        _prev.maxScore  = maxScore;
         renderHubBadges();
       })
       .catch(function(e) {
@@ -9528,6 +10148,9 @@ document.addEventListener('DOMContentLoaded', function() {
   var origShowPage = window.showPage;
   window.showPage = function(id, arg) {
     if (id === 'reading') { renderHubBadges(); }
+    if (id === 'irregular-verbs') { ivRenderChips(); }
+    if (id === 'student') { renderStudentPanel(); }
+    if (id === 'teacher') { renderTeacherPanel(); }
     if (id === 'past-simple') {
       if (psL1Queue.length === 0) {
         psInit();
@@ -9596,7 +10219,9 @@ document.addEventListener('DOMContentLoaded', function() {
     'grammar/prepositions-place-time': 'prepositions-place-time',
     'speaking':                    'speaking',
     'listening':                   'listening',
-    'writing':                     'writing'
+    'writing':                     'writing',
+    'progress':                    'student',
+    'teacher':                     'teacher'
   };
   var PAGE_TO_HASH = {};
   Object.keys(HASH_TO_PAGE).forEach(function(h) {
