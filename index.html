@@ -1902,6 +1902,33 @@ img { max-width: 100%; }
 .tp-assign-btn { background:none; border:none; cursor:pointer; font-size:.9rem;
   padding:2px 4px; border-radius:4px; transition:opacity .15s; line-height:1; }
 .tp-assign-btn:hover { background:var(--gray-100); }
+
+/* ══ TEACHER DASHBOARD ══ */
+.tp-metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:.75rem; margin-bottom:1rem; }
+.tp-metric-card { background:var(--white); border:1px solid var(--gray-200);
+  border-radius:var(--radius-md); padding:1rem 1.125rem; }
+.tp-metric-num { font-size:1.75rem; font-weight:800; line-height:1; margin-bottom:.25rem; }
+.tp-metric-lbl { font-size:.7rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:.06em; color:var(--gray-500); }
+.tp-mid-row { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; margin-bottom:0; }
+@media(max-width:640px){ .tp-mid-row { grid-template-columns:1fr; } }
+.tp-panel { background:var(--white); border:1px solid var(--gray-200);
+  border-radius:var(--radius-md); padding:1rem 1.125rem; }
+.tp-panel-title { font-size:.8125rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:.06em; color:var(--gray-500); margin-bottom:.75rem; }
+.tp-gbar-row { display:flex; align-items:center; gap:.625rem; margin-bottom:.5rem; }
+.tp-gbar-label { font-size:.8rem; font-weight:600; color:var(--gray-700);
+  width:110px; flex-shrink:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tp-gbar-wrap { flex:1; height:8px; background:var(--gray-200); border-radius:99px; overflow:hidden; }
+.tp-gbar-fill  { height:100%; border-radius:99px; transition:width .4s ease; }
+.tp-gbar-pct   { font-size:.75rem; font-weight:700; color:var(--gray-600); width:36px; text-align:right; }
+.tp-assign-row { display:flex; align-items:center; justify-content:space-between;
+  padding:.375rem 0; border-bottom:1px solid var(--gray-100); font-size:.8rem; }
+.tp-assign-row:last-child { border-bottom:none; }
+.tp-assign-name { color:var(--gray-700); flex:1; }
+.tp-assign-stat { font-weight:700; font-size:.75rem; }
+.tp-empty-assign { font-size:.8rem; color:var(--gray-400); text-align:center; padding:.75rem 0; }
 </style>
 <!-- Firebase SDKs -->
 <script>
@@ -2149,16 +2176,7 @@ img { max-width: 100%; }
     </div>
   </div>
 
-  <div class="exercise-wrap" style="max-width:900px;margin:0 auto;">
-
-    <!-- Barra de busca / filtros -->
-    <div style="display:flex;gap:.75rem;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;">
-      <input id="tp-search" type="text" placeholder="Buscar aluno..."
-        oninput="tpFilter()"
-        style="flex:1;min-width:180px;padding:.6rem .875rem;border:1px solid var(--gray-200);
-               border-radius:var(--radius-md);font-size:.875rem;outline:none;">
-      <span id="tp-count" style="font-size:.8rem;color:var(--gray-500);white-space:nowrap;"></span>
-    </div>
+  <div class="exercise-wrap" style="max-width:960px;margin:0 auto;">
 
     <!-- Loading state -->
     <div id="tp-loading" style="text-align:center;padding:3rem;color:var(--gray-400);">
@@ -2166,9 +2184,45 @@ img { max-width: 100%; }
       <div>Carregando dados dos alunos...</div>
     </div>
 
-    <!-- Student table -->
-    <div id="tp-table" style="display:none;"></div>
+    <!-- Dashboard (hidden until loaded) -->
+    <div id="tp-dashboard" style="display:none;">
 
+      <!-- Metric cards row -->
+      <div class="tp-metrics" id="tp-metrics"></div>
+
+      <!-- Group performance + Assignments table side by side -->
+      <div class="tp-mid-row">
+        <div class="tp-panel">
+          <div class="tp-panel-title">Desempenho por grupo</div>
+          <div id="tp-group-bars"></div>
+        </div>
+        <div class="tp-panel">
+          <div class="tp-panel-title">Tarefas ativas</div>
+          <div id="tp-assign-table"></div>
+        </div>
+      </div>
+
+      <!-- Student list -->
+      <div class="tp-panel" style="margin-top:1rem;">
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.875rem;flex-wrap:wrap;">
+          <div class="tp-panel-title" style="margin:0;">Alunos</div>
+          <input id="tp-search" type="text" placeholder="Buscar por nome ou email..."
+            oninput="tpFilter()"
+            style="flex:1;min-width:160px;padding:.5rem .75rem;border:1px solid var(--gray-200);
+                   border-radius:var(--radius-md);font-size:.8125rem;outline:none;">
+          <select id="tp-filter-status" onchange="tpFilter()"
+            style="padding:.5rem .75rem;border:1px solid var(--gray-200);border-radius:var(--radius-md);
+                   font-size:.8125rem;background:white;outline:none;">
+            <option value="all">Todos</option>
+            <option value="pending">Com pendências</option>
+            <option value="inactive">Sem atividade</option>
+          </select>
+          <span id="tp-count" style="font-size:.8rem;color:var(--gray-500);white-space:nowrap;"></span>
+        </div>
+        <div id="tp-table"></div>
+      </div>
+
+    </div>
   </div>
 </div>
 
@@ -2353,7 +2407,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.87</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.88</span>
   </footer>
 </div>
 
@@ -2602,7 +2656,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.87</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.88</span>
   </footer>
 </div>
 
@@ -2751,7 +2805,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.87</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.88</span>
   </footer>
 </div>
 
@@ -3254,7 +3308,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.87</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.88</span>
   </footer>
 </div>
 <!-- ═══════════ END PAST SIMPLE ═══════════ -->
@@ -3428,7 +3482,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.87</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.88</span>
   </footer>
 </div>
 <!-- ═══════════ END IRREGULAR VERBS ═══════════ -->
@@ -3525,7 +3579,7 @@ img { max-width: 100%; }
   
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.87</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.88</span>
   </footer>
 </div>
 
@@ -5827,7 +5881,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.87';
+var SITE_VERSION = 'v0.88';
 
 var EXERCISE_REGISTRY = [
   {
@@ -6868,9 +6922,11 @@ function renderStudentPanel() {
 ══════════════════════════════════════════════════════ */
 
 var tpAllStudents = []; /* cache dos dados carregados */
+var tpAssignCache = {}; /* uid → { exerciseId: true } — tarefas por aluno */
 
 function renderTeacherPanel() {
-  if (!db || !currentUser || currentUserRole !== 'teacher') {
+  /* Detect teacher directly by email — avoids race condition with async role load */
+  if (!db || !currentUser || currentUser.email !== TEACHER_EMAIL) {
     showPage('home', null);
     return;
   }
@@ -6892,15 +6948,23 @@ function renderTeacherPanel() {
         return;
       }
 
-      /* Para cada aluno, busca a subcoleção progress */
+      /* Para cada aluno, busca progress E assignments em paralelo */
       var promises = students.map(function(s) {
-        return db.collection('users').doc(s.uid).collection('progress').get()
+        var pPromise = db.collection('users').doc(s.uid).collection('progress').get()
           .then(function(pSnap) {
             var progress = {};
             pSnap.forEach(function(d) { progress[d.id] = d.data(); });
             s.progress = progress;
-            return s;
           });
+        var aPromise = db.collection('assignments').doc(s.uid)
+          .collection('exercises').where('active', '==', true).get()
+          .then(function(aSnap) {
+            var assigns = {};
+            aSnap.forEach(function(d) { assigns[d.id] = true; });
+            s.assignments = assigns;
+            tpAssignCache[s.uid] = assigns;
+          }).catch(function() { s.assignments = {}; tpAssignCache[s.uid] = {}; });
+        return Promise.all([pPromise, aPromise]).then(function() { return s; });
       });
 
       return Promise.all(promises);
@@ -6910,9 +6974,11 @@ function renderTeacherPanel() {
       tpAllStudents = students.sort(function(a, b) {
         return (a.profile.name || '').localeCompare(b.profile.name || '');
       });
+      var dash = document.getElementById('tp-dashboard');
       if (loading) loading.style.display = 'none';
-      if (table)   table.style.display   = 'block';
-      if (count)   count.textContent      = students.length + ' aluno(s)';
+      if (dash)    dash.style.display    = 'block';
+      if (count)   count.textContent     = students.length + ' aluno(s)';
+      tpRenderDashboard(tpAllStudents);
       tpRender(tpAllStudents);
     })
     .catch(function(e) {
@@ -6921,7 +6987,7 @@ function renderTeacherPanel() {
     });
 }
 
-function tpStudentSummary(progress) {
+function tpStudentSummary(progress, assigns) {
   var allIds = [];
   STUDENT_GROUPS.forEach(function(g) { g.exercises.forEach(function(e) { allIds.push(e.id); }); });
   var done = 0, passed = 0, sumBest = 0, sumMax = 0;
@@ -6936,9 +7002,10 @@ function tpStudentSummary(progress) {
   });
   var pct = sumMax > 0 ? Math.round((sumBest/sumMax)*100) : 0;
   /* Count assigned exercises not yet passed */
+  var activeAssigns = assigns || {};
   var pendingAssign = 0;
   allIds.forEach(function(id) {
-    if (assignmentsCache[id] === true) {
+    if (activeAssigns[id] === true) {
       var p = progress[id];
       var isPassed = p && p.completed && p.maxScore > 0 && (p.bestScore/p.maxScore) >= 0.7;
       if (!isPassed) pendingAssign++;
@@ -6946,6 +7013,117 @@ function tpStudentSummary(progress) {
   });
   return { done: done, passed: passed, pct: pct, total: allIds.length, pendingAssign: pendingAssign };
 }
+
+function tpRenderDashboard(students) {
+  var allIds = [];
+  STUDENT_GROUPS.forEach(function(g) { g.exercises.forEach(function(e) { allIds.push(e.id); }); });
+
+  /* ── Metrics ── */
+  var totalStudents  = students.length;
+  var activeStudents = students.filter(function(s) {
+    return Object.keys(s.progress || {}).length > 0;
+  }).length;
+
+  var totalPctSum = 0, totalPctCount = 0;
+  var withPending = 0;
+  students.forEach(function(s) {
+    var sum = tpStudentSummary(s.progress, s.assignments || {});
+    if (sum.pct > 0) { totalPctSum += sum.pct; totalPctCount++; }
+    if (sum.pendingAssign > 0) withPending++;
+  });
+  var avgPct = totalPctCount > 0 ? Math.round(totalPctSum / totalPctCount) : 0;
+
+  /* Count total active assignments across all students */
+  var totalActiveAssign = 0;
+  students.forEach(function(s) {
+    Object.keys(s.assignments || {}).forEach(function(id) {
+      if ((s.assignments || {})[id]) totalActiveAssign++;
+    });
+  });
+
+  var metricsEl = document.getElementById('tp-metrics');
+  if (metricsEl) {
+    var metricColor = avgPct >= 70 ? 'var(--green-700)' : avgPct >= 40 ? '#d97706' : 'var(--red-500)';
+    metricsEl.innerHTML =
+      tpMetricCard(totalStudents,  'Alunos',                 'var(--green-700)') +
+      tpMetricCard(activeStudents, 'Com atividade',           'var(--blue-500)') +
+      tpMetricCard(avgPct + '%',   'Média da turma',          metricColor) +
+      tpMetricCard(withPending,    'Com tarefas pendentes',   withPending > 0 ? 'var(--red-500)' : 'var(--gray-400)');
+  }
+
+  /* ── Group performance bars ── */
+  var gbEl = document.getElementById('tp-group-bars');
+  if (gbEl) {
+    gbEl.innerHTML = '';
+    STUDENT_GROUPS.forEach(function(g) {
+      var gSumBest = 0, gSumMax = 0, gCount = 0;
+      students.forEach(function(s) {
+        g.exercises.forEach(function(ex) {
+          var p = (s.progress || {})[ex.id];
+          if (p && p.completed) {
+            gSumBest += p.bestScore || 0;
+            gSumMax  += p.maxScore  || 10;
+            gCount++;
+          }
+        });
+      });
+      var gPct = gSumMax > 0 ? Math.round((gSumBest/gSumMax)*100) : 0;
+      var barColor = gPct >= 70 ? 'var(--green-500)' : gPct >= 40 ? '#f59e0b' : (gCount > 0 ? 'var(--red-400)' : 'var(--gray-300)');
+      gbEl.innerHTML +=
+        '<div class="tp-gbar-row">' +
+          '<div class="tp-gbar-label">' + g.name + '</div>' +
+          '<div class="tp-gbar-wrap"><div class="tp-gbar-fill" style="width:' + gPct + '%;background:' + barColor + ';"></div></div>' +
+          '<div class="tp-gbar-pct">' + (gCount > 0 ? gPct + '%' : '—') + '</div>' +
+        '</div>';
+    });
+  }
+
+  /* ── Assignments table ── */
+  var atEl = document.getElementById('tp-assign-table');
+  if (atEl) {
+    /* Gather all unique assigned exercises across all students */
+    var assignMap = {}; /* exerciseId → {label, done, total} */
+    students.forEach(function(s) {
+      Object.keys(s.assignments || {}).forEach(function(exId) {
+        if (!(s.assignments || {})[exId]) return;
+        if (!assignMap[exId]) {
+          /* Find label */
+          var label = exId;
+          STUDENT_GROUPS.forEach(function(g) {
+            g.exercises.forEach(function(ex) { if (ex.id === exId) label = ex.label; });
+          });
+          assignMap[exId] = { label: label, done: 0, total: 0 };
+        }
+        assignMap[exId].total++;
+        var p = (s.progress || {})[exId];
+        var passed = p && p.completed && p.maxScore > 0 && (p.bestScore/p.maxScore) >= 0.7;
+        if (passed) assignMap[exId].done++;
+      });
+    });
+    var assignIds = Object.keys(assignMap);
+    if (assignIds.length === 0) {
+      atEl.innerHTML = '<div class="tp-empty-assign">Nenhuma tarefa atribuída ainda.<br>Expanda um aluno e clique em 📎 para atribuir.</div>';
+    } else {
+      atEl.innerHTML = assignIds.map(function(id) {
+        var a = assignMap[id];
+        var pct = a.total > 0 ? Math.round((a.done/a.total)*100) : 0;
+        var clr = pct >= 70 ? 'var(--green-700)' : pct > 0 ? '#d97706' : 'var(--gray-400)';
+        return '<div class="tp-assign-row">' +
+          '<span class="tp-assign-name">📌 ' + a.label + '</span>' +
+          '<span class="tp-assign-stat" style="color:' + clr + ';">' + a.done + '/' + a.total + ' aprovados</span>' +
+          '</div>';
+      }).join('');
+    }
+  }
+}
+
+function tpMetricCard(value, label, color) {
+  return '<div class="tp-metric-card">' +
+    '<div class="tp-metric-num" style="color:' + color + ';">' + value + '</div>' +
+    '<div class="tp-metric-lbl">' + label + '</div>' +
+    '</div>';
+}
+
 
 function tpRender(students) {
   var table = document.getElementById('tp-table');
@@ -6956,7 +7134,7 @@ function tpRender(students) {
     return;
   }
   students.forEach(function(s, idx) {
-    var sum  = tpStudentSummary(s.progress);
+    var sum  = tpStudentSummary(s.progress, s.assignments || {});
     var name = s.profile.name || s.profile.email || 'Aluno';
     var ini  = name.split(' ').slice(0,2).map(function(w){ return w[0]||''; }).join('').toUpperCase();
     var pillCls = sum.pct >= 70 ? 'tp-pill-green' : sum.pct > 0 ? 'tp-pill-amber' : 'tp-pill-gray';
@@ -6979,14 +7157,14 @@ function tpRender(students) {
         '<span class="tp-chevron">›</span>' +
       '</div>' +
       '<div class="tp-detail" id="tp-detail-' + idx + '">' +
-        tpBuildDetail(s.progress) +
+        tpBuildDetail(s.progress, s.assignments || {}, s.uid) +
       '</div>';
 
     table.appendChild(card);
   });
 }
 
-function tpBuildDetail(progress) {
+function tpBuildDetail(progress, assigns, uid) {
   var html = '';
   STUDENT_GROUPS.forEach(function(g) {
     html += '<div class="tp-group-title">' + g.name + '</div>';
@@ -6998,7 +7176,7 @@ function tpBuildDetail(progress) {
       var pct  = done && max > 0 ? Math.round((best/max)*100) : 0;
       var icon = !done ? '🔒' : pct >= 70 ? '✅' : '⚠️';
       var barColor = pct >= 70 ? 'var(--green-500)' : pct >= 40 ? '#f59e0b' : 'var(--red-500)';
-      var isAssign = assignmentsCache[ex.id] === true;
+      var isAssign = (assigns || {})[ex.id] === true;
       html +=
         '<div class="tp-ex-row">' +
           '<span class="tp-ex-icon">' + icon + '</span>' +
@@ -7007,7 +7185,7 @@ function tpBuildDetail(progress) {
           '<span class="tp-ex-score">' + (done ? best + '/' + max : '—') + '</span>' +
           '<button class="tp-assign-btn" title="' + (isAssign ? 'Remover tarefa' : 'Marcar como tarefa') + '" ' +
             'style="opacity:' + (isAssign ? '1' : '0.35') + ';" ' +
-            'onclick="tpToggleAssignment(\'' + ex.id + '\', this)">' +
+            'onclick="tpToggleAssignment(\'' + uid + '\', \'' + ex.id + '\', this)">' +
             (isAssign ? '📌' : '📎') +
           '</button>' +
         '</div>';
@@ -7026,13 +7204,27 @@ function tpToggle(header) {
 }
 
 function tpFilter() {
-  var q = (document.getElementById('tp-search').value || '').toLowerCase().trim();
-  var filtered = q
-    ? tpAllStudents.filter(function(s) {
-        return (s.profile.name  || '').toLowerCase().includes(q) ||
-               (s.profile.email || '').toLowerCase().includes(q);
-      })
-    : tpAllStudents;
+  var q      = (document.getElementById('tp-search').value || '').toLowerCase().trim();
+  var status = (document.getElementById('tp-filter-status') || {}).value || 'all';
+
+  var filtered = tpAllStudents.filter(function(s) {
+    /* Text search */
+    if (q) {
+      var nameMatch  = (s.profile.name  || '').toLowerCase().includes(q);
+      var emailMatch = (s.profile.email || '').toLowerCase().includes(q);
+      if (!nameMatch && !emailMatch) return false;
+    }
+    /* Status filter */
+    if (status === 'pending') {
+      var sum = tpStudentSummary(s.progress, s.assignments || {});
+      return sum.pendingAssign > 0;
+    }
+    if (status === 'inactive') {
+      return Object.keys(s.progress || {}).length === 0;
+    }
+    return true;
+  });
+
   var count = document.getElementById('tp-count');
   if (count) count.textContent = filtered.length + '/' + tpAllStudents.length + ' aluno(s)';
   tpRender(filtered);
@@ -7047,34 +7239,61 @@ function tpFilter() {
 
 function loadAssignments() {
   if (!db || !currentUser) return;
-  db.collection('assignments').where('active', '==', true).get()
+  /* Each student reads their own assignments subcollection */
+  db.collection('assignments').doc(currentUser.uid)
+    .collection('exercises').where('active', '==', true).get()
     .then(function(snap) {
       assignmentsCache = {};
       snap.forEach(function(doc) { assignmentsCache[doc.id] = true; });
       renderHubBadges();
-      /* Re-render painéis se estiverem visíveis */
       var sp = document.getElementById('page-student');
       if (sp && sp.classList.contains('active')) { renderStudentPanel(); }
     })
     .catch(function(e) { console.warn('Erro ao carregar tarefas:', e.message); });
 }
 
-function tpToggleAssignment(exerciseId, btn) {
-  if (!db || currentUserRole !== 'teacher') return;
-  var isActive = assignmentsCache[exerciseId] === true;
+function tpToggleAssignment(uid, exerciseId, btn) {
+  if (!db || currentUser.email !== TEACHER_EMAIL) return;
+  /* Per-student assignment: assignments/{uid}/exercises/{exerciseId} */
+  var studentCache = tpAssignCache[uid] || {};
+  var isActive = studentCache[exerciseId] === true;
   var newState = !isActive;
-  db.collection('assignments').doc(exerciseId).set({
-    active: newState,
-    setAt:  firebase.firestore.FieldValue.serverTimestamp()
-  }).then(function() {
-    if (newState) { assignmentsCache[exerciseId] = true; }
-    else          { delete assignmentsCache[exerciseId]; }
-    /* Update button appearance */
-    btn.textContent = newState ? '📌' : '📎';
-    btn.title = newState ? 'Remover tarefa' : 'Marcar como tarefa';
-    btn.style.opacity = newState ? '1' : '0.4';
-    renderHubBadges();
-  }).catch(function(e) { console.warn('Erro ao salvar tarefa:', e.message); });
+  db.collection('assignments').doc(uid)
+    .collection('exercises').doc(exerciseId).set({
+      active: newState,
+      setAt:  firebase.firestore.FieldValue.serverTimestamp()
+    }).then(function() {
+      if (!tpAssignCache[uid]) tpAssignCache[uid] = {};
+      if (newState) { tpAssignCache[uid][exerciseId] = true; }
+      else          { delete tpAssignCache[uid][exerciseId]; }
+      /* Update button appearance */
+      btn.textContent = newState ? '📌' : '📎';
+      btn.title       = newState ? 'Remover tarefa' : 'Marcar como tarefa';
+      btn.style.opacity = newState ? '1' : '0.4';
+      /* Re-render summary pill on the card */
+      var card = btn.closest('.tp-card');
+      if (card) tpUpdateCardPill(card, uid);
+    }).catch(function(e) { console.warn('Erro ao salvar tarefa:', e.message); });
+}
+
+function tpUpdateCardPill(card, uid) {
+  /* Recalculate pending count for this student and update the pill */
+  var student = tpAllStudents.find(function(s) { return s.uid === uid; });
+  if (!student) return;
+  var sum = tpStudentSummary(student.progress, tpAssignCache[uid] || {});
+  var pillEl = card.querySelector('.tp-pill-pending');
+  if (sum.pendingAssign > 0) {
+    if (!pillEl) {
+      pillEl = document.createElement('span');
+      pillEl.className = 'tp-pill tp-pill-pending';
+      pillEl.style.cssText = 'background:#fee2e2;color:#b91c1c;';
+      var summary = card.querySelector('.tp-summary');
+      if (summary) summary.appendChild(pillEl);
+    }
+    pillEl.textContent = '📌 ' + sum.pendingAssign + ' pendente(s)';
+  } else if (pillEl) {
+    pillEl.remove();
+  }
 }
 
 
