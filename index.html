@@ -2407,7 +2407,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.88</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.89</span>
   </footer>
 </div>
 
@@ -2656,7 +2656,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.88</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.89</span>
   </footer>
 </div>
 
@@ -2805,7 +2805,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.88</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.89</span>
   </footer>
 </div>
 
@@ -3308,7 +3308,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.88</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.89</span>
   </footer>
 </div>
 <!-- ═══════════ END PAST SIMPLE ═══════════ -->
@@ -3482,7 +3482,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.88</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.89</span>
   </footer>
 </div>
 <!-- ═══════════ END IRREGULAR VERBS ═══════════ -->
@@ -3579,7 +3579,7 @@ img { max-width: 100%; }
   
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.88</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.89</span>
   </footer>
 </div>
 
@@ -5881,7 +5881,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.88';
+var SITE_VERSION = 'v0.89';
 
 var EXERCISE_REGISTRY = [
   {
@@ -6635,7 +6635,7 @@ function signOutUser() {
 ══════════════════════════════════════════════════════ */
 
 var HUB_EXERCISE_MAP = {
-  'ps-pc':                 ['present-simple-continuous'],
+  'ps-pc':                 ['present-simple-tobe', 'present-simple-continuous'],
   'articles':              ['articles-t2','articles-t3','articles-t4'],
   'there-to-be':           ['there-to-be-t2','there-to-be-t3','there-to-be-t4','there-to-be-t5'],
   'past-simple':           ['past-simple-l1','past-simple-l2','past-simple-l3'],
@@ -6767,6 +6767,8 @@ function renderHubBadges() {
 
 var STUDENT_GROUPS = [
   { name: 'Present Tenses', color: 'var(--blue-500)', exercises: [
+    { id: 'listening-ed-pronunciation',   label: 'Pronúncia do -ED' },
+    { id: 'present-simple-tobe',          label: 'Present Simple — TO BE' },
     { id: 'present-simple-continuous',    label: 'Present Simple & Continuous' },
     { id: 'present-perfect-hub',          label: 'Present Perfect — Hub' },
     { id: 'present-perfect-t2',           label: 'Present Perfect — T2' },
@@ -7684,6 +7686,7 @@ function showResult() {
   }
 
   window.scrollTo({ top:0, behavior:'smooth' });
+  saveProgress('listening-ed-pronunciation', correct, ROUND_SIZE);
 }
 
 function restartExercise() {
@@ -8472,7 +8475,6 @@ function pspcGetHint(chosen, tgtKey, sentence) {
         ? "Dois erros: (1) com I/you/we/they use **Don't** — não *Doesn't*; (2) em perguntas, o auxiliar vem antes do sujeito: **Don't** + sujeito + verbo. Ex: **Don't** they live? (e não ~~They doesn't live~~?)."
         : "Dois erros: (1) com I/you/we/they use **Do** — não *Does*; (2) em perguntas, o auxiliar vem antes do sujeito: **Do** + sujeito + verbo. Ex: **Do** they live? (e não ~~They does live~~?)."
     };
-  }
 
   /* PS q: does...verb-s (generic catch) */
   if ((tgtKey === 'q' || tgtKey === 'nq') && /does\s+\w+\s+\w+s\b/i.test(c)) {
@@ -9188,7 +9190,8 @@ function pspcRestart() {
     var el6 = tobeEl('tobe-stat-wrong');      if (el6) el6.textContent = wrong;
     var el7 = tobeEl('tobe-stat-streak');     if (el7) el7.textContent = tobeBest;
     pspcShowScreen('pspc-tobe-result');
-  }
+  
+    saveProgress('present-simple-tobe', tobeCorrect, TOBE_TOTAL);}
 
   function tobeRestart() {
     tobeBegin();
@@ -9344,7 +9347,8 @@ var psL2Queue = [], psL2Idx = 0, psL2Score = 0, psL2Answered = false, psL2Histor
 var psL3Queue = [], psL3Idx = 0, psL3Score = 0, psL3Attempt = 0, psL3History = [];
 var psTotalScore = 0, psTotalCorrect = 0;
 
-/* ── HELPERS ── */
+/* ── HELPERS ── *
+    /
 function psShuffle(arr) {
   var a = arr.slice();
   for (var i = a.length - 1; i > 0; i--) {
@@ -14190,7 +14194,7 @@ function pp2t2ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('pp2t2-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  saveProgress('present-perfect-t2', correct, 10);
+  saveProgress('past-perfect-t2', correct, 10);
 }
 
 /* ══════════════════════════════════
@@ -14310,7 +14314,7 @@ function pp2t3ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('pp2t3-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  saveProgress('present-perfect-t3', correct, 10);
+  saveProgress('past-perfect-t3', correct, 10);
 }
 
 /* ══════════════════════════════════
@@ -14485,7 +14489,7 @@ function pp2t4ShowResult() {
   resDiv.style.display = 'block';
   document.getElementById('pp2t4-grid').innerHTML = '';
   resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  saveProgress('present-perfect-t4', correct, 10);
+  saveProgress('past-perfect-t4', correct, 10);
 }
 
 
