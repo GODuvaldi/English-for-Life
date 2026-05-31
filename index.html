@@ -2407,7 +2407,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.90</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.90.1</span>
   </footer>
 </div>
 
@@ -2656,7 +2656,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.90</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.90.1</span>
   </footer>
 </div>
 
@@ -2805,7 +2805,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.90</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.90.1</span>
   </footer>
 </div>
 
@@ -3308,7 +3308,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.90</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.90.1</span>
   </footer>
 </div>
 <!-- ═══════════ END PAST SIMPLE ═══════════ -->
@@ -3482,7 +3482,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.90</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.90.1</span>
   </footer>
 </div>
 <!-- ═══════════ END IRREGULAR VERBS ═══════════ -->
@@ -3579,7 +3579,7 @@ img { max-width: 100%; }
   
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.90</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.90.1</span>
   </footer>
 </div>
 
@@ -5881,7 +5881,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.90';
+var SITE_VERSION = 'v0.90.1';
 
 var EXERCISE_REGISTRY = [
   {
@@ -6542,6 +6542,7 @@ try {
 } catch(e) { console.warn('Firebase init failed (domínio não autorizado):', e.message); }
 
 var currentUser     = null;
+var _pendingHash    = null; /* Hash to navigate after auth resolves */
 var currentUserRole = null; /* 'student' | 'teacher' */
 var TEACHER_EMAIL   = 'hannibal.duvaldi@gmail.com'; /* ← substitua pelo seu email */
 
@@ -10467,7 +10468,7 @@ document.addEventListener('DOMContentLoaded', function() {
   Object.keys(HASH_TO_PAGE).forEach(function(h) {
     PAGE_TO_HASH[HASH_TO_PAGE[h]] = h;
   });
-  var _pendingHash = null; /* Hash to navigate after auth resolves */
+  _pendingHash = null; /* initialised above */
 
   function hashRouter() {
     var raw = window.location.hash.replace(/^#/, '').replace(/\/+$/, '');
