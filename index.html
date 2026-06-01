@@ -2407,7 +2407,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.91</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92</span>
   </footer>
 </div>
 
@@ -2656,7 +2656,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.91</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92</span>
   </footer>
 </div>
 
@@ -2805,7 +2805,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.91</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92</span>
   </footer>
 </div>
 
@@ -3308,7 +3308,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.91</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92</span>
   </footer>
 </div>
 <!-- ═══════════ END PAST SIMPLE ═══════════ -->
@@ -3482,7 +3482,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.91</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92</span>
   </footer>
 </div>
 <!-- ═══════════ END IRREGULAR VERBS ═══════════ -->
@@ -3579,7 +3579,7 @@ img { max-width: 100%; }
   
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.91</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92</span>
   </footer>
 </div>
 
@@ -5881,7 +5881,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.91';
+var SITE_VERSION = 'v0.92';
 
 var EXERCISE_REGISTRY = [
   {
@@ -6543,6 +6543,53 @@ try {
 
 var currentUser     = null;
 var _pendingHash    = null; /* Hash to navigate after auth resolves */
+
+/* ══════════════════════════════════════════════════════
+   HASH ROUTING  (REGRA-59)
+══════════════════════════════════════════════════════ */
+var HASH_TO_PAGE = {
+  '':                            'home',
+  'grammar':                     'reading',
+  'grammar/present-perfect':     'pp',
+  'grammar/present-simple-continuous': 'ps-pc',
+  'grammar/past-simple':         'past-simple',
+  'grammar/irregular-verbs':     'irregular-verbs',
+  'grammar/present-perfect-continuous': 'ppc',
+  'grammar/past-perfect':        'past-perfect',
+  'grammar/used-to':             'used-to',
+  'grammar/present-as-future':   'present-future',
+  'grammar/will-going-to':       'will-going',
+  'grammar/there-to-be':         'there-to-be',
+  'grammar/articles':            'articles',
+  'grammar/prepositions-place-time': 'prepositions-place-time',
+  'speaking':                    'speaking',
+  'listening':                   'listening',
+  'writing':                     'writing',
+  'progress':                    'student',
+  'teacher':                     'teacher'
+};
+var PAGE_TO_HASH = {};
+Object.keys(HASH_TO_PAGE).forEach(function(h) {
+  PAGE_TO_HASH[HASH_TO_PAGE[h]] = h;
+});
+_pendingHash = null; /* initialised above */
+
+function hashRouter() {
+  var raw = window.location.hash.replace(/^#/, '').replace(/\/+$/, '');
+  if (raw.indexOf('level/') === 0 || raw.indexOf('tag/') === 0) return;
+  var pageId = HASH_TO_PAGE.hasOwnProperty(raw) ? HASH_TO_PAGE[raw] : null;
+  if (!pageId) return;
+  /* If auth hasn't resolved yet, save hash and navigate after login */
+  var needsAuth = (pageId === 'student' || pageId === 'teacher');
+  if (needsAuth && !currentUser) {
+    _pendingHash = raw;
+    return;
+  }
+  window.showPage(pageId, null);
+}
+window.addEventListener('hashchange', hashRouter);
+if (window.location.hash && window.location.hash !== '#') { hashRouter(); }
+
 var currentUserRole = null; /* 'student' | 'teacher' */
 var TEACHER_EMAIL   = 'hannibal.duvaldi@gmail.com'; /* ← substitua pelo seu email */
 
@@ -6675,17 +6722,15 @@ function loadAllProgress() {
       if (spPage && spPage.classList.contains('active')) {
         renderStudentPanel();
       }
-      /* Navigate to pending hash now that data is ready */
-      if (_pendingHash) {
-        var _ph = _pendingHash;
-        _pendingHash = null;
-        var _pid = HASH_TO_PAGE[_ph] || null;
-        if (_pid) { window.showPage(_pid, null); }
+      /* Re-render teacher panel if currently visible */
+      var tpPage = document.getElementById('page-teacher');
+      if (tpPage && tpPage.classList.contains('active')) {
+        renderTeacherPanel();
       }
     })
     .catch(function(e) {
       console.warn('Erro ao carregar progresso:', e.message);
-      progressLoaded = true; /* Mark loaded even on error so UI doesn't hang */
+      progressLoaded = true;
     });
 }
 
@@ -10450,51 +10495,6 @@ document.addEventListener('DOMContentLoaded', function() {
   /* Inject version into all footer spans */
   document.querySelectorAll('.pp-code').forEach(function(el) { el.textContent = SITE_VERSION; });
 
-  /* ══════════════════════════════════════════════════════
-     HASH ROUTING  (REGRA-59)
-  ══════════════════════════════════════════════════════ */
-  var HASH_TO_PAGE = {
-    '':                            'home',
-    'grammar':                     'reading',
-    'grammar/present-perfect':     'pp',
-    'grammar/present-simple-continuous': 'ps-pc',
-    'grammar/past-simple':         'past-simple',
-    'grammar/irregular-verbs':     'irregular-verbs',
-    'grammar/present-perfect-continuous': 'ppc',
-    'grammar/past-perfect':        'past-perfect',
-    'grammar/used-to':             'used-to',
-    'grammar/present-as-future':   'present-future',
-    'grammar/will-going-to':       'will-going',
-    'grammar/there-to-be':         'there-to-be',
-    'grammar/articles':            'articles',
-    'grammar/prepositions-place-time': 'prepositions-place-time',
-    'speaking':                    'speaking',
-    'listening':                   'listening',
-    'writing':                     'writing',
-    'progress':                    'student',
-    'teacher':                     'teacher'
-  };
-  var PAGE_TO_HASH = {};
-  Object.keys(HASH_TO_PAGE).forEach(function(h) {
-    PAGE_TO_HASH[HASH_TO_PAGE[h]] = h;
-  });
-  _pendingHash = null; /* initialised above */
-
-  function hashRouter() {
-    var raw = window.location.hash.replace(/^#/, '').replace(/\/+$/, '');
-    if (raw.indexOf('level/') === 0 || raw.indexOf('tag/') === 0) return;
-    var pageId = HASH_TO_PAGE.hasOwnProperty(raw) ? HASH_TO_PAGE[raw] : null;
-    if (!pageId) return;
-    /* If auth hasn't resolved yet, save hash and navigate after login */
-    var needsAuth = (pageId === 'student' || pageId === 'teacher');
-    if (needsAuth && !currentUser) {
-      _pendingHash = raw;
-      return;
-    }
-    window.showPage(pageId, null);
-  }
-  window.addEventListener('hashchange', hashRouter);
-  if (window.location.hash && window.location.hash !== '#') { hashRouter(); }
 
 
   ppUnlocked = 4;  /* Ensure all PP levels unlocked regardless of any cached state */
