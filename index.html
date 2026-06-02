@@ -2407,7 +2407,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92.1</span>
   </footer>
 </div>
 
@@ -2656,7 +2656,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92.1</span>
   </footer>
 </div>
 
@@ -2805,7 +2805,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92.1</span>
   </footer>
 </div>
 
@@ -3308,7 +3308,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92.1</span>
   </footer>
 </div>
 <!-- ═══════════ END PAST SIMPLE ═══════════ -->
@@ -3482,7 +3482,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92.1</span>
   </footer>
 </div>
 <!-- ═══════════ END IRREGULAR VERBS ═══════════ -->
@@ -3579,7 +3579,7 @@ img { max-width: 100%; }
   
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92.1</span>
   </footer>
 </div>
 
@@ -5881,7 +5881,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.92';
+var SITE_VERSION = 'v0.92.1';
 
 var EXERCISE_REGISTRY = [
   {
@@ -6587,8 +6587,8 @@ function hashRouter() {
   }
   window.showPage(pageId, null);
 }
-window.addEventListener('hashchange', hashRouter);
-if (window.location.hash && window.location.hash !== '#') { hashRouter(); }
+/* hashchange listener and initial call moved to DOMContentLoaded
+   so they fire AFTER the showPage wrapper is set up */
 
 var currentUserRole = null; /* 'student' | 'teacher' */
 var TEACHER_EMAIL   = 'hannibal.duvaldi@gmail.com'; /* ← substitua pelo seu email */
@@ -6706,6 +6706,7 @@ var progressLoaded    = false; /* true after first loadAllProgress resolves */
 var assignmentsCache   = {}; /* exerciseId → true (se for tarefa ativa) */
 
 function loadAllProgress() {
+  console.log('[EFL] loadAllProgress called, currentUser:', currentUser ? currentUser.email : 'null');
   if (!db || !currentUser) return;
   db.collection('users').doc(currentUser.uid)
     .collection('progress')
@@ -6716,6 +6717,7 @@ function loadAllProgress() {
         userProgressCache[doc.id] = doc.data();
       });
       progressLoaded = true;
+      console.log('[EFL] Progress loaded:', Object.keys(userProgressCache).length, 'exercises');
       renderHubBadges();
       /* Re-render student panel if currently visible */
       var spPage = document.getElementById('page-student');
@@ -6879,6 +6881,7 @@ function spBarColor(pct) {
 }
 
 function renderStudentPanel() {
+  console.log('[EFL] renderStudentPanel called, currentUser:', currentUser ? currentUser.email : 'null', 'progressLoaded:', progressLoaded, 'cacheSize:', Object.keys(userProgressCache).length);
   if (!currentUser) return;
   /* If data not loaded yet, show spinner and wait */
   if (!progressLoaded && db) {
@@ -7000,6 +7003,7 @@ var tpAllStudents = []; /* cache dos dados carregados */
 var tpAssignCache = {}; /* uid → { exerciseId: true } — tarefas por aluno */
 
 function renderTeacherPanel() {
+  console.log('[EFL] renderTeacherPanel called, currentUser:', currentUser ? currentUser.email : 'null', 'TEACHER_EMAIL:', TEACHER_EMAIL);
   /* Detect teacher directly by email — avoids race condition with async role load */
   if (!db || !currentUser || currentUser.email !== TEACHER_EMAIL) {
     showPage('home', null);
@@ -10498,6 +10502,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   ppUnlocked = 4;  /* Ensure all PP levels unlocked regardless of any cached state */
+
+  /* Hash routing listeners — after showPage wrapper is ready */
+  window.addEventListener('hashchange', hashRouter);
+  if (window.location.hash && window.location.hash !== '#') { hashRouter(); }
   try { localStorage.removeItem(PP_STORAGE_KEY); } catch(e) {}
   renderLevelCards();
   renderExerciseBadges();
