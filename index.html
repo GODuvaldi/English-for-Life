@@ -2101,131 +2101,6 @@ img { max-width: 100%; }
     </div>
   </div>
 
-<!-- ═══════════ STUDENT PROGRESS PANEL ═══════════ -->
-<div id="page-student" class="page">
-
-  <div class="page-header">
-    <div class="page-header-inner">
-      <div class="breadcrumb">
-        <a onclick="showPage('home',null)">Início</a>
-        <span>›</span>
-        <span>Meu Progresso</span>
-      </div>
-      <div class="module-tag">📊 Painel do Aluno</div>
-      <h2>Meu Progresso</h2>
-      <p>Acompanhe seu desempenho em todos os exercícios.</p>
-    </div>
-  </div>
-
-  <div class="exercise-wrap" style="max-width:800px;margin:0 auto;">
-
-    <!-- Hero com nome e foto -->
-    <div class="sp-hero" id="sp-hero">
-      <div class="sp-avatar" id="sp-avatar-initials">?</div>
-      <div>
-        <div class="sp-hero-name" id="sp-hero-name">Carregando...</div>
-        <div class="sp-hero-sub" id="sp-hero-sub">Painel de progresso pessoal</div>
-      </div>
-    </div>
-
-    <!-- Barra geral -->
-    <div class="sp-overall">
-      <div class="sp-overall-title">Progresso Geral</div>
-      <div class="sp-overall-bar-wrap">
-        <div class="sp-overall-bar-fill" id="sp-overall-fill" style="width:0%;background:var(--green-500);"></div>
-      </div>
-      <div class="sp-overall-stats">
-        <div class="sp-stat">
-          <div class="sp-stat-num" id="sp-stat-pct">0%</div>
-          <div class="sp-stat-lbl">Média geral</div>
-        </div>
-        <div class="sp-stat">
-          <div class="sp-stat-num" id="sp-stat-done">0</div>
-          <div class="sp-stat-lbl">Exercícios feitos</div>
-        </div>
-        <div class="sp-stat">
-          <div class="sp-stat-num" id="sp-stat-pass">0</div>
-          <div class="sp-stat-lbl">Aprovados (≥70%)</div>
-        </div>
-        <div class="sp-stat">
-          <div class="sp-stat-num" id="sp-stat-total">0</div>
-          <div class="sp-stat-lbl">Total de exercícios</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Grupos de exercícios — gerado por JS -->
-    <div id="sp-groups"></div>
-
-  </div>
-</div>
-
-
-<!-- ═══════════ TEACHER PANEL (page-teacher) ═══════════ -->
-<div id="page-teacher" class="page">
-
-  <div class="page-header">
-    <div class="page-header-inner">
-      <div class="breadcrumb">
-        <a onclick="showPage('home',null)">Início</a>
-        <span>›</span><span>Painel do Professor</span>
-      </div>
-      <div class="module-tag">👨‍🏫 Professor</div>
-      <h2>Painel do Professor</h2>
-      <p>Progresso de todos os alunos cadastrados.</p>
-    </div>
-  </div>
-
-  <div class="exercise-wrap" style="max-width:960px;margin:0 auto;">
-
-    <!-- Loading state -->
-    <div id="tp-loading" style="text-align:center;padding:3rem;color:var(--gray-400);">
-      <div style="font-size:2rem;margin-bottom:.5rem;">⏳</div>
-      <div>Carregando dados dos alunos...</div>
-    </div>
-
-    <!-- Dashboard (hidden until loaded) -->
-    <div id="tp-dashboard" style="display:none;">
-
-      <!-- Metric cards row -->
-      <div class="tp-metrics" id="tp-metrics"></div>
-
-      <!-- Group performance + Assignments table side by side -->
-      <div class="tp-mid-row">
-        <div class="tp-panel">
-          <div class="tp-panel-title">Desempenho por grupo</div>
-          <div id="tp-group-bars"></div>
-        </div>
-        <div class="tp-panel">
-          <div class="tp-panel-title">Tarefas ativas</div>
-          <div id="tp-assign-table"></div>
-        </div>
-      </div>
-
-      <!-- Student list -->
-      <div class="tp-panel" style="margin-top:1rem;">
-        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.875rem;flex-wrap:wrap;">
-          <div class="tp-panel-title" style="margin:0;">Alunos</div>
-          <input id="tp-search" type="text" placeholder="Buscar por nome ou email..."
-            oninput="tpFilter()"
-            style="flex:1;min-width:160px;padding:.5rem .75rem;border:1px solid var(--gray-200);
-                   border-radius:var(--radius-md);font-size:.8125rem;outline:none;">
-          <select id="tp-filter-status" onchange="tpFilter()"
-            style="padding:.5rem .75rem;border:1px solid var(--gray-200);border-radius:var(--radius-md);
-                   font-size:.8125rem;background:white;outline:none;">
-            <option value="all">Todos</option>
-            <option value="pending">Com pendências</option>
-            <option value="inactive">Sem atividade</option>
-          </select>
-          <span id="tp-count" style="font-size:.8rem;color:var(--gray-500);white-space:nowrap;"></span>
-        </div>
-        <div id="tp-table"></div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
 
   <footer class="footer">
     © 2026 English For Life · Todos os direitos reservados · <span class="pp-code" id="home-version"></span>
@@ -2407,7 +2282,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92.1</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.94</span>
   </footer>
 </div>
 
@@ -2656,7 +2531,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92.1</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.94</span>
   </footer>
 </div>
 
@@ -2805,7 +2680,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92.1</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.94</span>
   </footer>
 </div>
 
@@ -3308,7 +3183,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92.1</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.94</span>
   </footer>
 </div>
 <!-- ═══════════ END PAST SIMPLE ═══════════ -->
@@ -3482,7 +3357,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92.1</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.94</span>
   </footer>
 </div>
 <!-- ═══════════ END IRREGULAR VERBS ═══════════ -->
@@ -3579,7 +3454,7 @@ img { max-width: 100%; }
   
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.92.1</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.94</span>
   </footer>
 </div>
 
@@ -5877,11 +5752,138 @@ img { max-width: 100%; }
 </div>
 <!-- ═══════════ END THERE TO BE PAGE ═══════════ -->
 
+<!-- ═══════════ STUDENT PROGRESS PANEL ═══════════ -->
+<div id="page-student" class="page">
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="breadcrumb">
+        <a onclick="showPage('home',null)">Início</a>
+        <span>›</span>
+        <span>Meu Progresso</span>
+      </div>
+      <div class="module-tag">📊 Painel do Aluno</div>
+      <h2>Meu Progresso</h2>
+      <p>Acompanhe seu desempenho em todos os exercícios.</p>
+    </div>
+  </div>
+
+  <div class="exercise-wrap" style="max-width:800px;margin:0 auto;">
+
+    <!-- Hero com nome e foto -->
+    <div class="sp-hero" id="sp-hero">
+      <div class="sp-avatar" id="sp-avatar-initials">?</div>
+      <div>
+        <div class="sp-hero-name" id="sp-hero-name">Carregando...</div>
+        <div class="sp-hero-sub" id="sp-hero-sub">Painel de progresso pessoal</div>
+      </div>
+    </div>
+
+    <!-- Barra geral -->
+    <div class="sp-overall">
+      <div class="sp-overall-title">Progresso Geral</div>
+      <div class="sp-overall-bar-wrap">
+        <div class="sp-overall-bar-fill" id="sp-overall-fill" style="width:0%;background:var(--green-500);"></div>
+      </div>
+      <div class="sp-overall-stats">
+        <div class="sp-stat">
+          <div class="sp-stat-num" id="sp-stat-pct">0%</div>
+          <div class="sp-stat-lbl">Média geral</div>
+        </div>
+        <div class="sp-stat">
+          <div class="sp-stat-num" id="sp-stat-done">0</div>
+          <div class="sp-stat-lbl">Exercícios feitos</div>
+        </div>
+        <div class="sp-stat">
+          <div class="sp-stat-num" id="sp-stat-pass">0</div>
+          <div class="sp-stat-lbl">Aprovados (≥70%)</div>
+        </div>
+        <div class="sp-stat">
+          <div class="sp-stat-num" id="sp-stat-total">0</div>
+          <div class="sp-stat-lbl">Total de exercícios</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grupos de exercícios — gerado por JS -->
+    <div id="sp-groups"></div>
+
+  </div>
+</div>
+
+
+
+<!-- ═══════════ TEACHER PANEL (page-teacher) ═══════════ -->
+<div id="page-teacher" class="page">
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="breadcrumb">
+        <a onclick="showPage('home',null)">Início</a>
+        <span>›</span><span>Painel do Professor</span>
+      </div>
+      <div class="module-tag">👨‍🏫 Professor</div>
+      <h2>Painel do Professor</h2>
+      <p>Progresso de todos os alunos cadastrados.</p>
+    </div>
+  </div>
+
+  <div class="exercise-wrap" style="max-width:960px;margin:0 auto;">
+
+    <!-- Loading state -->
+    <div id="tp-loading" style="text-align:center;padding:3rem;color:var(--gray-400);">
+      <div style="font-size:2rem;margin-bottom:.5rem;">⏳</div>
+      <div>Carregando dados dos alunos...</div>
+    </div>
+
+    <!-- Dashboard (hidden until loaded) -->
+    <div id="tp-dashboard" style="display:none;">
+
+      <!-- Metric cards row -->
+      <div class="tp-metrics" id="tp-metrics"></div>
+
+      <!-- Group performance + Assignments table side by side -->
+      <div class="tp-mid-row">
+        <div class="tp-panel">
+          <div class="tp-panel-title">Desempenho por grupo</div>
+          <div id="tp-group-bars"></div>
+        </div>
+        <div class="tp-panel">
+          <div class="tp-panel-title">Tarefas ativas</div>
+          <div id="tp-assign-table"></div>
+        </div>
+      </div>
+
+      <!-- Student list -->
+      <div class="tp-panel" style="margin-top:1rem;">
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.875rem;flex-wrap:wrap;">
+          <div class="tp-panel-title" style="margin:0;">Alunos</div>
+          <input id="tp-search" type="text" placeholder="Buscar por nome ou email..."
+            oninput="tpFilter()"
+            style="flex:1;min-width:160px;padding:.5rem .75rem;border:1px solid var(--gray-200);
+                   border-radius:var(--radius-md);font-size:.8125rem;outline:none;">
+          <select id="tp-filter-status" onchange="tpFilter()"
+            style="padding:.5rem .75rem;border:1px solid var(--gray-200);border-radius:var(--radius-md);
+                   font-size:.8125rem;background:white;outline:none;">
+            <option value="all">Todos</option>
+            <option value="pending">Com pendências</option>
+            <option value="inactive">Sem atividade</option>
+          </select>
+          <span id="tp-count" style="font-size:.8rem;color:var(--gray-500);white-space:nowrap;"></span>
+        </div>
+        <div id="tp-table"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
 
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.92.1';
+var SITE_VERSION = 'v0.94';
 
 var EXERCISE_REGISTRY = [
   {
@@ -6579,17 +6581,13 @@ function hashRouter() {
   if (raw.indexOf('level/') === 0 || raw.indexOf('tag/') === 0) return;
   var pageId = HASH_TO_PAGE.hasOwnProperty(raw) ? HASH_TO_PAGE[raw] : null;
   if (!pageId) return;
-  /* If auth hasn't resolved yet, save hash and navigate after login */
+  var targetEl = document.getElementById('page-' + pageId);
+  if (targetEl && targetEl.classList.contains('active')) return;
   var needsAuth = (pageId === 'student' || pageId === 'teacher');
-  if (needsAuth && !currentUser) {
-    _pendingHash = raw;
-    return;
-  }
+  if (needsAuth && !currentUser) { _pendingHash = raw; return; }
   window.showPage(pageId, null);
 }
-/* hashchange listener and initial call moved to DOMContentLoaded
-   so they fire AFTER the showPage wrapper is set up */
-
+/* listener set up in DOMContentLoaded */
 var currentUserRole = null; /* 'student' | 'teacher' */
 var TEACHER_EMAIL   = 'hannibal.duvaldi@gmail.com'; /* ← substitua pelo seu email */
 
@@ -6598,9 +6596,8 @@ if (auth) auth.onAuthStateChanged(function(user) {
   updateNavAuth(user);
   if (user) {
     ensureUserProfile(user);
-    loadAllProgress();
+    loadAllProgress(); /* will re-render panels and handle _pendingHash after data loads */
     loadAssignments();
-    /* Hash navigation now handled by loadAllProgress after data is ready */
   }
 });
 
@@ -6666,9 +6663,6 @@ function signInWithGoogle() {
 
 function signOutUser() {
   auth.signOut().then(function() {
-    progressLoaded = false;
-    userProgressCache = {};
-    assignmentsCache = {};
     toggleDropdown(true);
   });
 }
@@ -6702,40 +6696,28 @@ var HUB_EXERCISE_MAP = {
 };
 
 var userProgressCache  = {}; /* exerciseId → {bestScore, maxScore, completed} */
-var progressLoaded    = false; /* true after first loadAllProgress resolves */
+var progressLoaded    = false;
 var assignmentsCache   = {}; /* exerciseId → true (se for tarefa ativa) */
 
 function loadAllProgress() {
-  console.log('[EFL] loadAllProgress called, currentUser:', currentUser ? currentUser.email : 'null');
   if (!db || !currentUser) return;
   db.collection('users').doc(currentUser.uid)
-    .collection('progress')
-    .get()
+    .collection('progress').get()
     .then(function(snapshot) {
       userProgressCache = {};
-      snapshot.forEach(function(doc) {
-        userProgressCache[doc.id] = doc.data();
-      });
+      snapshot.forEach(function(doc) { userProgressCache[doc.id] = doc.data(); });
       progressLoaded = true;
-      console.log('[EFL] Progress loaded:', Object.keys(userProgressCache).length, 'exercises');
       renderHubBadges();
-      /* Re-render student panel if currently visible */
       var spPage = document.getElementById('page-student');
-      if (spPage && spPage.classList.contains('active')) {
-        renderStudentPanel();
-      }
-      /* Re-render teacher panel if currently visible */
+      if (spPage && spPage.classList.contains('active')) { renderStudentPanel(); }
       var tpPage = document.getElementById('page-teacher');
-      if (tpPage && tpPage.classList.contains('active')) {
-        renderTeacherPanel();
-      }
+      if (tpPage && tpPage.classList.contains('active')) { renderTeacherPanel(); }
     })
     .catch(function(e) {
       console.warn('Erro ao carregar progresso:', e.message);
       progressLoaded = true;
     });
 }
-
 function renderHubBadges() {
   var cards = document.querySelectorAll('[data-hub-page]');
   cards.forEach(function(card) {
@@ -6881,15 +6863,17 @@ function spBarColor(pct) {
 }
 
 function renderStudentPanel() {
-  console.log('[EFL] renderStudentPanel called, currentUser:', currentUser ? currentUser.email : 'null', 'progressLoaded:', progressLoaded, 'cacheSize:', Object.keys(userProgressCache).length);
   if (!currentUser) return;
-  /* If data not loaded yet, show spinner and wait */
-  if (!progressLoaded && db) {
+  if (!progressLoaded) {
     var sg = document.getElementById('sp-groups');
-    if (sg) sg.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--gray-400);">⏳ Carregando progresso...</div>';
-    /* loadAllProgress will re-render when it resolves */
-    if (Object.keys(userProgressCache).length === 0) { loadAllProgress(); }
+    if (sg) sg.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--gray-400);">⏳ Carregando...</div>';
+    if (db) loadAllProgress();
     return;
+  }
+  /* If cache is empty, load data first then re-render */
+  if (Object.keys(userProgressCache).length === 0 && db) {
+    loadAllProgress();
+    return; /* loadAllProgress will call renderStudentPanel when done */
   }
 
   /* Hero */
@@ -7003,7 +6987,6 @@ var tpAllStudents = []; /* cache dos dados carregados */
 var tpAssignCache = {}; /* uid → { exerciseId: true } — tarefas por aluno */
 
 function renderTeacherPanel() {
-  console.log('[EFL] renderTeacherPanel called, currentUser:', currentUser ? currentUser.email : 'null', 'TEACHER_EMAIL:', TEACHER_EMAIL);
   /* Detect teacher directly by email — avoids race condition with async role load */
   if (!db || !currentUser || currentUser.email !== TEACHER_EMAIL) {
     showPage('home', null);
@@ -10503,7 +10486,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   ppUnlocked = 4;  /* Ensure all PP levels unlocked regardless of any cached state */
 
-  /* Hash routing listeners — after showPage wrapper is ready */
+  /* Hash routing — after showPage wrapper ready */
   window.addEventListener('hashchange', hashRouter);
   if (window.location.hash && window.location.hash !== '#') { hashRouter(); }
   try { localStorage.removeItem(PP_STORAGE_KEY); } catch(e) {}
