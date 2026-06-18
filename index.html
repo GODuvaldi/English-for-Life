@@ -2282,7 +2282,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.94</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.95</span>
   </footer>
 </div>
 
@@ -2531,7 +2531,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.94</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.95</span>
   </footer>
 </div>
 
@@ -2680,7 +2680,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.94</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.95</span>
   </footer>
 </div>
 
@@ -3183,7 +3183,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.94</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.95</span>
   </footer>
 </div>
 <!-- ═══════════ END PAST SIMPLE ═══════════ -->
@@ -3357,7 +3357,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.94</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.95</span>
   </footer>
 </div>
 <!-- ═══════════ END IRREGULAR VERBS ═══════════ -->
@@ -3454,7 +3454,7 @@ img { max-width: 100%; }
   
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.94</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.95</span>
   </footer>
 </div>
 
@@ -5883,7 +5883,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.94';
+var SITE_VERSION = 'v0.95';
 
 var EXERCISE_REGISTRY = [
   {
@@ -10431,11 +10431,12 @@ document.addEventListener('DOMContentLoaded', function() {
   var origShowPage = window.showPage;
   window.showPage = function(id, arg) {
     if (id === 'reading') { renderHubBadges(); }
+    if (id === 'ps-pc') { pspcGoSetup(); }
     if (id === 'irregular-verbs') { ivRenderChips(); }
     if (id === 'student') { renderStudentPanel(); }
     if (id === 'teacher') { renderTeacherPanel(); }
     if (id === 'past-simple') {
-      if (psL1Queue.length === 0) {
+      if (typeof psL1Queue === 'undefined' || psL1Queue.length === 0) {
         psInit();
       } else {
         psBackToMenu();
@@ -12889,13 +12890,13 @@ var AR_BANK_T3 = [
   { noun:`science`, ctxA:{label:`A ciência como disciplina`,sentence:`___ science is based on evidence and experimentation.`,correct:1,opts:[`The`,`—`],expl:`<strong>— (sem artigo)</strong> — ciência como campo do conhecimento em generalização → artigo zero. Como "music", "art", "history" em sentido geral.`}, ctxB:{label:`A ciência por trás de algo`,sentence:`___ science behind this discovery is fascinating.`,correct:0,opts:[`The`,`—`],expl:`<strong>The science</strong> — a ciência específica por trás desta descoberta, identificada pelo contexto → <em>the</em>.`} },
   { noun:`shop`, ctxA:{label:`Qualquer loja`,sentence:`There's ___ new shop on the corner.`,correct:0,opts:[`a`,`the`],expl:`<strong>a new shop</strong> — introduzindo a loja pela primeira vez → <em>a</em>.`}, ctxB:{label:`A loja que conhecem`,sentence:`I'll meet you outside ___ shop we went to last week.`,correct:1,opts:[`a`,`the`],expl:`<strong>the shop</strong> — a loja específica que visitaram juntos → <em>the</em>. Referência compartilhada = <em>the</em>.`} },
   { noun:`teacher`, ctxA:{label:`Um professor qualquer`,sentence:`Every student needs ___ good teacher.`,correct:0,opts:[`a`,`the`],expl:`<strong>a good teacher</strong> — afirmação geral; não é um professor específico → <em>a</em>.`}, ctxB:{label:`O professor dela`,sentence:`___ teacher who taught me English was amazing.`,correct:1,opts:[`a`,`the`],expl:`<strong>The teacher</strong> — o professor específico identificado pela relativa "who taught me English" → <em>the</em>.`} },
-  { noun:`exam`, ctxA:{label:`Um exame qualquer`,sentence:`She failed ___ exam last semester.`,correct:0,opts:[`a`,`the`],expl:`<strong>an exam</strong> — primeira menção, não identificado. Atenção: "exam" começa com /ɪ/ (vogal) → <em>an exam</em>. Mas este item usa <em>a</em> — é uma questão de atenção ao som.`}, ctxB:{label:`O exame que todos sabem`,sentence:`Are you ready for ___ exam tomorrow?`,correct:1,opts:[`a`,`the`],expl:`<strong>the exam</strong> — o exame específico que todos na turma conhecem; contexto compartilhado → <em>the</em>.`} },
+  { noun:`exam`, ctxA:{label:`Um exame qualquer`,sentence:`She failed ___ exam last semester.`,correct:1,opts:[`a`,`an`,`the`],expl:`<strong>an exam</strong> — primeira menção, não identificado. Atenção: "exam" começa com /ɪ/ (vogal) → <em>an exam</em>.`}, ctxB:{label:`O exame que todos sabem`,sentence:`Are you ready for ___ exam tomorrow?`,correct:1,opts:[`a`,`the`],expl:`<strong>the exam</strong> — o exame específico que todos na turma conhecem; contexto compartilhado → <em>the</em>.`} },
   { noun:`art`, ctxA:{label:`Arte como conceito`,sentence:`___ art reflects the culture of its time.`,correct:1,opts:[`The`,`—`],expl:`<strong>— (sem artigo)</strong> — arte como disciplina/conceito em generalização → artigo zero.`}, ctxB:{label:`A arte desta exposição`,sentence:`___ art in this museum is extraordinary.`,correct:0,opts:[`The`,`—`],expl:`<strong>The art</strong> — as obras específicas deste museu, identificadas por "in this museum" → <em>the</em>.`} },
   { noun:`sea`, ctxA:{label:`O mar perto daqui`,sentence:`We spent the weekend by ___ sea.`,correct:1,opts:[`a`,`the`],expl:`<strong>the sea</strong> — o mar próximo, compartilhado no contexto geográfico. Em inglês britânico "by the sea" é expressão fixa para "à beira-mar".`}, ctxB:{label:`Mar específico`,sentence:`___ Mediterranean Sea is known for its clear blue water.`,correct:1,opts:[`a`,`the`],expl:`<strong>The Mediterranean Sea</strong> — nome próprio de mar específico → <em>the</em>. Regra: oceanos, mares e rios nomeados → <em>the</em>.`} },
   { noun:`question`, ctxA:{label:`Uma pergunta qualquer`,sentence:`Can I ask you ___ question?`,correct:0,opts:[`a`,`the`],expl:`<strong>a question</strong> — primeira menção, não específica para o ouvinte → <em>a</em>. Pedido educado.`}, ctxB:{label:`A pergunta mencionada antes`,sentence:`___ question you asked is very interesting.`,correct:1,opts:[`a`,`the`],expl:`<strong>The question</strong> — a pergunta específica já feita, identificada por "you asked" → <em>the</em>.`} },
   { noun:`history`, ctxA:{label:`História como disciplina`,sentence:`___ history teaches us important lessons.`,correct:1,opts:[`The`,`—`],expl:`<strong>— (sem artigo)</strong> — história como campo de estudo em generalização → artigo zero. Como "science", "music", "art".`}, ctxB:{label:`A história deste lugar`,sentence:`___ history of this city dates back to the 15th century.`,correct:0,opts:[`The`,`—`],expl:`<strong>The history</strong> — a história específica desta cidade, identificada por "of this city" → <em>the</em>.`} },
   { noun:`environment`, ctxA:{label:`O meio ambiente global`,sentence:`We must protect ___ environment for future generations.`,correct:0,opts:[`the`,`—`],expl:`<strong>the environment</strong> — único e global, compartilhado por todos → <em>the</em>. Como "the internet", "the government", "the economy".`}, ctxB:{label:`O ambiente de trabalho`,sentence:`___ environment in that office is very stressful.`,correct:0,opts:[`the`,`—`],expl:`<strong>the environment</strong> — o ambiente específico daquele escritório, identificado pelo contexto → <em>the</em>.`} },
-  { noun:`future`, ctxA:{label:`O futuro em geral`,sentence:`Nobody can predict ___ future.`,correct:1,opts:[`the`,`—`],expl:`<strong>the future</strong> — "the future" é único; só existe um futuro → <em>the</em>. Expressão fixa em inglês: <em>the future, the past, the present</em>.`}, ctxB:{label:`O futuro do projeto`,sentence:`___ future of this project depends on funding.`,correct:0,opts:[`the`,`—`],expl:`<strong>The future</strong> — o futuro específico deste projeto, identificado por "of this project" → <em>the</em>.`} },
+  { noun:`future`, ctxA:{label:`O futuro em geral`,sentence:`Nobody can predict ___ future.`,correct:0,opts:[`the`,`—`],expl:`<strong>the future</strong> — "the future" é único; só existe um futuro → <em>the</em>. Expressão fixa em inglês: <em>the future, the past, the present</em>.`}, ctxB:{label:`O futuro do projeto`,sentence:`___ future of this project depends on funding.`,correct:0,opts:[`the`,`—`],expl:`<strong>The future</strong> — o futuro específico deste projeto, identificado por "of this project" → <em>the</em>.`} },
   { noun:`government`, ctxA:{label:`O governo atual`,sentence:`___ government has announced new tax measures.`,correct:0,opts:[`The`,`—`],expl:`<strong>The government</strong> — o governo específico do país em questão, único em seu contexto → <em>the</em>. Como "the police", "the army".`}, ctxB:{label:`Governo em geral`,sentence:`___ government should be accountable to its citizens.`,correct:0,opts:[`The`,`—`],expl:`<strong>The government</strong> — mesmo em sentido mais geral, "government" refere-se à instituição específica → <em>the</em>. Instituições de estado → <em>the</em>.`} },
   { noun:`experience`, ctxA:{label:`Experiência incontável geral`,sentence:`___ experience is the best teacher.`,correct:1,opts:[`The`,`—`],expl:`<strong>— (sem artigo)</strong> — "experience" como conceito abstrato incontável em generalização → artigo zero.`}, ctxB:{label:`Uma experiência específica`,sentence:`___ experience I had in Japan changed my life.`,correct:0,opts:[`The`,`—`],expl:`<strong>The experience</strong> — a experiência específica no Japão, identificada pela relativa → <em>the</em>. Aqui "experience" é contável (uma experiência específica).`} },
   { noun:`window`, ctxA:{label:`Uma janela qualquer`,sentence:`The apartment has ___ large window overlooking the park.`,correct:0,opts:[`a`,`the`],expl:`<strong>a large window</strong> — descrevendo uma característica do apartamento, primeira menção → <em>a</em>.`}, ctxB:{label:`A janela deste quarto`,sentence:`Please close ___ window — it's getting cold.`,correct:1,opts:[`a`,`the`],expl:`<strong>the window</strong> — a janela específica e visível deste cômodo; contexto físico compartilhado → <em>the</em>.`} }
