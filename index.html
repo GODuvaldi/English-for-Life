@@ -2282,7 +2282,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.95</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.96</span>
   </footer>
 </div>
 
@@ -2531,7 +2531,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.95</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.96</span>
   </footer>
 </div>
 
@@ -2680,7 +2680,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.95</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.96</span>
   </footer>
 </div>
 
@@ -3183,7 +3183,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.95</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.96</span>
   </footer>
 </div>
 <!-- ═══════════ END PAST SIMPLE ═══════════ -->
@@ -3357,7 +3357,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.95</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.96</span>
   </footer>
 </div>
 <!-- ═══════════ END IRREGULAR VERBS ═══════════ -->
@@ -3454,7 +3454,7 @@ img { max-width: 100%; }
   
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.95</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.96</span>
   </footer>
 </div>
 
@@ -5883,7 +5883,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.95';
+var SITE_VERSION = 'v0.96';
 
 var EXERCISE_REGISTRY = [
   {
@@ -8535,6 +8535,7 @@ function pspcGetHint(chosen, tgtKey, sentence) {
         ? "Dois erros: (1) com I/you/we/they use **Don't** — não *Doesn't*; (2) em perguntas, o auxiliar vem antes do sujeito: **Don't** + sujeito + verbo. Ex: **Don't** they live? (e não ~~They doesn't live~~?)."
         : "Dois erros: (1) com I/you/we/they use **Do** — não *Does*; (2) em perguntas, o auxiliar vem antes do sujeito: **Do** + sujeito + verbo. Ex: **Do** they live? (e não ~~They does live~~?)."
     };
+  }
 
   /* PS q: does...verb-s (generic catch) */
   if ((tgtKey === 'q' || tgtKey === 'nq') && /does\s+\w+\s+\w+s\b/i.test(c)) {
@@ -9407,8 +9408,7 @@ var psL2Queue = [], psL2Idx = 0, psL2Score = 0, psL2Answered = false, psL2Histor
 var psL3Queue = [], psL3Idx = 0, psL3Score = 0, psL3Attempt = 0, psL3History = [];
 var psTotalScore = 0, psTotalCorrect = 0;
 
-/* ── HELPERS ── *
-    /
+/* ── HELPERS ── */
 function psShuffle(arr) {
   var a = arr.slice();
   for (var i = a.length - 1; i > 0; i--) {
