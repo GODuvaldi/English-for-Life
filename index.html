@@ -1992,16 +1992,16 @@ img { max-width: 100%; }
     English For Life
   </div>
   <ul class="nav-links" id="nav-links">
-    <li><a href="#" class="active" onclick="showPage('home',this)" data-page="home">
+    <li><a href="#" class="active" onclick="showPage('home',this);return false;" data-page="home">
       <span class="nav-icon">🏠</span> Início
     </a></li>
-    <li><a href="#" onclick="showPage('listening',this)" data-page="listening">
+    <li><a href="#" onclick="showPage('listening',this);return false;" data-page="listening">
       <span class="nav-icon">🎧</span> Listening
     </a></li>
-    <li><a href="#" onclick="showPage('reading',this)" data-page="reading">
+    <li><a href="#" onclick="showPage('reading',this);return false;" data-page="reading">
       <span class="nav-icon">📐</span> Grammar
     </a></li>
-    <li><a href="#" onclick="showPage('irregular-verbs',this)" data-page="irregular-verbs">
+    <li><a href="#" onclick="showPage('irregular-verbs',this);return false;" data-page="irregular-verbs">
       <span class="nav-icon">🔀</span> Irregular Verbs
     </a></li>
   </ul>
@@ -2050,10 +2050,10 @@ img { max-width: 100%; }
 
 <!-- Menu mobile -->
 <div class="nav-mobile" id="nav-mobile">
-  <a href="#" class="active" onclick="showPage('home',null);closeMobileNav()">🏠 Início</a>
-  <a href="#" onclick="showPage('listening',null);closeMobileNav()">🎧 Listening</a>
-  <a href="#" onclick="showPage('reading',null);closeMobileNav()">📐 Grammar</a>
-  <a href="#" onclick="showPage('irregular-verbs',null);closeMobileNav()">🔀 Irregular Verbs</a>
+  <a href="#" class="active" onclick="showPage('home',null);closeMobileNav();return false;">🏠 Início</a>
+  <a href="#" onclick="showPage('listening',null);closeMobileNav();return false;">🎧 Listening</a>
+  <a href="#" onclick="showPage('reading',null);closeMobileNav();return false;">📐 Grammar</a>
+  <a href="#" onclick="showPage('irregular-verbs',null);closeMobileNav();return false;">🔀 Irregular Verbs</a>
 </div>
 
 
@@ -2282,7 +2282,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.96</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.97</span>
   </footer>
 </div>
 
@@ -2531,7 +2531,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.96</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.97</span>
   </footer>
 </div>
 
@@ -2680,7 +2680,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.96</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.97</span>
   </footer>
 </div>
 
@@ -3183,7 +3183,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.96</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.97</span>
   </footer>
 </div>
 <!-- ═══════════ END PAST SIMPLE ═══════════ -->
@@ -3357,7 +3357,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.96</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.97</span>
   </footer>
 </div>
 <!-- ═══════════ END IRREGULAR VERBS ═══════════ -->
@@ -3454,7 +3454,7 @@ img { max-width: 100%; }
   
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.96</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.97</span>
   </footer>
 </div>
 
@@ -5883,7 +5883,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.96';
+var SITE_VERSION = 'v0.97';
 
 var EXERCISE_REGISTRY = [
   {
@@ -6576,9 +6576,15 @@ Object.keys(HASH_TO_PAGE).forEach(function(h) {
 });
 _pendingHash = null; /* initialised above */
 
+var _lastProgrammaticNav = 0; /* timestamp of last showPage() call via nav click */
+
 function hashRouter() {
   var raw = window.location.hash.replace(/^#/, '').replace(/\/+$/, '');
   if (raw.indexOf('level/') === 0 || raw.indexOf('tag/') === 0) return;
+  /* Defensive guard: ignore a spurious hashchange to '' that fires right after
+     a deliberate nav click (e.g. browser default action on href="#"). Real user
+     navigation to home via back/forward won't be within this tiny window. */
+  if (raw === '' && (Date.now() - _lastProgrammaticNav) < 150) return;
   var pageId = HASH_TO_PAGE.hasOwnProperty(raw) ? HASH_TO_PAGE[raw] : null;
   if (!pageId) return;
   var targetEl = document.getElementById('page-' + pageId);
@@ -10430,6 +10436,7 @@ document.addEventListener('DOMContentLoaded', function() {
   /* Past Simple: wrap showPage to init on first visit */
   var origShowPage = window.showPage;
   window.showPage = function(id, arg) {
+    _lastProgrammaticNav = Date.now(); /* guard against spurious href="#" hashchange */
     if (id === 'reading') { renderHubBadges(); }
     if (id === 'ps-pc') { pspcGoSetup(); }
     if (id === 'irregular-verbs') { ivRenderChips(); }
