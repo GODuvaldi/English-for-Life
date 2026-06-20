@@ -2282,7 +2282,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.97</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.99</span>
   </footer>
 </div>
 
@@ -2531,7 +2531,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.97</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.99</span>
   </footer>
 </div>
 
@@ -2680,7 +2680,7 @@ img { max-width: 100%; }
   </div>
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.97</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.99</span>
   </footer>
 </div>
 
@@ -2840,6 +2840,7 @@ img { max-width: 100%; }
       <div class="pspc-stat"><div class="pspc-stat-num" id="pspc-stat-wrong">0</div><div class="pspc-stat-lbl">Erros</div></div>
       <div class="pspc-stat"><div class="pspc-stat-num" id="pspc-stat-streak">0</div><div class="pspc-stat-lbl">Melhor série</div></div>
     </div>
+    <div id="pspc-review-wrap"></div>
     <div class="pspc-result-actions">
       <button class="pspc-btn-again" onclick="pspcRestart()">🔄 Praticar novamente</button>
       <button class="pspc-btn-back-result" onclick="pspcGoSetup()">← Voltar às escolhas de níveis</button>
@@ -2955,6 +2956,7 @@ img { max-width: 100%; }
         <div class="pspc-stat"><div class="pspc-stat-num" id="tobe-stat-wrong">0</div><div class="pspc-stat-lbl">Erros</div></div>
         <div class="pspc-stat"><div class="pspc-stat-num" id="tobe-stat-streak">0</div><div class="pspc-stat-lbl">Melhor série</div></div>
       </div>
+      <div id="tobe-review-wrap"></div>
       <div class="pspc-result-actions">
         <button class="pspc-btn-again" onclick="tobeRestart()">🔄 Praticar TO BE novamente</button>
         <button class="pspc-btn-back-result" onclick="tobeGoSetup()">← Voltar às escolhas</button>
@@ -3183,7 +3185,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.97</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.99</span>
   </footer>
 </div>
 <!-- ═══════════ END PAST SIMPLE ═══════════ -->
@@ -3357,7 +3359,7 @@ img { max-width: 100%; }
   </div><!-- /.exercise-wrap -->
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.97</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.99</span>
   </footer>
 </div>
 <!-- ═══════════ END IRREGULAR VERBS ═══════════ -->
@@ -3454,7 +3456,7 @@ img { max-width: 100%; }
   
 
   <footer class="footer">
-    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.97</span>
+    © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v0.99</span>
   </footer>
 </div>
 
@@ -5518,7 +5520,7 @@ img { max-width: 100%; }
         <div style="background:var(--gray-50);border-radius:var(--radius-md);padding:.875rem 1rem;font-size:.875rem;border-left:3px solid #6d28d9;">
           <em><strong>There is</strong> a cat in the garden.</em> → Há um gato no jardim.<br>
           <em><strong>There are</strong> two cats in the garden.</em> → Há dois gatos no jardim.<br>
-          <span style="font-size:.8rem;color:var(--gray-500);">❌ "Have a cat in the garden" — errado! "Have" não expressa existência em inglês.</span>
+          <span style="font-size:.8rem;color:var(--gray-500);">❌ "Have a cat in the garden" — errado! Em português dizemos "Tem um gato" (do verbo "Ter"), mas essa tradução não funciona em inglês: "Have" é posse (eu tenho algo), não existência. Para existência em inglês, use sempre <em>there to be</em>.</span>
         </div>
       </div>
 
@@ -5630,7 +5632,7 @@ img { max-width: 100%; }
         <div style="display:grid;gap:.625rem;">
           <div style="border:1.5px solid var(--red-100);border-radius:var(--radius-md);padding:.875rem 1rem;background:#fff7f7;font-size:.875rem;">
             ❌ <em>Have a book on the table.</em> → ✅ <em><strong>There is</strong> a book on the table.</em><br>
-            <span style="font-size:.8rem;color:var(--gray-500);">Em português "Tem um livro na mesa" usa "ter". Em inglês, existência = there to be.</span>
+            <span style="font-size:.8rem;color:var(--gray-500);">O português "Tem" (verbo "Ter") e o inglês "Have" parecem equivalentes, mas não são intercambiáveis aqui: "Ter" em PT-BR pode expressar existência ("Tem um livro na mesa"), enquanto "Have" em EN é sempre posse, nunca existência. Por isso a tradução literal falha — em inglês, existência = <em>there to be</em>.</span>
           </div>
           <div style="border:1.5px solid var(--red-100);border-radius:var(--radius-md);padding:.875rem 1rem;background:#fff7f7;font-size:.875rem;">
             ❌ <em>There is two people here.</em> → ✅ <em><strong>There are</strong> two people here.</em><br>
@@ -5883,7 +5885,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v0.97';
+var SITE_VERSION = 'v0.99';
 
 var EXERCISE_REGISTRY = [
   {
@@ -8013,21 +8015,29 @@ function ppShowResult() {
     renderPPLevelCards();
   }
 
-  /* Questões com erro */
-  var errors  = ppLog.filter(function(l) { return !l.ok; });
+  /* Tabela de revisão (REGRA-57 — padrão ouro) */
+  var rows = ppLog.map(function(l) {
+    var correctVal = l.q.answer || l.q.correct;
+    var filled = l.q.sentence.replace(/___/g, '<strong style="color:#6d28d9;">' + correctVal + '</strong>');
+    return '<tr class="' + (l.ok ? 'ppc-trow-ok' : 'ppc-trow-err') + '">'
+      + '<td style="padding:.5rem .625rem;text-align:center;">' + (l.ok ? '✅' : '❌') + '</td>'
+      + '<td style="padding:.5rem .625rem;font-size:.8rem;color:var(--gray-700);">' + filled + '</td>'
+      + '<td style="padding:.5rem .625rem;font-size:.875rem;font-weight:700;color:var(--green-800);">' + correctVal + '</td>'
+      + '<td style="padding:.5rem .625rem;font-size:.8rem;color:var(--gray-500);">' + (l.ok ? '—' : '<em>' + l.chosen + '</em>') + '</td>'
+      + '</tr>';
+  }).join('');
+  var tableHtml = '<div class="ppc-review-wrap" style="margin-top:1rem;">'
+    + '<h4 class="ppc-review-title">📋 Revisão das suas respostas</h4>'
+    + '<div style="overflow-x:auto;"><table class="ppc-review-table"><thead><tr>'
+    + '<th style="padding:.5rem .625rem;width:2rem;"></th>'
+    + '<th style="padding:.5rem .625rem;text-align:left;">Frase</th>'
+    + '<th style="padding:.5rem .625rem;text-align:left;">Correto</th>'
+    + '<th style="padding:.5rem .625rem;text-align:left;">Sua resp.</th>'
+    + '</tr></thead><tbody>' + rows + '</tbody></table></div></div>';
   var errCard = ppEl('pp-review-errors-card');
-  var errList = ppEl('pp-review-errors-list');
-  if (errCard && errList) {
-    if (errors.length > 0) {
-      errCard.style.display = 'block';
-      errList.innerHTML = errors.map(function(l) {
-        return '<div class="review-item"><div>' +
-          '<div class="review-past" style="font-size:14px">' + l.q.sentence + '</div>' +
-          '<div class="review-ph">Correto: ' + (l.q.answer || l.q.correct) + '</div>' +
-          '<div class="review-ph">' + l.q.tags.join(' ') + '</div>' +
-          '</div><span class="badge-err">Rever</span></div>';
-      }).join('');
-    } else { errCard.style.display = 'none'; }
+  if (errCard) {
+    errCard.style.display = 'block';
+    errCard.innerHTML = tableHtml;
   }
   window.scrollTo({top:0,behavior:'smooth'});
   saveProgress('present-perfect-hub', ppCorrect, PP_ROUND_SIZE);
@@ -8178,6 +8188,7 @@ var pspcAnswered = false;
 var pspcTotal    = 15;
 var pspcStreak   = 0;
 var pspcBestStr  = 0;
+var pspcLog      = [];
 
 /* ── PSPC HELPERS ── */
 function pspcShuffle(arr) {
@@ -8803,6 +8814,7 @@ function pspcStart() {
   pspcStreak   = 0;
   pspcBestStr  = 0;
   pspcAnswered = false;
+  pspcLog      = [];
 
   var badge = pspcEl('pspc-badge');
   if (badge) {
@@ -8889,6 +8901,14 @@ function pspcAnswer(btnEl, chosen, correct) {
   var ok = chosen === correct;
   if (ok) { pspcCorrect++; pspcStreak++; if (pspcStreak > pspcBestStr) pspcBestStr = pspcStreak; }
   else { pspcStreak = 0; }
+  pspcLog.push({
+    src: pspcQueue[pspcIdx][pspcSrcKey],
+    srcLabel: PSPC_FORMS[pspcSrcKey].label,
+    tgtLabel: PSPC_FORMS[pspcTgtKey].label,
+    correct: correct,
+    chosen: chosen,
+    ok: ok
+  });
 
   /* Colour buttons */
   var allBtns = pspcEl('pspc-options').querySelectorAll('.pspc-opt');
@@ -8969,6 +8989,27 @@ function pspcShowResult() {
   if (pctEl)   pctEl.textContent   = pct + '%';
   if (wrongEl) wrongEl.textContent = (pspcTotal - pspcCorrect);
   if (strEl)   strEl.textContent   = pspcBestStr;
+
+  /* Tabela de revisão (REGRA-57 — padrão ouro) */
+  var rows = pspcLog.map(function(l) {
+    return '<tr class="' + (l.ok ? 'ppc-trow-ok' : 'ppc-trow-err') + '">'
+      + '<td style="padding:.5rem .625rem;text-align:center;">' + (l.ok ? '✅' : '❌') + '</td>'
+      + '<td style="padding:.5rem .625rem;font-size:.8rem;color:var(--gray-700);">' + l.src
+        + '<br><span style="color:var(--gray-400);font-size:.7rem;">' + l.srcLabel + ' → ' + l.tgtLabel + '</span></td>'
+      + '<td style="padding:.5rem .625rem;font-size:.875rem;font-weight:700;color:var(--green-800);">' + l.correct + '</td>'
+      + '<td style="padding:.5rem .625rem;font-size:.8rem;color:var(--gray-500);">' + (l.ok ? '—' : '<em>' + l.chosen + '</em>') + '</td>'
+      + '</tr>';
+  }).join('');
+  var tableHtml = '<div class="ppc-review-wrap" style="margin-top:1rem;">'
+    + '<h4 class="ppc-review-title">📋 Revisão das suas respostas</h4>'
+    + '<div style="overflow-x:auto;"><table class="ppc-review-table"><thead><tr>'
+    + '<th style="padding:.5rem .625rem;width:2rem;"></th>'
+    + '<th style="padding:.5rem .625rem;text-align:left;">Frase de origem</th>'
+    + '<th style="padding:.5rem .625rem;text-align:left;">Correto</th>'
+    + '<th style="padding:.5rem .625rem;text-align:left;">Sua resp.</th>'
+    + '</tr></thead><tbody>' + rows + '</tbody></table></div></div>';
+  var reviewWrap = pspcEl('pspc-review-wrap');
+  if (reviewWrap) reviewWrap.innerHTML = tableHtml;
 
   pspcShowScreen('pspc-result');
   saveProgress('present-simple-continuous', pspcCorrect, pspcTotal);
@@ -9111,6 +9152,7 @@ function pspcRestart() {
   var tobeAnswered = false;
   var tobeStreak   = 0;
   var tobeBest     = 0;
+  var tobeLog      = [];
   var TOBE_TOTAL   = 10;
 
   function tobeShuffle(a) {
@@ -9136,6 +9178,7 @@ function pspcRestart() {
     tobeAnswered = false;
     tobeStreak   = 0;
     tobeBest     = 0;
+    tobeLog      = [];
     pspcShowScreen('pspc-tobe-ex');
     tobeRender();
   }
@@ -9188,6 +9231,7 @@ function pspcRestart() {
     tobeAnswered = true;
     var q   = tobeQ[tobeIdx];
     var ans = q.ans;
+    tobeLog.push({ q: q, chosen: chosen, ok: chosen === ans });
 
     /* Disable all buttons & mark correct/wrong */
     var btns = tobeEl('tobe-opts').querySelectorAll('.tobe-opt');
@@ -9256,6 +9300,28 @@ function pspcRestart() {
     var el5 = tobeEl('tobe-stat-pct');        if (el5) el5.textContent = pct + '%';
     var el6 = tobeEl('tobe-stat-wrong');      if (el6) el6.textContent = wrong;
     var el7 = tobeEl('tobe-stat-streak');     if (el7) el7.textContent = tobeBest;
+
+    /* Tabela de revisão (REGRA-57 — padrão ouro) */
+    var rows = tobeLog.map(function(l) {
+      var filled = l.q.s.replace(/___/g, '<strong style="color:#6d28d9;">' + l.q.ans + '</strong>');
+      return '<tr class="' + (l.ok ? 'ppc-trow-ok' : 'ppc-trow-err') + '">'
+        + '<td style="padding:.5rem .625rem;text-align:center;">' + (l.ok ? '✅' : '❌') + '</td>'
+        + '<td style="padding:.5rem .625rem;font-size:.8rem;color:var(--gray-700);">' + filled + '</td>'
+        + '<td style="padding:.5rem .625rem;font-size:.875rem;font-weight:700;color:var(--green-800);">' + l.q.ans + '</td>'
+        + '<td style="padding:.5rem .625rem;font-size:.8rem;color:var(--gray-500);">' + (l.ok ? '—' : '<em>' + l.chosen + '</em>') + '</td>'
+        + '</tr>';
+    }).join('');
+    var tableHtml = '<div class="ppc-review-wrap" style="margin-top:1rem;">'
+      + '<h4 class="ppc-review-title">📋 Revisão das suas respostas</h4>'
+      + '<div style="overflow-x:auto;"><table class="ppc-review-table"><thead><tr>'
+      + '<th style="padding:.5rem .625rem;width:2rem;"></th>'
+      + '<th style="padding:.5rem .625rem;text-align:left;">Frase</th>'
+      + '<th style="padding:.5rem .625rem;text-align:left;">Correto</th>'
+      + '<th style="padding:.5rem .625rem;text-align:left;">Sua resp.</th>'
+      + '</tr></thead><tbody>' + rows + '</tbody></table></div></div>';
+    var reviewWrap = tobeEl('tobe-review-wrap');
+    if (reviewWrap) reviewWrap.innerHTML = tableHtml;
+
     pspcShowScreen('pspc-tobe-result');
   
     saveProgress('present-simple-tobe', tobeCorrect, TOBE_TOTAL);}
@@ -10798,7 +10864,7 @@ function pf3Pick(i, oi) {
   pf3State[i].chosen   = oi;
   var q = pf3Queue[i];
   var isBoth = q.correct.length > 1;
-  var isCorrect = !isBoth && q.correct.indexOf(oi) !== -1;
+  var isCorrect = q.correct.indexOf(oi) !== -1;
   pf3DisableAll();
   q.correct.forEach(function(ci) {
     var el = document.getElementById('pf3-opt-' + ci);
@@ -10813,7 +10879,7 @@ function pf3Pick(i, oi) {
   }
   var fb = document.getElementById('pf3-fb');
   fb.className = isCorrect ? 'ppc-fb ok show' : 'ppc-fb err show';
-  fb.innerHTML = (isBoth ? '⚠️ Ambas as opções são corretas! ' : isCorrect ? '✅ Correto! ' : '❌ ') + q.expl;
+  fb.innerHTML = (isCorrect ? (isBoth ? '✅ Correto! Ambas as opções são válidas aqui. ' : '✅ Correto! ') : '❌ ') + q.expl;
   pf3UpdateProgress();
   var navHtml = (i === 9)
     ? '<div style="margin-top:1rem;text-align:center;"><button class="ppc-btn ppc-btn-primary" onclick="pf3ShowResult()">Ver resultado →</button></div>'
@@ -11401,7 +11467,7 @@ function wg3Pick(i, oi) {
   var q = wg3Queue[i];
   var fb = document.getElementById('wg3-fb');
   var isBoth    = q.correct.length > 1;
-  var isCorrect = !isBoth && q.correct.indexOf(oi) !== -1;
+  var isCorrect = q.correct.indexOf(oi) !== -1;
   wg3DisableAll();
   q.correct.forEach(function(ci) {
     var el = document.getElementById('wg3-opt-' + ci);
@@ -11412,11 +11478,11 @@ function wg3Pick(i, oi) {
     if (wrongEl) wrongEl.className = 'ppc-opt ppc-wrong';
     wg3State[i].correct = false;
     fb.className = 'ppc-fb err show';
-    fb.innerHTML = (isBoth ? '⚠️ Ambas as opções são corretas! ' : '❌ ') + q.expl;
+    fb.innerHTML = '❌ ' + q.expl;
   } else {
     wg3State[i].correct = true;
     fb.className = 'ppc-fb ok show';
-    fb.innerHTML = '✅ Correto! ' + q.expl;
+    fb.innerHTML = (isBoth ? '✅ Correto! Ambas as opções são válidas aqui. ' : '✅ Correto! ') + q.expl;
   }
   wg3AfterAnswer(i);
 }
@@ -12077,23 +12143,23 @@ var TB_BANK_T2 = [
   { sentence:`___ three students in the classroom.`, opts:[`There is`,`There are`,`There was`,`Have`], correct:1, expl:`<strong>There are</strong> — "three students" é plural → <em>there are</em>. Concordância com o substantivo, não com "there".` },
   { sentence:`___ any milk in the fridge?`, opts:[`Is there`,`Are there`,`There is`,`Has there`], correct:0, expl:`<strong>Is there</strong> — "milk" é incontável, equivale a singular → <em>is there</em> na interrogativa. Fórmula: <em>Is/Are + there + noun?</em>` },
   { sentence:`___ a lot of noise outside last night.`, opts:[`There was`,`There were`,`There is`,`There have`], correct:0, expl:`<strong>There was</strong> — "noise" é incontável/singular + passado → <em>there was</em>. Past simple singular: was.` },
-  { sentence:`___ no parking spaces near the building.`, opts:[`There are`,`There is`,`There was`,`Have`], correct:0, expl:`<strong>There are</strong> — "parking spaces" é plural → <em>there are</em>. "There is no" (formal) também seria aceito com singular.` },
-  { sentence:`___ a problem with the internet connection.`, opts:[`There is`,`There are`,`Is there`,`Have`], correct:0, expl:`<strong>There is</strong> — "a problem" é singular → <em>there is</em>. ❌ Nunca use "have" para existência em inglês.` },
+  { sentence:`___ no parking spaces near the building today.`, opts:[`There are`,`There is`,`There was`,`Have`], correct:0, expl:`<strong>There are</strong> — "parking spaces" é plural → <em>there are</em>. "There is no" (formal) também seria aceito com singular.` },
+  { sentence:`___ a problem with the internet connection right now.`, opts:[`There is`,`There are`,`Is there`,`Have`], correct:0, expl:`<strong>There is</strong> — "a problem" é singular → <em>there is</em>. ❌ Nunca use "have" para existência em inglês.` },
   { sentence:`___ many people at the concert last night?`, opts:[`Were there`,`Was there`,`Is there`,`Have there`], correct:0, expl:`<strong>Were there</strong> — "many people" é plural + passado → <em>were there</em>. Interrogativa passada plural.` },
   { sentence:`___ enough chairs for everyone?`, opts:[`Are there`,`Is there`,`Were there`,`Have there`], correct:0, expl:`<strong>Are there</strong> — "chairs" é plural → <em>are there</em>. Pergunta no presente com substantivo plural.` },
   { sentence:`___ a museum in your city?`, opts:[`Is there`,`Are there`,`Was there`,`There have`], correct:0, expl:`<strong>Is there</strong> — "a museum" é singular → <em>is there</em> na interrogativa.` },
   { sentence:`___ over fifty countries in Africa.`, opts:[`There are`,`There is`,`There was`,`Are`], correct:0, expl:`<strong>There are</strong> — "fifty countries" é plural → <em>there are</em>. Fato geográfico no presente.` },
-  { sentence:`___ some sugar left in the jar.`, opts:[`There is`,`There are`,`Was there`,`Have`], correct:0, expl:`<strong>There is</strong> — "sugar" é incontável → <em>there is</em>. Incontáveis sempre usam <em>is</em>, nunca <em>are</em>.` },
+  { sentence:`___ some sugar left in the jar right now.`, opts:[`There is`,`There are`,`Was there`,`Have`], correct:0, expl:`<strong>There is</strong> — "sugar" é incontável → <em>there is</em>. Incontáveis sempre usam <em>is</em>, nunca <em>are</em>.` },
   { sentence:`___ two windows in this room.`, opts:[`There are`,`There is`,`Is there`,`Have`], correct:0, expl:`<strong>There are</strong> — "two windows" é plural → <em>there are</em>.` },
-  { sentence:`___ a bus stop at the end of the street.`, opts:[`There is`,`There are`,`There was`,`It is`], correct:0, expl:`<strong>There is</strong> — "a bus stop" é singular → <em>there is</em>. Localização + existência → there to be.` },
+  { sentence:`___ a bus stop at the end of the street these days.`, opts:[`There is`,`There are`,`There was`,`It is`], correct:0, expl:`<strong>There is</strong> — "a bus stop" é singular → <em>there is</em>. Localização + existência → there to be.` },
   { sentence:`___ some letters for you on the desk.`, opts:[`There are`,`There is`,`There was`,`Have`], correct:0, expl:`<strong>There are</strong> — "some letters" é plural → <em>there are</em>.` },
-  { sentence:`___ a fantastic view from the top floor.`, opts:[`There is`,`There are`,`Is there`,`There have`], correct:0, expl:`<strong>There is</strong> — "a fantastic view" é singular → <em>there is</em>.` },
+  { sentence:`___ a fantastic view from the top floor right now.`, opts:[`There is`,`There are`,`Is there`,`There have`], correct:0, expl:`<strong>There is</strong> — "a fantastic view" é singular → <em>there is</em>.` },
   { sentence:`___ any good restaurants near here?`, opts:[`Are there`,`Is there`,`Were there`,`Have there`], correct:0, expl:`<strong>Are there</strong> — "restaurants" é plural → <em>are there</em>. "Any" é usado em perguntas com there to be.` },
   { sentence:`___ a lot of traffic on the highway this morning.`, opts:[`There was`,`There were`,`There is`,`Have`], correct:0, expl:`<strong>There was</strong> — "traffic" é incontável/singular + passado → <em>there was</em>.` },
   { sentence:`___ five planets visible from Earth tonight.`, opts:[`There are`,`There is`,`There were`,`Have`], correct:0, expl:`<strong>There are</strong> — "five planets" é plural → <em>there are</em>.` },
-  { sentence:`___ something strange in the garden.`, opts:[`There is`,`There are`,`Is there`,`There have`], correct:0, expl:`<strong>There is</strong> — "something" é singular → <em>there is</em>. Pronouns indefinidos como "something/nothing/everything" → is.` },
+  { sentence:`___ something strange in the garden right now.`, opts:[`There is`,`There are`,`Is there`,`There have`], correct:0, expl:`<strong>There is</strong> — "something" é singular → <em>there is</em>. Pronouns indefinidos como "something/nothing/everything" → is.` },
   { sentence:`___ nobody at home when I arrived.`, opts:[`There was`,`There were`,`There is`,`Have`], correct:0, expl:`<strong>There was</strong> — "nobody" é singular + passado → <em>there was</em>. Nobody/no one → singular → was.` },
-  { sentence:`___ not enough time to finish the project.`, opts:[`There is`,`There are`,`There was`,`It is`], correct:0, expl:`<strong>There is</strong> — "time" é incontável → <em>there is</em>. Negativa: "There isn't enough time."` },
+  { sentence:`___ not enough time to finish the project right now.`, opts:[`There is`,`There are`,`There was`,`It is`], correct:0, expl:`<strong>There is</strong> — "time" é incontável → <em>there is</em>. Negativa: "There isn't enough time."` },
   { sentence:`___ hundreds of stars in the sky.`, opts:[`There are`,`There is`,`There were`,`Are`], correct:0, expl:`<strong>There are</strong> — "hundreds of stars" é plural → <em>there are</em>.` },
   { sentence:`___ a great idea! Let's do it.`, opts:[`That is`,`There is`,`It is`,`There are`], correct:2, expl:`<strong>That is / It is</strong> — aqui não é existência! "That's a great idea" ou "It's a great idea" = identificação/qualidade. ❌ "There is a great idea" seria para dizer que a ideia existe em algum lugar.` },
   { sentence:`___ been a significant increase in prices lately.`, opts:[`There has`,`There have`,`There was`,`Have`], correct:0, expl:`<strong>There has been</strong> — Present Perfect singular. "An increase" é singular → <em>has been</em>. Fórmula: <em>There has/have been + noun</em>.` },
@@ -12103,15 +12169,15 @@ var TB_BANK_T2 = [
   { sentence:`___ a solution to this problem.`, opts:[`There must be`,`There are must`,`Must there`,`There must are`], correct:0, expl:`<strong>There must be</strong> — modal + there to be. Fórmula: <em>There + modal + be + noun</em>. O modal nunca varia.` },
   { sentence:`___ nothing we can do about it.`, opts:[`There is`,`There are`,`There was`,`It is`], correct:0, expl:`<strong>There is</strong> — "nothing" é singular → <em>there is</em>. Nothing/something/everything → singular → is.` },
   { sentence:`___ two options: stay or leave.`, opts:[`There are`,`There is`,`Is there`,`Have`], correct:0, expl:`<strong>There are</strong> — "two options" é plural → <em>there are</em>.` },
-  { sentence:`___ a long queue outside the cinema.`, opts:[`There is`,`There are`,`There was`,`Have`], correct:0, expl:`<strong>There is</strong> — "a long queue" é singular → <em>there is</em>.` },
+  { sentence:`___ a long queue outside the cinema right now.`, opts:[`There is`,`There are`,`There was`,`Have`], correct:0, expl:`<strong>There is</strong> — "a long queue" é singular → <em>there is</em>.` },
   { sentence:`___ some children playing in the park.`, opts:[`There are`,`There is`,`There was`,`Have`], correct:0, expl:`<strong>There are</strong> — "children" é plural irregular → <em>there are</em>. Cuidado: children (plural) ≠ child (singular).` },
-  { sentence:`___ a fire exit at the end of the corridor.`, opts:[`There is`,`There are`,`Is there`,`Have`], correct:0, expl:`<strong>There is</strong> — "a fire exit" é singular → <em>there is</em>.` },
+  { sentence:`___ a fire exit at the end of the corridor in this building.`, opts:[`There is`,`There are`,`Is there`,`Have`], correct:0, expl:`<strong>There is</strong> — "a fire exit" é singular → <em>there is</em>.` },
   { sentence:`___ no evidence to support that claim.`, opts:[`There is`,`There are`,`There was`,`Have`], correct:0, expl:`<strong>There is</strong> — "evidence" é incontável → <em>there is</em>. "There is no evidence" = fórmula formal.` },
   { sentence:`___ been any changes to the schedule?`, opts:[`Have there`,`Has there`,`Were there`,`Is there`], correct:0, expl:`<strong>Have there been</strong> — Present Perfect plural interrogativo. "Changes" é plural → <em>have there been</em>.` },
   { sentence:`___ a chance we could reschedule?`, opts:[`Is there`,`Are there`,`Was there`,`Have there`], correct:0, expl:`<strong>Is there</strong> — "a chance" é singular → <em>is there</em>.` },
   { sentence:`___ twelve months in a year.`, opts:[`There are`,`There is`,`There were`,`Have`], correct:0, expl:`<strong>There are</strong> — "twelve months" é plural → <em>there are</em>. Fato permanente.` },
-  { sentence:`___ too much noise in this office.`, opts:[`There is`,`There are`,`There was`,`Have`], correct:0, expl:`<strong>There is</strong> — "noise" é incontável → <em>there is</em>. "Too much" + incontável → is.` },
-  { sentence:`___ a few seats left at the back.`, opts:[`There are`,`There is`,`Is there`,`Have`], correct:0, expl:`<strong>There are</strong> — "a few seats" é plural → <em>there are</em>. "A few" + plural → are.` },
+  { sentence:`___ too much noise in this office right now.`, opts:[`There is`,`There are`,`There was`,`Have`], correct:0, expl:`<strong>There is</strong> — "noise" é incontável → <em>there is</em>. "Too much" + incontável → is.` },
+  { sentence:`___ a few seats left at the back right now.`, opts:[`There are`,`There is`,`Is there`,`Have`], correct:0, expl:`<strong>There are</strong> — "a few seats" é plural → <em>there are</em>. "A few" + plural → are.` },
   { sentence:`___ nobody who knows the answer.`, opts:[`There is`,`There are`,`There was`,`Have`], correct:0, expl:`<strong>There is</strong> — "nobody" é singular → <em>there is</em>. Nobody/no one/everyone/someone → singular → is.` }
 ];
 
@@ -13614,46 +13680,46 @@ function spGenerateReport() {
    ═══════════════════════════════════════════════════════════════ */
 
 var UT_BANK_T2 = [
-  /*  1 */ { sentence: `When I was a child, I ___ walk to school every day.`, answer: `used to walk`, opts: [`used to walk`, `would walk`, `use to walk`, `walked used to`], expl: `<strong>Ambas "used to walk" e "would walk" funcionam</strong> para ação repetida — mas a resposta esperada é <strong>used to walk</strong>, a forma mais segura e natural sem contexto narrativo. ❌ "Use to walk" está errado na afirmativa — falta o "d". Fórmula: sujeito + <strong>used to</strong> + infinitivo.` },
+  /*  1 */ { sentence: `When I was a child, I ___ walk to school every day.`, answer: `used to walk`, altAnswer: `would walk`, opts: [`used to walk`, `would walk`, `use to walk`, `walked used to`], expl: `<strong>Ambas "used to walk" e "would walk" funcionam</strong> para ação repetida — mas a resposta esperada é <strong>used to walk</strong>, a forma mais segura e natural sem contexto narrativo. ❌ "Use to walk" está errado na afirmativa — falta o "d". Fórmula: sujeito + <strong>used to</strong> + infinitivo.` },
   /*  2 */ { sentence: `She ___ be very shy before she joined the drama club.`, answer: `used to be`, opts: [`used to be`, `would be`, `use to be`, `was used to be`], expl: `"Be" é <strong>verbo de estado</strong> — nunca use "would" com estados passados. ❌ "Would be" é o erro mais comum: em português "era" funciona para estados, mas em inglês "would" só aceita ações. ❌ "Use to be" — falta o "d" na afirmativa. ❌ "Was used to be" confunde com "be used to" (estar acostumado). Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /*  3 */ { sentence: `My grandfather ___ tell us stories every night after dinner.`, answer: `would tell`, opts: [`would tell`, `used to tell`, `use to tell`, `was telling`], expl: `<strong>Ambas "would tell" e "used to tell" funcionam</strong> para ação repetida em contexto narrativo. A resposta esperada é <strong>would tell</strong> — contexto narrativo afetivo, uso clássico de "would". ❌ "Use to tell" — falta o "d" na afirmativa. Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
+  /*  3 */ { sentence: `My grandfather ___ tell us stories every night after dinner.`, answer: `would tell`, altAnswer: `used to tell`, opts: [`would tell`, `used to tell`, `use to tell`, `was telling`], expl: `<strong>Ambas "would tell" e "used to tell" funcionam</strong> para ação repetida em contexto narrativo. A resposta esperada é <strong>would tell</strong> — contexto narrativo afetivo, uso clássico de "would". ❌ "Use to tell" — falta o "d" na afirmativa. Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /*  4 */ { sentence: `I ___ love watching cartoons on Saturday mornings.`, answer: `used to love`, opts: [`used to love`, `would love`, `use to love`, `loved used to`], expl: `"Love" é <strong>verbo de estado</strong> — nunca use "would". ❌ "Would love" parece correto pela tradução, mas em inglês "would" não aceita estados passados. Atenção: "would love" existe, mas significa "adoraria" (condicional). ❌ "Use to love" — falta o "d". Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
   /*  5 */ { sentence: `___ you use to live near the beach when you were young?`, answer: `Did`, opts: [`Did`, `Would`, `Used`, `Do`], expl: `A interrogativa de "used to" usa o auxiliar <strong>Did</strong>: <strong>Did + sujeito + use to</strong> (sem "d"). ❌ "Used you to live?" não é natural no inglês moderno. ❌ "Would you use to?" mistura dois auxiliares. ❌ "Do" é presente. Fórmula: <strong>Did</strong> + sujeito + <strong>use to</strong> + infinitivo + ?` },
-  /*  6 */ { sentence: `He didn't ___ smoke, but he started after university.`, answer: `use to`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na negativa com "didn't", o verbo vai para o <strong>infinitivo sem "d"</strong>: <strong>didn't use to</strong>. ❌ "Didn't used to" é o erro mais comum — o auxiliar "didn't" já marca o passado; manter o "d" seria redundante. Fórmula: sujeito + <strong>didn't</strong> + <strong>use to</strong> + infinitivo.` },
+  /*  6 */ { sentence: `He didn't ___ smoke, but he started after university.`, answer: `use to`, altAnswer: `would`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na negativa com "didn't", o verbo vai para o <strong>infinitivo sem "d"</strong>: <strong>didn't use to</strong>. ❌ "Didn't used to" é o erro mais comum — o auxiliar "didn't" já marca o passado; manter o "d" seria redundante. Fórmula: sujeito + <strong>didn't</strong> + <strong>use to</strong> + infinitivo.` },
   /*  7 */ { sentence: `They ___ have a big house in the countryside, but they moved to the city.`, answer: `used to have`, opts: [`used to have`, `would have`, `use to have`, `had used to`], expl: `"Have" no sentido de <strong>possuir</strong> é verbo de estado — nunca use "would". ❌ "Would have" está errado para estado de posse — e ainda pode ser confundido com o condicional. ❌ "Use to have" — falta o "d". Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /*  8 */ { sentence: `Every summer, we ___ go camping in the mountains.`, answer: `would go`, opts: [`would go`, `used to go`, `use to go`, `went used to`], expl: `<strong>Ambas funcionam</strong> para ação repetida com marcador de tempo. A resposta esperada é <strong>would go</strong> — contexto narrativo típico de "would" com "every summer". ❌ "Use to go" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
+  /*  8 */ { sentence: `Every summer, we ___ go camping in the mountains.`, answer: `would go`, altAnswer: `used to go`, opts: [`would go`, `used to go`, `use to go`, `went used to`], expl: `<strong>Ambas funcionam</strong> para ação repetida com marcador de tempo. A resposta esperada é <strong>would go</strong> — contexto narrativo típico de "would" com "every summer". ❌ "Use to go" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /*  9 */ { sentence: `I ___ be afraid of dogs, but now I have three of them.`, answer: `used to be`, opts: [`used to be`, `would be`, `use to be`, `am used to be`], expl: `"Be afraid" é <strong>estado emocional</strong> — "would" nunca é usado com estados. ❌ "Would be" é erro típico: "tinha medo" em português usa imperfeito para estado, mas em inglês "would" não funciona para isso. ❌ "Am used to be" confunde com "be used to" (estar acostumado). Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /* 10 */ { sentence: `Did she ___ work at that company before moving abroad?`, answer: `use to`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na interrogativa com "Did", o verbo vai para o <strong>infinitivo sem "d"</strong>: <strong>Did she use to</strong>. ❌ "Did she used to" — com "did", nunca mantemos o "d". Fórmula: <strong>Did</strong> + sujeito + <strong>use to</strong> + infinitivo + ?` },
-  /* 11 */ { sentence: `My dad ___ take me to the park every Sunday when I was little.`, answer: `would take`, opts: [`would take`, `used to take`, `use to take`, `taking used to`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would take</strong> — rotina afetiva de infância com marcador de tempo, uso clássico de "would". ❌ "Use to take" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
+  /* 10 */ { sentence: `Did she ___ work at that company before moving abroad?`, answer: `use to`, altAnswer: `would`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na interrogativa com "Did", o verbo vai para o <strong>infinitivo sem "d"</strong>: <strong>Did she use to</strong>. ❌ "Did she used to" — com "did", nunca mantemos o "d". Fórmula: <strong>Did</strong> + sujeito + <strong>use to</strong> + infinitivo + ?` },
+  /* 11 */ { sentence: `My dad ___ take me to the park every Sunday when I was little.`, answer: `would take`, altAnswer: `used to take`, opts: [`would take`, `used to take`, `use to take`, `taking used to`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would take</strong> — rotina afetiva de infância com marcador de tempo, uso clássico de "would". ❌ "Use to take" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /* 12 */ { sentence: `She ___ know all the answers in class without even studying.`, answer: `used to know`, opts: [`used to know`, `would know`, `use to know`, `knew used`], expl: `"Know" é <strong>verbo de estado cognitivo</strong> — nunca use "would" com estados. ❌ "Would know" é incorreto — "know" descreve um estado mental, não uma ação repetida. ❌ "Use to know" — falta o "d". Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /* 13 */ { sentence: `We ___ play football after school until it got dark.`, answer: `would play`, opts: [`would play`, `used to play`, `use to play`, `played would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would play</strong> — ação vívida com detalhe narrativo ("until it got dark"), contexto típico de "would". ❌ "Use to play" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
+  /* 13 */ { sentence: `We ___ play football after school until it got dark.`, answer: `would play`, altAnswer: `used to play`, opts: [`would play`, `used to play`, `use to play`, `played would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would play</strong> — ação vívida com detalhe narrativo ("until it got dark"), contexto típico de "would". ❌ "Use to play" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /* 14 */ { sentence: `I ___ believe in Santa Claus when I was five.`, answer: `used to believe`, opts: [`used to believe`, `would believe`, `use to believe`, `believed used`], expl: `"Believe" é <strong>verbo de estado</strong> — descreve uma crença, não uma ação. Nunca use "would" com estados. ❌ "Would believe" é incorreto: em português "acreditava" é imperfeito de estado, mas em inglês não pode ser "would". Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /* 15 */ { sentence: `They didn't ___ go out much when they had small children.`, answer: `use to`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na negativa com "didn't", a forma correta é <strong>didn't use to</strong> (sem "d"). ❌ "Didn't used to" é o erro mais frequente. ❌ "Didn't would" não existe. Fórmula: sujeito + <strong>didn't</strong> + <strong>use to</strong> + infinitivo.` },
+  /* 15 */ { sentence: `They didn't ___ go out much when they had small children.`, answer: `use to`, altAnswer: `would`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na negativa com "didn't", a forma correta é <strong>didn't use to</strong> (sem "d"). ❌ "Didn't used to" é o erro mais frequente. ❌ "Didn't would" não existe. Fórmula: sujeito + <strong>didn't</strong> + <strong>use to</strong> + infinitivo.` },
   /* 16 */ { sentence: `He ___ want to become an astronaut when he grew up.`, answer: `used to want`, opts: [`used to want`, `would want`, `use to want`, `wanted used`], expl: `"Want" é <strong>verbo de estado</strong> (desejo) — nunca use "would" com estados. ❌ "Would want" é incorreto: em português "queria" é imperfeito, mas em inglês "would" + estado é agramatical. Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /* 17 */ { sentence: `My grandmother ___ bake bread every Friday morning.`, answer: `would bake`, opts: [`would bake`, `used to bake`, `use to bake`, `bake would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would bake</strong> — rotina narrativa com marcador de tempo específico, uso clássico de "would". ❌ "Use to bake" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
+  /* 17 */ { sentence: `My grandmother ___ bake bread every Friday morning.`, answer: `would bake`, altAnswer: `used to bake`, opts: [`would bake`, `used to bake`, `use to bake`, `bake would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would bake</strong> — rotina narrativa com marcador de tempo específico, uso clássico de "would". ❌ "Use to bake" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /* 18 */ { sentence: `___ they use to live on that street before the renovation?`, answer: `Did`, opts: [`Did`, `Would`, `Used`, `Do`], expl: `A interrogativa de "used to" usa o auxiliar <strong>Did</strong>. ❌ "Used they to live?" não é natural no inglês moderno. ❌ "Would they use to?" mistura dois auxiliares — incorreto. Fórmula: <strong>Did</strong> + sujeito + <strong>use to</strong> + infinitivo + ?` },
   /* 19 */ { sentence: `I don't like spiders, but I ___ like them when I was a kid.`, answer: `used to like`, opts: [`used to like`, `would like`, `use to like`, `liked used`], expl: `"Like" é <strong>verbo de estado</strong> (preferência/sentimento) — nunca use "would" com estados. ❌ "Would like" existe em inglês, mas significa "gostaria" (condicional/pedido educado) — não "gostava de" (estado passado). Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /* 20 */ { sentence: `She ___ read a chapter of her book before going to sleep every night.`, answer: `would read`, opts: [`would read`, `used to read`, `use to read`, `reading would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would read</strong> — rotina narrativa detalhada com marcador de tempo, contexto clássico de "would". ❌ "Use to read" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
+  /* 20 */ { sentence: `She ___ read a chapter of her book before going to sleep every night.`, answer: `would read`, altAnswer: `used to read`, opts: [`would read`, `used to read`, `use to read`, `reading would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would read</strong> — rotina narrativa detalhada com marcador de tempo, contexto clássico de "would". ❌ "Use to read" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /* 21 */ { sentence: `I ___ understand why people liked that band. Now I get it.`, answer: `didn't use to understand`, opts: [`didn't use to understand`, `didn't used to understand`, `wouldn't understand`, `wasn't used to understand`], expl: `"Understand" é <strong>verbo de estado</strong> — "wouldn't" está errado. A negativa correta é <strong>didn't use to</strong> (sem "d"). ❌ "Didn't used to" — nunca se mantém o "d" após "didn't". ❌ "Wasn't used to understand" confunde com "be used to" + gerúndio. Fórmula: sujeito + <strong>didn't</strong> + <strong>use to</strong> + infinitivo.` },
-  /* 22 */ { sentence: `We ___ go to the cinema every weekend when we were teenagers.`, answer: `used to go`, opts: [`used to go`, `would go`, `use to go`, `go used to`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>used to go</strong> — a forma mais natural e segura para hábitos passados sem contexto narrativo específico. ❌ "Use to go" — falta o "d". Fórmula: sujeito + <strong>used to</strong> + infinitivo.` },
-  /* 23 */ { sentence: `He ___ feel nervous before every exam, even when he was well prepared.`, answer: `used to feel`, opts: [`used to feel`, `would feel`, `use to feel`, `felt used`], expl: `"Feel nervous" é <strong>estado emocional</strong> — "would" não é usado com estados. ❌ "Would feel" está errado — sentimentos são estados, não ações. ❌ "Use to feel" — falta o "d". Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /* 24 */ { sentence: `After school, the kids ___ run to the playground and stay there for hours.`, answer: `would run`, opts: [`would run`, `used to run`, `use to run`, `running would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would run</strong> — ação vívida e específica em contexto narrativo, uso típico de "would". ❌ "Use to run" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
+  /* 22 */ { sentence: `We ___ go to the cinema every weekend when we were teenagers.`, answer: `used to go`, altAnswer: `would go`, opts: [`used to go`, `would go`, `use to go`, `go used to`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>used to go</strong> — a forma mais natural e segura para hábitos passados sem contexto narrativo específico. ❌ "Use to go" — falta o "d". Fórmula: sujeito + <strong>used to</strong> + infinitivo.` },
+  /* 23 */ { sentence: `He ___ feel nervous before every exam, even when he was well prepared.`, answer: `used to feel`, altAnswer: `would feel`, opts: [`used to feel`, `would feel`, `use to feel`, `felt used`], expl: `"Feel nervous" é <strong>estado emocional</strong> — "would" não é usado com estados. ❌ "Would feel" está errado — sentimentos são estados, não ações. ❌ "Use to feel" — falta o "d". Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
+  /* 24 */ { sentence: `After school, the kids ___ run to the playground and stay there for hours.`, answer: `would run`, altAnswer: `used to run`, opts: [`would run`, `used to run`, `use to run`, `running would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would run</strong> — ação vívida e específica em contexto narrativo, uso típico de "would". ❌ "Use to run" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /* 25 */ { sentence: `My parents ___ hate the idea of me becoming an artist.`, answer: `used to hate`, opts: [`used to hate`, `would hate`, `use to hate`, `hated used`], expl: `"Hate" é <strong>verbo de estado</strong> (emoção/opinião) — nunca use "would" com estados passados. ❌ "Would hate" está errado: em português "odiavam" é imperfeito de estado, mas em inglês não pode ser "would". Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /* 26 */ { sentence: `She didn't ___ enjoy cooking, but now she loves it.`, answer: `use to`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na negativa com "didn't", a forma correta é <strong>didn't use to</strong> — sem o "d". ❌ "Didn't used to" é o erro mais comum. Fórmula: sujeito + <strong>didn't use to</strong> + infinitivo.` },
+  /* 26 */ { sentence: `She didn't ___ enjoy cooking, but now she loves it.`, answer: `use to`, altAnswer: `would`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na negativa com "didn't", a forma correta é <strong>didn't use to</strong> — sem o "d". ❌ "Didn't used to" é o erro mais comum. Fórmula: sujeito + <strong>didn't use to</strong> + infinitivo.` },
   /* 27 */ { sentence: `They ___ believe everything they read online. Now they're more critical.`, answer: `used to believe`, opts: [`used to believe`, `would believe`, `use to believe`, `believed would`], expl: `"Believe" é <strong>verbo de estado cognitivo</strong> — "would" nunca é usado com estados. ❌ "Would believe" está errado. ❌ "Use to believe" — falta o "d". Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /* 28 */ { sentence: `On rainy days, we ___ stay inside and play board games for hours.`, answer: `would stay`, opts: [`would stay`, `used to stay`, `use to stay`, `staying would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would stay</strong> — ação narrativa vívida com circunstância contextual ("on rainy days"), uso clássico de "would". ❌ "Use to stay" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
+  /* 28 */ { sentence: `On rainy days, we ___ stay inside and play board games for hours.`, answer: `would stay`, altAnswer: `used to stay`, opts: [`would stay`, `used to stay`, `use to stay`, `staying would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would stay</strong> — ação narrativa vívida com circunstância contextual ("on rainy days"), uso clássico de "would". ❌ "Use to stay" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /* 29 */ { sentence: `___ he use to play football before his injury?`, answer: `Did`, opts: [`Did`, `Would`, `Used`, `Does`], expl: `A interrogativa de "used to" é formada com <strong>Did</strong> + sujeito + <strong>use to</strong>. ❌ "Used he to play?" está desatualizado. ❌ "Would he use to?" mistura dois auxiliares. Fórmula: <strong>Did</strong> + sujeito + <strong>use to</strong> + infinitivo + ?` },
   /* 30 */ { sentence: `I ___ know exactly where everything was in my childhood home.`, answer: `used to know`, opts: [`used to know`, `would know`, `use to know`, `knew would`], expl: `"Know" é <strong>verbo de estado</strong> — nunca use "would" com estados. ❌ "Would know" é incorreto porque "know" não é ação repetida, mas estado de conhecimento. Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /* 31 */ { sentence: `He ___ wake up at 5am, have a cold shower, and then go for a run.`, answer: `would wake up`, opts: [`would wake up`, `used to wake up`, `use to wake up`, `waking used to`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would wake up</strong> — série de ações em rotina narrativa detalhada, o "and then" reforça a sequência narrativa típica de "would". ❌ "Use to wake up" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
+  /* 31 */ { sentence: `He ___ wake up at 5am, have a cold shower, and then go for a run.`, answer: `would wake up`, altAnswer: `used to wake up`, opts: [`would wake up`, `used to wake up`, `use to wake up`, `waking used to`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would wake up</strong> — série de ações em rotina narrativa detalhada, o "and then" reforça a sequência narrativa típica de "would". ❌ "Use to wake up" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /* 32 */ { sentence: `She ___ seem very confident, but inside she was terrified.`, answer: `used to seem`, opts: [`used to seem`, `would seem`, `use to seem`, `seemed used`], expl: `"Seem" é <strong>verbo de estado</strong> (aparência/impressão) — nunca use "would" com estados. ❌ "Would seem" está errado — "seem" descreve um estado percebido, não uma ação. Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /* 33 */ { sentence: `My sister and I ___ fight over the TV remote every single evening.`, answer: `would fight`, opts: [`would fight`, `used to fight`, `use to fight`, `fighting would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would fight</strong> — ação repetida com intensidade narrativa ("every single evening"), uso típico de "would". ❌ "Use to fight" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
+  /* 33 */ { sentence: `My sister and I ___ fight over the TV remote every single evening.`, answer: `would fight`, altAnswer: `used to fight`, opts: [`would fight`, `used to fight`, `use to fight`, `fighting would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would fight</strong> — ação repetida com intensidade narrativa ("every single evening"), uso típico de "would". ❌ "Use to fight" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /* 34 */ { sentence: `I ___ have long hair until I was sixteen.`, answer: `used to have`, opts: [`used to have`, `would have`, `use to have`, `have used to`], expl: `"Have" no sentido de <strong>ter/possuir</strong> (cabelo comprido) é verbo de estado — nunca use "would" com estados. ❌ "Would have" está errado para estado de posse — pode ser confundido com o condicional perfeito. Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /* 35 */ { sentence: `The teacher ___ ask us to write in our journals every Monday morning.`, answer: `would ask`, opts: [`would ask`, `used to ask`, `use to ask`, `asking would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would ask</strong> — rotina institucional com marcador de tempo fixo, contexto clássico de "would" narrativo. ❌ "Use to ask" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
-  /* 36 */ { sentence: `They didn't ___ eat vegetables as children, but now they love them.`, answer: `use to`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na negativa com "didn't", a forma correta é <strong>didn't use to</strong> — sem o "d". ❌ "Didn't used to" — erro clássico. Fórmula: sujeito + <strong>didn't use to</strong> + infinitivo.` },
+  /* 35 */ { sentence: `The teacher ___ ask us to write in our journals every Monday morning.`, answer: `would ask`, altAnswer: `used to ask`, opts: [`would ask`, `used to ask`, `use to ask`, `asking would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would ask</strong> — rotina institucional com marcador de tempo fixo, contexto clássico de "would" narrativo. ❌ "Use to ask" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
+  /* 36 */ { sentence: `They didn't ___ eat vegetables as children, but now they love them.`, answer: `use to`, altAnswer: `would`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na negativa com "didn't", a forma correta é <strong>didn't use to</strong> — sem o "d". ❌ "Didn't used to" — erro clássico. Fórmula: sujeito + <strong>didn't use to</strong> + infinitivo.` },
   /* 37 */ { sentence: `I ___ love the smell of that old library. It was magical.`, answer: `used to love`, opts: [`used to love`, `would love`, `use to love`, `loving used`], expl: `"Love" é <strong>verbo de estado</strong> — nunca use "would" com estados. ❌ "Would love" significa "adoraria" (condicional) — não "adorava" (estado passado). Esta é uma armadilha clássica! Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /* 38 */ { sentence: `Every Christmas Eve, we ___ open one present before midnight.`, answer: `would open`, opts: [`would open`, `used to open`, `use to open`, `opening used`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would open</strong> — tradição narrativa com marcador de tempo específico ("every Christmas Eve"), uso clássico de "would" para rituais passados. ❌ "Use to open" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
+  /* 38 */ { sentence: `Every Christmas Eve, we ___ open one present before midnight.`, answer: `would open`, altAnswer: `used to open`, opts: [`would open`, `used to open`, `use to open`, `opening used`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would open</strong> — tradição narrativa com marcador de tempo específico ("every Christmas Eve"), uso clássico de "would" para rituais passados. ❌ "Use to open" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /* 39 */ { sentence: `He ___ understand how difficult it was for his parents.`, answer: `didn't use to understand`, opts: [`didn't use to understand`, `didn't used to understand`, `wouldn't understand`, `wasn't used to understand`], expl: `"Understand" é <strong>verbo de estado</strong> — "wouldn't" está errado. A negativa correta é <strong>didn't use to</strong> (sem "d"). ❌ "Didn't used to" — o "d" desaparece com "didn't". ❌ "Wasn't used to understand" confunde com "be used to" + gerúndio. Fórmula: sujeito + <strong>didn't use to</strong> + verbo de estado.` },
-  /* 40 */ { sentence: `My friends and I ___ spend entire afternoons just talking and laughing.`, answer: `would spend`, opts: [`would spend`, `used to spend`, `use to spend`, `spending would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would spend</strong> — tom narrativo nostálgico com ação vívida, contexto clássico de "would". ❌ "Use to spend" — falta o "d" na afirmativa. Fórmula: sujeito + <strong>would</strong> + infinitivo.` }
+  /* 40 */ { sentence: `My friends and I ___ spend entire afternoons just talking and laughing.`, answer: `would spend`, altAnswer: `used to spend`, opts: [`would spend`, `used to spend`, `use to spend`, `spending would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would spend</strong> — tom narrativo nostálgico com ação vívida, contexto clássico de "would". ❌ "Use to spend" — falta o "d" na afirmativa. Fórmula: sujeito + <strong>would</strong> + infinitivo.` }
 ];
 
 var UT_BANK_T3 = [
@@ -13765,14 +13831,16 @@ function ut2Pick(i, si, origIdx) {
   if (ut2State[i].answered) return;
   ut2State[i].answered = true;
   ut2State[i].chosen   = origIdx;
-  var q    = ut2Queue[i];
-  var isOk = (q.opts[origIdx] === q.answer);
+  var q       = ut2Queue[i];
+  var chosenVal = q.opts[origIdx];
+  var isOk    = (chosenVal === q.answer) || (q.altAnswer && chosenVal === q.altAnswer);
   ut2State[i].correct = isOk;
-  ut2State[i].value   = q.opts[origIdx];
+  ut2State[i].value   = chosenVal;
   ut2DisableAll();
   var shuffled = ut2State[i].shuffled;
   for (var s = 0; s < shuffled.length; s++) {
-    if (q.opts[shuffled[s].idx] === q.answer) {
+    var optVal = q.opts[shuffled[s].idx];
+    if (optVal === q.answer || (q.altAnswer && optVal === q.altAnswer)) {
       var el = document.getElementById('ut2-opt-' + s);
       if (el) el.className = 'ppc-opt ppc-correct';
     }
@@ -13783,7 +13851,8 @@ function ut2Pick(i, si, origIdx) {
   }
   var fb = document.getElementById('ut2-fb');
   fb.className = isOk ? 'ppc-fb ok show' : 'ppc-fb err show';
-  fb.innerHTML = (isOk ? '✅ Correto! <strong>' + q.answer + '</strong>' : '❌ Resposta correta: <strong>' + q.answer + '</strong><br>' + q.expl);
+  var correctLabel = q.altAnswer ? (q.answer + '</strong> ou <strong>' + q.altAnswer) : q.answer;
+  fb.innerHTML = (isOk ? '✅ Correto! <strong>' + chosenVal + '</strong>' : '❌ Resposta correta: <strong>' + correctLabel + '</strong><br>' + q.expl);
   ut2UpdateProgress();
   fb.insertAdjacentHTML('afterbegin', (i === 9)
     ? '<div style="margin-top:1rem;text-align:center;"><button class="ppc-btn ppc-btn-primary" onclick="ut2ShowResult()">Ver resultado →</button></div>'
@@ -13909,7 +13978,7 @@ function ut3Pick(i, oi) {
   var q = ut3Queue[i];
   var fb = document.getElementById('ut3-fb');
   var isBoth    = q.correct.length > 1;
-  var isCorrect = !isBoth && q.correct.indexOf(oi) !== -1;
+  var isCorrect = q.correct.indexOf(oi) !== -1;
   ut3DisableAll();
   q.correct.forEach(function(ci) {
     var el = document.getElementById('ut3-opt-' + ci);
@@ -13920,11 +13989,11 @@ function ut3Pick(i, oi) {
     if (wrongEl) wrongEl.className = 'ppc-opt ppc-wrong';
     ut3State[i].correct = false;
     fb.className = 'ppc-fb err show';
-    fb.innerHTML = (isBoth ? '⚠️ Ambas as opções são corretas! ' : '❌ ') + q.expl;
+    fb.innerHTML = '❌ ' + q.expl;
   } else {
     ut3State[i].correct = true;
     fb.className = 'ppc-fb ok show';
-    fb.innerHTML = '✅ Correto! ' + q.expl;
+    fb.innerHTML = (isBoth ? '✅ Correto! Ambas as opções são válidas aqui. ' : '✅ Correto! ') + q.expl;
   }
   ut3AfterAnswer(i);
 }
@@ -14403,7 +14472,7 @@ function pp2t4Pick(i, oi) {
   pp2t4State[i].chosen   = oi;
   var q = pp2t4Queue[i];
   var isBoth = q.correct.length > 1;
-  var isCorrect = !isBoth && q.correct.indexOf(oi) !== -1;
+  var isCorrect = q.correct.indexOf(oi) !== -1;
   pp2t4DisableAll(isBoth);
   q.correct.forEach(function(ci) {
     var el = document.getElementById('pp2t4-opt-' + ci);
@@ -14418,7 +14487,7 @@ function pp2t4Pick(i, oi) {
   }
   var fb = document.getElementById('pp2t4-fb');
   fb.className = isCorrect ? 'ppc-fb ok show' : 'ppc-fb err show';
-  fb.innerHTML = (isBoth ? '⚠️ Ambas são corretas! ' : isCorrect ? '✅ Correto! ' : '❌ ') + q.expl;
+  fb.innerHTML = (isCorrect ? (isBoth ? '✅ Correto! Ambas são válidas. ' : '✅ Correto! ') : '❌ ') + q.expl;
   pp2t4UpdateProgress();
   var navHtml = (i === 9)
     ? '<div style="margin-top:1rem;text-align:center;"><button class="ppc-btn ppc-btn-primary" onclick="pp2t4ShowResult()">Ver resultado →</button></div>'
@@ -14866,7 +14935,7 @@ function ppc3Pick(i, oi) {
   var q  = ppc3Queue[i];
   var fb = document.getElementById('ppc3-fb');
   var isBoth    = q.correct.length > 1;
-  var isCorrect = !isBoth && q.correct.indexOf(oi) !== -1;
+  var isCorrect = q.correct.indexOf(oi) !== -1;
   ppc3DisableAll();
   q.correct.forEach(function(ci) {
     var el = document.getElementById('ppc3-opt-' + ci);
@@ -14877,11 +14946,11 @@ function ppc3Pick(i, oi) {
     if (wrongEl) wrongEl.className = 'ppc-opt ppc-wrong';
     ppc3State[i].correct = false;
     fb.className = 'ppc-fb err show';
-    fb.innerHTML = (isBoth ? '⚠️ Ambas as opções são corretas! ' : '❌ ') + q.expl;
+    fb.innerHTML = '❌ ' + q.expl;
   } else {
     ppc3State[i].correct = true;
     fb.className = 'ppc-fb ok show';
-    fb.innerHTML = '✅ Correto! ' + q.expl;
+    fb.innerHTML = (isBoth ? '✅ Correto! Ambas as opções são válidas aqui. ' : '✅ Correto! ') + q.expl;
   }
   ppc3AfterAnswer(i);
 }
