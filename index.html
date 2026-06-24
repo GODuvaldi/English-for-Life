@@ -1169,23 +1169,19 @@ img { max-width: 100%; }
   color: var(--gray-400);
   margin-top: auto;
 }
-.footer-legal { text-align: left; padding: 1.75rem 1.5rem; }
+.footer-legal { text-align: center; padding: 1.25rem 1.5rem; }
 .footer-legal-inner {
-  display: flex; flex-wrap: wrap; gap: 1.5rem 2.5rem;
-  max-width: 720px; margin: 0 auto 1rem; justify-content: space-between;
+  max-width: 640px; margin: 0 auto .5rem;
+  font-size: 11.5px; line-height: 1.6; color: var(--gray-400);
 }
-.footer-legal-business, .footer-legal-contact {
-  font-size: 12.5px; line-height: 1.7; color: var(--gray-500); flex: 1 1 260px;
+.footer-legal-inner a {
+  color: var(--gray-400); text-decoration: none; font-weight: 400;
 }
-.footer-legal-business strong { color: var(--gray-700); }
-.footer-legal-contact a {
-  color: var(--green-700); text-decoration: none; font-weight: 600;
-}
-.footer-legal-contact a:hover { text-decoration: underline; }
+.footer-legal-inner a:hover { color: var(--gray-500); text-decoration: underline; }
 .footer-legal-copy {
-  max-width: 720px; margin: 0 auto; padding-top: .875rem;
+  max-width: 640px; margin: 0 auto; padding-top: .625rem;
   border-top: 1px solid var(--gray-100);
-  text-align: center; font-size: 12px; color: var(--gray-400);
+  text-align: center; font-size: 11.5px; color: var(--gray-400);
 }
 
 /* ═══════════════════════════════════════
@@ -1901,6 +1897,37 @@ img { max-width: 100%; }
 .tp-chevron.open { transform:rotate(90deg); }
 .tp-detail { display:none; padding:0 1rem .875rem; border-top:1px solid var(--gray-100); }
 .tp-detail.open { display:block; }
+
+/* ── Toast de notificação (ex.: nova tarefa atribuída) ── */
+.efl-toast-wrap {
+  position: fixed; top: 1rem; right: 1rem; z-index: 9999;
+  display: flex; flex-direction: column; gap: .5rem;
+  max-width: 360px; width: calc(100% - 2rem);
+}
+.efl-toast {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-left: 4px solid var(--green-500); border-radius: .75rem;
+  box-shadow: 0 10px 28px rgba(0,0,0,.14);
+  padding: .875rem 1rem; display: flex; gap: .75rem; align-items: flex-start;
+  animation: efl-toast-in .25s ease;
+}
+.efl-toast[data-clickable="1"] { cursor: pointer; }
+.efl-toast[data-clickable="1"]:hover { border-left-color: var(--green-600); }
+.efl-toast-icon { font-size: 1.25rem; line-height: 1; flex-shrink: 0; }
+.efl-toast-body { flex: 1; min-width: 0; }
+.efl-toast-title { font-weight: 700; font-size: .85rem; color: var(--gray-900); margin-bottom: .125rem; }
+.efl-toast-msg { font-size: .78rem; color: var(--gray-500); line-height: 1.4; }
+.efl-toast-close {
+  cursor: pointer; color: var(--gray-300); font-size: 1rem; line-height: 1;
+  flex-shrink: 0; padding: .125rem;
+}
+.efl-toast-close:hover { color: var(--gray-500); }
+.efl-toast.efl-toast-out { animation: efl-toast-out .2s ease forwards; }
+@keyframes efl-toast-in { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes efl-toast-out { to { opacity: 0; transform: translateX(24px); } }
+@media (max-width: 520px) {
+  .efl-toast-wrap { top: .5rem; right: .5rem; left: .5rem; max-width: none; width: auto; }
+}
 .tp-group-title { font-size:.7rem; font-weight:700; text-transform:uppercase;
   letter-spacing:.06em; color:var(--gray-400); margin:.75rem 0 .375rem; }
 .tp-ex-row { display:flex; align-items:center; gap:.625rem; padding:.3rem 0;
@@ -1982,6 +2009,7 @@ img { max-width: 100%; }
 </head>
 <body>
 
+<div id="efl-toast-wrap" class="efl-toast-wrap" aria-live="polite"></div>
 
 <div class="auth-overlay" id="auth-overlay" style="position:fixed;inset:0;z-index:200;">
   <div class="auth-card" id="auth-card">
@@ -2122,16 +2150,8 @@ img { max-width: 100%; }
 
   <footer class="footer footer-legal">
     <div class="footer-legal-inner">
-      <div class="footer-legal-business">
-        <strong>NYCOLLAS ALCANTARA DA SILVA</strong> — CPF 086.813.389-27<br>
-        <strong>TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES</strong><br>
-        CNPJ: 48.702.304/0001-27<br>
-        AV. EGIDIO ABELINO RICHARTZ, 279, AP702 — Beira Rio — Biguaçu/SC
-      </div>
-      <div class="footer-legal-contact">
-        <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a><br>
-        Entre em contato pelo <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
-      </div>
+      TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES · CNPJ 48.702.304/0001-27 · AV. Egidio Abelino Richartz, 279, AP702, Beira Rio, Biguaçu/SC<br>
+      <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a> · <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
     </div>
     <div class="footer-legal-copy">
       © 2026 English For Life · Todos os direitos reservados · <span class="pp-code" id="home-version"></span>
@@ -2315,23 +2335,14 @@ img { max-width: 100%; }
 
   <footer class="footer footer-legal">
     <div class="footer-legal-inner">
-      <div class="footer-legal-business">
-        <strong>NYCOLLAS ALCANTARA DA SILVA</strong> — CPF 086.813.389-27<br>
-        <strong>TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES</strong><br>
-        CNPJ: 48.702.304/0001-27<br>
-        AV. EGIDIO ABELINO RICHARTZ, 279, AP702 — Beira Rio — Biguaçu/SC
-      </div>
-      <div class="footer-legal-contact">
-        <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a><br>
-        Entre em contato pelo <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
-      </div>
+      TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES · CNPJ 48.702.304/0001-27 · AV. Egidio Abelino Richartz, 279, AP702, Beira Rio, Biguaçu/SC<br>
+      <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a> · <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
     </div>
     <div class="footer-legal-copy">
       © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v1.00</span>
     </div>
   </footer>
 </div>
-
 
 <div class="page" id="page-reading">
 
@@ -2578,16 +2589,8 @@ img { max-width: 100%; }
 
   <footer class="footer footer-legal">
     <div class="footer-legal-inner">
-      <div class="footer-legal-business">
-        <strong>NYCOLLAS ALCANTARA DA SILVA</strong> — CPF 086.813.389-27<br>
-        <strong>TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES</strong><br>
-        CNPJ: 48.702.304/0001-27<br>
-        AV. EGIDIO ABELINO RICHARTZ, 279, AP702 — Beira Rio — Biguaçu/SC
-      </div>
-      <div class="footer-legal-contact">
-        <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a><br>
-        Entre em contato pelo <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
-      </div>
+      TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES · CNPJ 48.702.304/0001-27 · AV. Egidio Abelino Richartz, 279, AP702, Beira Rio, Biguaçu/SC<br>
+      <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a> · <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
     </div>
     <div class="footer-legal-copy">
       © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v1.00</span>
@@ -2741,16 +2744,8 @@ img { max-width: 100%; }
 
   <footer class="footer footer-legal">
     <div class="footer-legal-inner">
-      <div class="footer-legal-business">
-        <strong>NYCOLLAS ALCANTARA DA SILVA</strong> — CPF 086.813.389-27<br>
-        <strong>TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES</strong><br>
-        CNPJ: 48.702.304/0001-27<br>
-        AV. EGIDIO ABELINO RICHARTZ, 279, AP702 — Beira Rio — Biguaçu/SC
-      </div>
-      <div class="footer-legal-contact">
-        <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a><br>
-        Entre em contato pelo <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
-      </div>
+      TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES · CNPJ 48.702.304/0001-27 · AV. Egidio Abelino Richartz, 279, AP702, Beira Rio, Biguaçu/SC<br>
+      <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a> · <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
     </div>
     <div class="footer-legal-copy">
       © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v1.00</span>
@@ -3041,16 +3036,8 @@ img { max-width: 100%; }
 
     <footer class="footer footer-legal">
     <div class="footer-legal-inner">
-      <div class="footer-legal-business">
-        <strong>NYCOLLAS ALCANTARA DA SILVA</strong> — CPF 086.813.389-27<br>
-        <strong>TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES</strong><br>
-        CNPJ: 48.702.304/0001-27<br>
-        AV. EGIDIO ABELINO RICHARTZ, 279, AP702 — Beira Rio — Biguaçu/SC
-      </div>
-      <div class="footer-legal-contact">
-        <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a><br>
-        Entre em contato pelo <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
-      </div>
+      TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES · CNPJ 48.702.304/0001-27 · AV. Egidio Abelino Richartz, 279, AP702, Beira Rio, Biguaçu/SC<br>
+      <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a> · <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
     </div>
     <div class="footer-legal-copy">
       © 2026 English For Life · Todos os direitos reservados · <span class="pp-code" id="pspc-footer-ver"></span>
@@ -3274,16 +3261,8 @@ img { max-width: 100%; }
 
   <footer class="footer footer-legal">
     <div class="footer-legal-inner">
-      <div class="footer-legal-business">
-        <strong>NYCOLLAS ALCANTARA DA SILVA</strong> — CPF 086.813.389-27<br>
-        <strong>TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES</strong><br>
-        CNPJ: 48.702.304/0001-27<br>
-        AV. EGIDIO ABELINO RICHARTZ, 279, AP702 — Beira Rio — Biguaçu/SC
-      </div>
-      <div class="footer-legal-contact">
-        <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a><br>
-        Entre em contato pelo <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
-      </div>
+      TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES · CNPJ 48.702.304/0001-27 · AV. Egidio Abelino Richartz, 279, AP702, Beira Rio, Biguaçu/SC<br>
+      <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a> · <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
     </div>
     <div class="footer-legal-copy">
       © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v1.00</span>
@@ -3462,16 +3441,8 @@ img { max-width: 100%; }
 
   <footer class="footer footer-legal">
     <div class="footer-legal-inner">
-      <div class="footer-legal-business">
-        <strong>NYCOLLAS ALCANTARA DA SILVA</strong> — CPF 086.813.389-27<br>
-        <strong>TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES</strong><br>
-        CNPJ: 48.702.304/0001-27<br>
-        AV. EGIDIO ABELINO RICHARTZ, 279, AP702 — Beira Rio — Biguaçu/SC
-      </div>
-      <div class="footer-legal-contact">
-        <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a><br>
-        Entre em contato pelo <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
-      </div>
+      TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES · CNPJ 48.702.304/0001-27 · AV. Egidio Abelino Richartz, 279, AP702, Beira Rio, Biguaçu/SC<br>
+      <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a> · <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
     </div>
     <div class="footer-legal-copy">
       © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v1.00</span>
@@ -3573,16 +3544,8 @@ img { max-width: 100%; }
 
   <footer class="footer footer-legal">
     <div class="footer-legal-inner">
-      <div class="footer-legal-business">
-        <strong>NYCOLLAS ALCANTARA DA SILVA</strong> — CPF 086.813.389-27<br>
-        <strong>TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES</strong><br>
-        CNPJ: 48.702.304/0001-27<br>
-        AV. EGIDIO ABELINO RICHARTZ, 279, AP702 — Beira Rio — Biguaçu/SC
-      </div>
-      <div class="footer-legal-contact">
-        <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a><br>
-        Entre em contato pelo <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
-      </div>
+      TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES · CNPJ 48.702.304/0001-27 · AV. Egidio Abelino Richartz, 279, AP702, Beira Rio, Biguaçu/SC<br>
+      <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a> · <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
     </div>
     <div class="footer-legal-copy">
       © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v1.00</span>
@@ -3820,16 +3783,8 @@ img { max-width: 100%; }
 
   <footer class="footer footer-legal">
     <div class="footer-legal-inner">
-      <div class="footer-legal-business">
-        <strong>NYCOLLAS ALCANTARA DA SILVA</strong> — CPF 086.813.389-27<br>
-        <strong>TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES</strong><br>
-        CNPJ: 48.702.304/0001-27<br>
-        AV. EGIDIO ABELINO RICHARTZ, 279, AP702 — Beira Rio — Biguaçu/SC
-      </div>
-      <div class="footer-legal-contact">
-        <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a><br>
-        Entre em contato pelo <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
-      </div>
+      TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES · CNPJ 48.702.304/0001-27 · AV. Egidio Abelino Richartz, 279, AP702, Beira Rio, Biguaçu/SC<br>
+      <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a> · <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
     </div>
     <div class="footer-legal-copy">
       © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v1.00</span>
@@ -4146,16 +4101,8 @@ img { max-width: 100%; }
 
   <footer class="footer footer-legal">
     <div class="footer-legal-inner">
-      <div class="footer-legal-business">
-        <strong>NYCOLLAS ALCANTARA DA SILVA</strong> — CPF 086.813.389-27<br>
-        <strong>TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES</strong><br>
-        CNPJ: 48.702.304/0001-27<br>
-        AV. EGIDIO ABELINO RICHARTZ, 279, AP702 — Beira Rio — Biguaçu/SC
-      </div>
-      <div class="footer-legal-contact">
-        <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a><br>
-        Entre em contato pelo <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
-      </div>
+      TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES · CNPJ 48.702.304/0001-27 · AV. Egidio Abelino Richartz, 279, AP702, Beira Rio, Biguaçu/SC<br>
+      <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a> · <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
     </div>
     <div class="footer-legal-copy">
       © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v1.00</span>
@@ -4417,16 +4364,8 @@ img { max-width: 100%; }
 
   <footer class="footer footer-legal">
     <div class="footer-legal-inner">
-      <div class="footer-legal-business">
-        <strong>NYCOLLAS ALCANTARA DA SILVA</strong> — CPF 086.813.389-27<br>
-        <strong>TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES</strong><br>
-        CNPJ: 48.702.304/0001-27<br>
-        AV. EGIDIO ABELINO RICHARTZ, 279, AP702 — Beira Rio — Biguaçu/SC
-      </div>
-      <div class="footer-legal-contact">
-        <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a><br>
-        Entre em contato pelo <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
-      </div>
+      TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES · CNPJ 48.702.304/0001-27 · AV. Egidio Abelino Richartz, 279, AP702, Beira Rio, Biguaçu/SC<br>
+      <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a> · <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
     </div>
     <div class="footer-legal-copy">
       © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v1.00</span>
@@ -4714,16 +4653,8 @@ img { max-width: 100%; }
 
   <footer class="footer footer-legal">
     <div class="footer-legal-inner">
-      <div class="footer-legal-business">
-        <strong>NYCOLLAS ALCANTARA DA SILVA</strong> — CPF 086.813.389-27<br>
-        <strong>TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES</strong><br>
-        CNPJ: 48.702.304/0001-27<br>
-        AV. EGIDIO ABELINO RICHARTZ, 279, AP702 — Beira Rio — Biguaçu/SC
-      </div>
-      <div class="footer-legal-contact">
-        <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a><br>
-        Entre em contato pelo <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
-      </div>
+      TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES · CNPJ 48.702.304/0001-27 · AV. Egidio Abelino Richartz, 279, AP702, Beira Rio, Biguaçu/SC<br>
+      <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a> · <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
     </div>
     <div class="footer-legal-copy">
       © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v1.00</span>
@@ -5005,16 +4936,8 @@ img { max-width: 100%; }
 
   <footer class="footer footer-legal">
     <div class="footer-legal-inner">
-      <div class="footer-legal-business">
-        <strong>NYCOLLAS ALCANTARA DA SILVA</strong> — CPF 086.813.389-27<br>
-        <strong>TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES</strong><br>
-        CNPJ: 48.702.304/0001-27<br>
-        AV. EGIDIO ABELINO RICHARTZ, 279, AP702 — Beira Rio — Biguaçu/SC
-      </div>
-      <div class="footer-legal-contact">
-        <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a><br>
-        Entre em contato pelo <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
-      </div>
+      TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES · CNPJ 48.702.304/0001-27 · AV. Egidio Abelino Richartz, 279, AP702, Beira Rio, Biguaçu/SC<br>
+      <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a> · <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
     </div>
     <div class="footer-legal-copy">
       © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v1.00</span>
@@ -5312,16 +5235,8 @@ img { max-width: 100%; }
 
   <footer class="footer footer-legal">
     <div class="footer-legal-inner">
-      <div class="footer-legal-business">
-        <strong>NYCOLLAS ALCANTARA DA SILVA</strong> — CPF 086.813.389-27<br>
-        <strong>TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES</strong><br>
-        CNPJ: 48.702.304/0001-27<br>
-        AV. EGIDIO ABELINO RICHARTZ, 279, AP702 — Beira Rio — Biguaçu/SC
-      </div>
-      <div class="footer-legal-contact">
-        <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a><br>
-        Entre em contato pelo <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
-      </div>
+      TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES · CNPJ 48.702.304/0001-27 · AV. Egidio Abelino Richartz, 279, AP702, Beira Rio, Biguaçu/SC<br>
+      <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a> · <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
     </div>
     <div class="footer-legal-copy">
       © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v1.00</span>
@@ -5619,16 +5534,8 @@ img { max-width: 100%; }
 
   <footer class="footer footer-legal">
     <div class="footer-legal-inner">
-      <div class="footer-legal-business">
-        <strong>NYCOLLAS ALCANTARA DA SILVA</strong> — CPF 086.813.389-27<br>
-        <strong>TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES</strong><br>
-        CNPJ: 48.702.304/0001-27<br>
-        AV. EGIDIO ABELINO RICHARTZ, 279, AP702 — Beira Rio — Biguaçu/SC
-      </div>
-      <div class="footer-legal-contact">
-        <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a><br>
-        Entre em contato pelo <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
-      </div>
+      TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES · CNPJ 48.702.304/0001-27 · AV. Egidio Abelino Richartz, 279, AP702, Beira Rio, Biguaçu/SC<br>
+      <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a> · <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
     </div>
     <div class="footer-legal-copy">
       © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v1.00</span>
@@ -5978,16 +5885,8 @@ img { max-width: 100%; }
 
   <footer class="footer footer-legal">
     <div class="footer-legal-inner">
-      <div class="footer-legal-business">
-        <strong>NYCOLLAS ALCANTARA DA SILVA</strong> — CPF 086.813.389-27<br>
-        <strong>TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES</strong><br>
-        CNPJ: 48.702.304/0001-27<br>
-        AV. EGIDIO ABELINO RICHARTZ, 279, AP702 — Beira Rio — Biguaçu/SC
-      </div>
-      <div class="footer-legal-contact">
-        <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a><br>
-        Entre em contato pelo <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
-      </div>
+      TEACHER NYCOLLAS ALCANTARA - ENGLISH SERVICES · CNPJ 48.702.304/0001-27 · AV. Egidio Abelino Richartz, 279, AP702, Beira Rio, Biguaçu/SC<br>
+      <a href="mailto:teacherduvaldi@gmail.com">teacherduvaldi@gmail.com</a> · <a href="http://wa.me/48996653865" target="_blank" rel="noopener">+55 48 99665-3865</a>
     </div>
     <div class="footer-legal-copy">
       © 2026 English For Life · Todos os direitos reservados · <span class="pp-code">v1.00</span>
@@ -6127,7 +6026,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v1.00';
+var SITE_VERSION = 'v1.02';
 
 var EXERCISE_REGISTRY = [
   {
@@ -6915,9 +6814,52 @@ function signInWithGoogle() {
 }
 
 function signOutUser() {
+  if (typeof _assignmentsUnsub === 'function') { _assignmentsUnsub(); _assignmentsUnsub = null; }
   auth.signOut().then(function() {
     toggleDropdown(true);
   });
+}
+
+/* ══════════════════════════════════════════════════════
+   TOAST — notificações flutuantes (ex.: nova tarefa atribuída)
+══════════════════════════════════════════════════════ */
+function showToast(opts) {
+  opts = opts || {};
+  var wrap = document.getElementById('efl-toast-wrap');
+  if (!wrap) return;
+  var el = document.createElement('div');
+  el.className = 'efl-toast';
+  if (opts.onClick) el.setAttribute('data-clickable', '1');
+  el.innerHTML =
+    '<span class="efl-toast-icon">' + (opts.icon || '🔔') + '</span>' +
+    '<div class="efl-toast-body">' +
+      '<div class="efl-toast-title"></div>' +
+      '<div class="efl-toast-msg"></div>' +
+    '</div>' +
+    '<span class="efl-toast-close" aria-label="Fechar">✕</span>';
+  el.querySelector('.efl-toast-title').textContent = opts.title || '';
+  el.querySelector('.efl-toast-msg').textContent   = opts.message || '';
+  el.querySelector('.efl-toast-close').addEventListener('click', function(e) {
+    e.stopPropagation();
+    dismissToast(el);
+  });
+  if (opts.onClick) {
+    el.addEventListener('click', function() {
+      opts.onClick();
+      dismissToast(el);
+    });
+  }
+  wrap.appendChild(el);
+  var duration = opts.duration || 7000;
+  var timer = setTimeout(function() { dismissToast(el); }, duration);
+  el._eflTimer = timer;
+}
+
+function dismissToast(el) {
+  if (!el || !el.parentNode) return;
+  if (el._eflTimer) clearTimeout(el._eflTimer);
+  el.classList.add('efl-toast-out');
+  setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 200);
 }
 
 /* ══════════════════════════════════════════════════════
@@ -6951,6 +6893,8 @@ var HUB_EXERCISE_MAP = {
 var userProgressCache  = {}; /* exerciseId → {bestScore, maxScore, completed} */
 var progressLoaded    = false;
 var assignmentsCache   = {}; /* exerciseId → true (se for tarefa ativa) */
+var _assignmentsUnsub   = null; /* unsubscribe da listener em tempo real */
+var _assignmentsFirstLoad = true; /* evita notificar tarefas já existentes no primeiro carregamento */
 
 function loadAllProgress() {
   if (!db || !currentUser) return;
@@ -7296,6 +7240,7 @@ function renderTeacherPanel() {
       var dash = document.getElementById('tp-dashboard');
       if (loading) loading.style.display = 'none';
       if (dash)    dash.style.display    = 'block';
+      if (table)   table.style.display   = 'block';
       if (count)   count.textContent     = students.length + ' aluno(s)';
       tpRenderDashboard(tpAllStudents);
       tpRender(tpAllStudents);
@@ -7572,17 +7517,47 @@ function tpFilter() {
 
 function loadAssignments() {
   if (!db || !currentUser) return;
-  /* Each student reads their own assignments subcollection */
-  db.collection('assignments').doc(currentUser.uid)
-    .collection('exercises').where('active', '==', true).get()
-    .then(function(snap) {
-      assignmentsCache = {};
-      snap.forEach(function(doc) { assignmentsCache[doc.id] = true; });
+  /* Cancela a listener anterior (evita duplicar ao logar de novo na mesma sessão) */
+  if (typeof _assignmentsUnsub === 'function') { _assignmentsUnsub(); _assignmentsUnsub = null; }
+  _assignmentsFirstLoad = true;
+  /* Each student listens to their own assignments subcollection in real time */
+  _assignmentsUnsub = db.collection('assignments').doc(currentUser.uid)
+    .collection('exercises').where('active', '==', true)
+    .onSnapshot(function(snap) {
+      var newAssigns = {};
+      snap.forEach(function(doc) { newAssigns[doc.id] = true; });
+
+      if (!_assignmentsFirstLoad) {
+        var addedIds = Object.keys(newAssigns).filter(function(id) { return !assignmentsCache[id]; });
+        addedIds.forEach(function(id) { notifyNewAssignment(id); });
+      }
+      _assignmentsFirstLoad = false;
+
+      assignmentsCache = newAssigns;
       renderHubBadges();
       var sp = document.getElementById('page-student');
       if (sp && sp.classList.contains('active')) { renderStudentPanel(); }
-    })
-    .catch(function(e) { console.warn('Erro ao carregar tarefas:', e.message); });
+    }, function(e) { console.warn('Erro ao carregar tarefas:', e.message); });
+}
+
+function findExerciseLabel(exerciseId) {
+  for (var i = 0; i < STUDENT_GROUPS.length; i++) {
+    var exs = STUDENT_GROUPS[i].exercises;
+    for (var j = 0; j < exs.length; j++) {
+      if (exs[j].id === exerciseId) return exs[j].label;
+    }
+  }
+  return exerciseId;
+}
+
+function notifyNewAssignment(exerciseId) {
+  showToast({
+    icon: '📌',
+    title: 'Nova tarefa do professor',
+    message: findExerciseLabel(exerciseId),
+    duration: 9000,
+    onClick: function() { showPage('student', null); }
+  });
 }
 
 function tpToggleAssignment(uid, exerciseId, btn) {
@@ -11064,7 +11039,7 @@ var PF_BANK_T3 = [
   { sentence: `The Nile ___ through several African countries.`, opts: [`runs`, `is running`], correct: [0], expl: `<strong>Resposta: runs (Present Simple)</strong><br>Fato geográfico permanente → Present Simple. "Is running" sugeriria algo temporário ou surpreendente.` },
   { sentence: `I ___ to lose weight before the summer.`, opts: [`try`, `am trying`], correct: [1, 0], expl: `<strong>Ambas aceitáveis, com diferença!</strong><br>• <em>"am trying"</em> (Present Continuous) → esforço atual em andamento, enfatiza processo e temporalidade.<br>• <em>"try"</em> (Present Simple) → descreve um objetivo como hábito ou tendência geral, menos usual neste contexto.` },
   { sentence: `The earth ___ around the sun.`, opts: [`revolves`, `is revolving`], correct: [0], expl: `<strong>Resposta: revolves (Present Simple)</strong><br>Fato astronômico e científico permanente → Present Simple.` },
-  { sentence: `She ___ her apartment while her landlord is away.`, opts: [`redecores`, `is redecorating`], correct: [1], expl: `<strong>Resposta: is redecorating (Present Continuous)</strong><br>Ação em andamento e temporária, aproveitando uma janela de tempo específica. "Redecores" (Present Simple) não existe como forma verbal padrão aqui; mesmo se fosse "redecorates", soaria como hábito.` },
+  { sentence: `She ___ her apartment while her landlord is away.`, opts: [`redecorates`, `is redecorating`], correct: [1], expl: `<strong>Resposta: is redecorating (Present Continuous)</strong><br>Ação em andamento e temporária, aproveitando uma janela de tempo específica. "Redecorates" (Present Simple) soaria como hábito permanente, não como esta ação pontual.` },
   { sentence: `He ___ five books a year on average.`, opts: [`reads`, `is reading`], correct: [0], expl: `<strong>Resposta: reads (Present Simple)</strong><br>"Five books a year on average" é uma frequência/estatística pessoal → Present Simple para hábitos com expressões de frequência.` },
   { sentence: `I ___ more vegetables and less sugar this month.`, opts: [`eat`, `am eating`], correct: [1, 0], expl: `<strong>Ambas corretas!</strong><br>• <em>"am eating"</em> (Present Continuous) → mudança temporária de hábito neste mês específico (mais natural com "this month").<br>• <em>"eat"</em> (Present Simple) → pode descrever uma nova regra de vida já estabelecida.` },
   { sentence: `The sun ___ in the east.`, opts: [`rises`, `is rising`], correct: [0], expl: `<strong>Resposta: rises (Present Simple)</strong><br>Fato natural permanente → Present Simple. "Is rising" = o sol está nascendo agora (evento observável neste momento).` },
@@ -11257,32 +11232,32 @@ var PF_BANK_T4 = [
   { sentence: `___ — someone's knocking at the door.`, opts: [`I'll get it`, `I'm getting it`, `I get it`, `I'm going to get it`], correct: 0, expl: `<strong>Resposta: I'll get it (Will)</strong><br>Decisão tomada no exato momento de fala — espontânea. Will é o tempo verbal para ofertas e decisões instantâneas. "I'm getting it" / "I'm going to get it" requereriam que você já estivesse se levantando antes de ouvir a batida.` },
   { sentence: `Look at those dark clouds! It ___ rain.`, opts: [`is going to`, `will`, `rains`, `is raining`], correct: 0, expl: `<strong>Resposta: is going to (Going To)</strong><br>Evidência visual presente (nuvens escuras) → previsão baseada em evidência = Going To. Will seria para previsão sem evidência concreta. Present Simple seria para fato permanente.` },
   { sentence: `The ceremony ___ at 10am sharp. Don't be late.`, opts: [`starts`, `is starting`, `will start`, `is going to start`], correct: 0, expl: `<strong>Resposta: starts (Present Simple)</strong><br>Horário oficial de cerimônia institucional → Present Simple. A urgência ("Don't be late") não muda o tempo verbal — é o horário fixo do evento.` },
-  { sentence: `We ___ a baby in March!`, opts: [`are having`, `have`, `will have`, `are going to have`], correct: 0, expl: `<strong>Resposta: are having (Present Continuous)</strong><br>Gravidez é um plano/fato futuro 100% confirmado com data. Going to também seria correto ("are going to have"), mas o Present Continuous com data marcada é mais natural e comum para este contexto.` },
+  { sentence: `We ___ a baby in March!`, opts: [`are having`, `have`, `will have`, `are going to have`], correct: 0, altCorrect: 3, expl: `<strong>Resposta: are having / are going to have</strong><br>Gravidez é um plano/fato futuro 100% confirmado com data. Tanto o Present Continuous ("are having") quanto o Going To ("are going to have") são aceitos aqui — ambos expressam um plano confirmado com prazo definido.` },
   { sentence: `A: "What would you like to drink?" B: "___ a glass of water, please."`, opts: [`I'll have`, `I'm having`, `I have`, `I'm going to have`], correct: 0, expl: `<strong>Resposta: I'll have (Will)</strong><br>Pedido em restaurante — decisão feita no momento da fala em resposta à pergunta. Will para decisões espontâneas em interações sociais. "I'm having" soaria como se você já estivesse bebendo.` },
   { sentence: `She ___ medicine next year — she's applied to several universities.`, opts: [`is studying`, `studies`, `will study`, `studies`], correct: 0, expl: `<strong>Resposta: is studying (Present Continuous)</strong><br>Intenção concreta com ações já tomadas (candidaturas feitas) → Present Continuous. "Will study" seria para uma intenção menos certa ou decisão espontânea.` },
   { sentence: `I promise I ___ you as soon as I arrive.`, opts: [`will call`, `am calling`, `call`, `am going to call`], correct: 0, expl: `<strong>Resposta: will call (Will)</strong><br>Promessa feita no momento da conversa → Will. "Am going to call" seria possível mas menos natural para uma promessa formal. Will é o tempo verbal das promessas e comprometimentos.` },
-  { sentence: `The train ___ in five minutes. Platform 3.`, opts: [`arrives`, `is arriving`, `will arrive`, `is going to arrive`], correct: 0, expl: `<strong>Resposta: arrives (Present Simple)</strong><br>Horário de chegada de trem é programação oficial → Present Simple. "Is arriving" também seria aceitável para dar urgência ("O trem está chegando!"), mas para informar o horário, Present Simple é padrão.` },
+  { sentence: `The train ___ in five minutes. Platform 3.`, opts: [`arrives`, `is arriving`, `will arrive`, `is going to arrive`], correct: 0, altCorrect: 1, expl: `<strong>Resposta: arrives / is arriving</strong><br>Horário de chegada de trem é programação oficial → Present Simple ("arrives") é o padrão. "Is arriving" também é aceito aqui, dando senso de urgência imediata ("O trem está chegando!").` },
   { sentence: `I ___ the dishes — you cooked, it's the least I can do.`, opts: [`will do`, `am doing`, `do`, `am going to do`], correct: 0, expl: `<strong>Resposta: will do (Will)</strong><br>Oferta espontânea feita no momento — clássico uso de Will para offers. "Am going to do" seria se você já tivesse decidido antes de dizer.` },
   { sentence: `They ___ to Canada next year — they have their visas already.`, opts: [`are emigrating`, `emigrate`, `will emigrate`, `emigrated`], correct: 0, expl: `<strong>Resposta: are emigrating (Present Continuous)</strong><br>Visto já obtido — prova concreta de plano confirmado → Present Continuous. "Will emigrate" seria para uma intenção ainda não formalizada.` },
   { sentence: `"I can't open this jar." — "Here, ___ try."`, opts: [`I'll`, `I'm going to`, `I`, `I am`], correct: 0, expl: `<strong>Resposta: I'll (Will)</strong><br>Oferta de ajuda espontânea em resposta a uma situação imediata → Will. "I'm going to try" seria possível mas mais enfático, como se você já estivesse se preparando.` },
-  { sentence: `The president ___ the results of the election tonight.`, opts: [`announces`, `is announcing`, `will announce`, `is going to announce`], correct: 0, expl: `<strong>Resposta: announces (Present Simple)</strong><br>Evento público programado e oficial com horário → Present Simple. "Is announcing" também seria aceito, mas para um discurso oficial com hora marcada, Present Simple é preferido em manchetes e anúncios.` },
+  { sentence: `The president ___ the results of the election tonight.`, opts: [`announces`, `is announcing`, `will announce`, `is going to announce`], correct: 0, altCorrect: 1, expl: `<strong>Resposta: announces / is announcing</strong><br>Evento público programado e oficial com horário → Present Simple ("announces") é preferido em manchetes e anúncios. "Is announcing" também é aceito, enfatizando o evento como algo que vai acontecer.` },
   { sentence: `I ___ my best! I've been training for months.`, opts: [`am going to do`, `will do`, `do`, `am doing`], correct: 0, expl: `<strong>Resposta: am going to do (Going To)</strong><br>Intenção forte baseada em preparação prévia ("I've been training for months") → Going To. Will seria para promessa espontânea sem preparação evidente.` },
   { sentence: `Watch out! You ___ fall!`, opts: [`are going to`, `will`, `are`, `would`], correct: 0, expl: `<strong>Resposta: are going to (Going To)</strong><br>Aviso urgente baseado em evidência visual imediata (você viu que a pessoa está prestes a cair) → Going To. Will seria para previsão sem evidência direta.` },
   { sentence: `The conference ___ every two years.`, opts: [`takes place`, `is taking place`, `will take place`, `is going to take place`], correct: 0, expl: `<strong>Resposta: takes place (Present Simple)</strong><br>Frequência regular de evento → Present Simple para fatos permanentes e padrões estabelecidos.` },
   { sentence: `I feel terrible. I think I ___ be sick.`, opts: [`am going to`, `will`, `am`, `going to`], correct: 0, expl: `<strong>Resposta: am going to (Going To)</strong><br>Previsão baseada em sensação física atual (evidência) → Going To. Will seria para uma previsão sem evidência direta no momento.` },
-  { sentence: `Don't worry, I ___ help you move on Saturday.`, opts: [`will`, `am going to`, `am helping`, `help`], correct: 0, expl: `<strong>Resposta: will (Will)</strong><br>Promessa/garantia → Will. "Am going to help" também seria aceitável se você já tivesse planejado anteriormente, mas "will" é mais natural para tranquilizar alguém.` },
+  { sentence: `Don't worry, I ___ help you move on Saturday.`, opts: [`will`, `am going to`, `am helping`, `help`], correct: 0, altCorrect: 1, expl: `<strong>Resposta: will / am going to</strong><br>Promessa/garantia → Will é o mais natural para tranquilizar alguém no momento da fala. "Am going to help" também é aceito se você já tivesse esse plano em mente antes de falar.` },
   { sentence: `She ___ her new novel at the book fair next weekend.`, opts: [`is launching`, `launches`, `will launch`, `is going to launch`], correct: 0, expl: `<strong>Resposta: is launching (Present Continuous)</strong><br>Lançamento pessoal em evento específico, planejado e confirmado → Present Continuous. "Launches" soaria como rotina.` },
   { sentence: `He has decided. He ___ the job offer.`, opts: [`is going to accept`, `will accept`, `accepts`, `is accepting`], correct: 0, expl: `<strong>Resposta: is going to accept (Going To)</strong><br>"He has decided" confirma que é uma intenção já formada → Going To. Will seria para decisão espontânea; aqui a decisão já está tomada.` },
-  { sentence: `The flight ___ boarding in 15 minutes.`, opts: [`starts`, `is starting`, `will start`, `is going to start`], correct: 0, expl: `<strong>Resposta: starts (Present Simple)</strong><br>Procedimento de embarque com horário oficial → Present Simple. "Is starting" também é aceito informalmente ("O embarque está começando!"), mas para anunciar o horário, Present Simple é padrão.` },
+  { sentence: `The flight ___ boarding in 15 minutes.`, opts: [`starts`, `is starting`, `will start`, `is going to start`], correct: 0, altCorrect: 1, expl: `<strong>Resposta: starts / is starting</strong><br>Procedimento de embarque com horário oficial → Present Simple ("starts") é o padrão para anúncios. "Is starting" também é aceito, mais comum em fala informal ("O embarque está começando!").` },
   { sentence: `"There's no milk." — "I ___ get some."`, opts: [`will`, `am going to`, `am getting`, `get`], correct: 0, expl: `<strong>Resposta: will (Will)</strong><br>Decisão espontânea em resposta a uma situação imediata → Will. "Am going to get" seria se você já tivesse planejado ir ao mercado.` },
   { sentence: `According to the forecast, temperatures ___ drop significantly this weekend.`, opts: [`will`, `are going to`, `drop`, `are dropping`], correct: 1, expl: `<strong>Resposta: are going to (Going To)</strong><br>Previsão climática baseada em dados (forecast) = evidência → Going To. "Will" também é usado em previsões, mas quando há dados concretos, Going To é mais preciso.` },
   { sentence: `I can't meet on Wednesday — I ___ my annual performance review.`, opts: [`am having`, `have`, `will have`, `had`], correct: 0, expl: `<strong>Resposta: am having (Present Continuous)</strong><br>Compromisso profissional agendado → Present Continuous. A avaliação anual já está marcada no calendário.` },
-  { sentence: `Don't eat all the cake — you ___ feel sick!`, opts: [`will`, `are going to`, `are`, `going to`], correct: 1, expl: `<strong>Resposta: are going to (Going To)</strong><br>Aviso/consequência baseada em ação que está acontecendo agora → Going To. "Will" também seria aceitável neste contexto de aviso, mas Going To é mais comum para consequências de ações imediatas.` },
-  { sentence: `She has her bags packed. She ___ leave.`, opts: [`is going to`, `will`, `leaves`, `is leaving`], correct: 0, expl: `<strong>Resposta: is going to (Going To)</strong><br>"She has her bags packed" é evidência concreta de intenção formada → Going To. "Is leaving" também seria correto (plano confirmado), mas a evidência visual aqui pede Going To.` },
-  { sentence: `I ___ call you when I finish the report.`, opts: [`will`, `am going to`, `am calling`, `call`], correct: 0, expl: `<strong>Resposta: will (Will)</strong><br>Promessa/comprometimento futuro em uma conversa → Will. "Am going to call" também seria correto, mas Will é mais natural para promessas e planos vagos de comunicação.` },
+  { sentence: `Don't eat all the cake — you ___ feel sick!`, opts: [`will`, `are going to`, `are`, `going to`], correct: 1, altCorrect: 0, expl: `<strong>Resposta: are going to / will</strong><br>Aviso/consequência baseada em ação que está acontecendo agora → Going To é o mais comum para consequências de ações imediatas. "Will" também é aceito aqui, em tom de aviso geral.` },
+  { sentence: `She has her bags packed. She ___ leave.`, opts: [`is going to`, `will`, `leaves`, `is leaving`], correct: 0, altCorrect: 3, expl: `<strong>Resposta: is going to / is leaving</strong><br>"She has her bags packed" é evidência concreta de intenção formada → Going To. "Is leaving" também é aceito aqui, como plano pessoal já confirmado.` },
+  { sentence: `I ___ call you when I finish the report.`, opts: [`will`, `am going to`, `am calling`, `call`], correct: 0, altCorrect: 1, expl: `<strong>Resposta: will / am going to</strong><br>Promessa/comprometimento futuro em uma conversa → Will é o mais natural para promessas e planos vagos de comunicação. "Am going to call" também é aceito aqui.` },
   { sentence: `The board meeting ___ on Tuesday morning.`, opts: [`is`, `will be`, `is being`, `is going to be`], correct: 0, expl: `<strong>Resposta: is (Present Simple — "is")</strong><br>Reunião corporativa com dia e horário fixos → Present Simple. "Will be" seria para algo ainda não certo ou para uma previsão.` },
   { sentence: `A: "This box is too heavy for me." — B: "___ give you a hand."`, opts: [`I'll`, `I'm going to`, `I`, `I am`], correct: 0, expl: `<strong>Resposta: I'll (Will)</strong><br>Oferta de ajuda espontânea em resposta imediata → Will. "I'm going to give" seria se você já tivesse se levantado para ajudar antes de dizer.` },
-  { sentence: `He has already spoken to the HR. He ___ resign next Friday.`, opts: [`is going to`, `will`, `resigns`, `is resigning`], correct: 0, expl: `<strong>Resposta: is going to (Going To)</strong><br>Decisão já tomada e comunicada ("already spoken to HR") → Going To. "Is resigning" (Present Continuous) também seria correto, mas Going To é mais natural quando a ênfase está na decisão prévia.` },
+  { sentence: `He has already spoken to the HR. He ___ resign next Friday.`, opts: [`is going to`, `will`, `resigns`, `is resigning`], correct: 0, altCorrect: 3, expl: `<strong>Resposta: is going to / is resigning</strong><br>Decisão já tomada e comunicada ("already spoken to HR") → Going To. "Is resigning" (Present Continuous) também é aceito aqui, como plano pessoal confirmado.` },
   { sentence: `"I feel dizzy." — "Sit down or you ___ faint."`, opts: [`will`, `are going to`, `faint`, `are fainting`], correct: 1, expl: `<strong>Resposta: are going to (Going To)</strong><br>Aviso baseado em sintoma atual e evidente → Going To. Há evidência direta (você está com tontura) que fundamenta a previsão.` },
   { sentence: `The exhibition ___ from Monday to Saturday.`, opts: [`runs`, `is running`, `will run`, `is going to run`], correct: 0, expl: `<strong>Resposta: runs (Present Simple)</strong><br>Período de funcionamento de exposição → Present Simple para fatos e programações fixas.` },
   { sentence: `We haven't decided yet, but we think we ___ redecorate the living room.`, opts: [`will`, `are going to`, `are redecorating`, `redecorate`], correct: 0, expl: `<strong>Resposta: will (Will)</strong><br>"We haven't decided yet" + "we think" = previsão/intenção vaga sem decisão firme → Will. Going To seria para decisão já tomada. "Are redecorating" seria para plano concreto confirmado.` },
@@ -11291,7 +11266,7 @@ var PF_BANK_T4 = [
   { sentence: `"Can you help me?" — "Of course, ___ finish this and be right with you."`, opts: [`I'll`, `I'm going to`, `I`, `I am going to`], correct: 0, expl: `<strong>Resposta: I'll (Will)</strong><br>Resposta espontânea de disponibilidade → Will. A promessa é feita no momento, em resposta direta ao pedido.` },
   { sentence: `They have signed a contract with a big agency. The band ___ tour internationally.`, opts: [`is going to`, `will`, `tours`, `is touring`], correct: 0, expl: `<strong>Resposta: is going to (Going To)</strong><br>Contrato assinado = evidência concreta de plano confirmado → Going To. "Will" seria para uma previsão mais vaga sem evidência específica.` },
   { sentence: `I think electric cars ___ replace petrol cars within 20 years.`, opts: [`will`, `are going to`, `replace`, `are replacing`], correct: 0, expl: `<strong>Resposta: will (Will)</strong><br>"I think" + previsão geral sobre tendência futura sem evidência imediata → Will. Going To seria para evidência concreta e próxima.` },
-  { sentence: `She has an appointment. She ___ the dentist this afternoon.`, opts: [`is seeing`, `sees`, `will see`, `is going to see`], correct: 0, expl: `<strong>Resposta: is seeing (Present Continuous)</strong><br>Consulta pessoal agendada → Present Continuous. "Is going to see" também seria aceitável, mas Present Continuous é mais natural para compromissos com hora marcada.` },
+  { sentence: `She has an appointment. She ___ the dentist this afternoon.`, opts: [`is seeing`, `sees`, `will see`, `is going to see`], correct: 0, altCorrect: 3, expl: `<strong>Resposta: is seeing / is going to see</strong><br>Consulta pessoal agendada → Present Continuous é o mais natural para compromissos com hora marcada. "Is going to see" também é aceito aqui, com a mesma ideia de plano confirmado.` },
   { sentence: `The construction ___ by the end of the year, according to the engineers.`, opts: [`will be completed`, `is completed`, `is completing`, `completes`], correct: 0, expl: `<strong>Resposta: will be completed (Will — passiva)</strong><br>Previsão baseada em estimativa técnica ("according to engineers") — sem evidência concreta de certeza → Will. Going To seria para algo mais certo; aqui é uma estimativa.` },
   { sentence: `I'm not going to the party tonight — I ___ catch up on sleep.`, opts: [`am going to`, `will`, `am`, `go to`], correct: 0, expl: `<strong>Resposta: am going to (Going To)</strong><br>Decisão pessoal tomada previamente como justificativa para recusar o convite → Going To. "Will" soaria como decisão espontânea tomada agora.` }
 ];
@@ -11339,12 +11314,13 @@ function pf4Pick(i, si, origIdx) {
   pf4State[i].answered = true;
   pf4State[i].chosen   = origIdx;
   var q    = pf4Queue[i];
-  var isOk = (origIdx === q.correct);
+  var hasAlt = (typeof q.altCorrect === 'number');
+  var isOk = (origIdx === q.correct) || (hasAlt && origIdx === q.altCorrect);
   pf4State[i].correct = isOk;
   pf4DisableAll();
   var shuffled = pf4State[i].shuffled;
   for (var s = 0; s < shuffled.length; s++) {
-    if (shuffled[s].idx === q.correct) {
+    if (shuffled[s].idx === q.correct || (hasAlt && shuffled[s].idx === q.altCorrect)) {
       var el = document.getElementById('pf4-opt-' + s);
       if (el) el.className = 'ppc-opt ppc-correct';
     }
@@ -11355,7 +11331,11 @@ function pf4Pick(i, si, origIdx) {
   }
   var fb = document.getElementById('pf4-fb');
   fb.className = isOk ? 'ppc-fb ok show' : 'ppc-fb err show';
-  fb.innerHTML = (isOk ? '✅ Correto! <strong>' + q.opts[q.correct] + '</strong><br>' : '❌ Resposta correta: <strong>' + q.opts[q.correct] + '</strong><br>') + q.expl;
+  var correctLabel = hasAlt ? (q.opts[q.correct] + '</strong> ou <strong>' + q.opts[q.altCorrect]) : q.opts[q.correct];
+  var okMsg = hasAlt
+    ? '✅ Correto! <strong>' + q.opts[origIdx] + '</strong> — ambas as formas (<strong>' + q.opts[q.correct] + '</strong> / <strong>' + q.opts[q.altCorrect] + '</strong>) são aceitas aqui.<br>'
+    : '✅ Correto! <strong>' + q.opts[q.correct] + '</strong><br>';
+  fb.innerHTML = (isOk ? okMsg : '❌ Resposta correta: <strong>' + correctLabel + '</strong><br>') + q.expl;
   pf4UpdateProgress();
   fb.insertAdjacentHTML('afterbegin', (i === 9)
     ? '<div style="margin-top:1rem;text-align:center;"><button class="ppc-btn ppc-btn-primary" onclick="pf4ShowResult()">Ver resultado →</button></div>'
@@ -11389,10 +11369,13 @@ function pf4ShowResult() {
     var icon = st.correct ? '✅' : '❌';
     var rowClass = st.correct ? 'ppc-trow-ok' : 'ppc-trow-err';
     var chosenText = st.chosen === -1 ? '<em style="color:var(--gray-400);">(não respondida)</em>' : '<em>' + q.opts[st.chosen] + '</em>';
+    var correctText = (typeof q.altCorrect === 'number')
+      ? q.opts[q.correct] + ' <span style="color:var(--gray-400);">ou</span> ' + q.opts[q.altCorrect]
+      : q.opts[q.correct];
     tableRows += '<tr class="' + rowClass + '">'
       + '<td style="padding:.5rem .75rem;text-align:center;">' + icon + '</td>'
       + '<td style="padding:.5rem .75rem;font-size:.82rem;color:var(--gray-700);">' + q.sentence + '</td>'
-      + '<td style="padding:.5rem .75rem;font-size:.82rem;color:var(--green-800);font-weight:700;">' + q.opts[q.correct] + '</td>'
+      + '<td style="padding:.5rem .75rem;font-size:.82rem;color:var(--green-800);font-weight:700;">' + correctText + '</td>'
       + '<td style="padding:.5rem .75rem;font-size:.82rem;color:var(--gray-500);">' + chosenText + '</td>'
       + '</tr>';
   });
@@ -13079,7 +13062,7 @@ var AR_BANK_T2 = [
   { sentence: `I read ___ interesting article about climate change.`, opts: [`a`, `an`, `the`, `—`], correct: 1, expl: `<strong>Resposta: an</strong><br>Primeira menção de um artigo não específico. "Interesting" começa com /ɪ/ (vocálico) → <em>an</em>. O artigo concorda com o som do adjetivo que vem imediatamente depois, não com o substantivo.` },
   { sentence: `___ Alps are a popular destination for skiing.`, opts: [`A`, `An`, `The`, `—`], correct: 2, expl: `<strong>Resposta: The</strong><br>Cadeias de montanhas usam <em>the</em>: <em>the Alps, the Andes, the Himalayas, the Rockies</em>. Regra: nomes de cordilheiras e grupos de ilhas → <em>the</em>.` },
   { sentence: `Could you open ___ window? It's hot in here.`, opts: [`a`, `an`, `the`, `—`], correct: 2, expl: `<strong>Resposta: the</strong><br>A janela específica deste cômodo — contexto físico compartilhado. Ambos estão no mesmo quarto e sabem de qual janela se trata → <em>the</em>. "A window" indicaria qualquer janela aleatória.` },
-  { sentence: `He decided to become ___ actor after watching a play.`, opts: [`a`, `an`, `the`, `—`], correct: 0, expl: `<strong>Resposta: a</strong><br>Profissão após "become" → <em>a/an</em>. "Actor" começa com /æ/ (vocálico)... espera: sim, começa com vogal → <em>an actor</em> seria o correto. Mas "actor" /ˈæktər/ começa com /æ/ — <strong>an</strong> seria o correto. Este item testa atenção: resposta correta é <em>an</em> (índice 1).` },
+  { sentence: `He decided to become ___ actor after watching a play.`, opts: [`a`, `an`, `the`, `—`], correct: 1, expl: `<strong>Resposta: an</strong><br>Profissão após "become" → <em>a/an</em>. "Actor" começa com som vocálico /æ/ → <em>an actor</em>. Compare: <em>a director</em> (som de consoante /d/) vs <em>an actor</em> (som de vogal /æ/).` },
   { sentence: `___ internet has changed the way we communicate.`, opts: [`A`, `An`, `The`, `—`], correct: 2, expl: `<strong>Resposta: The</strong><br>A internet é única e global → <em>the</em>. Mesma categoria de <em>the sun, the moon, the environment</em>. "An internet" seria impossível — não existe mais de uma internet.` },
   { sentence: `I've never been to ___ United Kingdom.`, opts: [`a`, `an`, `the`, `—`], correct: 2, expl: `<strong>Resposta: the</strong><br>Países com "United" no nome → sempre <em>the</em>: <em>the United Kingdom, the United States, the United Arab Emirates</em>. Regra sem exceção.` },
   { sentence: `There's ___ university in this small town.`, opts: [`a`, `an`, `the`, `—`], correct: 0, expl: `<strong>Resposta: a</strong><br>"University" começa com /juː/ — som consonantal → <em>a</em>. Primeira menção, não específica. Cuidado: a letra é "u" (vogal) mas o som é "y" (consoante) → <em>a university</em>.` },
@@ -13948,16 +13931,16 @@ var UT_BANK_T2 = [
   /*  3 */ { sentence: `My grandfather ___ tell us stories every night after dinner.`, answer: `would tell`, altAnswer: `used to tell`, opts: [`would tell`, `used to tell`, `use to tell`, `was telling`], expl: `<strong>Ambas "would tell" e "used to tell" funcionam</strong> para ação repetida em contexto narrativo. A resposta esperada é <strong>would tell</strong> — contexto narrativo afetivo, uso clássico de "would". ❌ "Use to tell" — falta o "d" na afirmativa. Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /*  4 */ { sentence: `I ___ love watching cartoons on Saturday mornings.`, answer: `used to love`, opts: [`used to love`, `would love`, `use to love`, `loved used to`], expl: `"Love" é <strong>verbo de estado</strong> — nunca use "would". ❌ "Would love" parece correto pela tradução, mas em inglês "would" não aceita estados passados. Atenção: "would love" existe, mas significa "adoraria" (condicional). ❌ "Use to love" — falta o "d". Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
   /*  5 */ { sentence: `___ you use to live near the beach when you were young?`, answer: `Did`, opts: [`Did`, `Would`, `Used`, `Do`], expl: `A interrogativa de "used to" usa o auxiliar <strong>Did</strong>: <strong>Did + sujeito + use to</strong> (sem "d"). ❌ "Used you to live?" não é natural no inglês moderno. ❌ "Would you use to?" mistura dois auxiliares. ❌ "Do" é presente. Fórmula: <strong>Did</strong> + sujeito + <strong>use to</strong> + infinitivo + ?` },
-  /*  6 */ { sentence: `He didn't ___ smoke, but he started after university.`, answer: `use to`, altAnswer: `would`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na negativa com "didn't", o verbo vai para o <strong>infinitivo sem "d"</strong>: <strong>didn't use to</strong>. ❌ "Didn't used to" é o erro mais comum — o auxiliar "didn't" já marca o passado; manter o "d" seria redundante. Fórmula: sujeito + <strong>didn't</strong> + <strong>use to</strong> + infinitivo.` },
+  /*  6 */ { sentence: `He didn't ___ smoke, but he started after university.`, answer: `use to`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na negativa com "didn't", o verbo vai para o <strong>infinitivo sem "d"</strong>: <strong>didn't use to</strong>. ❌ "Didn't used to" é o erro mais comum — o auxiliar "didn't" já marca o passado; manter o "d" seria redundante. ❌ "Would" não combina com "didn't" — "didn't would smoke" não existe em inglês. Fórmula: sujeito + <strong>didn't</strong> + <strong>use to</strong> + infinitivo.` },
   /*  7 */ { sentence: `They ___ have a big house in the countryside, but they moved to the city.`, answer: `used to have`, opts: [`used to have`, `would have`, `use to have`, `had used to`], expl: `"Have" no sentido de <strong>possuir</strong> é verbo de estado — nunca use "would". ❌ "Would have" está errado para estado de posse — e ainda pode ser confundido com o condicional. ❌ "Use to have" — falta o "d". Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
   /*  8 */ { sentence: `Every summer, we ___ go camping in the mountains.`, answer: `would go`, altAnswer: `used to go`, opts: [`would go`, `used to go`, `use to go`, `went used to`], expl: `<strong>Ambas funcionam</strong> para ação repetida com marcador de tempo. A resposta esperada é <strong>would go</strong> — contexto narrativo típico de "would" com "every summer". ❌ "Use to go" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /*  9 */ { sentence: `I ___ be afraid of dogs, but now I have three of them.`, answer: `used to be`, opts: [`used to be`, `would be`, `use to be`, `am used to be`], expl: `"Be afraid" é <strong>estado emocional</strong> — "would" nunca é usado com estados. ❌ "Would be" é erro típico: "tinha medo" em português usa imperfeito para estado, mas em inglês "would" não funciona para isso. ❌ "Am used to be" confunde com "be used to" (estar acostumado). Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /* 10 */ { sentence: `Did she ___ work at that company before moving abroad?`, answer: `use to`, altAnswer: `would`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na interrogativa com "Did", o verbo vai para o <strong>infinitivo sem "d"</strong>: <strong>Did she use to</strong>. ❌ "Did she used to" — com "did", nunca mantemos o "d". Fórmula: <strong>Did</strong> + sujeito + <strong>use to</strong> + infinitivo + ?` },
+  /* 10 */ { sentence: `Did she ___ work at that company before moving abroad?`, answer: `use to`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na interrogativa com "Did", o verbo vai para o <strong>infinitivo sem "d"</strong>: <strong>Did she use to</strong>. ❌ "Did she used to" — com "did", nunca mantemos o "d". ❌ "Would" não combina com "Did" — "Did she would work?" não existe. Fórmula: <strong>Did</strong> + sujeito + <strong>use to</strong> + infinitivo + ?` },
   /* 11 */ { sentence: `My dad ___ take me to the park every Sunday when I was little.`, answer: `would take`, altAnswer: `used to take`, opts: [`would take`, `used to take`, `use to take`, `taking used to`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would take</strong> — rotina afetiva de infância com marcador de tempo, uso clássico de "would". ❌ "Use to take" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /* 12 */ { sentence: `She ___ know all the answers in class without even studying.`, answer: `used to know`, opts: [`used to know`, `would know`, `use to know`, `knew used`], expl: `"Know" é <strong>verbo de estado cognitivo</strong> — nunca use "would" com estados. ❌ "Would know" é incorreto — "know" descreve um estado mental, não uma ação repetida. ❌ "Use to know" — falta o "d". Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
   /* 13 */ { sentence: `We ___ play football after school until it got dark.`, answer: `would play`, altAnswer: `used to play`, opts: [`would play`, `used to play`, `use to play`, `played would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would play</strong> — ação vívida com detalhe narrativo ("until it got dark"), contexto típico de "would". ❌ "Use to play" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /* 14 */ { sentence: `I ___ believe in Santa Claus when I was five.`, answer: `used to believe`, opts: [`used to believe`, `would believe`, `use to believe`, `believed used`], expl: `"Believe" é <strong>verbo de estado</strong> — descreve uma crença, não uma ação. Nunca use "would" com estados. ❌ "Would believe" é incorreto: em português "acreditava" é imperfeito de estado, mas em inglês não pode ser "would". Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /* 15 */ { sentence: `They didn't ___ go out much when they had small children.`, answer: `use to`, altAnswer: `would`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na negativa com "didn't", a forma correta é <strong>didn't use to</strong> (sem "d"). ❌ "Didn't used to" é o erro mais frequente. ❌ "Didn't would" não existe. Fórmula: sujeito + <strong>didn't</strong> + <strong>use to</strong> + infinitivo.` },
+  /* 15 */ { sentence: `They didn't ___ go out much when they had small children.`, answer: `use to`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na negativa com "didn't", a forma correta é <strong>didn't use to</strong> (sem "d"). ❌ "Didn't used to" é o erro mais frequente. ❌ "Didn't would" não existe. Fórmula: sujeito + <strong>didn't</strong> + <strong>use to</strong> + infinitivo.` },
   /* 16 */ { sentence: `He ___ want to become an astronaut when he grew up.`, answer: `used to want`, opts: [`used to want`, `would want`, `use to want`, `wanted used`], expl: `"Want" é <strong>verbo de estado</strong> (desejo) — nunca use "would" com estados. ❌ "Would want" é incorreto: em português "queria" é imperfeito, mas em inglês "would" + estado é agramatical. Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
   /* 17 */ { sentence: `My grandmother ___ bake bread every Friday morning.`, answer: `would bake`, altAnswer: `used to bake`, opts: [`would bake`, `used to bake`, `use to bake`, `bake would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would bake</strong> — rotina narrativa com marcador de tempo específico, uso clássico de "would". ❌ "Use to bake" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /* 18 */ { sentence: `___ they use to live on that street before the renovation?`, answer: `Did`, opts: [`Did`, `Would`, `Used`, `Do`], expl: `A interrogativa de "used to" usa o auxiliar <strong>Did</strong>. ❌ "Used they to live?" não é natural no inglês moderno. ❌ "Would they use to?" mistura dois auxiliares — incorreto. Fórmula: <strong>Did</strong> + sujeito + <strong>use to</strong> + infinitivo + ?` },
@@ -13968,7 +13951,7 @@ var UT_BANK_T2 = [
   /* 23 */ { sentence: `He ___ feel nervous before every exam, even when he was well prepared.`, answer: `used to feel`, altAnswer: `would feel`, opts: [`used to feel`, `would feel`, `use to feel`, `felt used`], expl: `"Feel nervous" é <strong>estado emocional</strong> — "would" não é usado com estados. ❌ "Would feel" está errado — sentimentos são estados, não ações. ❌ "Use to feel" — falta o "d". Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
   /* 24 */ { sentence: `After school, the kids ___ run to the playground and stay there for hours.`, answer: `would run`, altAnswer: `used to run`, opts: [`would run`, `used to run`, `use to run`, `running would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would run</strong> — ação vívida e específica em contexto narrativo, uso típico de "would". ❌ "Use to run" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /* 25 */ { sentence: `My parents ___ hate the idea of me becoming an artist.`, answer: `used to hate`, opts: [`used to hate`, `would hate`, `use to hate`, `hated used`], expl: `"Hate" é <strong>verbo de estado</strong> (emoção/opinião) — nunca use "would" com estados passados. ❌ "Would hate" está errado: em português "odiavam" é imperfeito de estado, mas em inglês não pode ser "would". Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /* 26 */ { sentence: `She didn't ___ enjoy cooking, but now she loves it.`, answer: `use to`, altAnswer: `would`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na negativa com "didn't", a forma correta é <strong>didn't use to</strong> — sem o "d". ❌ "Didn't used to" é o erro mais comum. Fórmula: sujeito + <strong>didn't use to</strong> + infinitivo.` },
+  /* 26 */ { sentence: `She didn't ___ enjoy cooking, but now she loves it.`, answer: `use to`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na negativa com "didn't", a forma correta é <strong>didn't use to</strong> — sem o "d". ❌ "Didn't used to" é o erro mais comum. ❌ "Would" não combina com "didn't" — "didn't would enjoy" não existe. Fórmula: sujeito + <strong>didn't use to</strong> + infinitivo.` },
   /* 27 */ { sentence: `They ___ believe everything they read online. Now they're more critical.`, answer: `used to believe`, opts: [`used to believe`, `would believe`, `use to believe`, `believed would`], expl: `"Believe" é <strong>verbo de estado cognitivo</strong> — "would" nunca é usado com estados. ❌ "Would believe" está errado. ❌ "Use to believe" — falta o "d". Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
   /* 28 */ { sentence: `On rainy days, we ___ stay inside and play board games for hours.`, answer: `would stay`, altAnswer: `used to stay`, opts: [`would stay`, `used to stay`, `use to stay`, `staying would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would stay</strong> — ação narrativa vívida com circunstância contextual ("on rainy days"), uso clássico de "would". ❌ "Use to stay" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /* 29 */ { sentence: `___ he use to play football before his injury?`, answer: `Did`, opts: [`Did`, `Would`, `Used`, `Does`], expl: `A interrogativa de "used to" é formada com <strong>Did</strong> + sujeito + <strong>use to</strong>. ❌ "Used he to play?" está desatualizado. ❌ "Would he use to?" mistura dois auxiliares. Fórmula: <strong>Did</strong> + sujeito + <strong>use to</strong> + infinitivo + ?` },
@@ -13978,7 +13961,7 @@ var UT_BANK_T2 = [
   /* 33 */ { sentence: `My sister and I ___ fight over the TV remote every single evening.`, answer: `would fight`, altAnswer: `used to fight`, opts: [`would fight`, `used to fight`, `use to fight`, `fighting would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would fight</strong> — ação repetida com intensidade narrativa ("every single evening"), uso típico de "would". ❌ "Use to fight" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /* 34 */ { sentence: `I ___ have long hair until I was sixteen.`, answer: `used to have`, opts: [`used to have`, `would have`, `use to have`, `have used to`], expl: `"Have" no sentido de <strong>ter/possuir</strong> (cabelo comprido) é verbo de estado — nunca use "would" com estados. ❌ "Would have" está errado para estado de posse — pode ser confundido com o condicional perfeito. Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
   /* 35 */ { sentence: `The teacher ___ ask us to write in our journals every Monday morning.`, answer: `would ask`, altAnswer: `used to ask`, opts: [`would ask`, `used to ask`, `use to ask`, `asking would`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would ask</strong> — rotina institucional com marcador de tempo fixo, contexto clássico de "would" narrativo. ❌ "Use to ask" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
-  /* 36 */ { sentence: `They didn't ___ eat vegetables as children, but now they love them.`, answer: `use to`, altAnswer: `would`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na negativa com "didn't", a forma correta é <strong>didn't use to</strong> — sem o "d". ❌ "Didn't used to" — erro clássico. Fórmula: sujeito + <strong>didn't use to</strong> + infinitivo.` },
+  /* 36 */ { sentence: `They didn't ___ eat vegetables as children, but now they love them.`, answer: `use to`, opts: [`use to`, `used to`, `would`, `uses to`], expl: `Na negativa com "didn't", a forma correta é <strong>didn't use to</strong> — sem o "d". ❌ "Didn't used to" — erro clássico. ❌ "Would" não combina com "didn't" — "didn't would eat" não existe. Fórmula: sujeito + <strong>didn't use to</strong> + infinitivo.` },
   /* 37 */ { sentence: `I ___ love the smell of that old library. It was magical.`, answer: `used to love`, opts: [`used to love`, `would love`, `use to love`, `loving used`], expl: `"Love" é <strong>verbo de estado</strong> — nunca use "would" com estados. ❌ "Would love" significa "adoraria" (condicional) — não "adorava" (estado passado). Esta é uma armadilha clássica! Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
   /* 38 */ { sentence: `Every Christmas Eve, we ___ open one present before midnight.`, answer: `would open`, altAnswer: `used to open`, opts: [`would open`, `used to open`, `use to open`, `opening used`], expl: `<strong>Ambas funcionam</strong> para ação repetida. A resposta esperada é <strong>would open</strong> — tradição narrativa com marcador de tempo específico ("every Christmas Eve"), uso clássico de "would" para rituais passados. ❌ "Use to open" — falta o "d". Fórmula: sujeito + <strong>would</strong> + infinitivo.` },
   /* 39 */ { sentence: `He ___ understand how difficult it was for his parents.`, answer: `didn't use to understand`, opts: [`didn't use to understand`, `didn't used to understand`, `wouldn't understand`, `wasn't used to understand`], expl: `"Understand" é <strong>verbo de estado</strong> — "wouldn't" está errado. A negativa correta é <strong>didn't use to</strong> (sem "d"). ❌ "Didn't used to" — o "d" desaparece com "didn't". ❌ "Wasn't used to understand" confunde com "be used to" + gerúndio. Fórmula: sujeito + <strong>didn't use to</strong> + verbo de estado.` },
@@ -14025,7 +14008,7 @@ var UT_BANK_T3 = [
   /* 37 */ { sentence: `I ___ feel at home anywhere I went. Now I feel lost everywhere.`, opts: [`used to feel`, `would feel`], correct: [0], expl: `<strong>Apenas "used to feel" está correta.</strong> "Feel at home" é estado emocional — mesmo que o sentimento aparecesse em múltiplos contextos, "feel" aqui descreve um estado. ❌ "Would feel" é agramatical para estado. Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
   /* 38 */ { sentence: `Every summer, they ___ rent a cabin by the lake and fish all day.`, opts: [`used to rent`, `would rent`], correct: [0, 1], expl: `<strong>Ambas estão corretas.</strong> "Rent a cabin and fish" são ações repetidas com contexto temporal anual — ambas funcionam. "Would rent" é especialmente natural com "every summer". 📌 <em>Com "every summer/winter/year" + ação, "would" é muito comum e natural.</em>` },
   /* 39 */ { sentence: `She ___ know the name of every flower in the garden.`, opts: [`used to know`, `would know`], correct: [0], expl: `<strong>Apenas "used to know" está correta.</strong> "Know" é verbo de estado cognitivo — descreve conhecimento, não ação. ❌ "Would know" é agramatical para estado passado. Em português, "ela sabia" pode sugerir "would know", mas em inglês isso não funciona. Fórmula: sujeito + <strong>used to</strong> + verbo de estado.` },
-  /* 40 */ { sentence: `He ___ stop at that bakery every morning on his way to work.`, opts: [`used to stop`, `would stop`], correct: [0, 1], expl: `<strong>Ambas estão corretas.</strong> "Stop at the bakery" é ação repetida com rotina diária clara — ambas funcionam. "Would stop" tem tom mais narrativo; "used to stop" é mais factual. 📌 <em>Para rotinas diárias com ação, ambas são igualmente naturais.</em>` }
+  /* 40 */ { sentence: `Every Friday night, we ___ order pizza and watch a movie together.`, opts: [`used to order`, `would order`], correct: [0, 1], expl: `<strong>Ambas estão corretas.</strong> "Order pizza and watch a movie" são ações repetidas com rotina semanal clara ("every Friday night") — ambas funcionam. "Would order" tem tom mais nostálgico; "used to order" é mais direto. 📌 <em>Para rotinas semanais com ação, ambas são igualmente naturais.</em>` }
 ];
 
 /* ── Estado global ── */
@@ -14115,7 +14098,10 @@ function ut2Pick(i, si, origIdx) {
   var fb = document.getElementById('ut2-fb');
   fb.className = isOk ? 'ppc-fb ok show' : 'ppc-fb err show';
   var correctLabel = q.altAnswer ? (q.answer + '</strong> ou <strong>' + q.altAnswer) : q.answer;
-  fb.innerHTML = (isOk ? '✅ Correto! <strong>' + chosenVal + '</strong>' : '❌ Resposta correta: <strong>' + correctLabel + '</strong><br>' + q.expl);
+  var okMsg = q.altAnswer
+    ? '✅ Correto! <strong>' + chosenVal + '</strong> — ambas as formas (<strong>' + q.answer + '</strong> / <strong>' + q.altAnswer + '</strong>) são válidas aqui. '
+    : '✅ Correto! <strong>' + chosenVal + '</strong>. ';
+  fb.innerHTML = (isOk ? okMsg + q.expl : '❌ Resposta correta: <strong>' + correctLabel + '</strong><br>' + q.expl);
   ut2UpdateProgress();
   fb.insertAdjacentHTML('afterbegin', (i === 9)
     ? '<div style="margin-top:1rem;text-align:center;"><button class="ppc-btn ppc-btn-primary" onclick="ut2ShowResult()">Ver resultado →</button></div>'
