@@ -1233,8 +1233,11 @@ img { max-width: 100%; }
 .auth-note{font-size:12px;color:var(--gray-400);line-height:1.5;}
 /* ── NAV AUTH ── */
 .nav-user{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0;}
+.nav-avatar-wrap{position:relative;flex-shrink:0;display:inline-flex;}
 .nav-avatar{width:34px;height:34px;border-radius:50%;background:var(--green-200);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--green-900);cursor:pointer;overflow:hidden;border:2px solid var(--green-300);flex-shrink:0;}
 .nav-avatar img{width:100%;height:100%;object-fit:cover;}
+.nav-task-badge{position:absolute;bottom:-3px;right:-3px;min-width:17px;height:17px;padding:0 3px;border-radius:999px;background:#dc2626;color:#fff;font-size:.65rem;font-weight:800;display:none;align-items:center;justify-content:center;border:2px solid var(--white);line-height:1;box-shadow:0 1px 3px rgba(0,0,0,.25);}
+.nav-task-badge.show{display:flex;}
 .nav-user-name{font-size:13px;font-weight:600;color:var(--gray-700);max-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .nav-login-btn{display:flex;align-items:center;gap:6px;padding:7px 16px;border:1.5px solid var(--green-400);border-radius:99px;font-size:13px;font-weight:600;color:var(--green-700);background:var(--green-50);cursor:pointer;transition:all .15s;flex-shrink:0;}
 .nav-login-btn:hover{background:var(--green-100);border-color:var(--green-500);}
@@ -1244,6 +1247,8 @@ img { max-width: 100%; }
 .dropdown-header{padding:8px 10px 12px;border-bottom:1px solid var(--gray-100);margin-bottom:6px;}
 .dropdown-name{font-size:14px;font-weight:600;color:var(--gray-900);}
 .dropdown-email{font-size:12px;color:var(--gray-400);margin-top:2px;}
+.dropdown-tasks{display:none;align-items:center;gap:6px;margin-top:8px;padding:6px 9px;border-radius:99px;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;font-size:12px;font-weight:700;}
+.dropdown-tasks.show{display:flex;}
 .dropdown-item{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--gray-700);cursor:pointer;transition:background .1s;width:100%;text-align:left;}
 .dropdown-item:hover{background:var(--gray-100);}
 .dropdown-item.danger{color:var(--red-500);}
@@ -1877,6 +1882,43 @@ img { max-width: 100%; }
   flex-shrink:0; min-width:36px; text-align:right; }
 .sp-ex-untried { opacity:.45; }
 
+/* Linha de exercício que é TAREFA atribuída pelo professor — nunca fica apagada/opaca */
+.sp-exercise.sp-ex-assigned {
+  opacity: 1 !important;
+  background: #fff7ed; border: 1.5px solid #fb923c;
+  box-shadow: 0 1px 3px rgba(251,146,60,.15);
+}
+.sp-exercise.sp-ex-assigned .sp-ex-name { color: var(--gray-900); }
+.sp-ex-task-pill {
+  display: inline-flex; align-items: center; gap: 3px;
+  background: #ea580c; color: #fff; font-size: .65rem; font-weight: 800;
+  letter-spacing: .03em; text-transform: uppercase;
+  border-radius: 99px; padding: .15rem .5rem; margin-left: .5rem;
+  vertical-align: middle; white-space: nowrap;
+}
+
+/* Banner "você tem tarefas pendentes" no topo do Painel do Aluno */
+.sp-task-banner {
+  background: linear-gradient(135deg, #fff7ed, #fef2f2);
+  border: 1.5px solid #fb923c; border-radius: var(--radius-md);
+  padding: 1rem 1.125rem; margin-bottom: 1.25rem;
+}
+.sp-task-banner-title {
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .95rem; font-weight: 800; color: #9a3412; margin-bottom: .625rem;
+}
+.sp-task-banner-list { display: flex; flex-direction: column; gap: .5rem; }
+.sp-task-banner-item {
+  display: flex; align-items: center; justify-content: space-between; gap: .75rem;
+  background: var(--white); border: 1px solid #fed7aa; border-radius: var(--radius-sm);
+  padding: .625rem .75rem; cursor: pointer; transition: background .12s;
+}
+.sp-task-banner-item:hover { background: #fffbeb; }
+.sp-task-banner-item-name { font-size: .85rem; font-weight: 700; color: var(--gray-800); }
+.sp-task-banner-item-cta {
+  font-size: .75rem; font-weight: 700; color: #ea580c; flex-shrink: 0; white-space: nowrap;
+}
+
 /* ══ TEACHER PANEL ══ */
 .tp-card { background:var(--white); border:1px solid var(--gray-200);
   border-radius:var(--radius-md); margin-bottom:.625rem; overflow:hidden; }
@@ -1943,7 +1985,6 @@ img { max-width: 100%; }
 /* ══ ASSIGNMENT BADGES ══ */
 .rhc-badge-assign { font-size:.7rem; font-weight:700; padding:2px 7px; border-radius:99px;
   background:#fef3c7; color:#92400e; display:inline-flex; align-items:center; gap:3px; }
-.sp-ex-assign { font-size:.85rem; flex-shrink:0; }
 .tp-assign-btn { background:none; border:none; cursor:pointer; font-size:.9rem;
   padding:2px 4px; border-radius:4px; transition:opacity .15s; line-height:1; }
 .tp-assign-btn:hover { background:var(--gray-100); }
@@ -2059,7 +2100,10 @@ img { max-width: 100%; }
     </button>
     <div style="display:none" id="nav-logged-in">
       <div style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="toggleDropdown()">
-        <div class="nav-avatar" id="nav-avatar"><span id="nav-initials"></span></div>
+        <div class="nav-avatar-wrap">
+          <div class="nav-avatar" id="nav-avatar"><span id="nav-initials"></span></div>
+          <span class="nav-task-badge" id="nav-task-badge"></span>
+        </div>
         <span class="nav-user-name" id="nav-user-name"></span>
       </div>
     </div>
@@ -2069,6 +2113,7 @@ img { max-width: 100%; }
     <div class="dropdown-header">
       <div class="dropdown-name" id="dd-name"></div>
       <div class="dropdown-email" id="dd-email"></div>
+      <div class="dropdown-tasks" id="dd-tasks"></div>
     </div>
     <button class="dropdown-item" onclick="showPage('student',null);toggleDropdown(true);">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
@@ -5922,6 +5967,9 @@ img { max-width: 100%; }
       </div>
     </div>
 
+    <!-- Banner de tarefas atribuídas pelo professor — gerado por JS, só aparece se houver pendências -->
+    <div id="sp-task-banner"></div>
+
     <!-- Barra geral -->
     <div class="sp-overall">
       <div class="sp-overall-title">Progresso Geral</div>
@@ -6026,7 +6074,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v1.02';
+var SITE_VERSION = 'v1.03';
 
 var EXERCISE_REGISTRY = [
   {
@@ -6896,6 +6944,45 @@ var assignmentsCache   = {}; /* exerciseId → true (se for tarefa ativa) */
 var _assignmentsUnsub   = null; /* unsubscribe da listener em tempo real */
 var _assignmentsFirstLoad = true; /* evita notificar tarefas já existentes no primeiro carregamento */
 
+/* Lista de tarefas pendentes do aluno logado: atribuídas E ainda não aprovadas (≥70%) */
+function getMyPendingTasks() {
+  var pending = [];
+  STUDENT_GROUPS.forEach(function(group) {
+    group.exercises.forEach(function(ex) {
+      if (assignmentsCache[ex.id] !== true) return;
+      var p = userProgressCache[ex.id];
+      var best = p ? (p.bestScore || 0) : 0;
+      var max  = p ? (p.maxScore  || 10) : 10;
+      var passed = p && p.completed && max > 0 && (best / max) >= 0.7;
+      if (!passed) pending.push(ex);
+    });
+  });
+  return pending;
+}
+
+function findHubPageForExercise(exerciseId) {
+  for (var pageId in HUB_EXERCISE_MAP) {
+    if (HUB_EXERCISE_MAP[pageId].indexOf(exerciseId) !== -1) return pageId;
+  }
+  return null;
+}
+
+/* Atualiza o número vermelho no avatar do menu + a pílula no dropdown */
+function updateTaskBadgeUI() {
+  if (typeof STUDENT_GROUPS === 'undefined') return;
+  var n = getMyPendingTasks().length;
+  var navBadge = document.getElementById('nav-task-badge');
+  if (navBadge) {
+    navBadge.textContent = n > 9 ? '9+' : String(n);
+    navBadge.classList.toggle('show', n > 0);
+  }
+  var ddTasks = document.getElementById('dd-tasks');
+  if (ddTasks) {
+    ddTasks.textContent = '📌 ' + n + (n === 1 ? ' tarefa pendente' : ' tarefas pendentes');
+    ddTasks.classList.toggle('show', n > 0);
+  }
+}
+
 function loadAllProgress() {
   if (!db || !currentUser) return;
   db.collection('users').doc(currentUser.uid)
@@ -6916,6 +7003,7 @@ function loadAllProgress() {
     });
 }
 function renderHubBadges() {
+  updateTaskBadgeUI();
   var cards = document.querySelectorAll('[data-hub-page]');
   cards.forEach(function(card) {
     var pageId = card.getAttribute('data-hub-page');
@@ -7110,6 +7198,28 @@ function renderStudentPanel() {
   el('sp-stat-pass',  globalPassed);
   el('sp-stat-total', allExIds.length);
 
+  /* Banner de tarefas pendentes — bem visível, logo no topo */
+  var bannerEl = document.getElementById('sp-task-banner');
+  if (bannerEl) {
+    var pendingTasks = getMyPendingTasks();
+    if (pendingTasks.length === 0) {
+      bannerEl.innerHTML = '';
+    } else {
+      var itemsHtml = pendingTasks.map(function(ex) {
+        var hubPage = findHubPageForExercise(ex.id);
+        var clickAttr = hubPage ? ' onclick="showPage(\'' + hubPage + '\',null)"' : '';
+        return '<div class="sp-task-banner-item"' + clickAttr + '>' +
+                 '<span class="sp-task-banner-item-name">📌 ' + ex.label + '</span>' +
+                 '<span class="sp-task-banner-item-cta">Fazer agora →</span>' +
+               '</div>';
+      }).join('');
+      bannerEl.innerHTML =
+        '<div class="sp-task-banner-title">🔔 Seu professor atribuiu ' +
+          (pendingTasks.length === 1 ? '1 tarefa' : pendingTasks.length + ' tarefas') + ' pra você</div>' +
+        '<div class="sp-task-banner-list">' + itemsHtml + '</div>';
+    }
+  }
+
   /* Grupos */
   var groupsEl = document.getElementById('sp-groups');
   if (!groupsEl) return;
@@ -7143,22 +7253,24 @@ function renderStudentPanel() {
     /* Exercise rows */
     group.exercises.forEach(function(ex) {
       var p   = userProgressCache[ex.id];
-      var row = document.createElement('div');
-      row.className = 'sp-exercise' + ((!p || !p.completed) ? ' sp-ex-untried' : '');
+      var isAssigned = assignmentsCache[ex.id] === true;
 
       var best = p ? (p.bestScore || 0) : 0;
       var max  = p ? (p.maxScore  || 10) : 10;
       var pct  = (p && p.completed && max > 0) ? Math.round((best / max) * 100) : 0;
       var passed = pct >= 70;
+      var assignPending = isAssigned && !passed;
 
-      var isAssigned = assignmentsCache[ex.id] === true;
-      var assignPending = isAssigned && !(passed);
+      var row = document.createElement('div');
+      row.className = 'sp-exercise' +
+        (assignPending ? ' sp-ex-assigned' : ((!p || !p.completed) ? ' sp-ex-untried' : ''));
+
       var icon = (!p || !p.completed) ? (isAssigned ? '📌' : '🔒') : passed ? '✅' : '⚠️';
 
       row.innerHTML =
         '<div class="sp-ex-icon">' + icon + '</div>' +
         '<div class="sp-ex-body">' +
-          '<div class="sp-ex-name">' + ex.label + (isAssigned ? ' <span class="sp-ex-assign">📌</span>' : '') + '</div>' +
+          '<div class="sp-ex-name">' + ex.label + (assignPending ? ' <span class="sp-ex-task-pill">Tarefa</span>' : '') + '</div>' +
           (p && p.completed ?
             '<div class="sp-ex-bar-wrap"><div class="sp-ex-bar-fill" style="width:' + pct + '%;background:' + spBarColor(pct) + ';"></div></div>'
             : '<div class="sp-ex-bar-wrap"><div class="sp-ex-bar-fill" style="width:0%;"></div></div>') +
