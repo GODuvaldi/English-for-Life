@@ -2048,6 +2048,73 @@ img { max-width: 100%; }
   padding:2px 4px; border-radius:4px; transition:opacity .15s; line-height:1; }
 .tp-assign-btn:hover { background:var(--gray-100); }
 
+/* ══ CADASTRO MANUAL / VITRINE DE AÇÕES ══ */
+.tp-add-student-btn {
+  background: var(--green-700); color: #fff; border: none; border-radius: 99px;
+  font-size: .8rem; font-weight: 700; padding: .5rem 1rem; cursor: pointer; flex-shrink: 0;
+}
+.tp-add-student-btn:hover { background: var(--green-800); }
+.tp-manual-tag {
+  display: inline-block; font-size: .62rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .03em; background: var(--gray-100); color: var(--gray-500);
+  border-radius: 99px; padding: .1rem .5rem; margin-left: .4rem; vertical-align: middle;
+}
+.tp-detail-actions { display: flex; gap: .5rem; flex-wrap: wrap; padding: .75rem 0; }
+.tp-boletim-btn, .tp-link-btn {
+  border: none; border-radius: 99px; font-size: .75rem; font-weight: 700; padding: .4rem .9rem; cursor: pointer;
+}
+.tp-boletim-btn { background: var(--gray-100); color: var(--gray-700); }
+.tp-boletim-btn:hover { background: var(--gray-200); }
+.tp-link-btn { background: #dbeafe; color: #1e40af; }
+.tp-link-btn:hover { background: #bfdbfe; }
+
+/* ══ BOLETIM DIÁRIO ══ */
+.bd-toolbar { display: flex; align-items: center; gap: .875rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.bd-back-btn {
+  background: var(--gray-100); color: var(--gray-700); border: none; border-radius: 99px;
+  font-size: .8rem; font-weight: 700; padding: .5rem 1rem; cursor: pointer;
+}
+.bd-back-btn:hover { background: var(--gray-200); }
+.bd-student-label { display: flex; align-items: center; gap: .5rem; font-size: .8125rem; font-weight: 600; color: var(--gray-600); }
+.bd-student-label select {
+  padding: .5rem .75rem; border: 1px solid var(--gray-200); border-radius: var(--radius-md);
+  font-size: .8125rem; background: var(--white); min-width: 200px;
+}
+.bd-add-row-btn {
+  background: var(--green-700); color: #fff; border: none; border-radius: 99px;
+  font-size: .8rem; font-weight: 700; padding: .5rem 1rem; cursor: pointer; margin-left: auto;
+}
+.bd-add-row-btn:hover { background: var(--green-800); }
+.bd-legend { display: flex; gap: 1.25rem; flex-wrap: wrap; margin-bottom: .875rem; font-size: .75rem; color: var(--gray-500); }
+.bd-legend-item { display: flex; align-items: center; gap: .4rem; }
+.bd-legend-swatch { width: 14px; height: 14px; border-radius: 3px; display: inline-block; border: 1px solid var(--gray-200); }
+
+.bd-table { width: 100%; border-collapse: collapse; font-size: .8rem; min-width: 980px; }
+.bd-table th {
+  background: var(--gray-100); color: var(--gray-600); font-size: .7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .02em; padding: .5rem .4rem; border: 1px solid var(--gray-200);
+  text-align: center; white-space: nowrap;
+}
+.bd-table td { border: 1px solid var(--gray-200); padding: .25rem; vertical-align: middle; }
+.bd-table tr.bd-row-faltou  { background: #fde9d9; }
+.bd-table tr.bd-row-avisado { background: #dbeafe; }
+.bd-table tr.bd-row-faltou  td { background: transparent; }
+.bd-table tr.bd-row-avisado td { background: transparent; }
+.bd-input, .bd-select, .bd-textarea {
+  width: 100%; border: none; background: transparent; font-size: .8rem; font-family: var(--font);
+  padding: .35rem; outline: none; color: var(--gray-800); border-radius: 4px;
+}
+.bd-input:focus, .bd-select:focus, .bd-textarea:focus { background: var(--white); box-shadow: 0 0 0 2px var(--green-300); }
+.bd-date { min-width: 80px; text-align: center; }
+.bd-num { min-width: 56px; text-align: center; }
+.bd-exercise { min-width: 160px; }
+.bd-textarea { min-width: 220px; resize: vertical; min-height: 38px; }
+.bd-del-btn { background: none; border: none; cursor: pointer; font-size: .85rem; opacity: .4; padding: .25rem; }
+.bd-del-btn:hover { opacity: 1; }
+@media (max-width: 700px) {
+  .bd-add-row-btn { margin-left: 0; }
+}
+
 /* ══ TEACHER DASHBOARD ══ */
 .tp-metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
   gap:.75rem; margin-bottom:1rem; }
@@ -6114,6 +6181,7 @@ img { max-width: 100%; }
       <div class="tp-panel" style="margin-top:1rem;">
         <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.875rem;flex-wrap:wrap;">
           <div class="tp-panel-title" style="margin:0;">Alunos</div>
+          <button class="tp-add-student-btn" onclick="tpOpenAddStudentModal()">+ Cadastrar aluno</button>
           <input id="tp-search" type="text" placeholder="Buscar por nome ou email..."
             oninput="tpFilter()"
             style="flex:1;min-width:160px;padding:.5rem .75rem;border:1px solid var(--gray-200);
@@ -6134,12 +6202,67 @@ img { max-width: 100%; }
   </div>
 </div>
 
+<!-- ═══════════ BOLETIM DIÁRIO PAGE ═══════════ -->
+<div id="page-boletim-diario" class="page">
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="breadcrumb">
+        <a onclick="showPage('home',null)">Início</a>
+        <span>›</span>
+        <a onclick="showPage('teacher',null)">Painel do Professor</a>
+        <span>›</span><span>Boletim Diário</span>
+      </div>
+      <div class="module-tag">📋 Professor</div>
+      <h2>Boletim Diário</h2>
+      <p>Registro de aulas, notas e observações — substitui a planilha de Excel.</p>
+    </div>
+  </div>
+
+  <div class="exercise-wrap" style="max-width:1200px;margin:0 auto;">
+    <div class="bd-toolbar">
+      <button class="bd-back-btn" onclick="showPage('teacher',null)">← Painel do Professor</button>
+      <label class="bd-student-label">Aluno:
+        <select id="bd-student-select" onchange="boletimSwitchStudent(this.value)"></select>
+      </label>
+      <button class="bd-add-row-btn" onclick="boletimAddRow()">+ Adicionar aula</button>
+    </div>
+
+    <div class="bd-legend">
+      <span class="bd-legend-item"><span class="bd-legend-swatch bd-row-faltou"></span> FALTOU (nas observações)</span>
+      <span class="bd-legend-item"><span class="bd-legend-swatch bd-row-avisado"></span> AVISADO (nas observações) — soma +1 ao Banco de Horas</span>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="bd-table">
+        <thead>
+          <tr>
+            <th rowspan="2">Data das aulas</th>
+            <th colspan="4">Notas</th>
+            <th rowspan="2">Atividade da aula<br>Exercício:</th>
+            <th rowspan="2">Atividade<br>feita?</th>
+            <th rowspan="2">Observações<br>Da aula, atividade ou ambas</th>
+            <th rowspan="2">Banco de<br>Horas</th>
+            <th rowspan="2"></th>
+          </tr>
+          <tr>
+            <th>Speaking</th><th>Listening</th><th>Reading</th><th>Writing</th>
+          </tr>
+        </thead>
+        <tbody id="bd-tbody">
+          <tr><td colspan="10" style="text-align:center;padding:2rem;color:var(--gray-400);">Selecione um aluno.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 
 
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v1.04';
+var SITE_VERSION = 'v1.05';
 
 var EXERCISE_REGISTRY = [
   {
@@ -6824,7 +6947,8 @@ var HASH_TO_PAGE = {
   'listening':                   'listening',
   'writing':                     'writing',
   'progress':                    'student',
-  'teacher':                     'teacher'
+  'teacher':                     'teacher',
+  'teacher/boletim':             'boletim-diario'
 };
 var PAGE_TO_HASH = {};
 Object.keys(HASH_TO_PAGE).forEach(function(h) {
@@ -7507,20 +7631,30 @@ function renderTeacherPanel() {
   if (loading) loading.style.display = 'block';
   if (table)   table.style.display   = 'none';
 
-  /* Busca todos os usuários com role = student */
-  db.collection('users').where('role', '==', 'student').get()
-    .then(function(snap) {
+  /* Busca alunos reais (login Google, role=student) E cadastros manuais ainda não vinculados */
+  Promise.all([
+    db.collection('users').where('role', '==', 'student').get(),
+    db.collection('manualStudents').where('merged', '==', false).get()
+  ])
+    .then(function(snaps) {
       var students = [];
-      snap.forEach(function(doc) { students.push({ uid: doc.id, profile: doc.data() }); });
+      snaps[0].forEach(function(doc) { students.push({ uid: doc.id, profile: doc.data(), type: 'real' }); });
+      snaps[1].forEach(function(doc) {
+        var d = doc.data();
+        students.push({ uid: doc.id, profile: { name: d.name || '', email: d.email || '' }, type: 'manual' });
+      });
 
       if (students.length === 0) {
         if (loading) loading.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--gray-400);">Nenhum aluno cadastrado ainda.</div>';
         return;
       }
 
-      /* Para cada aluno, busca progress E assignments em paralelo */
+      /* Para cada aluno, busca progress E assignments (assignments só se aplica a alunos reais) em paralelo */
       var promises = students.map(function(s) {
-        var pPromise = db.collection('users').doc(s.uid).collection('progress').get()
+        var progressRoot = s.type === 'manual'
+          ? db.collection('manualStudents').doc(s.uid)
+          : db.collection('users').doc(s.uid);
+        var pPromise = progressRoot.collection('progress').get()
           .then(function(pSnap) {
             var progress = {};
             pSnap.forEach(function(d) { progress[d.id] = d.data(); });
@@ -7530,14 +7664,16 @@ function renderTeacherPanel() {
             console.warn('[EFL] Erro ao buscar progress de', s.uid, ':', e.message);
             s.progress = {};
           });
-        var aPromise = db.collection('assignments').doc(s.uid)
-          .collection('exercises').where('active', '==', true).get()
-          .then(function(aSnap) {
-            var assigns = {};
-            aSnap.forEach(function(d) { assigns[d.id] = true; });
-            s.assignments = assigns;
-            tpAssignCache[s.uid] = assigns;
-          }).catch(function() { s.assignments = {}; tpAssignCache[s.uid] = {}; });
+        var aPromise = (s.type === 'manual')
+          ? Promise.resolve().then(function() { s.assignments = {}; tpAssignCache[s.uid] = {}; })
+          : db.collection('assignments').doc(s.uid)
+              .collection('exercises').where('active', '==', true).get()
+              .then(function(aSnap) {
+                var assigns = {};
+                aSnap.forEach(function(d) { assigns[d.id] = true; });
+                s.assignments = assigns;
+                tpAssignCache[s.uid] = assigns;
+              }).catch(function() { s.assignments = {}; tpAssignCache[s.uid] = {}; });
         return Promise.all([pPromise, aPromise]).then(function() { return s; });
       });
 
@@ -7725,7 +7861,7 @@ function tpRender(students) {
         '<div class="tp-card-header" onclick="tpToggle(this)">' +
           '<div class="tp-avatar">' + ini + '</div>' +
           '<div>' +
-            '<div class="tp-student-name">' + name + '</div>' +
+            '<div class="tp-student-name">' + name + (s.type === 'manual' ? ' <span class="tp-manual-tag">Cadastro manual</span>' : '') + '</div>' +
             '<div class="tp-student-email">' + (profile.email || '') + '</div>' +
           '</div>' +
           '<div class="tp-summary">' +
@@ -7737,7 +7873,11 @@ function tpRender(students) {
           '<span class="tp-chevron">›</span>' +
         '</div>' +
         '<div class="tp-detail" id="tp-detail-' + idx + '">' +
-          tpBuildDetail(progress, assignments, s.uid) +
+          '<div class="tp-detail-actions">' +
+            '<button class="tp-boletim-btn" onclick="boletimOpen(\'' + s.uid + '\',\'' + s.type + '\')">📋 Boletim Diário</button>' +
+            (s.type === 'manual' ? '<button class="tp-link-btn" onclick="tpOpenLinkModal(\'' + s.uid + '\')">🔗 Vincular a conta Google</button>' : '') +
+          '</div>' +
+          tpBuildDetail(progress, assignments, s.uid, s.type) +
         '</div>';
 
       table.appendChild(card);
@@ -7753,7 +7893,7 @@ function tpRender(students) {
   });
 }
 
-function tpBuildDetail(progress, assigns, uid) {
+function tpBuildDetail(progress, assigns, uid, type) {
   var html = '';
   STUDENT_GROUPS.forEach(function(g) {
     html += '<div class="tp-group-title">' + g.name + '</div>';
@@ -7766,17 +7906,20 @@ function tpBuildDetail(progress, assigns, uid) {
       var icon = !done ? '🔒' : pct >= 70 ? '✅' : '⚠️';
       var barColor = pct >= 70 ? 'var(--green-500)' : pct >= 40 ? '#f59e0b' : 'var(--red-500)';
       var isAssign = (assigns || {})[ex.id] === true;
+      var assignBtn = (type === 'manual')
+        ? '<span class="tp-ex-icon" title="Disponível após vincular a uma conta Google" style="opacity:.3;">📎</span>'
+        : '<button class="tp-assign-btn" title="' + (isAssign ? 'Remover tarefa' : 'Marcar como tarefa') + '" ' +
+            'style="opacity:' + (isAssign ? '1' : '0.35') + ';" ' +
+            'onclick="tpToggleAssignment(\'' + uid + '\', \'' + ex.id + '\', this)">' +
+            (isAssign ? '📌' : '📎') +
+          '</button>';
       html +=
         '<div class="tp-ex-row">' +
           '<span class="tp-ex-icon">' + icon + '</span>' +
           '<span class="tp-ex-label">' + ex.label + '</span>' +
           '<div class="tp-ex-bar-wrap"><div class="tp-ex-bar-fill" style="width:' + pct + '%;background:' + (done ? barColor : 'var(--gray-200)') + ';"></div></div>' +
           '<span class="tp-ex-score">' + (done ? best + '/' + max : '—') + '</span>' +
-          '<button class="tp-assign-btn" title="' + (isAssign ? 'Remover tarefa' : 'Marcar como tarefa') + '" ' +
-            'style="opacity:' + (isAssign ? '1' : '0.35') + ';" ' +
-            'onclick="tpToggleAssignment(\'' + uid + '\', \'' + ex.id + '\', this)">' +
-            (isAssign ? '📌' : '📎') +
-          '</button>' +
+          assignBtn +
         '</div>';
     });
   });
@@ -7913,6 +8056,295 @@ function tpUpdateCardPill(card, uid) {
   } else if (pillEl) {
     pillEl.remove();
   }
+}
+
+/* ══════════════════════════════════════════════════════
+   CADASTRO MANUAL DE ALUNOS
+   Coleção Firestore: manualStudents/{manualId}
+══════════════════════════════════════════════════════ */
+function tpOpenAddStudentModal() {
+  var nameEl = document.getElementById('tp-add-name');
+  var emailEl = document.getElementById('tp-add-email');
+  if (nameEl) nameEl.value = '';
+  if (emailEl) emailEl.value = '';
+  var ov = document.getElementById('tp-add-student-overlay');
+  if (ov) ov.style.display = 'flex';
+}
+function tpCloseAddStudentModal() {
+  var ov = document.getElementById('tp-add-student-overlay');
+  if (ov) ov.style.display = 'none';
+}
+function tpCreateManualStudent() {
+  if (!db) return;
+  var name  = (document.getElementById('tp-add-name').value  || '').trim();
+  var email = (document.getElementById('tp-add-email').value || '').trim().toLowerCase();
+  if (!name) { alert('Digite o nome do aluno.'); return; }
+  db.collection('manualStudents').add({
+    name: name,
+    email: email,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    linkedUid: null,
+    merged: false
+  }).then(function() {
+    tpCloseAddStudentModal();
+    showToast({ icon: '✅', title: 'Aluno cadastrado', message: name, duration: 5000 });
+    renderTeacherPanel();
+  }).catch(function(e) { alert('Erro ao cadastrar aluno: ' + e.message); });
+}
+
+/* ══════════════════════════════════════════════════════
+   VINCULAR / MESCLAR — combina um cadastro manual com
+   uma conta Google já existente, mantendo a melhor nota
+   por exercício e copiando o histórico de boletim diário.
+══════════════════════════════════════════════════════ */
+var _tpLinkManualId = null;
+function tpOpenLinkModal(manualId) {
+  _tpLinkManualId = manualId;
+  var sel = document.getElementById('tp-link-select');
+  if (sel) {
+    var realStudents = tpAllStudents.filter(function(s) { return s.type === 'real'; });
+    if (realStudents.length === 0) {
+      sel.innerHTML = '<option value="">Nenhuma conta Google cadastrada ainda</option>';
+    } else {
+      sel.innerHTML = '<option value="">Selecione a conta Google...</option>' +
+        realStudents.map(function(s) {
+          var name = s.profile.name || s.profile.email || s.uid;
+          return '<option value="' + s.uid + '">' + name + ' (' + (s.profile.email || '') + ')</option>';
+        }).join('');
+    }
+  }
+  var ov = document.getElementById('tp-link-overlay');
+  if (ov) ov.style.display = 'flex';
+}
+function tpCloseLinkModal() {
+  var ov = document.getElementById('tp-link-overlay');
+  if (ov) ov.style.display = 'none';
+  _tpLinkManualId = null;
+}
+function tpConfirmLink() {
+  var uid = (document.getElementById('tp-link-select') || {}).value;
+  if (!uid) { alert('Selecione uma conta Google.'); return; }
+  if (!_tpLinkManualId) return;
+  mergeStudentData(_tpLinkManualId, uid);
+}
+
+function mergeStudentData(manualId, uid) {
+  if (!db) return;
+  var manualRef = db.collection('manualStudents').doc(manualId);
+  Promise.all([
+    manualRef.collection('progress').get(),
+    db.collection('users').doc(uid).collection('progress').get(),
+    manualRef.collection('dailyLog').get()
+  ]).then(function(results) {
+    var manualProgressSnap = results[0];
+    var realProgressSnap   = results[1];
+    var dailyLogSnap       = results[2];
+
+    var realProgress = {};
+    realProgressSnap.forEach(function(d) { realProgress[d.id] = d.data(); });
+
+    var batch = db.batch();
+
+    /* Combina progresso: mantém a MELHOR nota por exercício, soma tentativas */
+    manualProgressSnap.forEach(function(d) {
+      var mp = d.data();
+      var rp = realProgress[d.id] || {};
+      var bestScore = Math.max(mp.bestScore || 0, rp.bestScore || 0);
+      var merged = {
+        completed:   !!(mp.completed || rp.completed),
+        bestScore:   bestScore,
+        lastScore:   bestScore,
+        maxScore:    Math.max(mp.maxScore || 10, rp.maxScore || 10),
+        attempts:    (mp.attempts || 0) + (rp.attempts || 0),
+        lastAttempt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+      batch.set(db.collection('users').doc(uid).collection('progress').doc(d.id), merged, { merge: true });
+    });
+
+    /* Copia o histórico do boletim diário para a conta real */
+    dailyLogSnap.forEach(function(d) {
+      var newRef = db.collection('users').doc(uid).collection('dailyLog').doc();
+      batch.set(newRef, d.data());
+    });
+
+    batch.update(manualRef, {
+      linkedUid: uid,
+      merged: true,
+      mergedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    return batch.commit();
+  }).then(function() {
+    tpCloseLinkModal();
+    showToast({ icon: '🔗', title: 'Perfis combinados!', message: 'O progresso e o boletim diário foram mesclados com sucesso.', duration: 7000 });
+    renderTeacherPanel();
+  }).catch(function(e) { alert('Erro ao mesclar os dados: ' + e.message); });
+}
+
+/* ══════════════════════════════════════════════════════
+   BOLETIM DIÁRIO — substitui a planilha de Excel
+   Coleção Firestore: users/{uid}/dailyLog/{id}  OU
+                      manualStudents/{manualId}/dailyLog/{id}
+══════════════════════════════════════════════════════ */
+var BD_CURRENT = null; /* { uid, type } */
+var bdRows = [];
+
+function boletimOpen(uid, type) {
+  BD_CURRENT = { uid: uid, type: type };
+  showPage('boletim-diario', null);
+}
+
+function boletimInit() {
+  var sel = document.getElementById('bd-student-select');
+  if (sel) {
+    if (tpAllStudents.length === 0) {
+      sel.innerHTML = '<option value="">Nenhum aluno cadastrado</option>';
+    } else {
+      sel.innerHTML = tpAllStudents.map(function(s) {
+        var name = s.profile.name || s.profile.email || s.uid;
+        var value = s.uid + '|' + s.type;
+        var selected = (BD_CURRENT && BD_CURRENT.uid === s.uid) ? ' selected' : '';
+        return '<option value="' + value + '"' + selected + '>' + name + (s.type === 'manual' ? ' (cadastro manual)' : '') + '</option>';
+      }).join('');
+    }
+  }
+  if (!BD_CURRENT || !tpAllStudents.some(function(s) { return s.uid === BD_CURRENT.uid; })) {
+    BD_CURRENT = tpAllStudents.length > 0 ? { uid: tpAllStudents[0].uid, type: tpAllStudents[0].type } : null;
+    if (sel && BD_CURRENT) sel.value = BD_CURRENT.uid + '|' + BD_CURRENT.type;
+  }
+  boletimLoadRows();
+}
+
+function boletimSwitchStudent(value) {
+  if (!value) return;
+  var parts = value.split('|');
+  BD_CURRENT = { uid: parts[0], type: parts[1] };
+  boletimLoadRows();
+}
+
+function boletimGetCollectionRef() {
+  if (!BD_CURRENT || !db) return null;
+  var root = BD_CURRENT.type === 'manual'
+    ? db.collection('manualStudents').doc(BD_CURRENT.uid)
+    : db.collection('users').doc(BD_CURRENT.uid);
+  return root.collection('dailyLog');
+}
+
+function boletimDetectStatus(text) {
+  var t = (text || '').toUpperCase();
+  if (t.indexOf('FALTOU')  !== -1) return 'faltou';
+  if (t.indexOf('AVISADO') !== -1) return 'avisado';
+  return 'normal';
+}
+
+function boletimEsc(s) {
+  var d = document.createElement('div');
+  d.textContent = s == null ? '' : String(s);
+  return d.innerHTML;
+}
+
+function boletimLoadRows() {
+  var ref = boletimGetCollectionRef();
+  var tbody = document.getElementById('bd-tbody');
+  if (!tbody) return;
+  if (!ref) {
+    tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:2rem;color:var(--gray-400);">Cadastre ou selecione um aluno.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:2rem;color:var(--gray-400);">Carregando...</td></tr>';
+  ref.orderBy('order', 'asc').get().then(function(snap) {
+    bdRows = [];
+    snap.forEach(function(d) { var r = d.data(); r.id = d.id; bdRows.push(r); });
+    boletimRenderTable();
+  }).catch(function(e) {
+    tbody.innerHTML = '<tr><td colspan="10" style="color:var(--red-500);padding:1rem;">Erro ao carregar: ' + e.message + '</td></tr>';
+  });
+}
+
+function boletimRenderTable() {
+  var tbody = document.getElementById('bd-tbody');
+  if (!tbody) return;
+  if (bdRows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:2rem;color:var(--gray-400);">Nenhuma aula registrada ainda. Clique em "+ Adicionar aula".</td></tr>';
+    return;
+  }
+  var doneOpts = ['', 'Sim', 'Não', 'Incompleta'];
+  tbody.innerHTML = bdRows.map(function(r) {
+    var status = boletimDetectStatus(r.observations);
+    var rowClass = status === 'faltou' ? 'bd-row-faltou' : status === 'avisado' ? 'bd-row-avisado' : '';
+    var numFields = ['speaking', 'listening', 'reading', 'writing'];
+    return '<tr class="' + rowClass + '" data-row-id="' + r.id + '">' +
+      '<td><input class="bd-input bd-date" type="text" data-field="date" value="' + boletimEsc(r.date) + '" onblur="boletimSaveRow(\'' + r.id + '\')"></td>' +
+      numFields.map(function(f) {
+        return '<td><input class="bd-input bd-num" type="number" min="0" max="10" data-field="' + f + '" value="' + (r[f] != null ? r[f] : '') + '" onblur="boletimSaveRow(\'' + r.id + '\')"></td>';
+      }).join('') +
+      '<td><input class="bd-input bd-exercise" type="text" data-field="exercise" value="' + boletimEsc(r.exercise) + '" onblur="boletimSaveRow(\'' + r.id + '\')"></td>' +
+      '<td><select class="bd-select" data-field="activityDone" onchange="boletimSaveRow(\'' + r.id + '\')">' +
+        doneOpts.map(function(opt) {
+          return '<option value="' + opt + '"' + (r.activityDone === opt ? ' selected' : '') + '>' + (opt || '—') + '</option>';
+        }).join('') +
+      '</select></td>' +
+      '<td><textarea class="bd-textarea" data-field="observations" onblur="boletimSaveRow(\'' + r.id + '\')">' + boletimEsc(r.observations) + '</textarea></td>' +
+      '<td><input class="bd-input bd-num" type="number" data-field="bancoHoras" value="' + (r.bancoHoras != null ? r.bancoHoras : 0) + '" onblur="boletimSaveRow(\'' + r.id + '\')"></td>' +
+      '<td><button class="bd-del-btn" title="Remover linha" onclick="boletimDeleteRow(\'' + r.id + '\')">🗑️</button></td>' +
+    '</tr>';
+  }).join('');
+}
+
+function boletimSaveRow(rowId) {
+  var tr = document.querySelector('#bd-tbody tr[data-row-id="' + rowId + '"]');
+  var row = bdRows.find(function(r) { return r.id === rowId; });
+  var ref = boletimGetCollectionRef();
+  if (!tr || !row || !ref) return;
+
+  var prevStatus = boletimDetectStatus(row.observations);
+
+  row.date = tr.querySelector('[data-field="date"]').value;
+  ['speaking', 'listening', 'reading', 'writing', 'bancoHoras'].forEach(function(f) {
+    var v = tr.querySelector('[data-field="' + f + '"]').value;
+    row[f] = v === '' ? null : Number(v);
+  });
+  row.exercise      = tr.querySelector('[data-field="exercise"]').value;
+  row.activityDone  = tr.querySelector('[data-field="activityDone"]').value;
+  row.observations  = tr.querySelector('[data-field="observations"]').value;
+
+  /* AVISADO soma +1 ao Banco de Horas — só na transição (não fica somando a cada salvamento) */
+  var newStatus = boletimDetectStatus(row.observations);
+  if (newStatus === 'avisado' && prevStatus !== 'avisado') {
+    row.bancoHoras = (row.bancoHoras || 0) + 1;
+  }
+
+  var toSave = {};
+  Object.keys(row).forEach(function(k) { if (k !== 'id') toSave[k] = row[k]; });
+
+  ref.doc(rowId).set(toSave, { merge: true }).then(function() {
+    boletimRenderTable(); /* re-renderiza pra refletir a cor da linha e o banco de horas atualizado */
+  }).catch(function(e) { console.warn('Erro ao salvar boletim:', e.message); });
+}
+
+function boletimAddRow() {
+  var ref = boletimGetCollectionRef();
+  if (!ref) { alert('Cadastre ou selecione um aluno primeiro.'); return; }
+  var order = bdRows.length > 0 ? Math.max.apply(null, bdRows.map(function(r) { return r.order || 0; })) + 1 : 0;
+  var newRow = {
+    date: '', speaking: null, listening: null, reading: null, writing: null,
+    exercise: '', activityDone: '', observations: '', bancoHoras: 0, order: order
+  };
+  ref.add(newRow).then(function(docRef) {
+    newRow.id = docRef.id;
+    bdRows.push(newRow);
+    boletimRenderTable();
+  }).catch(function(e) { alert('Erro ao adicionar linha: ' + e.message); });
+}
+
+function boletimDeleteRow(rowId) {
+  if (!confirm('Remover esta linha do boletim? Essa ação não pode ser desfeita.')) return;
+  var ref = boletimGetCollectionRef();
+  if (!ref) return;
+  ref.doc(rowId).delete().then(function() {
+    bdRows = bdRows.filter(function(r) { return r.id !== rowId; });
+    boletimRenderTable();
+  }).catch(function(e) { alert('Erro ao remover linha: ' + e.message); });
 }
 
 
@@ -11057,6 +11489,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (id === 'irregular-verbs') { ivRenderChips(); }
     if (id === 'student') { renderStudentPanel(); }
     if (id === 'teacher') { renderTeacherPanel(); }
+    if (id === 'boletim-diario') { boletimInit(); }
     if (id === 'past-simple') {
       if (typeof psL1Queue === 'undefined' || psL1Queue.length === 0) {
         psInit();
@@ -15632,6 +16065,47 @@ function ppc3ShowResult() {
       </div>
       <div id="pp-deepdive-content" style="font-size:14px;line-height:1.7;color:var(--gray-700);"></div>
       <button onclick="closeDeepDive()" style="margin-top:1.5rem;width:100%;padding:10px;background:var(--green-700);color:white;border:none;border-radius:var(--radius-md);font-size:14px;font-weight:700;cursor:pointer;">Entendi! Continuar →</button>
+    </div>
+  </div>
+
+  <!-- CADASTRAR ALUNO MODAL -->
+  <div id="tp-add-student-overlay" style="position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);padding:1rem;">
+    <div style="background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding:2rem;max-width:420px;width:100%;position:relative;">
+      <button onclick="tpCloseAddStudentModal()" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--gray-400);">✕</button>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;">
+        <span style="font-size:22px;">🧑‍🎓</span>
+        <h3 style="font-size:17px;font-weight:800;color:var(--gray-900);margin:0;">Cadastrar aluno</h3>
+      </div>
+      <label style="display:block;font-size:.8rem;font-weight:700;color:var(--gray-600);margin-bottom:.3rem;">Nome *</label>
+      <input id="tp-add-name" type="text" placeholder="Nome do aluno"
+        style="width:100%;padding:.625rem .75rem;border:1px solid var(--gray-200);border-radius:var(--radius-md);font-size:.875rem;outline:none;margin-bottom:1rem;">
+      <label style="display:block;font-size:.8rem;font-weight:700;color:var(--gray-600);margin-bottom:.3rem;">Email (opcional — usado para vincular depois com o login do Google)</label>
+      <input id="tp-add-email" type="email" placeholder="email@exemplo.com"
+        style="width:100%;padding:.625rem .75rem;border:1px solid var(--gray-200);border-radius:var(--radius-md);font-size:.875rem;outline:none;margin-bottom:1.25rem;">
+      <div style="display:flex;gap:.75rem;">
+        <button onclick="tpCloseAddStudentModal()" style="flex:1;padding:10px;background:var(--gray-100);color:var(--gray-700);border:none;border-radius:var(--radius-md);font-size:14px;font-weight:700;cursor:pointer;">Cancelar</button>
+        <button onclick="tpCreateManualStudent()" style="flex:1;padding:10px;background:var(--green-700);color:white;border:none;border-radius:var(--radius-md);font-size:14px;font-weight:700;cursor:pointer;">Cadastrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VINCULAR A CONTA GOOGLE MODAL -->
+  <div id="tp-link-overlay" style="position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);padding:1rem;">
+    <div style="background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding:2rem;max-width:460px;width:100%;position:relative;">
+      <button onclick="tpCloseLinkModal()" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--gray-400);">✕</button>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;">
+        <span style="font-size:22px;">🔗</span>
+        <h3 style="font-size:17px;font-weight:800;color:var(--gray-900);margin:0;">Vincular a uma conta Google</h3>
+      </div>
+      <p style="font-size:.8125rem;color:var(--gray-500);line-height:1.5;margin-bottom:1rem;">
+        Os dados deste cadastro manual (progresso e boletim diário) serão combinados com a conta selecionada.
+        Para cada exercício, a <strong>melhor nota entre os dois perfis</strong> é mantida. Essa ação não pode ser desfeita.
+      </p>
+      <select id="tp-link-select" style="width:100%;padding:.625rem .75rem;border:1px solid var(--gray-200);border-radius:var(--radius-md);font-size:.875rem;outline:none;margin-bottom:1.25rem;background:white;"></select>
+      <div style="display:flex;gap:.75rem;">
+        <button onclick="tpCloseLinkModal()" style="flex:1;padding:10px;background:var(--gray-100);color:var(--gray-700);border:none;border-radius:var(--radius-md);font-size:14px;font-weight:700;cursor:pointer;">Cancelar</button>
+        <button onclick="tpConfirmLink()" style="flex:1;padding:10px;background:#2563eb;color:white;border:none;border-radius:var(--radius-md);font-size:14px;font-weight:700;cursor:pointer;">Combinar dados</button>
+      </div>
     </div>
   </div>
 </body>
