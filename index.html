@@ -1247,8 +1247,9 @@ img { max-width: 100%; }
 .dropdown-header{padding:8px 10px 12px;border-bottom:1px solid var(--gray-100);margin-bottom:6px;}
 .dropdown-name{font-size:14px;font-weight:600;color:var(--gray-900);}
 .dropdown-email{font-size:12px;color:var(--gray-400);margin-top:2px;}
-.dropdown-tasks{display:none;align-items:center;gap:6px;margin-top:8px;padding:6px 9px;border-radius:99px;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;font-size:12px;font-weight:700;}
+.dropdown-tasks{display:none;align-items:center;gap:6px;margin-top:8px;padding:6px 9px;border-radius:99px;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;font-size:12px;font-weight:700;transition:background .12s;}
 .dropdown-tasks.show{display:flex;}
+.dropdown-tasks:hover{background:#fee2e2;}
 .dropdown-item{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--gray-700);cursor:pointer;transition:background .1s;width:100%;text-align:left;}
 .dropdown-item:hover{background:var(--gray-100);}
 .dropdown-item.danger{color:var(--red-500);}
@@ -2059,6 +2060,11 @@ img { max-width: 100%; }
   letter-spacing: .03em; background: var(--gray-100); color: var(--gray-500);
   border-radius: 99px; padding: .1rem .5rem; margin-left: .4rem; vertical-align: middle;
 }
+.tp-tag-select {
+  border: none; border-radius: 99px; font-size: .68rem; font-weight: 700;
+  padding: .25rem .6rem; cursor: pointer; flex-shrink: 0; outline: none;
+  appearance: none; -webkit-appearance: none;
+}
 .tp-detail-actions { display: flex; gap: .5rem; flex-wrap: wrap; padding: .75rem 0; }
 .tp-boletim-btn, .tp-link-btn {
   border: none; border-radius: 99px; font-size: .75rem; font-weight: 700; padding: .4rem .9rem; cursor: pointer;
@@ -2100,17 +2106,28 @@ img { max-width: 100%; }
 .bd-table tr.bd-row-avisado { background: #dbeafe; }
 .bd-table tr.bd-row-faltou  td { background: transparent; }
 .bd-table tr.bd-row-avisado td { background: transparent; }
+.bd-table tr.bd-row-locked { opacity: .72; }
 .bd-input, .bd-select, .bd-textarea {
   width: 100%; border: none; background: transparent; font-size: .8rem; font-family: var(--font);
   padding: .35rem; outline: none; color: var(--gray-800); border-radius: 4px;
 }
 .bd-input:focus, .bd-select:focus, .bd-textarea:focus { background: var(--white); box-shadow: 0 0 0 2px var(--green-300); }
+.bd-input:disabled, .bd-select:disabled, .bd-textarea:disabled { color: var(--gray-500); cursor: not-allowed; }
 .bd-date { min-width: 80px; text-align: center; }
 .bd-num { min-width: 56px; text-align: center; }
 .bd-exercise { min-width: 160px; }
 .bd-textarea { min-width: 220px; resize: vertical; min-height: 38px; }
-.bd-del-btn { background: none; border: none; cursor: pointer; font-size: .85rem; opacity: .4; padding: .25rem; }
-.bd-del-btn:hover { opacity: 1; }
+.bd-banco-horas {
+  display: block; text-align: center; font-size: .8rem; font-weight: 700;
+  color: var(--gray-600); padding: .35rem; cursor: default; user-select: none;
+}
+.bd-confirm-btn {
+  background: #166534; color: #fff; border: none; border-radius: 6px;
+  width: 28px; height: 28px; font-size: .9rem; font-weight: 800; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; margin: 0 auto;
+}
+.bd-confirm-btn:hover { background: #14532d; }
+.bd-confirmed-tag { display: block; text-align: center; font-size: .9rem; opacity: .6; }
 @media (max-width: 700px) {
   .bd-add-row-btn { margin-left: 0; }
 }
@@ -6193,6 +6210,15 @@ img { max-width: 100%; }
             <option value="pending">Com pendências</option>
             <option value="inactive">Sem atividade</option>
           </select>
+          <select id="tp-filter-tag" onchange="tpFilter()"
+            style="padding:.5rem .75rem;border:1px solid var(--gray-200);border-radius:var(--radius-md);
+                   font-size:.8125rem;background:white;outline:none;">
+            <option value="all">Todas as etiquetas</option>
+            <option value="Aluno ativo">Aluno ativo</option>
+            <option value="Ex-aluno">Ex-aluno</option>
+            <option value="Prospect">Prospect</option>
+            <option value="Aleatório">Aleatório</option>
+          </select>
           <span id="tp-count" style="font-size:.8rem;color:var(--gray-500);white-space:nowrap;"></span>
         </div>
         <div id="tp-table"></div>
@@ -6230,7 +6256,9 @@ img { max-width: 100%; }
 
     <div class="bd-legend">
       <span class="bd-legend-item"><span class="bd-legend-swatch bd-row-faltou"></span> FALTOU (nas observações)</span>
-      <span class="bd-legend-item"><span class="bd-legend-swatch bd-row-avisado"></span> AVISADO (nas observações) — soma +1 ao Banco de Horas</span>
+      <span class="bd-legend-item"><span class="bd-legend-swatch bd-row-avisado"></span> AVISADO (nas observações) — soma +1 ao Banco de Horas (removê-lo subtrai de volta)</span>
+      <span class="bd-legend-item">✔ Confirmar registro — trava a linha permanentemente</span>
+      <span class="bd-legend-item">⌨️ Tab ou Enter avança para o próximo campo</span>
     </div>
 
     <div style="overflow-x:auto;">
@@ -6262,7 +6290,7 @@ img { max-width: 100%; }
 <script>
 
 /* ── SITE VERSION — single source of truth ── */
-var SITE_VERSION = 'v1.05';
+var SITE_VERSION = 'v1.06';
 
 var EXERCISE_REGISTRY = [
   {
@@ -6977,6 +7005,18 @@ function hashRouter() {
 var currentUserRole = null; /* 'student' | 'teacher' */
 var TEACHER_EMAIL   = 'hannibal.duvaldi@gmail.com'; /* ← substitua pelo seu email */
 
+/* Etiquetas de classificação do aluno */
+var STUDENT_TAGS = [
+  { value: 'Aluno ativo', color: '#15803d', bg: '#dcfce7' },
+  { value: 'Ex-aluno',     color: '#6b7280', bg: '#f3f4f6' },
+  { value: 'Prospect',     color: '#1d4ed8', bg: '#dbeafe' },
+  { value: 'Aleatório',    color: '#b45309', bg: '#fef3c7' }
+];
+function tpTagStyle(tag) {
+  var t = STUDENT_TAGS.find(function(x) { return x.value === tag; });
+  return t || STUDENT_TAGS[3];
+}
+
 if (auth) auth.onAuthStateChanged(function(user) {
   currentUser = user;
   updateNavAuth(user);
@@ -7280,6 +7320,11 @@ function updateTaskBadgeUI() {
   if (ddTasks) {
     ddTasks.textContent = '📌 ' + n + (n === 1 ? ' tarefa pendente' : ' tarefas pendentes');
     ddTasks.classList.toggle('show', n > 0);
+    ddTasks.style.cursor = 'pointer';
+    ddTasks.onclick = function() {
+      toggleDropdown(true);
+      showPage('student', null);
+    };
   }
 }
 
@@ -7864,6 +7909,7 @@ function tpRender(students) {
             '<div class="tp-student-name">' + name + (s.type === 'manual' ? ' <span class="tp-manual-tag">Cadastro manual</span>' : '') + '</div>' +
             '<div class="tp-student-email">' + (profile.email || '') + '</div>' +
           '</div>' +
+          tpTagSelectHtml(s) +
           '<div class="tp-summary">' +
             '<span class="tp-pill ' + pillCls + '">' + sum.pct + '%</span>' +
             '<span class="tp-pill tp-pill-gray">' + sum.done + '/' + sum.total + ' feitos</span>' +
@@ -7891,6 +7937,29 @@ function tpRender(students) {
       table.appendChild(errCard);
     }
   });
+}
+
+function tpTagSelectHtml(s) {
+  var current = s.profile.tag || 'Aleatório';
+  var style = tpTagStyle(current);
+  var opts = STUDENT_TAGS.map(function(t) {
+    return '<option value="' + t.value + '"' + (t.value === current ? ' selected' : '') + '>' + t.value + '</option>';
+  }).join('');
+  return '<select class="tp-tag-select" style="background:' + style.bg + ';color:' + style.color + ';" ' +
+    'onclick="event.stopPropagation()" onchange="tpUpdateStudentTag(\'' + s.uid + '\',\'' + s.type + '\',this)">' + opts + '</select>';
+}
+
+function tpUpdateStudentTag(uid, type, selectEl) {
+  if (!db) return;
+  var newTag = selectEl.value;
+  var root = type === 'manual' ? db.collection('manualStudents').doc(uid) : db.collection('users').doc(uid);
+  root.update({ tag: newTag }).then(function() {
+    var s = tpAllStudents.find(function(x) { return x.uid === uid; });
+    if (s) s.profile.tag = newTag;
+    var style = tpTagStyle(newTag);
+    selectEl.style.background = style.bg;
+    selectEl.style.color = style.color;
+  }).catch(function(e) { alert('Erro ao atualizar etiqueta: ' + e.message); });
 }
 
 function tpBuildDetail(progress, assigns, uid, type) {
@@ -7938,6 +8007,7 @@ function tpToggle(header) {
 function tpFilter() {
   var q      = (document.getElementById('tp-search').value || '').toLowerCase().trim();
   var status = (document.getElementById('tp-filter-status') || {}).value || 'all';
+  var tag    = (document.getElementById('tp-filter-tag') || {}).value || 'all';
 
   var filtered = tpAllStudents.filter(function(s) {
     /* Text search */
@@ -7945,6 +8015,11 @@ function tpFilter() {
       var nameMatch  = (s.profile.name  || '').toLowerCase().includes(q);
       var emailMatch = (s.profile.email || '').toLowerCase().includes(q);
       if (!nameMatch && !emailMatch) return false;
+    }
+    /* Tag filter */
+    if (tag !== 'all') {
+      var studentTag = s.profile.tag || 'Aleatório';
+      if (studentTag !== tag) return false;
     }
     /* Status filter */
     if (status === 'pending') {
@@ -8065,8 +8140,10 @@ function tpUpdateCardPill(card, uid) {
 function tpOpenAddStudentModal() {
   var nameEl = document.getElementById('tp-add-name');
   var emailEl = document.getElementById('tp-add-email');
+  var tagEl = document.getElementById('tp-add-tag');
   if (nameEl) nameEl.value = '';
   if (emailEl) emailEl.value = '';
+  if (tagEl) tagEl.value = 'Aluno ativo';
   var ov = document.getElementById('tp-add-student-overlay');
   if (ov) ov.style.display = 'flex';
 }
@@ -8078,10 +8155,12 @@ function tpCreateManualStudent() {
   if (!db) return;
   var name  = (document.getElementById('tp-add-name').value  || '').trim();
   var email = (document.getElementById('tp-add-email').value || '').trim().toLowerCase();
+  var tag   = (document.getElementById('tp-add-tag').value   || 'Aluno ativo');
   if (!name) { alert('Digite o nome do aluno.'); return; }
   db.collection('manualStudents').add({
     name: name,
     email: email,
+    tag: tag,
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     linkedUid: null,
     merged: false
@@ -8243,6 +8322,14 @@ function boletimEsc(s) {
   return d.innerHTML;
 }
 
+/* Data de hoje no mesmo formato da planilha: "05/jan" */
+function boletimTodayStr() {
+  var meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  var d = new Date();
+  var dia = String(d.getDate()).padStart(2, '0');
+  return dia + '/' + meses[d.getMonth()];
+}
+
 function boletimLoadRows() {
   var ref = boletimGetCollectionRef();
   var tbody = document.getElementById('bd-tbody');
@@ -8272,35 +8359,57 @@ function boletimRenderTable() {
   tbody.innerHTML = bdRows.map(function(r) {
     var status = boletimDetectStatus(r.observations);
     var rowClass = status === 'faltou' ? 'bd-row-faltou' : status === 'avisado' ? 'bd-row-avisado' : '';
+    var locked = !!r.confirmed;
+    var dis = locked ? ' disabled' : '';
     var numFields = ['speaking', 'listening', 'reading', 'writing'];
-    return '<tr class="' + rowClass + '" data-row-id="' + r.id + '">' +
-      '<td><input class="bd-input bd-date" type="text" data-field="date" value="' + boletimEsc(r.date) + '" onblur="boletimSaveRow(\'' + r.id + '\')"></td>' +
+    return '<tr class="' + rowClass + (locked ? ' bd-row-locked' : '') + '" data-row-id="' + r.id + '">' +
+      '<td><input class="bd-input bd-date" type="text" data-field="date" value="' + boletimEsc(r.date) + '"' + dis +
+        ' onblur="boletimSaveRow(\'' + r.id + '\')" onkeydown="boletimHandleKey(event)"></td>' +
       numFields.map(function(f) {
-        return '<td><input class="bd-input bd-num" type="number" min="0" max="10" data-field="' + f + '" value="' + (r[f] != null ? r[f] : '') + '" onblur="boletimSaveRow(\'' + r.id + '\')"></td>';
+        return '<td><input class="bd-input bd-num" type="number" min="0" max="10" data-field="' + f + '" value="' + (r[f] != null ? r[f] : '') + '"' + dis +
+          ' onblur="boletimSaveRow(\'' + r.id + '\')" onkeydown="boletimHandleKey(event)"></td>';
       }).join('') +
-      '<td><input class="bd-input bd-exercise" type="text" data-field="exercise" value="' + boletimEsc(r.exercise) + '" onblur="boletimSaveRow(\'' + r.id + '\')"></td>' +
-      '<td><select class="bd-select" data-field="activityDone" onchange="boletimSaveRow(\'' + r.id + '\')">' +
+      '<td><input class="bd-input bd-exercise" type="text" data-field="exercise" value="' + boletimEsc(r.exercise) + '"' + dis +
+        ' onblur="boletimSaveRow(\'' + r.id + '\')" onkeydown="boletimHandleKey(event)"></td>' +
+      '<td><select class="bd-select" data-field="activityDone"' + dis + ' onchange="boletimSaveRow(\'' + r.id + '\')" onkeydown="boletimHandleKey(event)">' +
         doneOpts.map(function(opt) {
           return '<option value="' + opt + '"' + (r.activityDone === opt ? ' selected' : '') + '>' + (opt || '—') + '</option>';
         }).join('') +
       '</select></td>' +
-      '<td><textarea class="bd-textarea" data-field="observations" onblur="boletimSaveRow(\'' + r.id + '\')">' + boletimEsc(r.observations) + '</textarea></td>' +
-      '<td><input class="bd-input bd-num" type="number" data-field="bancoHoras" value="' + (r.bancoHoras != null ? r.bancoHoras : 0) + '" onblur="boletimSaveRow(\'' + r.id + '\')"></td>' +
-      '<td><button class="bd-del-btn" title="Remover linha" onclick="boletimDeleteRow(\'' + r.id + '\')">🗑️</button></td>' +
+      '<td><textarea class="bd-textarea" data-field="observations"' + dis + ' onblur="boletimSaveRow(\'' + r.id + '\')" onkeydown="boletimHandleKey(event)">' + boletimEsc(r.observations) + '</textarea></td>' +
+      '<td><span class="bd-banco-horas" title="Só muda automaticamente — escreva ou remova AVISADO nas observações">' + (r.bancoHoras != null ? r.bancoHoras : 0) + '</span></td>' +
+      '<td>' + (locked
+        ? '<span class="bd-confirmed-tag" title="Registro confirmado — não pode mais ser editado">🔒</span>'
+        : '<button class="bd-confirm-btn" title="Confirmar registro (depois disso não pode mais editar)" onclick="boletimConfirmRow(\'' + r.id + '\')">✔</button>') +
+      '</td>' +
     '</tr>';
   }).join('');
+}
+
+/* Atualiza só a linha afetada (classe de cor + banco de horas) sem recriar a tabela inteira —
+   recriar tudo a cada blur destruía o foco e quebrava a navegação por Tab/Enter (REGRA-66) */
+function boletimUpdateRowVisual(rowId, row) {
+  var tr = document.querySelector('#bd-tbody tr[data-row-id="' + rowId + '"]');
+  if (!tr) return;
+  var status = boletimDetectStatus(row.observations);
+  tr.classList.remove('bd-row-faltou', 'bd-row-avisado');
+  if (status === 'faltou')  tr.classList.add('bd-row-faltou');
+  if (status === 'avisado') tr.classList.add('bd-row-avisado');
+  var bancoEl = tr.querySelector('.bd-banco-horas');
+  if (bancoEl) bancoEl.textContent = row.bancoHoras != null ? row.bancoHoras : 0;
 }
 
 function boletimSaveRow(rowId) {
   var tr = document.querySelector('#bd-tbody tr[data-row-id="' + rowId + '"]');
   var row = bdRows.find(function(r) { return r.id === rowId; });
   var ref = boletimGetCollectionRef();
-  if (!tr || !row || !ref) return;
+  if (!tr || !row || !ref || row.confirmed) return;
 
   var prevStatus = boletimDetectStatus(row.observations);
+  var prevDateEmpty = !row.date;
 
   row.date = tr.querySelector('[data-field="date"]').value;
-  ['speaking', 'listening', 'reading', 'writing', 'bancoHoras'].forEach(function(f) {
+  ['speaking', 'listening', 'reading', 'writing'].forEach(function(f) {
     var v = tr.querySelector('[data-field="' + f + '"]').value;
     row[f] = v === '' ? null : Number(v);
   });
@@ -8308,17 +8417,31 @@ function boletimSaveRow(rowId) {
   row.activityDone  = tr.querySelector('[data-field="activityDone"]').value;
   row.observations  = tr.querySelector('[data-field="observations"]').value;
 
-  /* AVISADO soma +1 ao Banco de Horas — só na transição (não fica somando a cada salvamento) */
+  /* Data preenchida pela primeira vez → Speaking/Listening/Reading vão para 8 (editável depois) */
+  if (prevDateEmpty && row.date) {
+    ['speaking', 'listening', 'reading'].forEach(function(f) {
+      if (row[f] == null) {
+        row[f] = 8;
+        var input = tr.querySelector('[data-field="' + f + '"]');
+        if (input) input.value = 8;
+      }
+    });
+  }
+
+  /* AVISADO soma +1 ao Banco de Horas na transição PARA avisado;
+     remover AVISADO subtrai 1 na transição DE avisado pra normal/faltou (nunca abaixo de 0) */
   var newStatus = boletimDetectStatus(row.observations);
   if (newStatus === 'avisado' && prevStatus !== 'avisado') {
     row.bancoHoras = (row.bancoHoras || 0) + 1;
+  } else if (newStatus !== 'avisado' && prevStatus === 'avisado') {
+    row.bancoHoras = Math.max(0, (row.bancoHoras || 0) - 1);
   }
 
   var toSave = {};
   Object.keys(row).forEach(function(k) { if (k !== 'id') toSave[k] = row[k]; });
 
   ref.doc(rowId).set(toSave, { merge: true }).then(function() {
-    boletimRenderTable(); /* re-renderiza pra refletir a cor da linha e o banco de horas atualizado */
+    boletimUpdateRowVisual(rowId, row); /* atualização cirúrgica — preserva o foco do campo atual */
   }).catch(function(e) { console.warn('Erro ao salvar boletim:', e.message); });
 }
 
@@ -8327,8 +8450,8 @@ function boletimAddRow() {
   if (!ref) { alert('Cadastre ou selecione um aluno primeiro.'); return; }
   var order = bdRows.length > 0 ? Math.max.apply(null, bdRows.map(function(r) { return r.order || 0; })) + 1 : 0;
   var newRow = {
-    date: '', speaking: null, listening: null, reading: null, writing: null,
-    exercise: '', activityDone: '', observations: '', bancoHoras: 0, order: order
+    date: boletimTodayStr(), speaking: 8, listening: 8, reading: 8, writing: null,
+    exercise: '', activityDone: '', observations: '', bancoHoras: 0, order: order, confirmed: false
   };
   ref.add(newRow).then(function(docRef) {
     newRow.id = docRef.id;
@@ -8337,14 +8460,34 @@ function boletimAddRow() {
   }).catch(function(e) { alert('Erro ao adicionar linha: ' + e.message); });
 }
 
-function boletimDeleteRow(rowId) {
-  if (!confirm('Remover esta linha do boletim? Essa ação não pode ser desfeita.')) return;
+/* Confirma o registro — a partir daqui a linha trava e não pode mais ser editada nem excluída */
+function boletimConfirmRow(rowId) {
+  if (!confirm('Confirmar este registro? Depois de confirmado, não será mais possível editar ou excluir esta linha.')) return;
   var ref = boletimGetCollectionRef();
-  if (!ref) return;
-  ref.doc(rowId).delete().then(function() {
-    bdRows = bdRows.filter(function(r) { return r.id !== rowId; });
+  var row = bdRows.find(function(r) { return r.id === rowId; });
+  if (!ref || !row) return;
+  ref.doc(rowId).update({ confirmed: true }).then(function() {
+    row.confirmed = true;
     boletimRenderTable();
-  }).catch(function(e) { alert('Erro ao remover linha: ' + e.message); });
+  }).catch(function(e) { alert('Erro ao confirmar registro: ' + e.message); });
+}
+
+/* Enter avança para o próximo campo (Shift+Enter permite quebra de linha nas Observações).
+   Tab já funciona nativamente — só precisa não ser interrompido por um re-render no meio do caminho. */
+function boletimHandleKey(e) {
+  if (e.key !== 'Enter') return;
+  if (e.target.tagName === 'TEXTAREA' && e.shiftKey) return; /* permite nova linha */
+  e.preventDefault();
+  var focusables = Array.prototype.slice.call(
+    document.querySelectorAll('#bd-tbody input:not([disabled]), #bd-tbody select:not([disabled]), #bd-tbody textarea:not([disabled])')
+  );
+  var idx = focusables.indexOf(e.target);
+  if (idx > -1 && idx < focusables.length - 1) {
+    focusables[idx + 1].focus();
+    if (focusables[idx + 1].select) focusables[idx + 1].select();
+  } else {
+    e.target.blur();
+  }
 }
 
 
@@ -8359,6 +8502,7 @@ function ensureUserProfile(user) {
         name:      user.displayName || '',
         email:     user.email || '',
         role:      isTeacher ? 'teacher' : 'student',
+        tag:       isTeacher ? null : 'Aleatório',
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       }).then(function() {
         console.log('Perfil criado para', user.email);
@@ -16081,7 +16225,14 @@ function ppc3ShowResult() {
         style="width:100%;padding:.625rem .75rem;border:1px solid var(--gray-200);border-radius:var(--radius-md);font-size:.875rem;outline:none;margin-bottom:1rem;">
       <label style="display:block;font-size:.8rem;font-weight:700;color:var(--gray-600);margin-bottom:.3rem;">Email (opcional — usado para vincular depois com o login do Google)</label>
       <input id="tp-add-email" type="email" placeholder="email@exemplo.com"
-        style="width:100%;padding:.625rem .75rem;border:1px solid var(--gray-200);border-radius:var(--radius-md);font-size:.875rem;outline:none;margin-bottom:1.25rem;">
+        style="width:100%;padding:.625rem .75rem;border:1px solid var(--gray-200);border-radius:var(--radius-md);font-size:.875rem;outline:none;margin-bottom:1rem;">
+      <label style="display:block;font-size:.8rem;font-weight:700;color:var(--gray-600);margin-bottom:.3rem;">Etiqueta</label>
+      <select id="tp-add-tag" style="width:100%;padding:.625rem .75rem;border:1px solid var(--gray-200);border-radius:var(--radius-md);font-size:.875rem;outline:none;margin-bottom:1.25rem;background:white;">
+        <option value="Aluno ativo" selected>Aluno ativo</option>
+        <option value="Prospect">Prospect</option>
+        <option value="Ex-aluno">Ex-aluno</option>
+        <option value="Aleatório">Aleatório</option>
+      </select>
       <div style="display:flex;gap:.75rem;">
         <button onclick="tpCloseAddStudentModal()" style="flex:1;padding:10px;background:var(--gray-100);color:var(--gray-700);border:none;border-radius:var(--radius-md);font-size:14px;font-weight:700;cursor:pointer;">Cancelar</button>
         <button onclick="tpCreateManualStudent()" style="flex:1;padding:10px;background:var(--green-700);color:white;border:none;border-radius:var(--radius-md);font-size:14px;font-weight:700;cursor:pointer;">Cadastrar</button>
