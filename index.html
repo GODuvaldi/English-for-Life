@@ -1440,32 +1440,36 @@ img { max-width: 100%; }
   box-shadow: 0 3px 8px rgba(0,0,0,0.15);
 }
 
-/* Painel de resultados — moderno, fontes maiores, rótulos próximos dos valores */
+/* Painel de resultados — moderno, centralizado, fontes maiores */
 #qg-results { margin-bottom: 1.5rem; }
 .qg-results-card {
   background: #ffffff; border: 1px solid #ebebe2; border-radius: 18px;
   padding: 1.75rem; box-shadow: 0 4px 20px rgba(27, 60, 53, 0.06);
+  text-align: center; /* centraliza tudo por padrão dentro do card */
 }
 .qg-results-title {
-  font-size: 1.35rem; font-weight: 800; color: #1a7a5a; margin-bottom: 1.25rem;
+  font-size: 1.35rem; font-weight: 800; color: #1a7a5a; margin-bottom: 1rem;
   padding-bottom: .75rem; border-bottom: 2px solid #1a7a5a;
+  text-align: center;
 }
-/* Detalhes do contrato — grid denso, rótulo e valor próximos */
+/* Detalhes do contrato — grid denso, centralizado */
 .qg-results-detail {
   display: grid; grid-template-columns: 1fr 1fr; gap: .4rem 1.5rem;
-  font-size: .95rem; color: #333333; margin-bottom: 1.5rem;
+  font-size: .95rem; color: #333333; margin: 0 auto 1.5rem; /* centraliza o grid */
+  max-width: 560px; /* evita ficar largo demais quando centralizado */
 }
 .qg-results-detail dt {
   color: #6b7280; font-weight: 500; font-size: .85rem;
-  display: flex; align-items: center;
+  display: flex; align-items: center; justify-content: center; /* centralizado */
 }
 .qg-results-detail dd {
-  color: #1a7a5a; font-weight: 700; text-align: right; font-size: 1rem;
+  color: #1a7a5a; font-weight: 700; text-align: center; font-size: 1rem;
 }
-/* Blocos de contrato — visual de card destacado */
+/* Blocos de contrato — visual de card destacado, centralizado */
 .qg-contract-block {
   background: linear-gradient(135deg, #fafaf5 0%, #f5f5ed 100%);
-  border: 1px solid #ebebe2; border-radius: 14px; padding: 1.25rem; margin-bottom: .875rem;
+  border: 1px solid #ebebe2; border-radius: 14px; padding: 1.25rem; margin: 0 auto .875rem;
+  max-width: 460px; /* centraliza com margem automática */
   transition: transform .2s ease, box-shadow .2s ease;
 }
 .qg-contract-block:hover {
@@ -1474,35 +1478,44 @@ img { max-width: 100%; }
 .qg-contract-title {
   font-size: .95rem; font-weight: 800; color: #1a7a5a; margin-bottom: .75rem;
   text-transform: uppercase; letter-spacing: .05em;
-  display: flex; align-items: center; gap: .5rem;
+  display: flex; align-items: center; justify-content: center; gap: .5rem; /* centralizado */
 }
 .qg-contract-title::before {
   content: ''; width: 4px; height: 18px; background: #1a7a5a; border-radius: 2px;
 }
-/* Linha de preço — rótulo e valor próximos, fontes maiores */
+/* Linha de preço — centralizada, fontes maiores */
 .qg-price-row {
-  display: flex; justify-content: space-between; align-items: baseline;
+  display: flex; justify-content: center; align-items: baseline; gap: .5rem; /* centralizado com gap */
+  flex-wrap: wrap;
   font-size: .95rem; color: #333333; padding: .3rem 0;
 }
 .qg-price-row strong { color: #1a7a5a; font-size: 1.15rem; }
 .qg-price-original {
-  color: #dc2626; text-decoration: line-through; font-size: .85rem; margin-right: .5rem;
+  color: #dc2626; text-decoration: line-through; font-size: .85rem;
   font-weight: 500;
 }
 .qg-price-discounted { color: #047857; font-weight: 800; font-size: 1.15rem; }
-/* Aviso de desconto */
+/* Aviso de desconto — centralizado, destaque no topo */
 .qg-discount-notice {
   background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 12px;
   padding: .875rem 1.125rem; display: flex; gap: .625rem; align-items: center;
-  font-size: .9rem; color: #047857; margin-top: 1rem; font-weight: 500;
+  justify-content: center; /* centralizado */
+  font-size: .9rem; color: #047857; margin: 0 auto 1.25rem; font-weight: 500;
+  max-width: 560px;
 }
 .qg-discount-notice::before { content: '✓'; font-weight: 800; font-size: 1.2rem; }
+/* Variante sem desconto (tom neutro, incentivando adicionar aula) */
+.qg-discount-notice.qg-no-discount {
+  background: #f3f4f6; border-color: #e5e7eb; color: #6b7280;
+}
+.qg-discount-notice.qg-no-discount::before { content: '💡'; font-size: 1.1rem; }
 
 /* Legenda */
 .qg-legend {
   background: #ffffff; border: 1px solid #ebebe2; border-radius: 14px;
   padding: 1rem 1.25rem; margin-top: 1.25rem;
   display: flex; flex-wrap: wrap; gap: .75rem 1.5rem;
+  justify-content: center; /* centralizada */
   box-shadow: 0 2px 8px rgba(27, 60, 53, 0.04);
 }
 .qg-legend-item {
@@ -1519,11 +1532,10 @@ img { max-width: 100%; }
   background: #ffffff; border: 1px dashed #e0e0d8; border-radius: 14px;
 }
 
-/* ══ SALVAR COMO PDF (v1.14.2) — simplificado ══
-   Removido o @media print problemático que sumia com os fundos coloridos.
-   Agora: apenas escondemos nav/controles. O navegador renderiza o resto
-   exatamente como na tela, preservando todas as cores de fundo.
-   As próprias células já têm print-color-adjust:exact (escopo global). */
+/* ══ SALVAR COMO PDF (v1.14.3) — 6 meses por página com cores ══
+   Cada .qg-print-group (6 meses) vira uma página. Grid 3×2 forçado
+   no print, com tamanho de mês reduzido pra caber. As células mantêm
+   print-color-adjust:exact (escopo global) para preservar os fundos. */
 @media print {
   /* Esconde navegação e controles — só o orçamento aparece no PDF */
   .nav, .nav-mobile, #qg-controls, .ppc-btn, .efl-toast,
@@ -1533,10 +1545,36 @@ img { max-width: 100%; }
   /* Fundo branco, sem padding excessivo */
   body { background: #fff !important; }
   #page-quote-generator { background: #fff !important; min-height: auto; }
-  #page-quote-generator .exercise-wrap { max-width: 100% !important; padding: 1rem !important; }
-  /* Desativa hover (não faz sentido no PDF) */
+  #page-quote-generator .exercise-wrap { max-width: 100% !important; padding: .5rem !important; }
+
+  /* Cada grupo de 6 meses = 1 página (3 colunas × 2 linhas) */
+  .qg-print-group {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: .4rem !important;
+    page-break-after: always;
+    break-after: page;
+  }
+  .qg-print-group:last-child { page-break-after: auto; break-after: auto; }
+
+  /* Mês compacto para caber 6 por página: menos padding, fontes menores */
+  .qg-month {
+    break-inside: avoid;
+    padding: .5rem !important;
+    box-shadow: none !important;
+    border: 1px solid #d4d4cc !important;
+  }
+  .qg-month-title {
+    font-size: .8rem !important; margin-bottom: .3rem !important;
+    padding-bottom: .25rem !important;
+  }
+  .qg-grid { gap: 1px !important; }
+  .qg-dow { font-size: .55rem !important; padding: .1rem 0 !important; }
+  .qg-cell {
+    font-size: .62rem !important; min-height: 22px !important; border-radius: 3px !important;
+  }
+
+  /* Desativa hover no PDF */
   .qg-cell:hover { transform: none !important; box-shadow: none !important; }
-  .qg-month { break-inside: avoid; }
 }
 
 /* ── AUTH MODAL ── */
@@ -9844,11 +9882,12 @@ function quoteGenRenderResults() {
 
   var discountNotice = r.hasDiscount
     ? '<div class="qg-discount-notice">Desconto de 10% aplicado! Com 2 ou mais aulas por semana, você economiza em cada aula.</div>'
-    : '';
+    : '<div class="qg-discount-notice qg-no-discount">1 aula por semana — sem desconto aplicável. Adicione mais um dia para ganhar 10% de desconto.</div>';
 
   el.innerHTML =
     '<div class="qg-results-card">' +
       '<div class="qg-results-title">Resumo do Orçamento</div>' +
+      discountNotice +
       '<dl class="qg-results-detail">' +
         '<dt>Início</dt><dd>' + startMonthName + '</dd>' +
         '<dt>Término (6 meses)</dt><dd>' + CAL_MONTH_NAMES[end6.getMonth()] + ' de ' + end6.getFullYear() + '</dd>' +
@@ -9859,7 +9898,6 @@ function quoteGenRenderResults() {
       '</dl>' +
       contractBlock('Contrato 6 Meses', r.contract6, 6) +
       contractBlock('Contrato 12 Meses', r.contract12, 12) +
-      discountNotice +
     '</div>';
 }
 
