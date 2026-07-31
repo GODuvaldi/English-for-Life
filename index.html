@@ -1235,9 +1235,15 @@ img { max-width: 100%; }
 
 /* ═══════════════════════════════════════════════════════════════
    QUOTE GENERATOR (v1.14) — Gerador de Orçamentos
+   Design moderno pastel + mobile-first + responsivo amplo + print corrigido
    Cores honram a spec do professor (autocontidas a esta feature):
-   --qg-primary #1b3c35 (verde escuro) · --qg-bg #f5f5ed (bege claro)
+   primary #1b3c35 (verde escuro) · bg #f5f5ed (bege claro) · tons pasteis
    ═══════════════════════════════════════════════════════════════ */
+
+/* Container amplo (sobrepondo o .exercise-wrap de 800px que deixa a página minúscula) */
+#page-quote-generator .exercise-wrap {
+  max-width: 1200px;
+}
 #page-quote-generator {
   background: #f5f5ed;
   min-height: calc(100vh - var(--nav-h));
@@ -1253,218 +1259,286 @@ img { max-width: 100%; }
 #page-quote-generator .breadcrumb a { color: #e8f5ef; }
 #page-quote-generator .breadcrumb a { opacity: .85; }
 #page-quote-generator .module-tag {
-  background: rgba(255,255,255,.15); color: #e8f5ef;
+  background: rgba(255,255,255,.18); color: #e8f5ef; backdrop-filter: blur(4px);
 }
 
-/* Card de controles */
+/* Card de controles — visual moderno com sombra suave */
 .qg-controls-card {
   background: #ffffff;
-  border: 1.5px solid #e0e0d8;
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
+  border: 1px solid #ebebe2;
+  border-radius: 18px;
+  padding: 1.75rem;
   margin-bottom: 1.5rem;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 20px rgba(27, 60, 53, 0.06);
 }
 .qg-controls-row {
   display: flex; gap: 2rem; flex-wrap: wrap;
 }
 .qg-control-group { flex: 1; min-width: 240px; }
 .qg-control-label {
-  font-size: .75rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .06em; color: #6b7280; margin-bottom: .625rem;
+  font-size: .8rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .07em; color: #1b3c35; margin-bottom: .75rem;
+  opacity: .85;
 }
 
-/* Grade de meses (seletor de início) */
+/* Grade de meses (seletor de início) — 6 cols mobile-first */
 .qg-month-grid {
-  display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px;
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px;
 }
 .qg-month-btn {
-  padding: .5rem .25rem; font-size: .75rem; font-weight: 600;
-  border: 1.5px solid #e0e0d8; border-radius: var(--radius-sm);
+  padding: .65rem .25rem; font-size: .8rem; font-weight: 600;
+  border: 1.5px solid #e0e0d8; border-radius: 10px;
   background: #fafaf5; color: #1b3c35; cursor: pointer;
-  transition: all .15s; text-align: center;
+  transition: all .2s ease; text-align: center;
 }
-.qg-month-btn:hover { border-color: #1b3c35; background: #f0f5f2; }
+.qg-month-btn:hover {
+  border-color: #1b3c35; background: #f0f5f2; transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(27, 60, 53, 0.12);
+}
 .qg-month-btn.qg-selected {
   background: #1b3c35; color: #fff; border-color: #1b3c35;
+  box-shadow: 0 3px 10px rgba(27, 60, 53, 0.25);
 }
 
 /* Seletor de ano */
 .qg-year-row {
-  display: flex; align-items: center; gap: .75rem; justify-content: flex-start;
+  display: flex; align-items: center; gap: 1rem; justify-content: flex-start;
 }
 .qg-year-btn {
-  width: 40px; height: 40px; border-radius: var(--radius-sm);
+  width: 44px; height: 44px; border-radius: 12px;
   border: 1.5px solid #e0e0d8; background: #fafaf5; color: #1b3c35;
-  font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all .15s;
+  font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: all .2s ease;
+  display: flex; align-items: center; justify-content: center;
 }
-.qg-year-btn:hover { background: #1b3c35; color: #fff; border-color: #1b3c35; }
+.qg-year-btn:hover {
+  background: #1b3c35; color: #fff; border-color: #1b3c35;
+  transform: translateY(-2px); box-shadow: 0 3px 10px rgba(27, 60, 53, 0.2);
+}
 .qg-year-display {
-  font-size: 1.5rem; font-weight: 700; color: #1b3c35; min-width: 80px; text-align: center;
+  font-size: 1.75rem; font-weight: 700; color: #1b3c35; min-width: 90px; text-align: center;
 }
 
 /* Dias da semana (Seg-Sex) */
 .qg-weekday-grid {
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; max-width: 480px;
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; max-width: 520px;
 }
 .qg-weekday-btn {
-  padding: .625rem .25rem; font-size: .8125rem; font-weight: 600;
-  border: 1.5px solid #e0e0d8; border-radius: var(--radius-sm);
-  background: #fafaf5; color: #1b3c35; cursor: pointer; transition: all .15s;
+  padding: .8rem .25rem; font-size: .9rem; font-weight: 600;
+  border: 1.5px solid #e0e0d8; border-radius: 10px;
+  background: #fafaf5; color: #1b3c35; cursor: pointer; transition: all .2s ease;
   text-align: center;
 }
-.qg-weekday-btn:hover { border-color: #1b3c35; background: #f0f5f2; }
+.qg-weekday-btn:hover {
+  border-color: #1b3c35; background: #f0f5f2; transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(27, 60, 53, 0.12);
+}
 .qg-weekday-btn.qg-selected {
   background: #1b3c35; color: #fff; border-color: #1b3c35;
+  box-shadow: 0 3px 10px rgba(27, 60, 53, 0.25);
 }
 
 /* Botões de ação */
-.qg-action-row { display: flex; gap: .75rem; margin-top: 1.25rem; flex-wrap: wrap; }
+.qg-action-row { display: flex; gap: .75rem; margin-top: 1.5rem; flex-wrap: wrap; }
 .qg-action-btn {
-  padding: .625rem 1.25rem; font-size: .875rem; font-weight: 700;
-  border-radius: var(--radius-md); cursor: pointer; transition: all .15s;
+  padding: .75rem 1.5rem; font-size: .9rem; font-weight: 700;
+  border-radius: 12px; cursor: pointer; transition: all .2s ease;
   border: none; background: #1b3c35; color: #fff;
 }
-.qg-action-btn:hover { background: #2d5a4f; transform: translateY(-1px); }
+.qg-action-btn:hover {
+  background: #2d5a4f; transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(27, 60, 53, 0.3);
+}
 .qg-action-secondary {
   background: transparent; color: #1b3c35; border: 1.5px solid #1b3c35;
 }
-.qg-action-secondary:hover { background: #f0f5f2; transform: translateY(-1px); }
+.qg-action-secondary:hover {
+  background: #f0f5f2; transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(27, 60, 53, 0.15);
+}
 
-/* Grade de 12 meses — responsiva (1/2/3 cols) */
+/* Grade dos 12 meses (2 grupos de 6) — responsiva mobile-first */
 .qg-calendar-grid {
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+.qg-print-group {
   display: grid; gap: 1rem;
   grid-template-columns: 1fr; /* mobile default */
 }
-@media (min-width: 768px) {
-  .qg-calendar-grid { grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 600px) {
+  .qg-print-group { grid-template-columns: repeat(2, 1fr); }
 }
 @media (min-width: 1024px) {
-  .qg-calendar-grid { grid-template-columns: repeat(3, 1fr); }
+  .qg-print-group { grid-template-columns: repeat(3, 1fr); }
 }
 
 /* Um mês */
 .qg-month {
-  background: #ffffff; border: 1px solid #e0e0d8; border-radius: var(--radius-md);
-  padding: .875rem; break-inside: avoid;
+  background: #ffffff; border: 1px solid #ebebe2; border-radius: 14px;
+  padding: 1rem; box-shadow: 0 2px 8px rgba(27, 60, 53, 0.04);
+  transition: box-shadow .2s ease;
+}
+.qg-month:hover {
+  box-shadow: 0 4px 16px rgba(27, 60, 53, 0.1);
 }
 .qg-month-title {
-  font-size: .9rem; font-weight: 700; color: #1b3c35; margin-bottom: .5rem;
+  font-size: 1rem; font-weight: 700; color: #1b3c35; margin-bottom: .625rem;
   text-align: center; text-transform: capitalize;
+  padding-bottom: .5rem; border-bottom: 1px solid #f0f0e8;
 }
 .qg-grid {
-  display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px;
 }
 .qg-dow {
-  font-size: .65rem; font-weight: 700; color: #9ca3af; text-align: center;
-  padding: .2rem 0; text-transform: uppercase;
+  font-size: .7rem; font-weight: 700; color: #9ca3af; text-align: center;
+  padding: .25rem 0; text-transform: uppercase;
 }
 .qg-dow-weekend { color: #cbd5e1; }
 .qg-cell {
   aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
-  font-size: .72rem; font-weight: 600; color: #333333;
-  border-radius: 4px; cursor: default; transition: transform .1s;
-  min-height: 28px;
+  font-size: .8rem; font-weight: 600; color: #333333;
+  border-radius: 6px; cursor: default; transition: transform .12s ease, box-shadow .12s ease;
+  min-height: 32px; user-select: none;
 }
 .qg-empty { background: transparent; }
 .qg-weekend { color: #9ca3af; }
-/* Estados das datas (spec seção 1) */
+/* Estados das datas (spec seção 1) — tons pasteis */
 .qg-state-fixed {
-  background: #d1fae5; color: #065f46; /* verde bem claro */
+  background: #d1fae5; color: #065f46;
 }
 .qg-state-included {
-  background: #dbeafe; color: #2563eb; /* azul bem claro */
+  background: #dbeafe; color: #2563eb;
 }
 .qg-state-excluded {
-  background: #fee2e2; color: #dc2626; text-decoration: line-through; /* vermelho claro + tachado */
+  background: #fee2e2; color: #dc2626; text-decoration: line-through;
 }
 .qg-state-normal { background: #f9fafb; color: #6b7280; }
 /* Feriados e recesso (não clicáveis) */
 .qg-cell.qg-holiday {
-  background: #fecaca; color: #dc2626; text-decoration: line-through; opacity: .85;
+  background: #fecaca; color: #dc2626; text-decoration: line-through; opacity: .9;
   cursor: not-allowed;
 }
 .qg-cell.qg-recess {
   background: #fecaca; color: #dc2626; text-decoration: line-through; opacity: .7;
   cursor: not-allowed;
 }
-/* Clicável: hover levanta */
+/* Clicável: hover levanta + brilho */
 .qg-cell:not(.qg-locked):not(.qg-empty) { cursor: pointer; }
-.qg-cell:not(.qg-locked):not(.qg-empty):hover { transform: scale(1.1); z-index: 2; }
+.qg-cell:not(.qg-locked):not(.qg-empty):hover {
+  transform: scale(1.15); z-index: 2;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
 
-/* Painel de resultados */
+/* Painel de resultados — moderno, fontes maiores, rótulos próximos dos valores */
 #qg-results { margin-bottom: 1.5rem; }
 .qg-results-card {
-  background: #ffffff; border: 1.5px solid #e0e0d8; border-radius: var(--radius-lg);
-  padding: 1.5rem; box-shadow: var(--shadow-sm);
+  background: #ffffff; border: 1px solid #ebebe2; border-radius: 18px;
+  padding: 1.75rem; box-shadow: 0 4px 20px rgba(27, 60, 53, 0.06);
 }
 .qg-results-title {
-  font-size: 1.1rem; font-weight: 700; color: #1b3c35; margin-bottom: 1rem;
-  padding-bottom: .625rem; border-bottom: 1px solid #e0e0d8;
+  font-size: 1.35rem; font-weight: 800; color: #1b3c35; margin-bottom: 1.25rem;
+  padding-bottom: .75rem; border-bottom: 2px solid #1b3c35;
 }
+/* Detalhes do contrato — grid denso, rótulo e valor próximos */
 .qg-results-detail {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: .5rem 1.5rem;
-  font-size: .875rem; color: #333333; margin-bottom: 1.25rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: .4rem 1.5rem;
+  font-size: .95rem; color: #333333; margin-bottom: 1.5rem;
 }
-.qg-results-detail dt { color: #6b7280; font-weight: 500; }
-.qg-results-detail dd { color: #1b3c35; font-weight: 700; text-align: right; }
+.qg-results-detail dt {
+  color: #6b7280; font-weight: 500; font-size: .85rem;
+  display: flex; align-items: center;
+}
+.qg-results-detail dd {
+  color: #1b3c35; font-weight: 700; text-align: right; font-size: 1rem;
+}
+/* Blocos de contrato — visual de card destacado */
 .qg-contract-block {
-  background: #fafaf5; border-radius: var(--radius-md); padding: 1rem; margin-bottom: .75rem;
+  background: linear-gradient(135deg, #fafaf5 0%, #f5f5ed 100%);
+  border: 1px solid #ebebe2; border-radius: 14px; padding: 1.25rem; margin-bottom: .875rem;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.qg-contract-block:hover {
+  transform: translateY(-2px); box-shadow: 0 4px 14px rgba(27, 60, 53, 0.08);
 }
 .qg-contract-title {
-  font-size: .85rem; font-weight: 700; color: #1b3c35; margin-bottom: .5rem;
-  text-transform: uppercase; letter-spacing: .04em;
+  font-size: .95rem; font-weight: 800; color: #1b3c35; margin-bottom: .75rem;
+  text-transform: uppercase; letter-spacing: .05em;
+  display: flex; align-items: center; gap: .5rem;
 }
+.qg-contract-title::before {
+  content: ''; width: 4px; height: 18px; background: #1b3c35; border-radius: 2px;
+}
+/* Linha de preço — rótulo e valor próximos, fontes maiores */
 .qg-price-row {
   display: flex; justify-content: space-between; align-items: baseline;
-  font-size: .85rem; color: #333333; padding: .2rem 0;
+  font-size: .95rem; color: #333333; padding: .3rem 0;
 }
-.qg-price-row strong { color: #1b3c35; font-size: 1rem; }
+.qg-price-row strong { color: #1b3c35; font-size: 1.15rem; }
 .qg-price-original {
-  color: #dc2626; text-decoration: line-through; font-size: .8rem; margin-right: .5rem;
+  color: #dc2626; text-decoration: line-through; font-size: .85rem; margin-right: .5rem;
+  font-weight: 500;
 }
-.qg-price-discounted { color: #047857; font-weight: 800; }
+.qg-price-discounted { color: #047857; font-weight: 800; font-size: 1.15rem; }
 /* Aviso de desconto */
 .qg-discount-notice {
-  background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: var(--radius-md);
-  padding: .75rem 1rem; display: flex; gap: .5rem; align-items: center;
-  font-size: .85rem; color: #047857; margin-top: .75rem;
+  background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 12px;
+  padding: .875rem 1.125rem; display: flex; gap: .625rem; align-items: center;
+  font-size: .9rem; color: #047857; margin-top: 1rem; font-weight: 500;
 }
-.qg-discount-notice::before { content: '✓'; font-weight: 800; font-size: 1.1rem; }
+.qg-discount-notice::before { content: '✓'; font-weight: 800; font-size: 1.2rem; }
 
 /* Legenda */
 .qg-legend {
-  background: #ffffff; border: 1px solid #e0e0d8; border-radius: var(--radius-md);
-  padding: .875rem 1rem; margin-top: 1rem;
-  display: flex; flex-wrap: wrap; gap: .75rem 1.25rem;
+  background: #ffffff; border: 1px solid #ebebe2; border-radius: 14px;
+  padding: 1rem 1.25rem; margin-top: 1.25rem;
+  display: flex; flex-wrap: wrap; gap: .75rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(27, 60, 53, 0.04);
 }
 .qg-legend-item {
-  display: flex; align-items: center; gap: .375rem;
-  font-size: .75rem; color: #333333;
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .85rem; color: #333333; font-weight: 500;
 }
 .qg-legend-swatch {
-  width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(0,0,0,.08);
+  width: 18px; height: 18px; border-radius: 5px; border: 1px solid rgba(0,0,0,.08);
 }
 
 /* Estado "sem seleção" */
 .qg-empty-state {
-  text-align: center; padding: 2rem; color: #9ca3af; font-size: .9rem;
+  text-align: center; padding: 3rem 1.5rem; color: #9ca3af; font-size: 1rem;
+  background: #ffffff; border: 1px dashed #e0e0d8; border-radius: 14px;
 }
 
-/* ══ IMPRESSÃO (spec seção 13) ══ */
+/* ══ IMPRESSÃO (spec seção 13) — CORRIGIDA: cores impressas + 6 meses/página ══ */
 @media print {
+  /* CRÍTICO: força o navegador a imprimir as cores de fundo dos dias */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
   /* Fundo branco, esconde tudo exceto o orçamento */
   body { background: #fff !important; }
   .nav, .nav-mobile, #qg-controls, .ppc-btn, .efl-toast,
   .user-dropdown, #nav-task-badge { display: none !important; }
   #page-quote-generator .page-header { display: none !important; }
   #page-quote-generator { background: #fff !important; min-height: auto; }
+  #page-quote-generator .exercise-wrap { max-width: 100% !important; padding: 0 !important; }
   .qg-controls-card { display: none !important; }
-  .qg-month { break-inside: avoid; box-shadow: none; }
+
+  /* Cada grupo de 6 meses = 1 página (quebra depois de cada grupo) */
+  .qg-print-group {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: .5rem !important;
+    page-break-after: always;
+    break-after: page;
+  }
+  .qg-print-group:last-child { page-break-after: auto; break-after: auto; }
+
+  /* Mês: sem sombra, sem hover, evita quebra interna */
+  .qg-month { break-inside: avoid; box-shadow: none !important; border: 1px solid #ccc !important; }
   .qg-results-card { box-shadow: none; border: 1px solid #ccc; }
-  /* Cada mês evita quebra de página */
-  .qg-calendar-grid { gap: .5rem; }
+  .qg-cell:hover { transform: none !important; box-shadow: none !important; }
 }
+
+/* ── AUTH MODAL ── */
 
 /* ── AUTH MODAL ── */
 .auth-overlay{display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.45);padding:1rem;}.auth-overlay.show{display:flex;opacity:1;pointer-events:all;}
@@ -9792,13 +9866,21 @@ function quoteGenRenderCalendar() {
   var el = document.getElementById('qg-calendar-grid');
   if (!el) return;
   if (qgState.weekdays.length === 0) { el.innerHTML = ''; return; }
-  var html = '';
+  /* Renderiza os 12 meses agrupados em 2 grupos de 6 (para impressão: 1 grupo por página).
+     Na tela, o CSS .qg-calendar-grid já faz o responsivo (1/2/3 colunas).
+     Para impressão, cada .qg-print-group vira uma "página" com quebra. */
+  var monthsHtml = [];
   for (var i = 0; i < 12; i++) {
     var m = (qgState.month + i) % 12;
     var y = qgState.year + Math.floor((qgState.month + i) / 12);
-    html += calRenderMonth(y, m, qgState.weekdays, qgState.overrides, 'quoteGenToggle');
+    monthsHtml.push(calRenderMonth(y, m, qgState.weekdays, qgState.overrides, 'quoteGenToggle'));
   }
-  el.innerHTML = html;
+  /* Agrupa de 6 em 6 */
+  var group1 = monthsHtml.slice(0, 6).join('');
+  var group2 = monthsHtml.slice(6, 12).join('');
+  el.innerHTML =
+    '<div class="qg-print-group">' + group1 + '</div>' +
+    '<div class="qg-print-group">' + group2 + '</div>';
 }
 
 function quoteGenRenderLegend() {
