@@ -10497,19 +10497,23 @@ function cgSubscribe() {
   if (cgUnsub) { try { cgUnsub(); } catch(e){} cgUnsub = null; }
   if (!db) return;
   var r = cgMonthRange();
+  /* Query SÓ por dateMs (single-field range) — dispensa índice composto.
+     Filtramos tenant e aluno no cliente (escala atual: ~80 aulas/mês é trivial).
+     Antes combinávamos where('tenantId')+where('dateMs'), o que exigia índice. */
   var q = db.collection('lessons')
-    .where('tenantId', '==', currentUser.uid)
     .where('dateMs', '>=', r.start.getTime())
     .where('dateMs', '<=', r.end.getTime());
-  if (cgState.studentUid !== 'all') {
-    q = db.collection('lessons')
-      .where('studentUid', '==', cgState.studentUid)
-      .where('dateMs', '>=', r.start.getTime())
-      .where('dateMs', '<=', r.end.getTime());
-  }
   cgUnsub = q.onSnapshot(function(snap) {
     var rows = [];
-    snap.forEach(function(d) { var x = d.data(); x.id = d.id; rows.push(x); });
+    snap.forEach(function(d) {
+      var x = d.data();
+      /* Filtro de tenant: só aulas deste professor */
+      if (x.tenantId !== currentUser.uid) return;
+      /* Filtro de aluno: se um aluno específico está selecionado */
+      if (cgState.studentUid !== 'all' && x.studentUid !== cgState.studentUid) return;
+      x.id = d.id;
+      rows.push(x);
+    });
     cgRenderList(rows);
   }, function(e) {
     console.error('[EFL] cgSubscribe error:', e);
@@ -10606,6 +10610,8 @@ function cgGenerateLessons() {
       var existing = {}; /* key: studentUid|YYYY-MM-DD -> true */
       snap.forEach(function(d) {
         var x = d.data();
+        /* Só considera aulas deste tenant (filtro no cliente, dispensa índice) */
+        if (x.tenantId !== currentUser.uid) return;
         var dd = new Date(x.dateMs);
         existing[x.studentUid + '|' + calDateKey(dd)] = true;
       });
