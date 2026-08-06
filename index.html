@@ -10098,6 +10098,17 @@ function boletimSaveRow(rowId) {
   var prevDateEmpty = !row.date;
 
   row.date = bdInputValueToDate(tr.querySelector('[data-field="date"]').value); /* v1.17: input date → DD/mon/YYYY */
+  /* v1.18.2: valida data — se o input tem valor mas a data é inexistente (ex: 31/02),
+     aborta o save, avisa o professor e reverte o input para o valor anterior.
+     Antes a aula era salva com data inválida e "sumia" das estatísticas silenciosamente. */
+  var dateInput = tr.querySelector('[data-field="date"]');
+  var rawDateVal = dateInput ? dateInput.value : '';
+  if (rawDateVal && bdParseDate(row.date) === null) {
+    showToast({ icon: '📅', title: 'Data inválida', message: 'A data digitada não existe (ex: 31 de fevereiro). Corrija antes de salvar.', duration: 6000 });
+    /* reverte o input para o valor anterior (válido) que está em row.date */
+    if (dateInput) dateInput.value = bdDateToInputValue(row.date);
+    return;  /* aborta o save — não persiste data inválida */
+  }
   /* v1.15: campo hour (opcional) — lido só se o input existir na linha */
   var hourInput = tr.querySelector('[data-field="hour"]');
   if (hourInput) row.hour = hourInput.value;
@@ -11250,6 +11261,11 @@ function cgSaveReschedule() {
   var notes = document.getElementById('cg-rs-notes').value || '';
   if (!dateStr) { showToast({icon:'⚠️', title:'Data obrigatória', duration:4000}); return; }
   var parts = dateStr.split('-');
+  /* v1.18.2: valida data (rejeita overflow ex: 31/02) antes de criar a lesson */
+  if (!bdIsValidDate(parseInt(parts[0],10), parseInt(parts[1],10)-1, parseInt(parts[2],10))) {
+    showToast({ icon: '📅', title: 'Data inválida', message: 'A data não existe no calendário. Corrija e tente novamente.', duration: 6000 });
+    return;
+  }
   var dt = new Date(parseInt(parts[0],10), parseInt(parts[1],10)-1, parseInt(parts[2],10));
   var s = (tpAllStudents || []).find(function(x){ return x.uid === uid; });
   if (!s) return;
