@@ -9743,7 +9743,13 @@ var BD_MONTH_MAP = {'jan':0,'fev':1,'mar':2,'abr':3,'mai':4,'jun':5,'jul':6,'ago
 
 /* Parser robusto de data do Boletim. Lida com:
    "05/jan/2026", "5/jan", "05-01-2026" (DD-MM-YYYY numérico), "05/01/2026".
-   Retorna Date (meia-noite, local) ou null se não parsear. */
+   Retorna Date (meia-noite, local) ou null se não parsear.
+   v1.18.1: valida overflow (31/02 → null, pois new Date normaliza p/ 03/03). */
+function bdIsValidDate(year, month, day) {
+  /* month é 0-indexed (0=jan). Confere que a data criada não sofreu overflow. */
+  var d = new Date(year, month, day);
+  return !isNaN(d.getTime()) && d.getDate() === day && d.getMonth() === month && d.getFullYear() === year;
+}
 function bdParseDate(str) {
   if (!str || typeof str !== 'string') return null;
   var s = str.trim().toLowerCase();
@@ -9754,14 +9760,15 @@ function bdParseDate(str) {
     var monIdx = BD_MONTH_MAP[m[2]];
     if (monIdx === undefined) return null;
     var year = m[3] ? parseInt(m[3], 10) : new Date().getFullYear();
-    var d = new Date(year, monIdx, day);
-    return isNaN(d.getTime()) ? null : d;
+    if (!bdIsValidDate(year, monIdx, day)) return null;
+    return new Date(year, monIdx, day);
   }
   /* Tenta DD/MM/YYYY ou DD-MM-YYYY numérico */
   m = s.match(/^(\d{1,2})[/\-](\d{1,2})[/\-](\d{4})$/);
   if (m) {
-    var d2 = new Date(parseInt(m[3],10), parseInt(m[2],10)-1, parseInt(m[1],10));
-    return isNaN(d2.getTime()) ? null : d2;
+    var yi = parseInt(m[3],10), mi = parseInt(m[2],10)-1, di = parseInt(m[1],10);
+    if (!bdIsValidDate(yi, mi, di)) return null;
+    return new Date(yi, mi, di);
   }
   return null;
 }
@@ -10096,7 +10103,17 @@ function boletimSaveRow(rowId) {
   if (hourInput) row.hour = hourInput.value;
   ['speaking', 'listening', 'reading', 'writing'].forEach(function(f) {
     var v = tr.querySelector('[data-field="' + f + '"]').value;
-    row[f] = v === '' ? null : Number(v);
+    /* v1.18.1: clamp [1,10] — input HTML min/max não bloqueia digitação/colagem. */
+    var n = v === '' ? null : Number(v);
+    if (n !== null) {
+      if (n < 1) n = 1;
+      if (n > 10) n = 10;
+      if (isNaN(n)) n = null;
+      /* reflete o valor clampado no input */
+      var inp = tr.querySelector('[data-field="' + f + '"]');
+      if (inp && inp.value !== '' && inp.value != n) inp.value = n;
+    }
+    row[f] = n;
   });
   row.exercise      = tr.querySelector('[data-field="exercise"]').value;
   row.activityDone  = tr.querySelector('[data-field="activityDone"]').value;
@@ -11278,10 +11295,10 @@ function cgCompleteLesson(lessonId) {
         '<div class="cg-modal-title">✓ Concluir aula — ' + cbEsc(l.studentName) + '</div>' +
         '<div class="cg-modal-subtitle">' + dateStr + (l.hour ? ' · 🕒 ' + cbEsc(l.hour) : '') + '</div>' +
         '<div class="cg-modal-row">' +
-          '<div class="cg-modal-field"><label>Speaking</label><input type="number" id="cg-cm-speaking" class="cb-select" value="8" min="0" max="10"></div>' +
-          '<div class="cg-modal-field"><label>Listening</label><input type="number" id="cg-cm-listening" class="cb-select" value="8" min="0" max="10"></div>' +
-          '<div class="cg-modal-field"><label>Reading</label><input type="number" id="cg-cm-reading" class="cb-select" value="8" min="0" max="10"></div>' +
-          '<div class="cg-modal-field"><label>Writing</label><input type="number" id="cg-cm-writing" class="cb-select" placeholder="—" min="0" max="10"></div>' +
+          '<div class="cg-modal-field"><label>Speaking</label><input type="number" id="cg-cm-speaking" class="cb-select" value="8" min="1" max="10"></div>' +
+          '<div class="cg-modal-field"><label>Listening</label><input type="number" id="cg-cm-listening" class="cb-select" value="8" min="1" max="10"></div>' +
+          '<div class="cg-modal-field"><label>Reading</label><input type="number" id="cg-cm-reading" class="cb-select" value="8" min="1" max="10"></div>' +
+          '<div class="cg-modal-field"><label>Writing</label><input type="number" id="cg-cm-writing" class="cb-select" placeholder="—" min="1" max="10"></div>' +
         '</div>' +
         '<div class="cg-modal-field"><label>Atividade da aula</label><input type="text" id="cg-cm-exercise" class="cb-select" placeholder="Ex: B.2 Jenny Makes a Reservation"></div>' +
         '<div class="cg-modal-field"><label>Houve tarefa? (próxima aula)</label><label class="cg-checkbox-row"><input type="checkbox" id="cg-cm-hadtask"> Sim, foi passada tarefa</label></div>' +
@@ -11311,11 +11328,23 @@ function cgComputeBancoHoras(observations) {
 }
 
 function cgSubmitCompletion(lessonId, studentUid, studentType) {
-  var speaking = parseInt(document.getElementById('cg-cm-speaking').value, 10);
-  var listening = parseInt(document.getElementById('cg-cm-listening').value, 10);
-  var reading = parseInt(document.getElementById('cg-cm-reading').value, 10);
-  var writingVal = document.getElementById('cg-cm-writing').value;
-  var writing = writingVal === '' ? null : parseInt(writingVal, 10);
+  /* v1.18.1: clamp [1,10] em todas as notas (input min/max não bloqueia digitação). */
+  function clampNote(id) {
+    var el = document.getElementById(id);
+    if (!el) return null;
+    var v = el.value;
+    if (v === '') return null;
+    var n = Number(v);
+    if (isNaN(n)) return null;
+    if (n < 1) n = 1;
+    if (n > 10) n = 10;
+    el.value = n;  /* reflete o clamp no input */
+    return n;
+  }
+  var speaking = clampNote('cg-cm-speaking');
+  var listening = clampNote('cg-cm-listening');
+  var reading = clampNote('cg-cm-reading');
+  var writing = clampNote('cg-cm-writing');   /* null se vazio */
   var exercise = document.getElementById('cg-cm-exercise').value || '';
   var activityDone = document.getElementById('cg-cm-activitydone').value || '';
   var hour = document.getElementById('cg-cm-hour').value || '';
