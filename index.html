@@ -2679,13 +2679,14 @@ img { max-width: 100%; }
 .bd-legend-item { display: flex; align-items: center; gap: .4rem; }
 .bd-legend-swatch { width: 14px; height: 14px; border-radius: 3px; display: inline-block; border: 1px solid var(--gray-200); }
 
-.bd-table { width: 100%; border-collapse: collapse; font-size: .8rem; min-width: 980px; }
+.bd-table { width: 100%; border-collapse: collapse; font-size: .8rem; min-width: 760px; } /* v1.18.3: era 980px, cortava o botão de confirmação em telas menores */
 .bd-table th {
   background: var(--gray-100); color: var(--gray-600); font-size: .7rem; font-weight: 700;
   text-transform: uppercase; letter-spacing: .02em; padding: .5rem .4rem; border: 1px solid var(--gray-200);
   text-align: center; white-space: nowrap;
 }
 .bd-table td { border: 1px solid var(--gray-200); padding: .25rem; vertical-align: middle; }
+.bd-table td:last-child { white-space: nowrap; text-align: center; min-width: 44px; } /* garante que o botão de confirmar nunca corte */
 .bd-table tr.bd-row-faltou  { background: #fde9d9; }
 .bd-table tr.bd-row-avisado { background: #dbeafe; }
 .bd-table tr.bd-row-faltou  td { background: transparent; }
@@ -10098,13 +10099,17 @@ function boletimSaveRow(rowId) {
   var prevDateEmpty = !row.date;
 
   row.date = bdInputValueToDate(tr.querySelector('[data-field="date"]').value); /* v1.17: input date → DD/mon/YYYY */
-  /* v1.18.2: valida data — se o input tem valor mas a data é inexistente (ex: 31/02),
-     aborta o save, avisa o professor e reverte o input para o valor anterior.
-     Antes a aula era salva com data inválida e "sumia" das estatísticas silenciosamente. */
+  /* v1.18.3: valida data — o <input type="date"> às vezes esvazia .value e marca
+     validity.badInput quando se digita uma data inexistente (ex: 31/02). Antes a
+     condição checava rawDateVal (que vinha vazio), por isso o aviso não aparecia.
+     Agora checamos badInput E o parse defensivo, usamos alert() (bloqueante) e
+     revertemos para a data anterior válida (row.date). */
   var dateInput = tr.querySelector('[data-field="date"]');
+  var badInput = dateInput && dateInput.validity && dateInput.validity.badInput;
   var rawDateVal = dateInput ? dateInput.value : '';
-  if (rawDateVal && bdParseDate(row.date) === null) {
-    showToast({ icon: '📅', title: 'Data inválida', message: 'A data digitada não existe (ex: 31 de fevereiro). Corrija antes de salvar.', duration: 6000 });
+  var parsedDate = bdParseDate(row.date);
+  if (badInput || (rawDateVal && parsedDate === null)) {
+    alert('Data inválida.\n\nA data digitada não existe no calendário (ex: 31 de fevereiro). Use uma data real.');
     /* reverte o input para o valor anterior (válido) que está em row.date */
     if (dateInput) dateInput.value = bdDateToInputValue(row.date);
     return;  /* aborta o save — não persiste data inválida */
