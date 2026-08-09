@@ -1350,7 +1350,7 @@ img { max-width: 100%; }
 }
 
 /* Botões de ação */
-.qg-action-row { display: flex; gap: .75rem; margin-top: 1.5rem; flex-wrap: wrap; }
+.qg-action-row { display: flex; gap: .75rem; margin-top: 1.5rem; flex-wrap: wrap; justify-content: center; /* v1.20: centralizado (Q-1) */ }
 .qg-action-btn {
   padding: .75rem 1.5rem; font-size: .9rem; font-weight: 700;
   border-radius: 12px; cursor: pointer; transition: all .2s ease;
@@ -7388,7 +7388,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
         <div id="qg-weekday-grid" class="qg-weekday-grid"></div>
       </div>
       <div class="qg-action-row">
-        <button class="qg-action-btn" onclick="quoteGenPrint()">🖨️ Imprimir / PDF</button>
+        <button class="qg-action-btn" onclick="quoteGenPrint()">🖨️ Salvar PDF</button>
         <button class="qg-action-btn qg-action-secondary" onclick="quoteGenReset()">↺ Reiniciar</button>
       </div>
     </div>
@@ -11170,7 +11170,20 @@ function cgRenderList(rows) {
   var html = '';
   dayKeys.forEach(function(key) {
     var grp = byDay[key];
-    grp.lessons.sort(function(a, b) { return (a.dateMs || 0) - (b.dateMs || 0); });
+    /* v1.20: ordena dentro do dia por HORA (HH:MM string comparável).
+       Antes ordenava só por dateMs — mas todas as aulas do mesmo dia têm
+       o mesmo dateMs (geradas à meia-noite via calListClassDates), então
+       a ordem ficava arbitrária. Agora: dateMs → hour → nome (determinístico). */
+    grp.lessons.sort(function(a, b) {
+      var byMs = (a.dateMs || 0) - (b.dateMs || 0);
+      if (byMs !== 0) return byMs;
+      var ha = a.hour || '';
+      var hb = b.hour || '';
+      if (ha !== hb) return ha < hb ? -1 : 1;  /* "09:00" < "14:00" funciona lexicograficamente */
+      var na = a.studentName || '';
+      var nb = b.studentName || '';
+      return na < nb ? -1 : (na > nb ? 1 : 0);  /* desempate determinístico */
+    });
     var d = grp.date;
     var wd = CAL_DAY_FULL[d.getDay()];
     var head = '<strong>' + String(d.getDate()).padStart(2, '0') + '</strong>/' +
