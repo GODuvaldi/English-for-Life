@@ -7194,16 +7194,22 @@ tr.bd-row-avisado { background: #dbeafe !important; }
 <!-- ═══════════ COMPARATIVES & SUPERLATIVES PAGE (v1.26) ═══════════ -->
 <div class="page" id="page-comparatives">
   <div class="page-header">
-    <div class="breadcrumb">
-      <a href="#" onclick="showPage('reading',null);return false;">Grammar</a> › Comparatives &amp; Superlatives
-    </div>
-    <div class="module-tag">⚖️ Comparatives &amp; Superlatives</div>
-    <h2>Comparatives &amp; Superlatives</h2>
-    <p>Domine a diferença entre comparativos e superlativos para adjetivos curtos, longos e irregulares — com foco nos erros mais comuns de brasileiros.</p>
-    <div class="reading-tags">
-      <span class="rhc-tag">#Comparatives</span>
-      <span class="rhc-tag rhc-tag-purple">#Superlatives</span>
-      <span class="rhc-tag rhc-tag-gray">B1</span>
+    <div class="page-header-inner">
+      <div class="breadcrumb">
+        <a onclick="showPage('home',null)" style="cursor:pointer;color:var(--green-700);">Início</a>
+        <span>›</span>
+        <a onclick="showPage('reading',null)" style="cursor:pointer;color:var(--green-700);">Grammar</a>
+        <span>›</span>
+        <span>Comparatives &amp; Superlatives</span>
+      </div>
+      <div class="module-tag">⚖️ Comparatives &amp; Superlatives</div>
+      <h2>Comparatives &amp; Superlatives</h2>
+      <p>Domine a diferença entre comparativos e superlativos para adjetivos curtos, longos e irregulares — com foco nos erros mais comuns de brasileiros.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+        <span style="background:var(--purple-100);color:var(--purple-700);font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:99px;">#Comparatives</span>
+        <span style="background:var(--blue-100);color:var(--blue-700);font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:99px;">#Superlatives</span>
+        <span style="background:var(--gray-100);color:var(--gray-600);font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:99px;">B1</span>
+      </div>
     </div>
   </div>
 
@@ -7335,82 +7341,79 @@ tr.bd-row-avisado { background: #dbeafe !important; }
       </div>
     </div>
 
-    <!-- ── TELA 2: COMPARATIVES ── -->
+    <!-- ── TELA 2: COMPARATIVES (identidade verde) ── -->
     <div id="cp-ex1" style="display:none;">
+      <p class="pp-instruction" id="cp-l1-instruction">⚡ Escolha a forma comparativa correta:</p>
       <div class="ps-progress-wrap"><span id="cp-l1-prog" class="ps-progress-info">Questão 1 de 10</span><div class="ps-progress-track"><div class="ps-progress-fill" id="cp-l1-bar" style="width:0%"></div></div></div>
       <div class="ppc-q-card" id="cp-l1-card">
         <div class="ppc-q-num" id="cp-l1-num"></div>
         <div class="ppc-q-sentence" id="cp-l1-sentence"></div>
         <div class="ps-options" id="cp-l1-options"></div>
       </div>
-      <div class="ps-feedback" id="cp-l1-feedback" style="display:none;">
-        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem;">
-          <span class="ps-fb-icon" id="cp-l1-fb-icon" style="font-size:1.5rem;"></span>
-          <span class="ps-fb-title" id="cp-l1-fb-title" style="font-weight:800;font-size:1rem;"></span>
-        </div>
-        <div class="ps-fb-body" id="cp-l1-fb-text" style="font-size:.88rem;line-height:1.6;color:var(--gray-600);"></div>
-      </div>
+      <div class="feedback" id="cp-l1-feedback"><span class="feedback-icon" id="cp-l1-fb-icon"></span><span id="cp-l1-fb-text"></span></div>
       <div style="text-align:center;margin-top:1rem;"><button class="ps-btn-next" id="cp-l1-next" onclick="cpNext(1)" style="display:none;">Próxima →</button></div>
-      <div id="cp-l1-complete" style="display:none;">
-        <div class="ps-complete-card">
-          <div class="ps-complete-icon">🎉</div>
-          <div class="ps-complete-title" id="cp-l1-comp-msg" style="text-align:center;margin-bottom:1rem;"></div>
-          <div id="cp-l1-review"></div>
-          <div style="text-align:center;margin-top:1rem;"><button class="ps-btn-restart" onclick="cpStartLevel(1)">↺ Refazer</button> <button class="ps-btn-next" onclick="cpGo(3)">Próximo nível →</button></div>
+      <div class="result-screen" id="cp-l1-complete" style="display:none;">
+        <div class="result-hero">
+          <span class="result-emoji" id="cp-l1-emoji"></span>
+          <div class="result-score" id="cp-l1-score"></div>
+          <p class="result-msg" id="cp-l1-comp-msg"></p>
+        </div>
+        <div class="review-card" id="cp-l1-review"></div>
+        <div style="text-align:center;margin-top:1rem;">
+          <button class="restart-btn" onclick="cpStartLevel(1)">🔄 Tentar novamente</button>
+          <button class="restart-btn" style="margin-left:8px;background:var(--gray-700);" onclick="cpGo(3)">Próximo nível →</button>
         </div>
       </div>
       <div style="text-align:center;margin-top:1.25rem;"><button class="ppc-btn" onclick="cpGoMenu()">← Menu</button></div>
     </div>
 
-    <!-- ── TELA 3: SUPERLATIVES ── -->
+    <!-- ── TELA 3: SUPERLATIVES (identidade azul) ── -->
     <div id="cp-ex2" style="display:none;">
+      <p class="pp-instruction" id="cp-l2-instruction" style="background:var(--blue-50);border-left-color:var(--blue-500);color:var(--blue-800);">🔁 Escolha a forma superlativa correta:</p>
       <div class="ps-progress-wrap"><span id="cp-l2-prog" class="ps-progress-info">Questão 1 de 10</span><div class="ps-progress-track"><div class="ps-progress-fill" id="cp-l2-bar" style="width:0%"></div></div></div>
       <div class="ppc-q-card" id="cp-l2-card">
         <div class="ppc-q-num" id="cp-l2-num"></div>
         <div class="ppc-q-sentence" id="cp-l2-sentence"></div>
         <div class="ps-options" id="cp-l2-options"></div>
       </div>
-      <div class="ps-feedback" id="cp-l2-feedback" style="display:none;">
-        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem;">
-          <span class="ps-fb-icon" id="cp-l2-fb-icon" style="font-size:1.5rem;"></span>
-          <span class="ps-fb-title" id="cp-l2-fb-title" style="font-weight:800;font-size:1rem;"></span>
-        </div>
-        <div class="ps-fb-body" id="cp-l2-fb-text" style="font-size:.88rem;line-height:1.6;color:var(--gray-600);"></div>
-      </div>
+      <div class="feedback" id="cp-l2-feedback"><span class="feedback-icon" id="cp-l2-fb-icon"></span><span id="cp-l2-fb-text"></span></div>
       <div style="text-align:center;margin-top:1rem;"><button class="ps-btn-next" id="cp-l2-next" onclick="cpNext(2)" style="display:none;">Próxima →</button></div>
-      <div id="cp-l2-complete" style="display:none;">
-        <div class="ps-complete-card">
-          <div class="ps-complete-icon">🎉</div>
-          <div class="ps-complete-title" id="cp-l2-comp-msg" style="text-align:center;margin-bottom:1rem;"></div>
-          <div id="cp-l2-review"></div>
-          <div style="text-align:center;margin-top:1rem;"><button class="ps-btn-restart" onclick="cpStartLevel(2)">↺ Refazer</button> <button class="ps-btn-next" onclick="cpGo(4)">Próximo nível →</button></div>
+      <div class="result-screen" id="cp-l2-complete" style="display:none;">
+        <div class="result-hero">
+          <span class="result-emoji" id="cp-l2-emoji"></span>
+          <div class="result-score" id="cp-l2-score"></div>
+          <p class="result-msg" id="cp-l2-comp-msg"></p>
+        </div>
+        <div class="review-card" id="cp-l2-review"></div>
+        <div style="text-align:center;margin-top:1rem;">
+          <button class="restart-btn" onclick="cpStartLevel(2)">🔄 Tentar novamente</button>
+          <button class="restart-btn" style="margin-left:8px;background:var(--gray-700);" onclick="cpGo(4)">Próximo nível →</button>
         </div>
       </div>
       <div style="text-align:center;margin-top:1.25rem;"><button class="ppc-btn" onclick="cpGoMenu()">← Menu</button></div>
     </div>
 
-    <!-- ── TELA 4: MIXTO ── -->
+    <!-- ── TELA 4: MIXTO (identidade violeta) ── -->
     <div id="cp-ex3" style="display:none;">
+      <p class="pp-instruction" id="cp-l3-instruction" style="background:#faf5ff;border-left-color:var(--purple-500);color:var(--purple-700);">🧩 Comparativo ou superlativo? Analise a frase:</p>
       <div class="ps-progress-wrap"><span id="cp-l3-prog" class="ps-progress-info">Questão 1 de 10</span><div class="ps-progress-track"><div class="ps-progress-fill" id="cp-l3-bar" style="width:0%"></div></div></div>
       <div class="ppc-q-card" id="cp-l3-card">
         <div class="ppc-q-num" id="cp-l3-num"></div>
         <div class="ppc-q-sentence" id="cp-l3-sentence"></div>
         <div class="ps-options" id="cp-l3-options"></div>
       </div>
-      <div class="ps-feedback" id="cp-l3-feedback" style="display:none;">
-        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem;">
-          <span class="ps-fb-icon" id="cp-l3-fb-icon" style="font-size:1.5rem;"></span>
-          <span class="ps-fb-title" id="cp-l3-fb-title" style="font-weight:800;font-size:1rem;"></span>
-        </div>
-        <div class="ps-fb-body" id="cp-l3-fb-text" style="font-size:.88rem;line-height:1.6;color:var(--gray-600);"></div>
-      </div>
+      <div class="feedback" id="cp-l3-feedback"><span class="feedback-icon" id="cp-l3-fb-icon"></span><span id="cp-l3-fb-text"></span></div>
       <div style="text-align:center;margin-top:1rem;"><button class="ps-btn-next" id="cp-l3-next" onclick="cpNext(3)" style="display:none;">Próxima →</button></div>
-      <div id="cp-l3-complete" style="display:none;">
-        <div class="ps-complete-card">
-          <div class="ps-complete-icon">🏆</div>
-          <div class="ps-complete-title" id="cp-l3-comp-msg" style="text-align:center;margin-bottom:1rem;"></div>
-          <div id="cp-l3-review"></div>
-          <div style="text-align:center;margin-top:1rem;"><button class="ps-btn-restart" onclick="cpStartLevel(3)">↺ Refazer</button> <button class="ps-btn-next" onclick="cpGoMenu()">← Voltar ao menu</button></div>
+      <div class="result-screen" id="cp-l3-complete" style="display:none;">
+        <div class="result-hero">
+          <span class="result-emoji" id="cp-l3-emoji"></span>
+          <div class="result-score" id="cp-l3-score"></div>
+          <p class="result-msg" id="cp-l3-comp-msg"></p>
+        </div>
+        <div class="review-card" id="cp-l3-review"></div>
+        <div style="text-align:center;margin-top:1rem;">
+          <button class="restart-btn" onclick="cpStartLevel(3)">🔄 Tentar novamente</button>
+          <button class="restart-btn" style="margin-left:8px;background:var(--gray-700);" onclick="cpGoMenu()">← Voltar ao menu</button>
         </div>
       </div>
       <div style="text-align:center;margin-top:1.25rem;"><button class="ppc-btn" onclick="cpGoMenu()">← Menu</button></div>
@@ -21541,7 +21544,6 @@ function cpLoad(level) {
   if (barEl) barEl.style.width = Math.round((s.idx / s.queue.length) * 100) + '%';
   cpEl(level, 'num').textContent = CP_LEVEL_NAMES[level] + ' — Questão ' + (s.idx + 1);
   cpEl(level, 'sentence').innerHTML = q.sentence;
-  /* embaralha opções */
   var shuffled = cpShuffle(q.opts);
   var html = '';
   shuffled.forEach(function(opt) {
@@ -21550,7 +21552,7 @@ function cpLoad(level) {
   });
   cpEl(level, 'options').innerHTML = html;
   var fb = cpEl(level, 'feedback');
-  if (fb) { fb.className = 'ps-feedback'; fb.style.display = 'none'; }
+  if (fb) { fb.className = 'feedback'; }
   var nextBtn = cpEl(level, 'next');
   if (nextBtn) nextBtn.style.display = 'none';
 }
@@ -21561,7 +21563,6 @@ function cpAnswer(level, btn, chosen) {
   s.answered = true;
   var q = s.queue[s.idx];
   var correct = (chosen === q.correct);
-  /* desabilita todas + marca certa/errada */
   var opts = cpEl(level, 'options').querySelectorAll('.ps-opt');
   opts.forEach(function(b) {
     b.disabled = true;
@@ -21569,16 +21570,20 @@ function cpAnswer(level, btn, chosen) {
   });
   if (!correct) btn.classList.add('ps-wrong');
   s.history.push({ sentence: q.sentence, correct: q.correct, chosen: chosen, ok: correct });
-  /* feedback */
+  /* REGRA-73 P1 (positivo) + P3 (forma correta em destaque) + .feedback system */
   var fb = cpEl(level, 'feedback');
-  fb.className = 'ps-feedback ps-show ' + (correct ? 'ps-fb-ok' : 'ps-fb-err');
-  fb.style.display = 'block';
-  var icon = correct ? '✅' : '❌';
-  var title = correct ? 'Correto!' : 'Não foi dessa vez';
-  cpEl(level, 'fb-icon').textContent = icon;
-  cpEl(level, 'fb-title').textContent = title;
-  cpEl(level, 'fb-text').innerHTML = correct ? q.explain : q.explain;
-  /* botão próxima ANTES da explicação (REGRA-58) */
+  var fbi = cpEl(level, 'fb-icon');
+  var fbt = cpEl(level, 'fb-text');
+  if (correct) {
+    fb.className = 'feedback ok show';
+    fbi.textContent = '✅';
+    fbt.innerHTML = '<strong>Correto!</strong> ' + q.explain;
+  } else {
+    var enc = ['Quase! 💪','Vamos entender?','Não desanime!','Veja bem...','Mais uma vez!'];
+    fb.className = 'feedback err show';
+    fbi.textContent = '🤔';
+    fbt.innerHTML = '<strong>' + enc[Math.floor(Math.random()*enc.length)] + '</strong> A resposta certa é <strong style="color:var(--green-700);">' + q.correct + '</strong>. ' + q.explain;
+  }
   var nextBtn = cpEl(level, 'next');
   if (nextBtn) nextBtn.style.display = 'inline-block';
 }
@@ -21590,27 +21595,51 @@ function cpFinish(level) {
   var correct = s.history.filter(function(h) { return h.ok; }).length;
   var total = s.history.length;
   var pct = total > 0 ? Math.round((correct / total) * 100) : 0;
-  /* esconde card + feedback + next */
+  /* esconde card + feedback + next + enunciado */
   cpEl(level, 'card').style.display = 'none';
-  var fb = cpEl(level, 'feedback'); if (fb) fb.style.display = 'none';
+  var fb = cpEl(level, 'feedback'); if (fb) fb.className = 'feedback';
   var nextBtn = cpEl(level, 'next'); if (nextBtn) nextBtn.style.display = 'none';
-  /* tabela de revisão */
-  var rows = '';
-  s.history.forEach(function(h, i) {
-    var icon = h.ok ? '✅' : '❌';
-    var cls = h.ok ? 'ppc-trow-ok' : 'ppc-trow-err';
-    rows += '<tr class="' + cls + '"><td>' + icon + '</td><td>' + h.sentence.replace('_____', '<strong style="color:var(--green-600);">' + h.correct + '</strong>') + '</td>' +
-      (h.ok ? '<td>—</td>' : '<td style="color:var(--red-500);text-decoration:line-through;">' + h.chosen + '</td>') + '</tr>';
-  });
-  var msg = pct === 100 ? '🏆 Perfeito! Você domina o tema!' : pct >= 70 ? '✅ Parabéns! Você passou!' : '💪 Continue praticando — você vai conseguir!';
+  var instrEl = cpEl(level, 'instruction'); if (instrEl) instrEl.style.display = 'none';
+  var progWrap = cpEl(level, 'prog').closest('.ps-progress-wrap'); if (progWrap) progWrap.style.display = 'none';
+  /* tier de emoji/mensagem (padrão-ouro Present Perfect) */
+  var tier = Math.min(4, Math.floor(pct / 20));
+  var emojis = ['😕','😐','🙂','😊','🎉'];
+  var msgs = [
+    'Continue praticando — você está no caminho certo!',
+    'Bom início! Revise as explicações e tente de novo.',
+    'Bom trabalho! Você está pegando a estrutura.',
+    'Muito bem! Quase perfeito — revise os erros para fixar.',
+    'Perfeito! Nível concluído! 🎉'
+  ];
+  var emojiEl = cpEl(level, 'emoji');
+  if (emojiEl) emojiEl.textContent = emojis[tier];
+  var scoreEl = cpEl(level, 'score');
+  if (scoreEl) scoreEl.innerHTML = correct + '<span>/' + total + '</span>';
+  var msgEl = cpEl(level, 'comp-msg');
+  if (msgEl) msgEl.textContent = msgs[tier];
+  /* review table PADRÃO-OURO (4 colunas: icon/Frase/Correto/Sua resp.) */
+  var rows = s.history.map(function(h) {
+    var filled = h.sentence.replace(/_____/g, '<strong style="color:#6d28d9;">' + h.correct + '</strong>');
+    return '<tr class="' + (h.ok ? 'ppc-trow-ok' : 'ppc-trow-err') + '">'
+      + '<td style="padding:.5rem .625rem;text-align:center;">' + (h.ok ? '✅' : '❌') + '</td>'
+      + '<td style="padding:.5rem .625rem;font-size:.8rem;color:var(--gray-700);">' + filled + '</td>'
+      + '<td style="padding:.5rem .625rem;font-size:.875rem;font-weight:700;color:var(--green-800);">' + h.correct + '</td>'
+      + '<td style="padding:.5rem .625rem;font-size:.8rem;color:var(--gray-500);">' + (h.ok ? '—' : '<em>' + h.chosen + '</em>') + '</td>'
+      + '</tr>';
+  }).join('');
+  var tableHtml = '<div class="ppc-review-wrap" style="margin-top:1rem;">'
+    + '<h4 class="ppc-review-title">📋 Revisão das suas respostas</h4>'
+    + '<div style="overflow-x:auto;"><table class="ppc-review-table"><thead><tr>'
+    + '<th style="padding:.5rem .625rem;width:2rem;"></th>'
+    + '<th style="padding:.5rem .625rem;text-align:left;">Frase</th>'
+    + '<th style="padding:.5rem .625rem;text-align:left;">Correto</th>'
+    + '<th style="padding:.5rem .625rem;text-align:left;">Sua resp.</th>'
+    + '</tr></thead><tbody>' + rows + '</tbody></table></div></div>';
+  var revEl = cpEl(level, 'review');
+  if (revEl) { revEl.style.display = 'block'; revEl.innerHTML = tableHtml; }
   var compEl = cpEl(level, 'complete');
-  if (compEl) {
-    compEl.style.display = 'block';
-    var msgEl = cpEl(level, 'comp-msg');
-    if (msgEl) msgEl.innerHTML = msg + '<br><span style="font-size:1.5rem;font-weight:900;">' + correct + '/' + total + ' (' + pct + '%)</span>';
-    var revEl = cpEl(level, 'review');
-    if (revEl) revEl.innerHTML = '<div class="ppc-review-wrap"><table class="ppc-review-table"><thead><tr><th></th><th>Frase</th><th>Sua resposta</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
-  }
+  if (compEl) compEl.style.display = 'block';
+  compEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
   saveProgress(CP_IDS[level], correct, total);
 }
 
