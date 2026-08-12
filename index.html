@@ -8748,27 +8748,34 @@ function renderBadgeShelf() {
 
 /* Páginas que usam o padrão de menu "ppc-screen-card" (Tela 1 = teoria, Tela N = exercício) */
 var TELA_MENU_PAGES = {
-  'pronouns':              'pron-menu',
-  'past-perfect':             'pp2-menu',
-  'ppc':                      'ppc-menu',
-  'used-to':                  'ut-menu',
-  'will-going':                'wg-menu',
-  'prepositions-place-time':  'pr-menu',
-  'articles':                 'ar-menu',
-  'there-to-be':               'tb-menu'
+  'pronouns':               { menuId:'pron-menu',  cardSel:'.ppc-screen-card', theoryFirst:true },
+  'past-perfect':           { menuId:'pp2-menu',   cardSel:'.ppc-screen-card', theoryFirst:true },
+  'ppc':                    { menuId:'ppc-menu',   cardSel:'.ppc-screen-card', theoryFirst:true },
+  'used-to':                { menuId:'ut-menu',    cardSel:'.ppc-screen-card', theoryFirst:true },
+  'will-going':             { menuId:'wg-menu',    cardSel:'.ppc-screen-card', theoryFirst:true },
+  'prepositions-place-time':{ menuId:'pr-menu',    cardSel:'.ppc-screen-card', theoryFirst:true },
+  'articles':               { menuId:'ar-menu',    cardSel:'.ppc-screen-card', theoryFirst:true },
+  'there-to-be':            { menuId:'tb-menu',    cardSel:'.ppc-screen-card', theoryFirst:true },
+  /* v1.25: hubs que antes não tinham placar (estruturas diferentes) */
+  'past-simple':            { menuId:'ps-level-screen', cardSel:'.ps-diff-card', theoryFirst:false },
+  'pp':                     { menuId:'pp-level-screen', cardSel:'.level-card',   theoryFirst:false },
+  'present-future':         { menuId:'pf-menu',         cardSel:'.ps-diff-card', theoryFirst:true }
 };
 
-/* Marca em cada card de tela se o aluno já passou, tentou e não passou, ou nunca tentou */
-function injectTelaProgress(menuId, hubId) {
-  var menu = document.getElementById(menuId);
+/* Marca em cada card de tela se o aluno já passou, tentou e não passou, ou nunca tentou.
+   v1.25: generalizado — cada hub declara seu seletor de card e se a Tela 1 é teoria. */
+function injectTelaProgress(cfg, hubId) {
+  if (typeof cfg === 'string') cfg = { menuId: cfg, cardSel: '.ppc-screen-card', theoryFirst: true }; /* compat */
+  var menu = document.getElementById(cfg.menuId);
   if (!menu) return;
   var exIds = HUB_EXERCISE_MAP[hubId] || [];
-  var cards = menu.querySelectorAll('.ppc-screen-card');
+  var cards = menu.querySelectorAll(cfg.cardSel);
   cards.forEach(function(card, idx) {
     var old = card.querySelector('.ppc-tela-status');
     if (old) old.remove();
-    if (idx === 0) return; /* Tela 1 é teoria, nunca é avaliada */
-    var exId = exIds[idx - 1];
+    var exIdx = cfg.theoryFirst ? idx - 1 : idx;
+    if (exIdx < 0) return; /* card de teoria — nunca é avaliado */
+    var exId = exIds[exIdx];
     if (!exId) return;
     var p = userProgressCache[exId];
     if (!p || !p.completed) return; /* nunca tentado — não poluir o card */
@@ -8779,6 +8786,8 @@ function injectTelaProgress(menuId, hubId) {
     var pill = document.createElement('div');
     pill.className = 'ppc-tela-status ' + (perfect ? 'gold' : passed ? 'ok' : 'fail');
     pill.textContent = (perfect ? '🌟 ' : passed ? '✅ ' : '⚠️ ') + best + '/' + max;
+    /* v1.25: garante position:relative para o pill absolute funcionar em qualquer card */
+    if (window.getComputedStyle(card).position === 'static') card.style.position = 'relative';
     card.appendChild(pill);
   });
 }
@@ -15427,26 +15436,38 @@ function psShowNext(level, show) {
 }
 
 function psL1BuildExplanation(q, chosen, correct) {
-  /* v1.25 (P-1): usa a explicação específica por questão (q.explain) que já
-     está em PT-BR no banco PS_L1_BANK. Antes este código ignorava completamente
-     esses textos e produzia boilerplate genérico repetitivo — o professor disse
-     que o feedback era "péssimo". Agora cada questão mostra sua própria regra. */
+  /* v1.25 (P-1): feedback didático com a regra COMPLETA sempre visível.
+     O professor pediu feedback "maior, mais esmiuçado" — não apenas dizer
+     qual é o erro, mas mostrar a conjugação inteira para o aluno fixar.
+     A tabela visual da regra aparece em TODAS as respostas (certas ou erradas). */
+  var ruleTable =
+    '<div style="margin-top:.625rem;padding:.625rem .75rem;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-sm);font-size:.82rem;line-height:1.7;">' +
+    '<div style="font-weight:800;margin-bottom:.25rem;color:var(--gray-700);">📋 Regra completa — was vs were:</div>' +
+    '<div><span style="color:var(--green-700);font-weight:700;">was</span> → I, He, She, It <span style="color:var(--gray-400);">(singular)</span></div>' +
+    '<div><span style="color:var(--blue-600);font-weight:700;">were</span> → You, We, They <span style="color:var(--gray-400);">(plural + "you" sempre)</span></div>' +
+    '</div>';
+
   if (q.explain) {
-    if (correct) return q.explain;
-    /* Para erros: prependa uma dica sobre o distractor escolhido + explain da questão */
+    if (correct) return q.explain + ruleTable;
+    /* Para erros: dica didática sobre o distractor + explain da questão + tabela */
     var hint = '';
-    if (chosen === 'is' || chosen === 'are') hint = 'Você usou a forma do <strong>presente</strong> ("' + chosen + '"). No Passado Simples só existe <strong>was</strong> e <strong>were</strong>. ';
-    else if (chosen === 'been') hint = '<strong>"been"</strong> é particípio (Present Perfect), não Passado Simples. ';
-    else if (chosen === 'where') hint = '<strong>"where"</strong> significa "onde" — é outra palavra, não o verbo. ';
-    else if (chosen === 'waz' || chosen === 'wer') hint = 'Essa forma <strong>não existe</strong> em inglês. ';
-    return hint + q.explain;
+    if (chosen === 'is' || chosen === 'are') {
+      hint = '<strong>"' + chosen + '"</strong> é a forma do <strong>presente</strong>. Esta frase está no <strong>passado</strong> — use <strong>was</strong> ou <strong>were</strong>. ';
+    } else if (chosen === 'been') {
+      hint = '<strong>"been"</strong> é o <strong>particípio</strong> (usado com have/has/had no Present Perfect). Esta frase é Past Simple — sem auxiliar. ';
+    } else if (chosen === 'where') {
+      hint = '<strong>"where"</strong> significa <strong>"onde"</strong> — é um advérbio, não o verbo. A frase precisa do passado de <strong>to be</strong>. ';
+    } else if (chosen === 'waz' || chosen === 'wer') {
+      hint = '<strong>"' + chosen + '"</strong> <strong>não existe</strong> em inglês. As únicas formas do passado de <strong>to be</strong> são <strong>was</strong> e <strong>were</strong>. ';
+    } else if (chosen === 'be') {
+      hint = '<strong>"be"</strong> é o <strong>infinitivo</strong>. Em frases no passado, use a forma conjugada: <strong>was</strong> ou <strong>were</strong>. ';
+    }
+    return hint + q.explain + ruleTable;
   }
+
   /* Fallback genérico se explain estiver ausente (questões futuras sem o campo) */
-  var baseRule = q.correct === 'was'
-    ? 'Regra: sujeito singular no passado usa <strong>was</strong>.'
-    : 'Regra: sujeito plural usa <strong>were</strong>; com <strong>you</strong>, também usamos <strong>were</strong>.';
-  if (correct) { return baseRule + ' Forma correta: <strong>' + q.sentence.replace('_____', q.correct) + '</strong>'; }
-  return 'Erro gramatical: o sujeito desta frase pede <strong>' + q.correct + '</strong>. ' + baseRule;
+  if (correct) return '✅ Correto!' + ruleTable;
+  return 'A forma correta é <strong>' + q.correct + '</strong>.' + ruleTable;
 }
 
 function psL2BuildExplanation(q, chosen, correct) {
@@ -16307,15 +16328,22 @@ function ivQuizLoad() {
 
   var html = '';
 
-  /* Duas formas dadas lado a lado — cor fixa por forma + PT-BR (v1.25 P-4/P-5) */
-  html += '<div class="iv-quiz-given-wrap" style="display:flex;gap:12px;margin-bottom:1.25rem;">';
-  givenKeys.forEach(function(k) {
+  /* Três colunas SEMPRE visíveis na ordem fixa: Infinitive > Past Simple > Past
+     Participle. A forma oculta mostra "???" — o aluno vê o paradigma completo
+     com apenas um gap, como um exercício de conjugação tradicional. v1.25. */
+  html += '<div class="iv-quiz-given-wrap" style="display:flex;gap:8px;margin-bottom:1.25rem;">';
+  allKeys.forEach(function(k) {
     var fc = formColors[k];
-    html += '<div style="flex:1;background:' + fc.bg + ';border:1.5px solid ' + fc.border + ';border-radius:var(--radius-md);padding:.75rem 1rem;text-align:center;">';
-    html += '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:6px;">' + labels[k] + '</div>';
-    html += '<div style="font-size:1.35rem;font-weight:800;color:' + fc.text + ';">' + givenForms[k] + '</div>';
-    if (givenPT[k]) {
-      html += '<div style="font-size:.78rem;font-style:italic;color:var(--gray-400);margin-top:4px;">' + givenPT[k] + '</div>';
+    var isHidden = (k === hidden);
+    html += '<div style="flex:1;background:' + fc.bg + ';border:1.5px solid ' + fc.border + ';border-radius:var(--radius-md);padding:.75rem .5rem;text-align:center;' + (isHidden ? 'opacity:.45;' : '') + '">';
+    html += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-400);margin-bottom:6px;">' + labels[k] + '</div>';
+    if (isHidden) {
+      html += '<div style="font-size:1.35rem;font-weight:800;color:var(--gray-400);">???</div>';
+    } else {
+      html += '<div style="font-size:1.2rem;font-weight:800;color:' + fc.text + ';">' + givenForms[k] + '</div>';
+      if (givenPT[k]) {
+        html += '<div style="font-size:.72rem;font-style:italic;color:var(--gray-400);margin-top:3px;">' + givenPT[k] + '</div>';
+      }
     }
     html += '</div>';
   });
@@ -20096,7 +20124,19 @@ var PP_TIMELINE_BANK = [
   { sentence: `By the time he got home, his children had gone to bed.`, eventA: `his children went to bed`, eventB: `he got home`, firstIsA: true, context: `"By the time" exige Past Perfect na principal.`, expl: `<strong>As crianças foram dormir primeiro.</strong> "By the time he got home" = quando ele chegou. As crianças já estavam na cama (Past Perfect "had gone") ANTES de ele chegar. Linha do tempo: crianças dormiram → ele chegou.` },
   { sentence: `She told me she had already booked the tickets.`, eventA: `she booked the tickets`, eventB: `she told me`, firstIsA: true, context: `Reported Speech: o Present Perfect recua para Past Perfect.`, expl: `<strong>Ela comprou os ingressos primeiro.</strong> Em Reported Speech, o Present Perfect da fala direta recua para Past Perfect. Comprar os ingressos ("had booked") ocorreu ANTES de me contar ("told me").` },
   { sentence: `After the meeting had ended, everyone left quickly.`, eventA: `the meeting ended`, eventB: `everyone left`, firstIsA: true, context: `"After" + Past Perfect = sequência: fim da reunião → saída.`, expl: `<strong>A reunião terminou primeiro.</strong> O fim da reunião (Past Perfect "had ended") é o pré-requisito para a saída de todos (Past Simple "left"). Linha do tempo: reunião acabou → todos saíram.` },
-  { sentence: `We hadn't eaten anything, so we were very hungry.`, eventA: `we ate nothing`, eventB: `we were hungry`, firstIsA: true, context: `Não comer é a causa da fome.`, expl: `<strong>Não comer aconteceu primeiro.</strong> O Past Perfect negativo ("hadn't eaten") marca o estado anterior (sem comer) que causou a fome ("were hungry"). Causa → efeito, ambos no passado.` }
+  { sentence: `We hadn't eaten anything, so we were very hungry.`, eventA: `we ate nothing`, eventB: `we were hungry`, firstIsA: true, context: `Não comer é a causa da fome.`, expl: `<strong>Não comer aconteceu primeiro.</strong> O Past Perfect negativo ("hadn't eaten") marca o estado anterior (sem comer) que causou a fome ("were hungry"). Causa → efeito, ambos no passado.` },
+  /* v1.25 (P-2): +8 questões com firstIsA: false para equilibrar o banco.
+     Antes era 14:1 (93% "A primeiro"); agora 14:9 (~61/39). Cada frase é
+     uma estrutura autêntica de Past Perfect onde o evento mais recente
+     (Past Simple) é o eventA e o evento anterior (Past Perfect) é o eventB. */
+  { sentence: `When we arrived at the cinema, the movie had already started.`, eventA: `we arrived at the cinema`, eventB: `the movie started`, firstIsA: false, context: `O filme já estava passando quando chegaram.`, expl: `<strong>O filme começou primeiro.</strong> O Past Perfect ("had already started") marca que o filme já estava rolando quando vocês chegaram (Past Simple). Linha do tempo: filme começou → vocês chegaram.` },
+  { sentence: `When I got to the station, the train had just left.`, eventA: `I got to the station`, eventB: `the train left`, firstIsA: false, context: `"Had just left" = tinha acabado de sair.`, expl: `<strong>O trem partiu primeiro.</strong> "Had just left" = tinha acabado de sair. Você chegou à estação e o trem já tinha ido. Linha do tempo: trem saiu → você chegou.` },
+  { sentence: `She didn't want to watch the film because she had already seen it.`, eventA: `she didn't want to watch it`, eventB: `she saw the film`, firstIsA: false, context: `Já ter visto é a causa da recusa.`, expl: `<strong>Assistir ao filme aconteceu primeiro.</strong> O Past Perfect ("had already seen") marca a experiência anterior que justifica a recusa ("didn't want"). Linha do tempo: viu o filme → não quis ver de novo.` },
+  { sentence: `I wasn't hungry because I had eaten a huge breakfast.`, eventA: `I wasn't hungry`, eventB: `I ate a huge breakfast`, firstIsA: false, context: `Café da manhã farto é a causa de não estar com fome.`, expl: `<strong>Tomar café aconteceu primeiro.</strong> O Past Perfect ("had eaten") explica a causa da ausência de fome ("wasn't hungry"). Causa → efeito. Linha do tempo: café da manhã → sem fome.` },
+  { sentence: `When we reached the top, we realised we had taken the wrong path.`, eventA: `we reached the top`, eventB: `we took the wrong path`, firstIsA: false, context: `Errar o caminho ocorreu durante a subida; só perceberam no topo.`, expl: `<strong>Errar o caminho aconteceu primeiro</strong> (durante a subida). Só perceberam o erro ao chegar ao topo. O Past Perfect ("had taken") marca a decisão anterior. Linha do tempo: caminho errado → topo → percepção.` },
+  { sentence: `The garden was dead because nobody had watered it for weeks.`, eventA: `the garden was dead`, eventB: `nobody watered it`, firstIsA: false, context: `Semanas sem rega causaram a morte do jardim.`, expl: `<strong>Não regar aconteceu primeiro.</strong> O Past Perfect ("had watered" negativo) marca a negligência acumulada por semanas que causou a morte do jardim. Causa → efeito. Linha do tempo: semanas sem rega → jardim morreu.` },
+  { sentence: `He was shocked when he saw that someone had broken his window.`, eventA: `he saw the broken window`, eventB: `someone broke his window`, firstIsA: false, context: `O vandalismo ocorreu antes de ele ver.`, expl: `<strong>Quebraram a janela primeiro.</strong> O vandalismo (Past Perfect "had broken") ocorreu antes de ele ver (Past Simple "saw"). Linha do tempo: quebra → ele viu → choque.` },
+  { sentence: `When she opened the fridge, she discovered that someone had eaten all the cake.`, eventA: `she opened the fridge`, eventB: `someone ate all the cake`, firstIsA: false, context: `Comer o bolo ocorreu antes de ela abrir a geladeira.`, expl: `<strong>Alguém comeu o bolo primeiro.</strong> O Past Perfect ("had eaten") marca a ação anterior à descoberta. Ela abriu a geladeira e o bolo já tinha sumido. Linha do tempo: alguém comeu → ela abriu → descobriu.` }
 ];
 
 var PP_CHOICE_BANK = [
