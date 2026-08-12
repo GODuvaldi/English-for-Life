@@ -4342,7 +4342,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
 
         <button class="ppc-screen-card" onclick="pronGoTheory()">
           <div class="ppc-card-top">
-            <div class="ppc-card-tag" style="background:var(--blue-100);color:var(--blue-700);">Tela 1</div>
+            <div class="ppc-card-tag" style="background:var(--blue-100);color:var(--blue-700);">Aula</div>
           </div>
           <div class="ppc-card-icon">📖</div>
           <div class="ppc-card-title">Teoria &amp; Tabelas</div>
@@ -4351,7 +4351,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
 
         <button class="ppc-screen-card" onclick="pronGo(3)">
           <div class="ppc-card-top">
-            <div class="ppc-card-tag" style="background:var(--purple-100,#f3e8ff);color:var(--purple-700,#7e22ce);">Tela 2</div>
+            <div class="ppc-card-tag" style="background:var(--purple-100,#f3e8ff);color:var(--purple-700,#7e22ce);display:none;">Tela 2</div>
           </div>
           <div class="ppc-card-icon">🔁</div>
           <div class="ppc-card-title">Exercício 1 — Mesmo Sentido</div>
@@ -4360,7 +4360,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
 
         <button class="ppc-screen-card" onclick="pronGo(2)">
           <div class="ppc-card-top">
-            <div class="ppc-card-tag" style="background:var(--green-100);color:var(--green-800);">Tela 3</div>
+            <div class="ppc-card-tag" style="background:var(--green-100);color:var(--green-800);display:none;">Tela 3</div>
           </div>
           <div class="ppc-card-icon">⚡</div>
           <div class="ppc-card-title">Exercício 2 — Escolha Rápida</div>
@@ -4369,7 +4369,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
 
         <button class="ppc-screen-card" onclick="pronGo(4)">
           <div class="ppc-card-top">
-            <div class="ppc-card-tag" style="background:#fef3c7;color:#92400e;">Tela 4</div>
+            <div class="ppc-card-tag" style="background:#fef3c7;color:#92400e;display:none;">Tela 4</div>
           </div>
           <div class="ppc-card-icon">🧩</div>
           <div class="ppc-card-title">Exercício 3 — Monte a Frase</div>
@@ -4891,19 +4891,19 @@ tr.bd-row-avisado { background: #dbeafe !important; }
       </div>
       <div class="ppc-screen-grid">
         <button type="button" class="ppc-screen-card s1" onclick="ppcGo(1)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">📖</span><span class="ppc-card-tag">Tela 1</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">📖</span><span class="ppc-card-tag">Aula</span></div>
           <div class="ppc-card-title">Aprendizado</div>
           <div class="ppc-card-sub">Entenda a estrutura, usos e palavras-chave do Present Perfect Continuous.</div>
           <div class="ppc-card-btn">Ver explicação</div>
         </button>
         <button type="button" class="ppc-screen-card s2" onclick="ppcGo(2)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">✏️</span><span class="ppc-card-tag">Tela 2</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">✏️</span><span class="ppc-card-tag" style="display:none;"></span></div>
           <div class="ppc-card-title">Fill in the Blanks</div>
           <div class="ppc-card-sub">Complete as frases com a forma correta do Present Perfect Continuous.</div>
           <div class="ppc-card-btn">Praticar agora</div>
         </button>
         <button type="button" class="ppc-screen-card s3" onclick="ppcGo(3)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">🎯</span><span class="ppc-card-tag">Tela 3</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">🎯</span><span class="ppc-card-tag" style="display:none;"></span></div>
           <div class="ppc-card-title">PPC vs. PPS</div>
           <div class="ppc-card-sub">Escolha entre Present Perfect Continuous e Simple em contextos desafiadores.</div>
           <div class="ppc-card-btn">Desafiar-me</div>
@@ -4915,7 +4915,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <div id="ppc-t1" style="display:none;">
       <div class="ppc-active-bar">
         <span>📖</span>
-        <span><strong>Tela 1</strong> — Aprendizado</span>
+        <span>Aula</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="ppcGo(0)">← Menu</span>
       </div>
 
@@ -5026,7 +5026,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <div id="ppc-t2" style="display:none;">
       <div class="ppc-active-bar">
         <span>✏️</span>
-        <span><strong>Tela 2</strong> — Fill in the Blanks</span>
+        <span>Fill in the Blanks</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="ppcGo(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -5052,7 +5052,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <div id="ppc-t3" style="display:none;">
       <div class="ppc-active-bar">
         <span>🎯</span>
-        <span><strong>Tela 3</strong> — PPC vs. Present Perfect Simple</span>
+        <span>PPC vs. Present Perfect Simple</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="ppcGo(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -5124,25 +5124,25 @@ tr.bd-row-avisado { background: #dbeafe !important; }
       </div>
       <div class="ppc-screen-grid">
         <button type="button" class="ppc-screen-card s1" onclick="pp2Go(1)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">📖</span><span class="ppc-card-tag">Tela 1</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">📖</span><span class="ppc-card-tag">Aula</span></div>
           <div class="ppc-card-title">Aprendizado</div>
           <div class="ppc-card-sub">Os 8 erros específicos de brasileiros + fórmulas + timeline thinking.</div>
           <div class="ppc-card-btn">Ver explicação</div>
         </button>
         <button type="button" class="ppc-screen-card s2" onclick="pp2Go(2)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">🔀</span><span class="ppc-card-tag">Tela 2</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">🔀</span><span class="ppc-card-tag" style="display:none;"></span></div>
           <div class="ppc-card-title">Ordenar Eventos</div>
           <div class="ppc-card-sub">Qual ação aconteceu primeiro? Pratique o pensamento de linha do tempo.</div>
           <div class="ppc-card-btn">Praticar agora</div>
         </button>
         <button type="button" class="ppc-screen-card s3" onclick="pp2Go(3)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">⏱️</span><span class="ppc-card-tag">Tela 3</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">⏱️</span><span class="ppc-card-tag" style="display:none;"></span></div>
           <div class="ppc-card-title">Linha do Tempo</div>
           <div class="ppc-card-sub">Visualize a sequência dos eventos e identifique o que ocorreu primeiro.</div>
           <div class="ppc-card-btn">Visualizar</div>
         </button>
         <button type="button" class="ppc-screen-card" style="border-color:var(--purple-100);background:var(--white);" onclick="pp2Go(4)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">🎯</span><span class="ppc-card-tag" style="background:var(--purple-100);color:var(--purple-500);">Tela 4</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">🎯</span><span class="ppc-card-tag" style="background:var(--purple-100);color:var(--purple-500);display:none;">Tela 4</span></div>
           <div class="ppc-card-title">Simple vs. Perfect</div>
           <div class="ppc-card-sub">Escolha entre Past Simple e Past Perfect — quando cada um é obrigatório.</div>
           <div class="ppc-card-btn" style="color:var(--purple-500);">Desafiar-me</div>
@@ -5154,7 +5154,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <div id="pp2-t1" style="display:none;">
       <div class="ppc-active-bar">
         <span>📖</span>
-        <span><strong>Tela 1</strong> — Aprendizado</span>
+        <span>Aula</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="pp2Go(0)">← Menu</span>
       </div>
 
@@ -5322,7 +5322,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <div id="pp2-t2" style="display:none;">
       <div class="ppc-active-bar">
         <span>🔀</span>
-        <span><strong>Tela 2</strong> — Ordenar Eventos</span>
+        <span>Ordenar Eventos</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="pp2Go(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -5347,7 +5347,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <div id="pp2-t3" style="display:none;">
       <div class="ppc-active-bar">
         <span>⏱️</span>
-        <span><strong>Tela 3</strong> — Linha do Tempo Visual</span>
+        <span>Linha do Tempo Visual</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="pp2Go(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -5372,7 +5372,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <div id="pp2-t4" style="display:none;">
       <div class="ppc-active-bar">
         <span>🎯</span>
-        <span><strong>Tela 4</strong> — Simple Past vs. Past Perfect</span>
+        <span>Simple Past vs. Past Perfect</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="pp2Go(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -5443,19 +5443,19 @@ tr.bd-row-avisado { background: #dbeafe !important; }
       </div>
       <div class="ppc-screen-grid">
         <button type="button" class="ppc-screen-card s1" onclick="utGo(1)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">📖</span><span class="ppc-card-tag">Tela 1</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">📖</span><span class="ppc-card-tag">Aula</span></div>
           <div class="ppc-card-title">Aprendizado</div>
           <div class="ppc-card-sub">Entenda a diferença, os usos e os 5 erros mais comuns.</div>
           <div class="ppc-card-btn">Ver explicação</div>
         </button>
         <button type="button" class="ppc-screen-card s2" onclick="utGo(2)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">✏️</span><span class="ppc-card-tag">Tela 2</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">✏️</span><span class="ppc-card-tag" style="display:none;"></span></div>
           <div class="ppc-card-title">Fill in the Blanks</div>
           <div class="ppc-card-sub">Complete frases com "used to", "would" ou outra estrutura.</div>
           <div class="ppc-card-btn">Praticar agora</div>
         </button>
         <button type="button" class="ppc-screen-card s3" onclick="utGo(3)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">🎯</span><span class="ppc-card-tag">Tela 3</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">🎯</span><span class="ppc-card-tag" style="display:none;"></span></div>
           <div class="ppc-card-title">Used to vs Would</div>
           <div class="ppc-card-sub">Quando ambas funcionam? Quando apenas uma está correta?</div>
           <div class="ppc-card-btn">Desafiar-me</div>
@@ -5467,7 +5467,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <div id="ut-t1" style="display:none;">
       <div class="ppc-active-bar">
         <span>📖</span>
-        <span><strong>Tela 1</strong> — Aprendizado</span>
+        <span>Aula</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="utGo(0)">← Menu</span>
       </div>
 
@@ -5610,7 +5610,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <div id="ut-t2" style="display:none;">
       <div class="ppc-active-bar">
         <span>✏️</span>
-        <span><strong>Tela 2</strong> — Fill in the Blanks</span>
+        <span>Fill in the Blanks</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="utGo(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -5635,7 +5635,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <div id="ut-t3" style="display:none;">
       <div class="ppc-active-bar">
         <span>🎯</span>
-        <span><strong>Tela 3</strong> — Used to vs Would</span>
+        <span>Used to vs Would</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="utGo(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -5992,19 +5992,19 @@ tr.bd-row-avisado { background: #dbeafe !important; }
       </div>
       <div class="ppc-screen-grid">
         <button type="button" class="ppc-screen-card s1" onclick="wgGo(1)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">📖</span><span class="ppc-card-tag">Tela 1</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">📖</span><span class="ppc-card-tag">Aula</span></div>
           <div class="ppc-card-title">Aprendizado</div>
           <div class="ppc-card-sub">Entenda a diferença, os usos e os 7 erros mais comuns.</div>
           <div class="ppc-card-btn">Ver explicação</div>
         </button>
         <button type="button" class="ppc-screen-card s2" onclick="wgGo(2)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">✏️</span><span class="ppc-card-tag">Tela 2</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">✏️</span><span class="ppc-card-tag" style="display:none;"></span></div>
           <div class="ppc-card-title">Fill in the Blanks</div>
           <div class="ppc-card-sub">Complete frases escolhendo "will" ou "going to".</div>
           <div class="ppc-card-btn">Praticar agora</div>
         </button>
         <button type="button" class="ppc-screen-card s3" onclick="wgGo(3)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">🎯</span><span class="ppc-card-tag">Tela 3</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">🎯</span><span class="ppc-card-tag" style="display:none;"></span></div>
           <div class="ppc-card-title">Will vs Going To</div>
           <div class="ppc-card-sub">Quando ambas funcionam? Quando apenas uma está correta?</div>
           <div class="ppc-card-btn">Desafiar-me</div>
@@ -6016,7 +6016,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <div id="wg-t1" style="display:none;">
       <div class="ppc-active-bar">
         <span>📖</span>
-        <span><strong>Tela 1</strong> — Aprendizado</span>
+        <span>Aula</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="wgGo(0)">← Menu</span>
       </div>
 
@@ -6182,7 +6182,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <div id="wg-t2" style="display:none;">
       <div class="ppc-active-bar">
         <span>✏️</span>
-        <span><strong>Tela 2</strong> — Fill in the Blanks</span>
+        <span>Fill in the Blanks</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="wgGo(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -6207,7 +6207,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <div id="wg-t3" style="display:none;">
       <div class="ppc-active-bar">
         <span>🎯</span>
-        <span><strong>Tela 3</strong> — Will vs Going To</span>
+        <span>Will vs Going To</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="wgGo(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -6278,25 +6278,25 @@ tr.bd-row-avisado { background: #dbeafe !important; }
       </div>
       <div class="ppc-screen-grid">
         <button type="button" class="ppc-screen-card s1" onclick="prGo(1)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">📖</span><span class="ppc-card-tag">Tela 1</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">📖</span><span class="ppc-card-tag">Aula</span></div>
           <div class="ppc-card-title">Aprendizado</div>
           <div class="ppc-card-sub">A lógica ON/IN/AT: maior, base e menor — para lugar e tempo.</div>
           <div class="ppc-card-btn">Ver explicação</div>
         </button>
         <button type="button" class="ppc-screen-card s2" onclick="prGo(2)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">✏️</span><span class="ppc-card-tag">Tela 2</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">✏️</span><span class="ppc-card-tag" style="display:none;"></span></div>
           <div class="ppc-card-title">Tap the Preposition</div>
           <div class="ppc-card-sub">Escolha IN, ON ou AT para completar cada frase.</div>
           <div class="ppc-card-btn">Praticar agora</div>
         </button>
         <button type="button" class="ppc-screen-card s3" onclick="prGo(3)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">🔄</span><span class="ppc-card-tag">Tela 3</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">🔄</span><span class="ppc-card-tag" style="display:none;"></span></div>
           <div class="ppc-card-title">Dual Context</div>
           <div class="ppc-card-sub">Lugar vs tempo — mesma lógica, contexto diferente.</div>
           <div class="ppc-card-btn">Visualizar</div>
         </button>
         <button type="button" class="ppc-screen-card" style="border-color:var(--red-100);background:var(--white);" onclick="prGo(4)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">🔍</span><span class="ppc-card-tag" style="background:var(--red-100);color:var(--red-500);">Tela 4</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">🔍</span><span class="ppc-card-tag" style="background:var(--red-100);color:var(--red-500);display:none;">Tela 4</span></div>
           <div class="ppc-card-title">Spot the Mistake</div>
           <div class="ppc-card-sub">Encontre e corrija erros de preposição em frases completas.</div>
           <div class="ppc-card-btn" style="color:var(--red-500);">Desafiar-me</div>
@@ -6307,7 +6307,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <!-- ══ TELA 1: APRENDIZADO ══ -->
     <div id="pr-t1" style="display:none;">
       <div class="ppc-active-bar">
-        <span>📖</span><span><strong>Tela 1</strong> — Aprendizado</span>
+        <span>📖</span><span>Aula</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="prGo(0)">← Menu</span>
       </div>
 
@@ -6468,7 +6468,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <!-- ══ TELA 2 ══ -->
     <div id="pr-t2" style="display:none;">
       <div class="ppc-active-bar">
-        <span>✏️</span><span><strong>Tela 2</strong> — Tap the Preposition</span>
+        <span>✏️</span><span>Tap the Preposition</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="prGo(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -6488,7 +6488,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <!-- ══ TELA 3 ══ -->
     <div id="pr-t3" style="display:none;">
       <div class="ppc-active-bar">
-        <span>🔄</span><span><strong>Tela 3</strong> — Dual Context</span>
+        <span>🔄</span><span>Dual Context</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="prGo(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -6509,7 +6509,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <!-- ══ TELA 4 ══ -->
     <div id="pr-t4" style="display:none;">
       <div class="ppc-active-bar">
-        <span>🔍</span><span><strong>Tela 4</strong> — Spot the Mistake</span>
+        <span>🔍</span><span>Spot the Mistake</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="prGo(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -6575,25 +6575,25 @@ tr.bd-row-avisado { background: #dbeafe !important; }
       </div>
       <div class="ppc-screen-grid">
         <button type="button" class="ppc-screen-card s1" onclick="arGo(1)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">📖</span><span class="ppc-card-tag">Tela 1</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">📖</span><span class="ppc-card-tag">Aula</span></div>
           <div class="ppc-card-title">Aprendizado</div>
           <div class="ppc-card-sub">Os 10 pontos essenciais sobre artigos com exemplos claros.</div>
           <div class="ppc-card-btn">Ver explicação</div>
         </button>
         <button type="button" class="ppc-screen-card s2" onclick="arGo(2)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">✏️</span><span class="ppc-card-tag">Tela 2</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">✏️</span><span class="ppc-card-tag" style="display:none;"></span></div>
           <div class="ppc-card-title">Tap to Complete</div>
           <div class="ppc-card-sub">Escolha o artigo correto para completar cada frase.</div>
           <div class="ppc-card-btn">Praticar agora</div>
         </button>
         <button type="button" class="ppc-screen-card s3" onclick="arGo(3)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">🔄</span><span class="ppc-card-tag">Tela 3</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">🔄</span><span class="ppc-card-tag" style="display:none;"></span></div>
           <div class="ppc-card-title">Context Switch</div>
           <div class="ppc-card-sub">O mesmo substantivo — contextos diferentes, artigos diferentes.</div>
           <div class="ppc-card-btn">Visualizar</div>
         </button>
         <button type="button" class="ppc-screen-card" style="border-color:var(--red-100);background:var(--white);" onclick="arGo(4)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">🔍</span><span class="ppc-card-tag" style="background:var(--red-100);color:var(--red-500);">Tela 4</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">🔍</span><span class="ppc-card-tag" style="background:var(--red-100);color:var(--red-500);display:none;">Tela 4</span></div>
           <div class="ppc-card-title">Error Detection</div>
           <div class="ppc-card-sub">Encontre e corrija erros de artigo em frases completas.</div>
           <div class="ppc-card-btn" style="color:var(--red-500);">Desafiar-me</div>
@@ -6605,7 +6605,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <div id="ar-t1" style="display:none;">
       <div class="ppc-active-bar">
         <span>📖</span>
-        <span><strong>Tela 1</strong> — Aprendizado</span>
+        <span>Aula</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="arGo(0)">← Menu</span>
       </div>
 
@@ -6762,7 +6762,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <div id="ar-t2" style="display:none;">
       <div class="ppc-active-bar">
         <span>✏️</span>
-        <span><strong>Tela 2</strong> — Tap to Complete</span>
+        <span>Tap to Complete</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="arGo(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -6784,7 +6784,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <div id="ar-t3" style="display:none;">
       <div class="ppc-active-bar">
         <span>🔄</span>
-        <span><strong>Tela 3</strong> — Context Switch</span>
+        <span>Context Switch</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="arGo(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -6807,7 +6807,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <div id="ar-t4" style="display:none;">
       <div class="ppc-active-bar">
         <span>🔍</span>
-        <span><strong>Tela 4</strong> — Error Detection</span>
+        <span>Error Detection</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="arGo(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -6874,31 +6874,31 @@ tr.bd-row-avisado { background: #dbeafe !important; }
       </div>
       <div class="ppc-screen-grid">
         <button type="button" class="ppc-screen-card s1" onclick="tbGo(1)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">📖</span><span class="ppc-card-tag">Tela 1</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">📖</span><span class="ppc-card-tag">Aula</span></div>
           <div class="ppc-card-title">Aprendizado</div>
           <div class="ppc-card-sub">Estrutura, concordância, tempos verbais e 10 pontos essenciais.</div>
           <div class="ppc-card-btn">Ver explicação</div>
         </button>
         <button type="button" class="ppc-screen-card s2" onclick="tbGo(2)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">✏️</span><span class="ppc-card-tag">Tela 2</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">✏️</span><span class="ppc-card-tag" style="display:none;"></span></div>
           <div class="ppc-card-title">Choose the Form</div>
           <div class="ppc-card-sub">Escolha a forma correta de There to Be em cada frase.</div>
           <div class="ppc-card-btn">Praticar agora</div>
         </button>
         <button type="button" class="ppc-screen-card s3" onclick="tbGo(3)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">🔄</span><span class="ppc-card-tag">Tela 3</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">🔄</span><span class="ppc-card-tag" style="display:none;"></span></div>
           <div class="ppc-card-title">Singular / Plural</div>
           <div class="ppc-card-sub">Transforme entre singular e plural — treino de concordância.</div>
           <div class="ppc-card-btn">Transformar</div>
         </button>
         <button type="button" class="ppc-screen-card" style="border-color:#ede9fe;background:var(--white);" onclick="tbGo(4)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">🔍</span><span class="ppc-card-tag" style="background:#ede9fe;color:#6d28d9;">Tela 4</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">🔍</span><span class="ppc-card-tag" style="background:#ede9fe;color:#6d28d9;display:none;">Tela 4</span></div>
           <div class="ppc-card-title">Error Detection</div>
           <div class="ppc-card-sub">Encontre erros clássicos de brasileiros em frases com There to Be.</div>
           <div class="ppc-card-btn" style="color:#6d28d9;">Desafiar-me</div>
         </button>
         <button type="button" class="ppc-screen-card" style="border-color:#fce7f3;background:var(--white);" onclick="tbGo(5)">
-          <div class="ppc-card-top"><span class="ppc-card-icon">⏳</span><span class="ppc-card-tag" style="background:#fce7f3;color:#be185d;">Tela 5</span></div>
+          <div class="ppc-card-top"><span class="ppc-card-icon">⏳</span><span class="ppc-card-tag" style="background:#fce7f3;color:#be185d;display:none;">Tela 5</span></div>
           <div class="ppc-card-title">Outros Tempos — Hard</div>
           <div class="ppc-card-sub">Passado, futuro, perfect e modais com There to Be. Nível avançado.</div>
           <div class="ppc-card-btn" style="color:#be185d;">Avançado</div>
@@ -6909,7 +6909,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <!-- ══ TELA 1: APRENDIZADO ══ -->
     <div id="tb-t1" style="display:none;">
       <div class="ppc-active-bar">
-        <span>📖</span><span><strong>Tela 1</strong> — Aprendizado</span>
+        <span>📖</span><span>Aula</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="tbGo(0)">← Menu</span>
       </div>
 
@@ -7097,7 +7097,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <!-- ══ TELA 2: CHOOSE THE FORM ══ -->
     <div id="tb-t2" style="display:none;">
       <div class="ppc-active-bar">
-        <span>✏️</span><span><strong>Tela 2</strong> — Choose the Correct Form</span>
+        <span>✏️</span><span>Choose the Correct Form</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="tbGo(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -7117,7 +7117,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <!-- ══ TELA 3: SINGULAR / PLURAL ══ -->
     <div id="tb-t3" style="display:none;">
       <div class="ppc-active-bar">
-        <span>🔄</span><span><strong>Tela 3</strong> — Singular / Plural Switch</span>
+        <span>🔄</span><span>Singular / Plural Switch</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="tbGo(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -7138,7 +7138,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <!-- ══ TELA 4: ERROR DETECTION ══ -->
     <div id="tb-t4" style="display:none;">
       <div class="ppc-active-bar">
-        <span>🔍</span><span><strong>Tela 4</strong> — Error Detection</span>
+        <span>🔍</span><span>Error Detection</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="tbGo(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -7159,7 +7159,7 @@ tr.bd-row-avisado { background: #dbeafe !important; }
     <!-- ══ TELA 5: OUTROS TEMPOS (HARD) ══ -->
     <div id="tb-t5" style="display:none;">
       <div class="ppc-active-bar">
-        <span>⏳</span><span><strong>Tela 5</strong> — Outros Tempos — Hard</span>
+        <span>⏳</span><span>Outros Tempos — Hard</span>
         <span style="margin-left:auto;cursor:pointer;text-decoration:underline;font-size:12px;color:var(--green-700);" onclick="tbGo(0)">← Menu</span>
       </div>
       <div class="ppc-ex-header">
@@ -7214,31 +7214,38 @@ tr.bd-row-avisado { background: #dbeafe !important; }
   </div>
 
   <div class="exercise-wrap">
+    <style>
+    /* REGRA-74: centralização obrigatória nos exercícios de Comparatives */
+    #page-comparatives .ppc-q-sentence,
+    #page-comparatives .ppc-q-num { text-align: center; }
+    #page-comparatives .ps-opt { text-align: center; }
+    #page-comparatives .feedback { text-align: center; justify-content: center; }
+    /* s4 (4º card) — não existe no CSS global, definir aqui */
+    .ppc-screen-card.s4:hover { border-color:#f59e0b; background:linear-gradient(180deg,var(--white),#fffbeb); }
+    .ppc-screen-card.s4 .ppc-card-tag { background:#fef3c7; color:#92400e; }
+    </style>
     <!-- ── MENU ── -->
     <div id="cp-menu" style="display:block;">
       <div class="ppc-screen-grid">
-        <button class="ppc-screen-card" onclick="cpGoTheory()">
-          <div class="ppc-card-top"><div class="ppc-card-tag">Tela 1</div></div>
+        <button class="ppc-screen-card s1" onclick="cpGoTheory()">
+          <div class="ppc-card-top"><div class="ppc-card-tag">Aula</div></div>
           <div class="ppc-card-icon">📖</div>
           <div class="ppc-card-title">Teoria &amp; Tabelas</div>
           <div class="ppc-card-sub">Regras completas: curtos, longos, irregulares + dificuldades de brasileiros</div>
         </button>
-        <button class="ppc-screen-card" onclick="cpGo(2)">
-          <div class="ppc-card-top"><div class="ppc-card-tag">Tela 2</div></div>
+        <button class="ppc-screen-card s2" onclick="cpGo(2)">
           <div class="ppc-card-icon">⚡</div>
-          <div class="ppc-card-title">Exercício 1 — Comparatives</div>
+          <div class="ppc-card-title">Comparatives</div>
           <div class="ppc-card-sub">Escolha a forma comparativa correta (taller, more beautiful, better...)</div>
         </button>
-        <button class="ppc-screen-card" onclick="cpGo(3)">
-          <div class="ppc-card-top"><div class="ppc-card-tag">Tela 3</div></div>
+        <button class="ppc-screen-card s3" onclick="cpGo(3)">
           <div class="ppc-card-icon">🔁</div>
-          <div class="ppc-card-title">Exercício 2 — Superlatives</div>
+          <div class="ppc-card-title">Superlatives</div>
           <div class="ppc-card-sub">Escolha a forma superlativa correta (the tallest, the most beautiful, the best...)</div>
         </button>
-        <button class="ppc-screen-card" onclick="cpGo(4)">
-          <div class="ppc-card-top"><div class="ppc-card-tag">Tela 4</div></div>
+        <button class="ppc-screen-card s4" onclick="cpGo(4)">
           <div class="ppc-card-icon">🧩</div>
-          <div class="ppc-card-title">Exercício 3 — Misto</div>
+          <div class="ppc-card-title">Misto</div>
           <div class="ppc-card-sub">Comparativo ou superlativo? Analise a frase (than? the? 2 ou 3+?)</div>
         </button>
       </div>
@@ -7249,6 +7256,33 @@ tr.bd-row-avisado { background: #dbeafe !important; }
       <button class="ppc-btn" onclick="cpGoMenu()" style="margin-bottom:1.25rem;">← Voltar ao menu</button>
 
       <div style="max-width:680px;margin:0 auto;">
+        <!-- DEFINIÇÃO: O que são comparativos e superlativos? -->
+        <div style="background:linear-gradient(135deg,#f0f9ff,#eff6ff);border:2px solid var(--blue-200);border-radius:var(--radius-xl);padding:1.5rem;margin-bottom:1.25rem;">
+          <div style="font-size:1.2rem;font-weight:900;color:var(--blue-800);margin-bottom:1rem;text-align:center;">📖 O que são Comparatives e Superlatives?</div>
+          <div style="font-size:.95rem;line-height:1.8;color:var(--gray-700);text-align:center;">
+            <p style="margin-bottom:1rem;"><strong>Comparatives (Comparativos):</strong> comparam <strong>DUAS</strong> coisas ou pessoas.<br>
+            "João is <strong>taller than</strong> Maria." → João é mais alto <strong>que</strong> Maria.</p>
+            <p><strong>Superlatives (Superlativos):</strong> identificam o <strong>MAIOR/MENOR</strong> num <strong>grupo de 3 ou mais</strong>.<br>
+            "João is <strong>the tallest</strong> in the class." → João é <strong>o</strong> mais alto da turma.</p>
+          </div>
+        </div>
+
+        <!-- ATALHO MENTAL: 2 cards -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem;">
+          <div style="background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:2px solid var(--green-300);border-radius:var(--radius-xl);padding:1.25rem;text-align:center;">
+            <div style="font-size:2rem;margin-bottom:.5rem;">🔍</div>
+            <div style="font-size:1rem;font-weight:900;color:var(--green-800);margin-bottom:.25rem;">Comparou com 1?</div>
+            <div style="font-size:1.3rem;font-weight:800;color:var(--green-700);">= COMPARATIVO</div>
+            <div style="font-size:.82rem;color:var(--gray-500);margin-top:.5rem;">"...taller <strong>than</strong>..."<br>(A é maior <em>que</em> B)</div>
+          </div>
+          <div style="background:linear-gradient(135deg,#faf5ff,#f3e8ff);border:2px solid var(--purple-300);border-radius:var(--radius-xl);padding:1.25rem;text-align:center;">
+            <div style="font-size:2rem;margin-bottom:.5rem;">🏆</div>
+            <div style="font-size:1rem;font-weight:900;color:var(--purple-700);margin-bottom:.25rem;">Comparou com 2+ num grupo?</div>
+            <div style="font-size:1.3rem;font-weight:800;color:var(--purple-600);">= SUPERLATIVO</div>
+            <div style="font-size:.82rem;color:var(--gray-500);margin-top:.5rem;">"...<strong>the</strong> tallest..."<br>(A é <em>o</em> maior de todos)</div>
+          </div>
+        </div>
+
         <!-- Regra dos adjetivos curtos -->
         <div style="background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:2px solid var(--green-200);border-radius:var(--radius-xl);padding:1.25rem;margin-bottom:1.25rem;">
           <div style="font-size:1.1rem;font-weight:900;color:var(--green-800);margin-bottom:.75rem;">📏 Adjetivos Curtos (1 sílaba)</div>
@@ -7324,16 +7358,6 @@ tr.bd-row-avisado { background: #dbeafe !important; }
           </div>
           <div style="margin-top:.5rem;padding:.5rem .75rem;background:#fef2f2;border-radius:var(--radius-sm);font-size:.82rem;color:#991b1b;">
             🇧🇷 <strong>Erro comum:</strong> ❌ "so tall as" (influência do "tão...quanto") → o correto é <strong>as...as</strong>
-          </div>
-        </div>
-
-        <!-- Dica de contexto -->
-        <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-xl);padding:1.25rem;">
-          <div style="font-weight:800;color:var(--gray-700);margin-bottom:.5rem;">💡 Como saber se é comparativo ou superlativo?</div>
-          <div style="font-size:.88rem;line-height:1.7;color:var(--gray-600);">
-            • Vê <strong>"than"</strong>? → <strong>Comparativo</strong> (2 coisas: A é maior <em>que</em> B)<br>
-            • Vê <strong>"the"</strong> + adj no grau máximo? → <strong>Superlativo</strong> (3+: A é <em>o</em> maior de todos)<br>
-            • Entre <strong>2 pessoas/coisas</strong> → comparativo · Entre <strong>3+ num grupo</strong> → superlativo
           </div>
         </div>
 
