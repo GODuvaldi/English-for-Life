@@ -1719,6 +1719,7 @@ img { max-width: 100%; }
   padding: 1rem 1.15rem; margin-bottom: .875rem;
   box-shadow: 0 2px 8px rgba(27,60,53,0.04);
 }
+.cg-day-today { border: 2px solid var(--green-500); box-shadow: 0 2px 12px rgba(26,122,90,.15); }
 .cg-day-head {
   display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap;
   font-size: 1rem; color: #1f2937; margin-bottom: .6rem;
@@ -11783,7 +11784,8 @@ function cgSubscribe() {
   });
 }
 
-/* Agrupa aulas por data e renderiza a lista por dia */
+/* Agrupa aulas por data e renderiza a lista por dia.
+   v1.27: hoje no topo, próximas abaixo (asc), anteriores colapsadas. */
 function cgRenderList(rows) {
   var el = document.getElementById('cg-list');
   if (!el) return;
@@ -11799,35 +11801,41 @@ function cgRenderList(rows) {
     if (!byDay[key]) byDay[key] = { date: d, lessons: [] };
     byDay[key].lessons.push(r);
   });
-  /* Ordena dias crescente */
-  var dayKeys = Object.keys(byDay).sort();
-  var html = '';
-  dayKeys.forEach(function(key) {
+  /* helper: renderiza um grupo de dia */
+  function dayHtml(key, isToday) {
     var grp = byDay[key];
-    /* v1.20: ordena dentro do dia por HORA (HH:MM string comparável).
-       Antes ordenava só por dateMs — mas todas as aulas do mesmo dia têm
-       o mesmo dateMs (geradas à meia-noite via calListClassDates), então
-       a ordem ficava arbitrária. Agora: dateMs → hour → nome (determinístico). */
     grp.lessons.sort(function(a, b) {
       var byMs = (a.dateMs || 0) - (b.dateMs || 0);
       if (byMs !== 0) return byMs;
-      var ha = a.hour || '';
-      var hb = b.hour || '';
-      if (ha !== hb) return ha < hb ? -1 : 1;  /* "09:00" < "14:00" funciona lexicograficamente */
-      var na = a.studentName || '';
-      var nb = b.studentName || '';
-      return na < nb ? -1 : (na > nb ? 1 : 0);  /* desempate determinístico */
+      var ha = a.hour || '', hb = b.hour || '';
+      if (ha !== hb) return ha < hb ? -1 : 1;
+      var na = a.studentName || '', nb = b.studentName || '';
+      return na < nb ? -1 : (na > nb ? 1 : 0);
     });
     var d = grp.date;
     var wd = CAL_DAY_FULL[d.getDay()];
     var head = '<strong>' + String(d.getDate()).padStart(2, '0') + '</strong>/' +
-      String(d.getMonth() + 1).padStart(2, '0') + ' · <span class="cg-dow">' + wd + '</span>';
+      String(d.getMonth() + 1).padStart(2, '0') + ' · <span class="cg-dow">' + wd + '</span>' +
+      (isToday ? ' <span style="background:var(--green-500);color:#fff;font-size:.65rem;font-weight:800;padding:1px 6px;border-radius:99px;margin-left:.25rem;">HOJE</span>' : '');
     var items = grp.lessons.map(function(l) { return cgLessonItem(l); }).join('');
-    html += '<div class="cg-day">' +
+    return '<div class="cg-day' + (isToday ? ' cg-day-today' : '') + '">' +
       '<div class="cg-day-head">' + head + ' <span class="cg-day-count">' + grp.lessons.length + ' aula(s)</span></div>' +
       items +
     '</div>';
-  });
+  }
+  /* Particiona: hoje no topo, próximas abaixo, anteriores colapsadas */
+  var todayKey = calDateKey(new Date());
+  var allKeys = Object.keys(byDay).sort();
+  var html = '';
+  allKeys.filter(function(k) { return k === todayKey; }).forEach(function(k) { html += dayHtml(k, true); });
+  allKeys.filter(function(k) { return k > todayKey; }).forEach(function(k) { html += dayHtml(k, false); });
+  var pastKeys = allKeys.filter(function(k) { return k < todayKey; });
+  if (pastKeys.length > 0) {
+    pastKeys.reverse();
+    html += '<details style="margin-top:1rem;"><summary style="cursor:pointer;font-size:.85rem;font-weight:700;color:var(--gray-500);padding:.75rem 1rem;background:var(--gray-50);border-radius:var(--radius-md);list-style:none;">📅 Dias anteriores (' + pastKeys.length + ')</summary>';
+    pastKeys.forEach(function(k) { html += dayHtml(k, false); });
+    html += '</details>';
+  }
   el.innerHTML = html;
 }
 
@@ -12413,6 +12421,10 @@ function finRenderList(rows) {
       return String(r.studentName || '').toLowerCase().indexOf(q) !== -1;
     });
   }
+  /* Ordena alfabeticamente por nome do aluno */
+  filtered.sort(function(a, b) {
+    return String(a.studentName || '').localeCompare(String(b.studentName || ''), 'pt-BR');
+  });
   if (filtered.length === 0) {
     el.innerHTML = '<div class="qg-empty-state">' + (q ? 'Nenhuma mensalidade encontrada para "' + cbEsc(q) + '".' : 'Nenhuma mensalidade com o filtro "' + finState.filter + '" neste mês.') + '</div>';
     return;
