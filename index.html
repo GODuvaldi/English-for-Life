@@ -2363,7 +2363,9 @@ img { max-width: 100%; }
 .ps-progress-wrap { margin-bottom: 1.25rem; }
 .ps-progress-info { display: flex; justify-content: center; font-size: .8125rem; color: var(--gray-400); margin-bottom: .4rem; }
 /* REGRA-74: centralização obrigatória em TODOS os exercícios */
-.ppc-q-num, .ppc-q-sentence, .ps-opt, .ppc-card-title, .ppc-card-sub, .ppc-card-icon { text-align: center; }
+.ppc-q-num, .ppc-q-sentence, .ps-opt, .ppc-card-title, .ppc-card-sub, .ppc-card-icon,
+.ps-q-sentence, .ps-q-num, .ppc-opt, .iv-quiz-opt, .pp-verb-hint, .pp-q-prompt,
+.ps-explain-box, .ps-fb-body, .ppc-fb-body { text-align: center; }
 .feedback { justify-content: center; text-align: center; }
 /* Fundo colorido permanente nos cards (diferencia exercícios — antes era "parede branca") */
 .ppc-screen-card.s1 { background: linear-gradient(180deg,var(--white),#eff6ff); border-color: var(--blue-200); }
@@ -2471,6 +2473,7 @@ img { max-width: 100%; }
 .ppc-opt:hover:not(:disabled) { border-color:var(--teal-500); background:var(--teal-100); color:var(--teal-500); }
 .ppc-opt.ppc-correct  { border-color:#22c55e !important; background:#f0fdf4 !important; color:#14532d !important; font-weight:700; }
 .ppc-opt.ppc-wrong    { border-color:var(--orange-500) !important; background:#fff7ed !important; color:#7c2d12 !important; }
+.ppc-opt { text-align: center !important; }  /* REGRA-74: override do text-align:left nativo */
 .ppc-opt.ppc-reveal   { border-color:#86efac !important; background:#f0fdf4 !important; opacity:.7; }
 .ppc-opt:disabled { cursor:default; }
 .ppc-fb { display:none; font-size:.8rem; line-height:1.55; border-radius:var(--radius-sm); padding:.5rem .75rem; }
@@ -9020,7 +9023,12 @@ function getEarnedBadgeCount() {
   return BADGE_DEFS.filter(function(b) { return getBadgeStatus(b.hubId) !== 'locked'; }).length;
 }
 
+/* v1.27: _prevBadgeStatuses persistido em localStorage para que os toasts
+   de badge disparem APENAS na primeira vez que o badge é conquistado,
+   não a cada login. Antes era só em memória — no login o cache de progresso
+   começava vazio (todos='locked'), depois carregava e tostava tudo de novo. */
 var _prevBadgeStatuses = {};
+try { _prevBadgeStatuses = JSON.parse(localStorage.getItem('efl_badge_status') || '{}'); } catch(e) {}
 function checkNewBadges() {
   BADGE_DEFS.forEach(function(b) {
     var status = getBadgeStatus(b.hubId);
@@ -9034,6 +9042,7 @@ function checkNewBadges() {
     }
     _prevBadgeStatuses[b.hubId] = status;
   });
+  try { localStorage.setItem('efl_badge_status', JSON.stringify(_prevBadgeStatuses)); } catch(e) {}
 }
 
 /* Vitrine de badges no Painel do Aluno */
@@ -16869,6 +16878,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /* Inject version into all footer spans */
   document.querySelectorAll('.pp-code').forEach(function(el) { el.textContent = SITE_VERSION; });
+
+  /* v1.27: Version check — toast "site atualizado" quando a versão muda */
+  (function() {
+    var stored = localStorage.getItem('efl_version');
+    if (stored && stored !== SITE_VERSION) {
+      showToast({ icon: '✅', title: 'Site atualizado!', message: 'Você está na versão ' + SITE_VERSION + '.', duration: 6000 });
+    }
+    localStorage.setItem('efl_version', SITE_VERSION);
+  })();
+
+  /* v1.27: SW update — toast "nova versão disponível" quando o SW detecta update */
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistration().then(function(reg) {
+      if (!reg) return;
+      reg.addEventListener('updatefound', function() {
+        var nw = reg.installing;
+        if (nw) {
+          nw.addEventListener('statechange', function() {
+            if (nw.state === 'installed' && navigator.serviceWorker.controller) {
+              showToast({ icon: '🔄', title: 'Nova versão disponível!', message: 'Clique para atualizar a página.', duration: 12000, onClick: function() { location.reload(); } });
+            }
+          });
+        }
+      });
+    }).catch(function(){});
+  }
 
 
 
