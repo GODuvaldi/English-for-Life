@@ -2360,7 +2360,15 @@ img { max-width: 100%; }
 
 /* Progress */
 .ps-progress-wrap { margin-bottom: 1.25rem; }
-.ps-progress-info { display: flex; justify-content: space-between; font-size: .8125rem; color: var(--gray-400); margin-bottom: .4rem; }
+.ps-progress-info { display: flex; justify-content: center; font-size: .8125rem; color: var(--gray-400); margin-bottom: .4rem; }
+/* REGRA-74: centralização obrigatória em TODOS os exercícios */
+.ppc-q-num, .ppc-q-sentence, .ps-opt, .ppc-card-title, .ppc-card-sub, .ppc-card-icon { text-align: center; }
+.feedback { justify-content: center; text-align: center; }
+/* Fundo colorido permanente nos cards (diferencia exercícios — antes era "parede branca") */
+.ppc-screen-card.s1 { background: linear-gradient(180deg,var(--white),#eff6ff); border-color: var(--blue-200); }
+.ppc-screen-card.s2 { background: linear-gradient(180deg,var(--white),var(--green-50)); border-color: var(--green-200); }
+.ppc-screen-card.s3 { background: linear-gradient(180deg,var(--white),#faf5ff); border-color: var(--purple-200); }
+.ppc-screen-card.s4 { background: linear-gradient(180deg,var(--white),#fffbeb); border-color: #fde68a; }
 .ps-progress-track { height: 6px; background: var(--gray-200); border-radius: 99px; overflow: hidden; }
 .ps-progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple-500), #a78bfa); border-radius: 99px; transition: width .4s cubic-bezier(.4,0,.2,1); }
 
@@ -3092,6 +3100,20 @@ tr.bd-row-avisado { background: #dbeafe !important; }
       </svg>
       Painel do Professor
     </button>
+    <div id="dd-teacher-tools" style="display:none;">
+      <button class="dropdown-item" onclick="showPage('quote-generator',null);toggleDropdown(true);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Orçamento
+      </button>
+      <button class="dropdown-item" onclick="showPage('calendario-gestao',null);toggleDropdown(true);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Calendário de Gestão
+      </button>
+      <button class="dropdown-item" onclick="showPage('financeiro',null);toggleDropdown(true);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Financeiro
+      </button>
+    </div>
     <div style="height:1px;background:var(--gray-100);margin:4px 0;"></div>
     <button class="dropdown-item danger" onclick="signOutUser()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
@@ -7555,8 +7577,10 @@ tr.bd-row-avisado { background: #dbeafe !important; }
           <div id="tp-group-bars"></div>
         </div>
         <div class="tp-panel">
-          <div class="tp-panel-title">Tarefas ativas</div>
-          <div id="tp-assign-table"></div>
+          <details>
+            <summary class="tp-panel-title" style="cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;">Tarefas ativas <span style="font-size:.65rem;color:var(--gray-400);font-weight:400;">▼ ver lista</span></summary>
+            <div id="tp-assign-table" style="margin-top:.5rem;"></div>
+          </details>
         </div>
       </div>
 
@@ -13594,8 +13618,11 @@ function ensureUserProfile(user) {
 }
 
 function updateTeacherLink() {
+  var isTeacher = (currentUserRole === 'teacher');
   var link = document.getElementById('dd-teacher-link');
-  if (link) link.style.display = (currentUserRole === 'teacher') ? 'flex' : 'none';
+  if (link) link.style.display = isTeacher ? 'flex' : 'none';
+  var tools = document.getElementById('dd-teacher-tools');
+  if (tools) tools.style.display = isTeacher ? 'block' : 'none';
 }
 
 function saveProgress(exerciseId, score, maxScore) {
