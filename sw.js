@@ -2,10 +2,14 @@
    Best'n'Last — Service Worker (PWA)
    ═══════════════════════════════════════════════════════════════
    ESTRATÉGIA DE CACHE:
-   - Cache-first para o "shell" do app (index.html, manifest, ícones,
-     fontes do Google) → carregamento instantâneo + funciona offline.
-   - Network-first para TUDO o mais (Firebase, dados dinâmicos) →
-     sempre busca a versão mais nova; só usa cache se a rede falhar.
+   - NETWORK-FIRST para o HTML (navegações) → o aluno SEMPRE recebe a
+     versão mais nova ao abrir o site (v1.43.1: antes era cache-first
+     e a versão antiga aparecia até o 2º acesso). Fallback: cache
+     offline após 4s de rede lenta/ausente.
+   - Cache-first para os demais assets do shell (manifest, ícones,
+     fontes do Google, SDKs versionados do Firebase) → carregamento
+     instantâneo + funciona offline.
+   - Network-first para Firebase/dados dinâmicos → nunca cacheia.
 
    IMPORTANTE: o Firebase (Auth + Firestore) exige conexão. O modo
    offline deste SW serve para:
@@ -16,7 +20,8 @@
    exige IndexedDB + Firestore offline persistence (fase futura).
    ═══════════════════════════════════════════════════════════════ */
 
-var CACHE_VERSION = 'bnl-v1.13';
+var CACHE_VERSION = 'bnl-v1.44';
+var NAV_TIMEOUT_MS = 4000;
 var SHELL_ASSETS = [
   './',
   './index.html',
@@ -89,6 +94,35 @@ self.addEventListener('fetch', function(event) {
       fetch(req).catch(function() {
         /* Se offline, tenta cache como fallback (pode haver dado stale) */
         return caches.match(req);
+      })
+    );
+    return;
+  }
+
+  /* v1.43.1 — NAVEGAÇÃO (o HTML do app): NETWORK-FIRST.
+     O aluno sempre abre a versão mais nova; se a rede falhar ou demorar
+     mais de 4s (rede lenta), cai para o cache (offline continua ok).
+     Quando a rede responde, o cache é atualizado para a próxima. */
+  var isNavigation = req.mode === 'navigate';
+  var path = '';
+  try { path = new URL(url).pathname; } catch (e) { path = ''; }
+  if (isNavigation || path === '/index.html' || path === '/' || path === './') {
+    var networkRace = fetch(req).then(function(resp) {
+      if (resp && resp.status === 200 && (resp.type === 'basic' || resp.type === 'cors' || resp.type === 'default')) {
+        var respClone = resp.clone();
+        caches.open(CACHE_VERSION).then(function(cache) { cache.put(req, respClone); });
+      }
+      return resp;
+    }).catch(function() { return null; });
+    var timerRace = new Promise(function(resolve) {
+      setTimeout(function() { resolve('TIMEOUT'); }, NAV_TIMEOUT_MS);
+    });
+    event.respondWith(
+      Promise.race([networkRace, timerRace]).then(function(result) {
+        if (result && result !== 'TIMEOUT') return result;
+        return caches.match(req).then(function(cached) {
+          return cached || caches.match('./index.html');
+        });
       })
     );
     return;
