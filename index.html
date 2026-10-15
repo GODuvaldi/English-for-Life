@@ -3542,6 +3542,145 @@ tr.bd-row-avisado { background: #dbeafe !important; }
 .avl-side { border-radius:.7rem; padding:.55rem .7rem; font-size:.8rem; text-align:center; margin-bottom:.5rem; }
 .avl-side-pt { background:var(--gray-50); border:1.5px dashed #cbd5e1; color:var(--gray-600); }
 .avl-side-en { background:#f0fdf4; border:1.5px dashed #86efac; color:#14532d; }
+
+/* ═══ SPEAKING · CONVERSATION CLASSES (eflcc-) — paleta pastel verde ═══ */
+.eflcc{max-width:960px;margin:0 auto 2.5rem;font-family:inherit}
+.eflcc *{box-sizing:border-box}
+.eflcc-kicker{font-size:.72rem;font-weight:800;letter-spacing:.14em;color:#3e9c74;text-transform:uppercase}
+.eflcc h3.eflcc-titulo{font-size:1.45rem;margin:.15rem 0;color:var(--gray-800,#26302a)}
+.eflcc-sub{font-size:.85rem;color:var(--gray-400,#7d877f);margin-bottom:1rem}
+.eflcc-card{background:#fff;border:1px solid #d5ded7;border-radius:16px;padding:16px}
+.eflcc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.eflcc-cat{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #d5ded7;
+  border-radius:14px;padding:13px 14px;cursor:pointer;transition:transform .12s,box-shadow .15s}
+.eflcc-cat:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(62,156,116,.14)}
+.eflcc-cat .eflcc-n{width:34px;height:34px;border-radius:10px;background:#8aa892;color:#fff;
+  font-weight:800;font-size:.82rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.eflcc-cat b{font-size:.9rem;display:block;color:var(--gray-800,#26302a)}
+.eflcc-cat span{font-size:.72rem;color:var(--gray-400,#7d877f)}
+.eflcc-cat .eflcc-go{margin-left:auto;color:#b9c4bb;font-size:1.1rem}
+.eflcc-pill{font-size:.62rem;font-weight:800;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.eflcc-pill.dev{background:#e9f6f0;color:#4f6b58}
+.eflcc-pill.soon{background:#fdefe9;color:#e2907a}
+.eflcc-lesson{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #d5ded7;
+  border-radius:14px;padding:12px 14px}
+.eflcc-lesson .eflcc-num{font-weight:800;color:#3e9c74;font-size:.95rem;width:34px;flex-shrink:0}
+.eflcc-lesson b{font-size:.86rem;display:block;color:var(--gray-800,#26302a)}
+.eflcc-lesson span{font-size:.7rem;color:var(--gray-400,#7d877f)}
+.eflcc-lesson.locked{opacity:.6}
+.eflcc-lesson .eflcc-st{margin-left:auto}
+.eflcc-voltar{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;font-weight:700;
+  color:#3e9c74;background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:10px}
+.eflcc-voltar:hover{background:#e9f6f0}
+/* player */
+.eflcc-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.eflcc-prog{height:8px;border-radius:99px;background:#e2e9e2;overflow:hidden;margin-top:10px}
+.eflcc-prog i{display:block;height:100%;background:linear-gradient(90deg,#7acba6,#3e9c74);
+  border-radius:99px;transition:width .3s}
+.eflcc-qzone{min-height:44vh;display:flex;align-items:center}
+.eflcc-qcard{background:#fff;border:1px solid #d5ded7;border-radius:20px;padding:30px 22px;width:100%;
+  text-align:center;display:flex;flex-direction:column;justify-content:center;gap:12px}
+.eflcc-qnum{font-size:.75rem;font-weight:800;color:#3e9c74;letter-spacing:.12em}
+.eflcc-qtext{font-size:1.25rem;line-height:1.5;color:var(--gray-800,#26302a)}
+.eflcc-qnav{display:flex;gap:10px;align-items:center}
+.eflcc-btn{border:none;border-radius:12px;padding:12px 18px;font-size:.85rem;font-weight:700;
+  cursor:pointer;font-family:inherit;transition:.15s}
+.eflcc-btn-1{background:#3e9c74;color:#fff}
+.eflcc-btn-1:hover{background:#358a66}
+.eflcc-btn-2{background:#e9f6f0;color:#4f6b58}
+.eflcc-btn-3{background:#fff;border:1.5px solid #d5ded7;color:var(--gray-800,#26302a)}
+.eflcc-btn:disabled{opacity:.4;cursor:not-allowed}
+.eflcc-qnav .eflcc-btn{flex:1}
+.eflcc-dots{font-size:.75rem;color:var(--gray-400,#7d877f);font-weight:700;white-space:nowrap}
+/* gramática obrigatória */
+.eflcc-gram{background:#fff;border:1px solid #d5ded7;border-radius:16px;overflow:hidden;margin-top:12px}
+.eflcc-gram>header{background:#8aa892;color:#fff;padding:10px 14px;font-size:.78rem;font-weight:800;
+  display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer;user-select:none}
+.eflcc-gram .eflcc-tit{display:flex;align-items:center;gap:8px;min-width:0}
+.eflcc-gram .eflcc-seta{font-size:.65rem;transition:transform .2s}
+.eflcc-gram.fechado .eflcc-seta{transform:rotate(-90deg)}
+.eflcc-gram .eflcc-acoes{display:flex;align-items:center;gap:8px}
+.eflcc-gram .eflcc-cnt{background:rgba(255,255,255,.22);border-radius:99px;padding:2px 10px;font-size:.7rem}
+.eflcc-gram .eflcc-hs{background:#fff;color:#4f6b58;border:none;border-radius:999px;font-size:.62rem;
+  font-weight:800;letter-spacing:.08em;padding:5px 12px;cursor:pointer;font-family:inherit}
+.eflcc-gram.fechado #eflcc-gram-lista{display:none}
+#eflcc-gram-lista{max-height:36vh;overflow:auto}
+.eflcc-gitem{display:flex;align-items:flex-start;gap:10px;padding:9px 14px;
+  border-top:1px solid #eef3ee;cursor:pointer;font-size:.8rem}
+.eflcc-gitem .eflcc-bx{width:20px;height:20px;border:2px solid #9aa89e;border-radius:6px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:.72rem;color:#fff;transition:.15s;margin-top:2px}
+.eflcc-gitem.done .eflcc-bx{background:#3e9c74;border-color:#3e9c74}
+.eflcc-gitem .eflcc-nm{font-weight:700;display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  color:var(--gray-800,#26302a)}
+.eflcc-gitem.done .eflcc-nm{color:#3e9c74}
+.eflcc-gitem i{font-style:italic;color:var(--gray-400,#7d877f);font-size:.7rem;display:block;margin-top:2px}
+.eflcc-tipo{font-size:.58rem;font-weight:800;letter-spacing:.06em;padding:2px 7px;border-radius:99px}
+.eflcc-tipo.t{background:#e9f6f0;color:#4f6b58}
+.eflcc-tipo.cj{background:#e7f2f8;color:#4f93b8}
+.eflcc-tipo.cv{background:#fbf3dc;color:#b98d2f}
+.eflcc-tipo.pv{background:#faeef2;color:#c97b93}
+.eflcc-gitem .eflcc-fun{font-style:italic;font-weight:600;color:var(--gray-400,#7d877f);font-size:.72rem}
+/* fab + sheet palavras */
+.eflcc-fab{position:fixed;right:18px;bottom:22px;z-index:900;background:#3e9c74;color:#fff;border:none;
+  border-radius:999px;padding:13px 18px;font-weight:800;font-size:.8rem;cursor:pointer;font-family:inherit;
+  box-shadow:0 8px 24px rgba(62,156,116,.45);display:none;gap:8px;align-items:center}
+.eflcc-fab.on{display:flex}
+.eflcc-fab .eflcc-bdg{background:#fff;color:#3e9c74;border-radius:99px;font-size:.62rem;
+  padding:1px 7px;font-weight:800}
+.eflcc-bk{position:fixed;inset:0;background:rgba(30,59,44,.45);z-index:950;display:none}
+.eflcc-bk.on{display:block}
+.eflcc-sheet{position:fixed;left:0;right:0;bottom:0;background:#fff;border-radius:22px 22px 0 0;
+  padding:18px 18px 26px;z-index:951;max-height:78vh;overflow:auto;transform:translateY(100%);
+  transition:transform .25s;margin:0 auto;max-width:560px}
+.eflcc-sheet.on{transform:translateY(0)}
+.eflcc-sheet h4{font-size:1rem;display:flex;justify-content:space-between;align-items:center;
+  color:var(--gray-800,#26302a)}
+.eflcc-sheet .eflcc-x{background:none;border:none;font-size:1.1rem;color:var(--gray-400,#7d877f);cursor:pointer}
+.eflcc-wcard{background:#e9f6f0;border:1px solid #cfe8da;border-radius:14px;padding:11px 14px;
+  display:flex;flex-direction:column;gap:4px;margin-top:10px}
+.eflcc-wcard .eflcc-topo{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.eflcc-wcard .eflcc-w{font-weight:800;color:#4f6b58;font-size:.9rem}
+.eflcc-wcard .eflcc-m{color:var(--gray-400,#7d877f);font-size:.75rem}
+.eflcc-wcard .eflcc-org{font-size:.6rem;font-weight:800;color:#4f93b8;background:#e7f2f8;
+  border-radius:99px;padding:2px 8px;letter-spacing:.04em}
+.eflcc-wcard .eflcc-fr{font-size:.8rem;font-style:italic;border-top:1px dashed #cfe8da;
+  padding-top:5px;margin-top:2px;color:var(--gray-800,#26302a)}
+.eflcc-wcard .eflcc-rm{margin-left:auto;background:none;border:none;color:#9db8aa;font-size:.9rem;
+  cursor:pointer;padding:0 2px}
+.eflcc-field{margin-top:9px}
+.eflcc-field label{font-size:.68rem;font-weight:700;color:var(--gray-400,#7d877f)}
+.eflcc-field input{width:100%;border:1.5px solid #d5ded7;border-radius:10px;padding:9px 12px;
+  font-size:.85rem;font-family:inherit;margin-top:3px;color:var(--gray-800,#26302a)}
+/* recap */
+.eflcc-done{background:#e9f6f0;border:1px solid #bfe0cd;border-radius:16px;padding:18px;text-align:center}
+.eflcc-done .eflcc-big{font-size:2rem}
+.eflcc-done b{display:block;margin-top:6px;color:#2f6b4f}
+.eflcc-done span{font-size:.75rem;color:var(--gray-400,#7d877f)}
+@media (max-width:640px){
+  .eflcc-qtext{font-size:1.08rem}
+  .eflcc-qzone{min-height:38vh}
+}
+/* centralização: todos os textos das Conversation Classes */
+.eflcc, .eflcc-menu{text-align:center}
+.eflcc-card{text-align:center}
+.eflcc-cat, .eflcc-lesson{text-align:center}
+.eflcc-gitem{text-align:center;justify-content:center;flex-direction:column;align-items:center;gap:4px}
+.eflcc-gitem > div{max-width:52ch}
+.eflcc-sheet{text-align:center}
+.eflcc-wcard{text-align:center}
+/* menu do Speaking (exercícios distintos) + rodapé oculto na página */
+.eflcc-menu{max-width:960px;margin:0 auto 2.5rem;display:flex;flex-direction:column;gap:10px}
+.eflcc-opt{display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center;
+  background:#fff;border:1px solid #d5ded7;border-radius:16px;padding:22px 16px;
+  transition:transform .12s,box-shadow .15s}
+.eflcc-opt:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(62,156,116,.14)}
+.eflcc-opt-ico{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;
+  justify-content:center;font-size:1.4rem;flex-shrink:0}
+.eflcc-opt b{font-size:1rem;display:block;color:var(--gray-800,#26302a)}
+.eflcc-opt span{font-size:.78rem;color:var(--gray-400,#7d877f);line-height:1.45}
+.eflcc-opt .eflcc-go{color:#3e9c74;font-size:1.2rem}
+body.efl-page-speaking .footer-legal{display:none!important}
+/* ═══ FIM eflcc ═══ */
 </style>
 <!-- Firebase SDKs -->
 <script>
@@ -3784,6 +3923,13 @@ tr.bd-row-avisado { background: #dbeafe !important; }
         <h3>Daily News</h3>
         <p>Leia notícias reais em inglês, organizadas por nível — do iniciante ao avançado.</p>
         <span class="skill-link">Ler os artigos →</span>
+      </div>
+
+      <div class="skill-card" onclick="showPage('speaking',null)">
+        <div class="skill-icon icon-green">🗣️</div>
+        <h3>Speaking</h3>
+        <p>Conversation Classes guiadas por perguntas, com gramática obrigatória e Coach Alex.</p>
+        <span class="skill-link">Falar inglês →</span>
       </div>
 
     </div>
@@ -5939,13 +6085,126 @@ tr.bd-row-avisado { background: #dbeafe !important; }
         <span>›</span>
         <span>Speaking</span>
       </div>
-      <div class="module-tag">🗣️ Conversação</div>
-      <h2>Fale com a Coach Alex</h2>
-      <p>Pratique inglês conversando com sua tutora virtual. Ela corrige, motiva e adapta ao seu nível.</p>
+      <div class="module-tag">🗣️ Speaking</div>
+      <h2>Speaking</h2>
+      <p>Conversation Classes guiadas por perguntas — ou conversa livre com a Coach Alex.</p>
     </div>
   </div>
 
-  <div class="sp-wrap">
+
+  <!-- Menu do Speaking: exercícios distintos, como os tópicos de Grammar -->
+  <div class="eflcc-view" id="eflcc-menu">
+    <span class="eflcc-kicker">Speaking · escolha o exercício</span>
+    <div class="eflcc-opt" onclick="eflccAbrir('cc')" style="cursor:pointer">
+      <div class="eflcc-opt-ico" style="background:#e9f6f0">🗣</div>
+      <div><b>Conversation Classes</b>
+        <span>100 aulas em 10 categorias · B1+ · gramática obrigatória, palavras novas e folha para impressão</span></div>
+      <div class="eflcc-go">›</div>
+    </div>
+    <div class="eflcc-opt" onclick="eflccAbrir('alex')" style="cursor:pointer">
+      <div class="eflcc-opt-ico" style="background:#e7f2f8">🤖</div>
+      <div><b>Coach Alex</b>
+        <span>Conversa livre com a tutora virtual — ela corrige, motiva e adapta ao seu nível (senha do professor)</span></div>
+      <div class="eflcc-go">›</div>
+    </div>
+  </div>
+
+  <!-- ═══ CONVERSATION CLASSES (eflcc) ═══ -->
+  <div class="eflcc" id="eflcc-raiz">
+
+    <div class="eflcc-view" id="eflcc-cats">
+      <span class="eflcc-kicker">Conversation Classes</span>
+      <h3 class="eflcc-titulo">Escolha uma categoria</h3>
+      <p class="eflcc-sub">10 categorias · 10 aulas cada · nível B1+</p>
+      <div class="eflcc-grid" id="eflcc-lista-cats"></div>
+      <div class="eflcc-card" style="margin-top:14px">
+        <span class="eflcc-kicker" style="color:#4f6b58">Como funciona</span>
+        <p style="font-size:.85rem;margin-top:6px;line-height:1.55;color:var(--gray-600,#4a5450)">
+          Cada aula traz <b>15 perguntas</b> sobre um tema. Use cada item da <b>gramática
+          obrigatória</b> (tempos, conjunções, conectivos e phrasal verbs) pelo menos uma
+          vez — marque no quadradinho assim que usar. As palavras novas ficam salvas na
+          sua conta e viram flashcards. 📝
+        </p>
+      </div>
+    </div>
+
+    <div class="eflcc-view" id="eflcc-aulas" style="display:none">
+      <button class="eflcc-voltar" onclick="eflccView('menu')">‹ Speaking</button>
+      <span class="eflcc-kicker">Conversation Classes</span>
+      <h3 class="eflcc-titulo" id="eflcc-cat-titulo"></h3>
+      <p class="eflcc-sub" id="eflcc-cat-sub"></p>
+      <div style="display:flex;flex-direction:column;gap:10px" id="eflcc-lista-aulas"></div>
+    </div>
+
+    <div class="eflcc-view" id="eflcc-player" style="display:none">
+      <div class="eflcc-head">
+        <div>
+          <span class="eflcc-kicker" id="eflcc-player-kicker">Aula 76 · Equality &amp; Discrimination</span>
+          <div class="eflcc-prog"><i id="eflcc-barra" style="width:7%"></i></div>
+        </div>
+        <span class="eflcc-pill dev">B1+</span>
+      </div>
+
+      <div class="eflcc-qzone">
+        <div class="eflcc-qcard">
+          <span class="eflcc-qnum" id="eflcc-qnum">PERGUNTA 1 DE 15</span>
+          <p class="eflcc-qtext" id="eflcc-qtexto"></p>
+        </div>
+      </div>
+
+      <div class="eflcc-qnav" style="margin-top:12px">
+        <button class="eflcc-btn eflcc-btn-3" id="eflcc-prev" onclick="eflccMover(-1)">‹ Anterior</button>
+        <span class="eflcc-dots" id="eflcc-dots">1 / 15</span>
+        <button class="eflcc-btn eflcc-btn-1" id="eflcc-next" onclick="eflccMover(1)">Próxima ›</button>
+      </div>
+
+      <div class="eflcc-gram" id="eflcc-gram">
+        <header onclick="eflccToggleGram(event)">
+          <span class="eflcc-tit">GRAMÁTICA OBRIGATÓRIA <span class="eflcc-seta">▾</span></span>
+          <span class="eflcc-acoes">
+            <span class="eflcc-cnt" id="eflcc-gram-cnt">0/10</span>
+            <button class="eflcc-hs" id="eflcc-gram-hs" onclick="eflccToggleGram(event)">HIDE</button>
+          </span>
+        </header>
+        <div id="eflcc-gram-lista"></div>
+      </div>
+    </div>
+
+    <div class="eflcc-view" id="eflcc-recap" style="display:none">
+      <div class="eflcc-done">
+        <div class="eflcc-big">🎉</div>
+        <b>Aula concluída!</b>
+        <span id="eflcc-resumo"></span>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+        <button class="eflcc-btn eflcc-btn-1" style="flex:1" onclick="eflccPrint()">🖨 Imprimir / salvar PDF</button>
+        <button class="eflcc-btn eflcc-btn-3" onclick="eflccView('aulas')">Mais aulas</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- botão flutuante + sheet de palavras novas -->
+  <button class="eflcc-fab" id="eflcc-fab" onclick="eflccSheet(true)">
+    📝 Palavras novas <span class="eflcc-bdg" id="eflcc-fab-bdg">0</span>
+  </button>
+  <div class="eflcc-bk" id="eflcc-bk" onclick="eflccSheet(false)"></div>
+  <div class="eflcc-sheet" id="eflcc-sheet">
+    <h4>📝 Palavras novas <button class="eflcc-x" onclick="eflccSheet(false)">✕</button></h4>
+    <p class="eflcc-sub" style="margin:4px 0 2px">Salvas na sua conta — viram flashcards. ✨</p>
+    <div id="eflcc-wlista"></div>
+    <div class="eflcc-field"><label>PALAVRA · WORD</label><input id="eflcc-w" placeholder="ex.: unfair"></div>
+    <div class="eflcc-field"><label>SIGNIFICADO · MEANING</label><input id="eflcc-m" placeholder="injusto"></div>
+    <div class="eflcc-field"><label>MINHA FRASE · MY SENTENCE</label><input id="eflcc-s" placeholder="The salary gap is unfair."></div>
+    <button class="eflcc-btn eflcc-btn-2" style="width:100%;margin-top:12px" onclick="eflccAddWord()">+ Adicionar palavra</button>
+  </div>
+
+  <div id="eflcc-alex-h" class="eflcc" style="margin-bottom:1rem">
+    <button class="eflcc-voltar" onclick="eflccView('menu')">‹ Speaking</button>
+    <h3 style="margin:.4rem 0 0;font-size:1.05rem;color:var(--gray-800,#26302a)">
+      🤖 Coach Alex — conversa livre <span style="font-weight:400;font-size:.8rem;color:var(--gray-400,#7d877f)">(senha do professor)</span>
+    </h3>
+  </div>
+  <div class="sp-wrap" id="eflcc-spwrap">
 
     <!-- ── PORTÃO DE SENHA ── -->
     <div id="sp-pw-gate">
@@ -17730,6 +17989,10 @@ function showPage(pageId, linkEl) {
   if (linkEl) { linkEl.classList.add('active'); }
   else { document.querySelectorAll('[data-page="' + pageId + '"]').forEach(a => a.classList.add('active')); }
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  try {
+    document.body.classList.toggle('efl-page-speaking', pageId === 'speaking');
+    if (pageId !== 'speaking' && typeof eflccSair === 'function') eflccSair();
+  } catch(e) {}
 }
 function toggleMobileNav() { document.getElementById('nav-mobile').classList.toggle('open'); }
 function closeMobileNav()   { document.getElementById('nav-mobile').classList.remove('open'); }
@@ -30556,6 +30819,299 @@ function ctSave() {
   }).catch(function(e) { alert('Erro ao salvar: ' + e.message); console.error('[EFL] ctSave:', e); });
 }
 
+
+/* ════════════════════════════════════════════════════════════════
+   SPEAKING · CONVERSATION CLASSES (eflcc) — v172
+   Player: 1 pergunta por vez · Gramática Obrigatória (10 itens,
+   colapsável HIDE/SHOW) · banco de palavras por usuário (future
+   flashcards) · folha final para impressão em janela limpa.
+   ════════════════════════════════════════════════════════════════ */
+var EFLCC_CATS = [
+  ["Vida Cotidiana & Pessoal",1],["Tecnologia & Vida Digital",11],["Trabalho & Carreira",21],
+  ["Viagens & Cultura",31],["Comida & Estilo de Vida",41],["Saúde & Bem-estar",51],
+  ["Educação & Aprendizado",61],["Sociedade & Grandes Temas",71],["Relacionamentos & Emoções",81],
+  ["Imaginação, Ética & Futuro",91]
+];
+var EFLCC_AULAS = {
+  71: [[71,"Climate Change & the Environment",0],[72,"Pollution & Recycling",0],
+      [73,"City Life vs. Country Life",0],[74,"Crime & Safety",0],[75,"Politics & Voting",0],
+      [76,"Equality & Discrimination",1],[77,"Wealth Inequality",0],[78,"Fame & Celebrities",0],
+      [79,"Volunteering & Charity",0],[80,"Fake News & the Media",0]]
+};
+/* GRAMÁTICA OBRIGATÓRIA — [tipo, item, exemplo, função?] */
+var EFLCC_GRAM = [
+  ["t","Present Perfect Simple","Society has changed a lot, but discrimination hasn't disappeared.",null],
+  ["t","Passive Voice","For decades, women were paid less than men for the same job.",null],
+  ["t","Third Conditional","If laws hadn't changed, many people would never have won equal rights.",null],
+  ["t","Modal Perfects (should / could / must have)","Schools should have taught us more about prejudice.",null],
+  ["t","Used to / Would","My grandparents used to accept ideas that we question today.",null],
+  ["cj","Although / Even though","Although laws have changed, prejudice still exists in daily life.","Contrast"],
+  ["cv","However / Nevertheless","Society has changed a lot; however, discrimination hasn't disappeared.","Contrast"],
+  ["cv","In addition / Moreover","In addition, laws now protect more groups than ever before.","Addition"],
+  ["pv","stand up for (someone)","We must stand up for those who cannot defend themselves.",null],
+  ["pv","put up with (something)","Nobody should put up with unfair treatment at work.",null]
+];
+var EFLCC_TIPO = {t:"TEMPO", cj:"CONJUNÇÃO", cv:"CONNECTIVE", pv:"PHRASAL VERB"};
+var EFLCC_QS = [
+  "What does equality mean to you, and has that meaning changed over the years?",
+  "Have you ever seen someone being treated unfairly because of who they were? What happened?",
+  "How were women, Black people, or other minority groups treated in your country fifty years ago?",
+  "Which forms of discrimination do you notice most often today — at work, at school, or online?",
+  "Do you think your country has become a fairer place since you were a child? Why (not)?",
+  "Which rights did people have to fight for in the past that many of us now take for granted?",
+  "If you could introduce one new law to make society more equal, what would it be and why?",
+  "Should companies be punished if their teams are not diverse enough? Why or why not?",
+  "Have you ever benefited from an advantage you did not earn — or been held back by one you did not choose?",
+  "How are older workers treated differently from younger ones, and do you think that is fair?",
+  "If the internet had never been invented, would discrimination be more or less visible today? Why?",
+  "What should schools in the past have done differently about prejudice and bullying?",
+  "Are quotas for women and minorities a fair solution — or a new kind of unfairness? Explain.",
+  "How did your grandparents' generation use to see these issues, and what has changed since then?",
+  "What would you do if you witnessed an act of discrimination happening right in front of you?"
+];
+var EFLCC_AULA = 76;
+var eflccQi = 0, eflccUsados = {}, eflccCatAtual = 8;
+
+/* banco de vocabulário por usuário (localStorage; futuro: Firestore users/{uid}/vocab) */
+function eflccUid(){ try { return (typeof currentUser!=='undefined' && currentUser && currentUser.uid) ? currentUser.uid : 'anon'; } catch(e){ return 'anon'; } }
+function eflccLS(){ return 'eflcc-vocab-' + eflccUid(); }
+function eflccPalavras(){ try { return JSON.parse(localStorage.getItem(eflccLS())||'[]'); } catch(e){ return []; } }
+function eflccSalvar(v){ try { localStorage.setItem(eflccLS(), JSON.stringify(v)); } catch(e){} }
+
+/* ── navegação interna ─────────────────────────────────────────── */
+function eflccView(v){
+  var vistas = ['menu','cats','aulas','player','recap'];
+  for (var k=0;k<vistas.length;k++){
+    var el = document.getElementById('eflcc-'+vistas[k]);
+    if (el) el.style.display = (vistas[k]===v) ? '' : 'none';
+  }
+  var raiz = document.getElementById('eflcc-raiz');
+  if (raiz) raiz.style.display = '';          /* o menu vive fora da raiz */
+  var h  = document.getElementById('eflcc-alex-h');
+  var sp = document.getElementById('eflcc-spwrap');
+  if (h)  h.style.display = 'none';           /* nunca misturar com o Alex */
+  if (sp) sp.style.display = 'none';
+  /* Palavras Novas: exclusivamente DENTRO da aula (player) */
+  var fab = document.getElementById('eflcc-fab');
+  if (fab) fab.className = 'eflcc-fab' + (v==='player' ? ' on' : '');
+  eflccSheet(false);
+  if (v==='recap') eflccRecapRender();
+}
+function eflccOpenCat(i){
+  eflccCatAtual = i;
+  var nome = EFLCC_CATS[i][0], base = EFLCC_CATS[i][1];
+  document.getElementById('eflcc-cat-titulo').textContent = nome;
+  document.getElementById('eflcc-cat-sub').textContent = '10 aulas · tópicos ' + base + '–' + (base+9);
+  var aulas = EFLCC_AULAS[base] || [];
+  var html = '';
+  if (!aulas.length){
+    for (var k=0;k<10;k++){
+      html += '<div class="eflcc-lesson locked"><div class="eflcc-num">'+(base+k)+'</div>'+
+        '<div><b>Tópico em produção</b><span>B1+ · 15 perguntas · gramática obrigatória</span></div>'+
+        '<span class="eflcc-st eflcc-pill soon">em breve</span></div>';
+    }
+  } else {
+    for (var k=0;k<aulas.length;k++){
+      var a = aulas[k];
+      html += '<div class="eflcc-lesson'+(a[2]?'':' locked')+'"'+(a[2]?' onclick="eflccStart()" style="cursor:pointer"':'')+'>'+
+        '<div class="eflcc-num">'+a[0]+'</div>'+
+        '<div><b>'+a[1]+'</b><span>B1+ · 15 perguntas · gramática obrigatória</span></div>'+
+        '<span class="eflcc-st eflcc-pill '+(a[2]?'dev">começar':'soon">em breve')+'</span></div>';
+    }
+  }
+  document.getElementById('eflcc-lista-aulas').innerHTML = html;
+  eflccView('aulas');
+}
+
+/* ── player ────────────────────────────────────────────────────── */
+function eflccStart(){
+  eflccQi = 0; eflccUsados = {};
+  document.getElementById('eflcc-gram-cnt').textContent = '0/' + EFLCC_GRAM.length;
+  document.getElementById('eflcc-gram').classList.remove('fechado');
+  document.getElementById('eflcc-gram-hs').textContent = 'HIDE';
+  eflccMontarGram(); eflccMontarPalavras(); eflccShowQ();
+  eflccView('player');
+}
+function eflccMontarGram(){
+  var html = '';
+  for (var i=0;i<EFLCC_GRAM.length;i++){
+    var g = EFLCC_GRAM[i];
+    html += '<div class="eflcc-gitem" id="eflcc-g'+i+'" onclick="eflccMark('+i+')">'+
+      '<div class="eflcc-bx">✓</div><div><span class="eflcc-nm">'+
+      '<span class="eflcc-tipo '+g[0]+'">'+EFLCC_TIPO[g[0]]+'</span> '+g[1]+
+      (g[3] ? ' <em class="eflcc-fun">— '+g[3]+'</em>' : '')+
+      '</span><i>'+g[2]+'</i></div></div>';
+  }
+  document.getElementById('eflcc-gram-lista').innerHTML = html;
+}
+function eflccMark(i){
+  eflccUsados[i] = !eflccUsados[i];
+  var n = 0; for (var k in eflccUsados){ if (eflccUsados[k]) n++; }
+  document.getElementById('eflcc-g'+i).classList.toggle('done', !!eflccUsados[i]);
+  document.getElementById('eflcc-gram-cnt').textContent = n + '/' + EFLCC_GRAM.length;
+}
+function eflccToggleGram(ev){
+  if (ev) ev.stopPropagation();
+  var g = document.getElementById('eflcc-gram');
+  g.classList.toggle('fechado');
+  document.getElementById('eflcc-gram-hs').textContent = g.classList.contains('fechado') ? 'SHOW' : 'HIDE';
+}
+function eflccShowQ(){
+  document.getElementById('eflcc-qnum').textContent = 'PERGUNTA ' + (eflccQi+1) + ' DE 15';
+  document.getElementById('eflcc-qtexto').textContent = EFLCC_QS[eflccQi];
+  document.getElementById('eflcc-dots').textContent = (eflccQi+1) + ' / 15';
+  document.getElementById('eflcc-barra').style.width = (((eflccQi+1)/15)*100) + '%';
+  document.getElementById('eflcc-prev').disabled = (eflccQi===0);
+  document.getElementById('eflcc-next').textContent = (eflccQi===14) ? 'Concluir ✓' : 'Próxima ›';
+}
+function eflccMover(d){
+  if (d>0 && eflccQi===14){ eflccView('recap'); return; }
+  eflccQi = Math.max(0, Math.min(14, eflccQi+d));
+  eflccShowQ();
+}
+
+/* ── palavras novas ────────────────────────────────────────────── */
+function eflccSheet(abrir){
+  var bk = document.getElementById('eflcc-bk'), sh = document.getElementById('eflcc-sheet');
+  if (!bk || !sh) return;
+  bk.className = 'eflcc-bk' + (abrir?' on':'');
+  sh.className = 'eflcc-sheet' + (abrir?' on':'');
+}
+function eflccMontarPalavras(){
+  var v = eflccPalavras(), el = document.getElementById('eflcc-wlista'), html = '';
+  var nAula = 0;
+  for (var i=0;i<v.length;i++){
+    if (v[i].aula===EFLCC_AULA) nAula++;
+    html += '<div class="eflcc-wcard"><div class="eflcc-topo">'+
+      '<span class="eflcc-w">'+v[i].w+'</span><span class="eflcc-m">'+v[i].m+'</span>'+
+      '<span class="eflcc-org">A'+v[i].aula+' · P'+v[i].q+'</span>'+
+      '<button class="eflcc-rm" onclick="eflccRmWord('+i+')" title="Remover">✕</button></div>'+
+      '<div class="eflcc-fr">“'+v[i].s+'”</div></div>';
+  }
+  if (!v.length) html = '<p class="eflcc-sub" style="padding:8px 0">Nenhuma ainda — anote conforme a conversa rola. 😉</p>';
+  el.innerHTML = html;
+  var bdg = document.getElementById('eflcc-fab-bdg');
+  if (bdg) bdg.textContent = nAula;
+}
+function eflccAddWord(){
+  var w = document.getElementById('eflcc-w').value.trim();
+  var m = document.getElementById('eflcc-m').value.trim();
+  var fr = document.getElementById('eflcc-s').value.trim();
+  if (!w) return;
+  var v = eflccPalavras();
+  v.push({ w:w, m:(m||'—'), s:(fr||'—'), q:(eflccQi+1), aula:EFLCC_AULA });
+  eflccSalvar(v);
+  document.getElementById('eflcc-w').value=''; document.getElementById('eflcc-m').value='';
+  document.getElementById('eflcc-s').value='';
+  eflccMontarPalavras();
+}
+function eflccRmWord(i){ var v=eflccPalavras(); v.splice(i,1); eflccSalvar(v); eflccMontarPalavras(); }
+
+/* ── recap + impressão (janela limpa, isolada do CSS do app) ───── */
+function eflccRecapRender(){
+  var v = eflccPalavras(), n=0, nA=0;
+  for (var k in eflccUsados){ if (eflccUsados[k]) n++; }
+  for (var i=0;i<v.length;i++){ if (v[i].aula===EFLCC_AULA) nA++; }
+  document.getElementById('eflcc-resumo').textContent =
+    'Gramática usada: ' + n + '/' + EFLCC_GRAM.length + ' · ' + nA + ' palavra(s) nova(s).';
+}
+function eflccPrint(){
+  var v = eflccPalavras(), gRows = '', qRows = '', wRows = '';
+  for (var i=0;i<EFLCC_GRAM.length;i++){
+    var g = EFLCC_GRAM[i];
+    gRows += '<tr><td class="ck">'+(eflccUsados[i]?'✓':'')+'</td><td>'+EFLCC_TIPO[g[0]]+'</td>'+
+      '<td class="nm">'+g[1]+(g[3]?' <em class="mt">— '+g[3]+'</em>':'')+'</td><td class="ex">'+g[2]+'</td></tr>';
+  }
+  for (var j=0;j<EFLCC_QS.length;j++){
+    qRows += '<div class="q"><b>'+(j+1)+'.</b><span>'+EFLCC_QS[j]+'</span></div>';
+  }
+  for (var k=0;k<v.length;k++){
+    if (v[k].aula!==EFLCC_AULA) continue;
+    wRows += '<tr><td class="ck">'+v[k].q+'</td><td class="nm">'+v[k].w+'</td><td>'+v[k].m+
+      '</td><td class="ex">'+v[k].s+'</td></tr>';
+  }
+  if (!wRows) wRows = '<tr><td colspan="4" class="mt">Nenhuma palavra anotada nesta aula.</td></tr>';
+  var aluno = '';
+  try { aluno = (currentUser && currentUser.email) ? currentUser.email : ''; } catch(e){}
+  var doc = '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8>'+
+    "<title>Aula 76 · Equality &amp; Discrimination — Best'n'Last</title><style>"+
+    'body{font-family:Calibri,Segoe UI,sans-serif;color:#26302a;margin:1.4cm;font-size:11.5px}'+
+    '.rk{font-size:9px;font-weight:700;letter-spacing:.12em;color:#7d877f}'+
+    '.esc{font-size:10px;color:#7d877f;margin:4px 0 10px}.esc a{color:#4f93b8;text-decoration:none}'+
+    'h2{font-size:20px;margin:2px 0}.meta{font-size:10.5px;color:#7d877f;margin-bottom:12px}'+
+    'h3{font-size:12px;color:#4f6b58;margin:14px 0 6px;border-bottom:1px solid #d5ded7;padding-bottom:4px}'+
+    'table{width:100%;border-collapse:collapse;font-size:11px}'+
+    'th{background:#8aa892;color:#fff;padding:5px 8px;text-align:left}'+
+    'td{border:1px solid #d5ded7;padding:5px 8px;vertical-align:top}'+
+    '.nm{font-weight:700}.ex{font-style:italic;color:#7d877f}.mt{color:#7d877f}'+
+    '.ck{color:#3e9c74;font-weight:800;text-align:center}'+
+    '.q{display:flex;gap:8px;padding:6px 2px;border-bottom:1px dashed #e4ece4}'+
+    '.q b{color:#3e9c74;flex-shrink:0}.btn{margin-top:14px}'+
+    '@media print{.btn{display:none}}'+
+    '</style></head><body>'+
+    "<div class=\"rk\">BEST'N'LAST · AULA DE CONVERSAÇÃO · ENGLISH CONVERSATION CLASS</div>"+
+    '<div class="esc">Instagram: <a href="https://instagram.com/teachernycollas">@teachernycollas</a>'+
+    ' &nbsp;·&nbsp; WhatsApp: <a href="https://wa.me/5548996653865">+55 48 99665-3865</a></div>'+
+    '<h2>Equality &amp; Discrimination</h2>'+
+    '<div class="meta">SOCIEDADE &amp; GRANDES TEMAS · TÓPICO 76 DE 100 · NÍVEL B1+<br>'+
+    'Aluno(a): '+aluno+' ____________________ &nbsp; Data: ____/____/____</div>'+
+    '<h3>GRAMÁTICA OBRIGATÓRIA · REQUIRED GRAMMAR</h3>'+
+    '<table><thead><tr><th style="width:34px">USADO?</th><th style="width:92px">TIPO</th>'+
+    '<th>ITEM</th><th>EXEMPLO</th></tr></thead><tbody>'+gRows+'</tbody></table>'+
+    '<h3>PERGUNTAS · QUESTIONS</h3>'+qRows+
+    '<h3>NOVAS PALAVRAS · NEW WORDS</h3>'+
+    '<table><thead><tr><th style="width:30px">P</th><th>PALAVRA</th><th>SIGNIFICADO</th>'+
+    '<th>MINHA FRASE</th></tr></thead><tbody>'+wRows+'</tbody></table>'+
+    '<button class="btn" onclick="window.print()">🖨 Imprimir / salvar PDF</button>'+
+    '</body></html>';
+  var w = window.open('', '_blank');
+  if (!w){ alert('Permita pop-ups para imprimir a folha.'); return; }
+  w.document.write(doc); w.document.close();
+  w.focus();
+}
+
+/* ── init ──────────────────────────────────────────────────────── */
+function eflccSair(){
+  /* saiu da página Speaking: nada do eflcc pode flutuar por cima do app */
+  var fab = document.getElementById('eflcc-fab');
+  if (fab) fab.className = 'eflcc-fab';
+  eflccSheet(false);
+}
+function eflccAbrir(op){
+  var h  = document.getElementById('eflcc-alex-h');
+  var sp = document.getElementById('eflcc-spwrap');
+  if (op === 'cc'){ eflccView('cats'); return; }
+  /* Coach Alex: esconde TUDO das Classes (menu, views, fab) */
+  var vistas = ['menu','cats','aulas','player','recap'];
+  for (var k=0;k<vistas.length;k++){
+    var el = document.getElementById('eflcc-'+vistas[k]);
+    if (el) el.style.display = 'none';
+  }
+  var raiz = document.getElementById('eflcc-raiz');
+  if (raiz) raiz.style.display = 'none';
+  var fab = document.getElementById('eflcc-fab');
+  if (fab) fab.className = 'eflcc-fab';
+  eflccSheet(false);
+  if (h)  h.style.display = '';
+  if (sp) sp.style.display = '';
+}
+function eflccInit(){
+  var html = '';
+  for (var i=0;i<EFLCC_CATS.length;i++){
+    var c = EFLCC_CATS[i];
+    var pronta = (c[1]===71);
+    html += '<div class="eflcc-cat" onclick="eflccOpenCat('+i+')">'+
+      '<div class="eflcc-n">'+('0'+(i+1)).slice(-2)+'</div>'+
+      '<div><b>'+c[0]+'</b><span>10 aulas · tópicos '+c[1]+'–'+(c[1]+9)+'</span></div>'+
+      (pronta ? '<span class="eflcc-pill dev">1 aula pronta</span>'
+              : '<span class="eflcc-pill soon">em breve</span>')+
+      '<div class="eflcc-go">›</div></div>';
+  }
+  document.getElementById('eflcc-lista-cats').innerHTML = html;
+  eflccMontarPalavras();
+  eflccView('menu');
+}
+eflccInit();
 </script>
 
   <!-- DEEP DIVE MODAL -->
